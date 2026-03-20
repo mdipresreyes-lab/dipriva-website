@@ -1,5 +1,7 @@
 import { Linkedin } from 'lucide-react';
 import { useLocation } from 'wouter';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { t } from '@/i18n/translations';
 
 interface FooterSectionProps {}
 
@@ -8,6 +10,7 @@ type FooterSectionComponent = React.FC<FooterSectionProps> & {
 };
 
 const FooterSectionComponent: FooterSectionComponent = () => {
+  const { language } = useLanguage();
   return (
     <footer className="bg-charcoal border-t border-silver/10 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -31,7 +34,7 @@ const FooterSectionComponent: FooterSectionComponent = () => {
               href="/privacy"
               className="text-silver/60 hover:text-gold transition-colors text-sm"
             >
-              Privacy Policy
+              {t('footer.privacyPolicy', language)}
             </a>
             <a
               href="https://linkedin.com/company/dipriva"
@@ -47,7 +50,7 @@ const FooterSectionComponent: FooterSectionComponent = () => {
 
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-silver/10 text-center text-silver/40 text-sm">
-          <p>&copy; {new Date().getFullYear()} Dipriva Consulting Group. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Dipriva Consulting Group. {t('footer.copyright', language)}</p>
         </div>
       </div>
     </footer>
