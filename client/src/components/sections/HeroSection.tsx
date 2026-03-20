@@ -5,6 +5,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { t } from '@/i18n/translations';
 
 const HERO_TEXTURE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663453268811/gB77xUunk9zzj5LPxbmUtZ/texture-hero-obsidian-silver-H8EKwvoAnF5MzujnTdgUT4.webp';
+// {{MS365_BOOKINGS_URL}}
+const MS365_BOOKINGS_URL = 'https://outlook.office.com/bookwithme/user/df9f836ac682468ab12b1891f552c6d6@dipriva.com/meetingtype/6UWVEWsqzk-ufJSvC0xFfA2?anonymous&ep=mlink';
 
 export default function HeroSection() {
   const { language } = useLanguage();
@@ -59,7 +61,7 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <Button
-            onClick={scrollToServices}
+            onClick={() => window.open(MS365_BOOKINGS_URL, '_blank')}
             className="px-8 py-3 bg-gold text-obsidian font-semibold hover:bg-gold/90 transition-all rounded-lg shadow-lg hover:shadow-glow"
           >
             {t('hero.cta', language)}
