@@ -18,15 +18,15 @@ interface FormData {
   challenge: string;
 }
 
-const formSteps: { step: FormStep; label: string; placeholder: string }[] = [
-  { step: 'firstName', label: 'First Name', placeholder: 'Enter your first name' },
-  { step: 'lastName', label: 'Last Name', placeholder: 'Enter your last name' },
-  { step: 'email', label: 'Email Address', placeholder: 'your@company.com' },
-  { step: 'phone', label: 'Phone Number', placeholder: '+1 (555) 000-0000' },
+const getFormSteps = (language: 'en' | 'es') => [
+  { step: 'firstName' as FormStep, label: t('form.firstName', language), placeholder: t('form.placeholder.firstName', language) },
+  { step: 'lastName' as FormStep, label: t('form.lastName', language), placeholder: t('form.placeholder.lastName', language) },
+  { step: 'email' as FormStep, label: t('form.email', language), placeholder: t('form.placeholder.email', language) },
+  { step: 'phone' as FormStep, label: t('form.phone', language), placeholder: t('form.placeholder.phone', language) },
   {
-    step: 'challenge',
-    label: 'What is your primary business challenge right now?',
-    placeholder: 'Describe your most pressing operational challenge...',
+    step: 'challenge' as FormStep,
+    label: t('form.challenge', language),
+    placeholder: t('form.placeholder.challenge', language),
   },
 ];
 
@@ -44,6 +44,7 @@ export default function LeadCaptureForm() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
+  const formSteps = getFormSteps(language);
   const currentStep = formSteps[currentStepIndex];
   const isLastStep = currentStepIndex === formSteps.length - 1;
 
@@ -204,16 +205,16 @@ export default function LeadCaptureForm() {
               >
                 <CheckCircle2 className="w-16 h-16 text-gold mb-4" />
                 <h3 className="text-2xl font-playfair font-bold text-silver mb-2" role="heading" aria-level={3}>
-                  Thank you for reaching out
+                  {t('form.success', language)}
                 </h3>
                 <p className="text-silver/60 text-center mb-6">
-                  We'll be in touch shortly to schedule your strategy session.
+                  {t('form.successMessage', language)}
                 </p>
                 <Button
                   onClick={() => setStatus('idle')}
                   className="px-6 py-2 bg-gold text-obsidian font-semibold hover:bg-gold/90"
                 >
-                  Submit Another Inquiry
+                  {t('form.submitAnother', language)}
                 </Button>
               </motion.div>
             )}
@@ -229,7 +230,7 @@ export default function LeadCaptureForm() {
               >
                 <AlertCircle className="w-16 h-16 text-red-500 mb-4" />
                 <h3 className="text-2xl font-playfair font-bold text-silver mb-2" role="heading" aria-level={3}>
-                  Something went wrong
+                  {t('form.error', language)}
                 </h3>
                 <p className="text-silver/60 text-center mb-6">{errorMessage}</p>
                 <Button
@@ -239,7 +240,7 @@ export default function LeadCaptureForm() {
                   }}
                   className="px-6 py-2 bg-gold text-obsidian font-semibold hover:bg-gold/90"
                 >
-                  Try Again
+                  {language === 'es' ? 'Intentar de Nuevo' : 'Try Again'}
                 </Button>
               </motion.div>
             )}
@@ -266,7 +267,7 @@ export default function LeadCaptureForm() {
                     ))}
                   </div>
                   <p className="text-sm text-silver/60 mt-2">
-                    Step {currentStepIndex + 1} of {formSteps.length}
+                    {language === 'es' ? 'Paso' : 'Step'} {currentStepIndex + 1} of {formSteps.length}
                   </p>
                 </div>
 
@@ -318,7 +319,7 @@ export default function LeadCaptureForm() {
                       variant="outline"
                       className="px-6 py-2 border border-silver/30 text-silver hover:bg-silver/10"
                     >
-                      Back
+                      {t('form.back', language)}
                     </Button>
                   )}
 
@@ -327,7 +328,7 @@ export default function LeadCaptureForm() {
                     disabled={submitMutation.isPending}
                     className="flex-1 px-6 py-2 bg-gold text-obsidian font-semibold hover:bg-gold/90 disabled:opacity-50"
                   >
-                    {submitMutation.isPending ? 'Submitting...' : isLastStep ? 'Submit' : 'Next'}
+                    {submitMutation.isPending ? (language === 'es' ? 'Enviando...' : 'Submitting...') : isLastStep ? t('form.submit', language) : (language === 'es' ? 'Próximo' : 'Next')}
                   </Button>
                 </div>
               </motion.div>
