@@ -8,6 +8,8 @@ export default function Privacy() {
   const { language } = useLanguage();
   const [, setLocation] = useLocation();
 
+  const privacyData = t('privacy', language) as any;
+
   return (
     <div className="min-h-screen bg-obsidian text-silver">
       {/* Navigation */}
@@ -17,10 +19,10 @@ export default function Privacy() {
             onClick={() => setLocation('/')}
             className="text-silver hover:text-gold transition-colors"
           >
-            {t('privacy.backToHome', language)}
+            {privacyData.backToHome}
           </button>
           <h1 className="text-lg font-playfair font-bold" style={{ letterSpacing: '0.05em' }}>
-            {t('privacy.title', language)}
+            {privacyData.title}
           </h1>
           <div className="w-24" />
         </div>
@@ -40,9 +42,9 @@ export default function Privacy() {
               className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-4"
               style={{ letterSpacing: '0.18em' }}
             >
-              {t('privacy.title', language)}
+              {privacyData.title}
             </h1>
-            <p className="text-silver/60">{t('privacy.lastUpdated', language)}</p>
+            <p className="text-silver/60">{privacyData.lastUpdated}</p>
           </div>
 
           {/* Data Collection */}
@@ -51,17 +53,15 @@ export default function Privacy() {
               className="text-2xl font-playfair font-bold text-silver mb-4"
               style={{ letterSpacing: '0.13em' }}
             >
-              Data Collection
+              {privacyData.sections.dataCollection.title}
             </h2>
             <p className="text-silver/80 mb-4" style={{ lineHeight: '1.6' }}>
-              When you submit the contact form on our website, we collect the following information:
+              {privacyData.sections.dataCollection.content}
             </p>
             <ul className="list-disc list-inside space-y-2 text-silver/80 ml-4" style={{ lineHeight: '1.6' }}>
-              <li>First Name</li>
-              <li>Last Name</li>
-              <li>Email Address</li>
-              <li>Phone Number</li>
-              <li>Business Challenge Description</li>
+              {privacyData.sections.dataCollection.items.map((item: string, idx: number) => (
+                <li key={idx}>{item}</li>
+              ))}
             </ul>
           </section>
 
@@ -71,18 +71,15 @@ export default function Privacy() {
               className="text-2xl font-playfair font-bold text-silver mb-4"
               style={{ letterSpacing: '0.13em' }}
             >
-              Data Storage
+              {privacyData.sections.dataStorage.title}
             </h2>
             <p className="text-silver/80" style={{ lineHeight: '1.6' }}>
-              Your submitted information is stored in two secure locations:
+              {privacyData.sections.dataStorage.content}
             </p>
             <ul className="list-disc list-inside space-y-2 text-silver/80 ml-4 mt-3" style={{ lineHeight: '1.6' }}>
-              <li>
-                <strong>GoHighLevel CRM:</strong> Primary storage for lead management and follow-up
-              </li>
-              <li>
-                <strong>Supabase Database:</strong> Backup storage for redundancy and operational continuity
-              </li>
+              {privacyData.sections.dataStorage.items.map((item: string, idx: number) => (
+                <li key={idx}>{item}</li>
+              ))}
             </ul>
           </section>
 
@@ -92,16 +89,15 @@ export default function Privacy() {
               className="text-2xl font-playfair font-bold text-silver mb-4"
               style={{ letterSpacing: '0.13em' }}
             >
-              How We Use Your Data
+              {privacyData.sections.dataUsage.title}
             </h2>
             <p className="text-silver/80" style={{ lineHeight: '1.6' }}>
-              We use the information you provide solely to:
+              {privacyData.sections.dataUsage.content}
             </p>
             <ul className="list-disc list-inside space-y-2 text-silver/80 ml-4 mt-3" style={{ lineHeight: '1.6' }}>
-              <li>Contact you to schedule a strategy session</li>
-              <li>Understand your business challenges and needs</li>
-              <li>Provide tailored consulting recommendations</li>
-              <li>Follow up on your inquiry</li>
+              {privacyData.sections.dataUsage.items.map((item: string, idx: number) => (
+                <li key={idx}>{item}</li>
+              ))}
             </ul>
           </section>
 
@@ -111,10 +107,10 @@ export default function Privacy() {
               className="text-2xl font-playfair font-bold text-silver mb-4"
               style={{ letterSpacing: '0.13em' }}
             >
-              Data Protection
+              {privacyData.sections.dataProtection.title}
             </h2>
             <p className="text-silver/80" style={{ lineHeight: '1.6' }}>
-              Your data is never sold to third parties. We do not share your information with external organizations or data brokers. Your privacy is our priority.
+              {privacyData.sections.dataProtection.content}
             </p>
           </section>
 
@@ -124,18 +120,18 @@ export default function Privacy() {
               className="text-2xl font-playfair font-bold text-silver mb-4"
               style={{ letterSpacing: '0.13em' }}
             >
-              Data Deletion Requests
+              {privacyData.sections.dataDeletion.title}
             </h2>
             <p className="text-silver/80" style={{ lineHeight: '1.6' }}>
-              If you wish to request deletion of your personal data, please contact us at:
+              {privacyData.sections.dataDeletion.content}
             </p>
             <p className="text-gold font-semibold mt-3">
-              <a href="mailto:manuel@dipriva.com" className="hover:text-gold/80 transition-colors">
-                manuel@dipriva.com
+              <a href={`mailto:${privacyData.sections.dataDeletion.email}`} className="hover:text-gold/80 transition-colors">
+                {privacyData.sections.dataDeletion.email}
               </a>
             </p>
             <p className="text-silver/60 text-sm mt-3">
-              We will process deletion requests within 30 days.
+              {privacyData.sections.dataDeletion.note}
             </p>
           </section>
 
@@ -145,10 +141,10 @@ export default function Privacy() {
               className="text-2xl font-playfair font-bold text-silver mb-4"
               style={{ letterSpacing: '0.13em' }}
             >
-              Questions?
+              {privacyData.sections.questions.title}
             </h2>
             <p className="text-silver/80" style={{ lineHeight: '1.6' }}>
-              If you have any questions about this privacy policy or our data practices, please reach out to us at{' '}
+              {privacyData.sections.questions.content}{' '}
               <a href="mailto:manuel@dipriva.com" className="text-gold hover:text-gold/80 transition-colors">
                 manuel@dipriva.com
               </a>
@@ -162,7 +158,7 @@ export default function Privacy() {
               onClick={() => setLocation('/')}
               className="px-8 py-3 bg-gold text-obsidian font-semibold hover:bg-gold/90 transition-all duration-300 rounded-lg"
             >
-              Return to Home
+              {t('notFound.cta', language)}
             </Button>
           </div>
         </div>
