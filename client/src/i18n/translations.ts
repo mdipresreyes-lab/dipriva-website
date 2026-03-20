@@ -40,8 +40,8 @@ export const translations = {
 
     // Contact Form
     form: {
-      title: 'Schedule Your Strategy Session',
-      subtitle: 'Let\'s discuss operational clarity for your business.',
+      title: 'Schedule your session',
+      subtitle: 'Let\'s discuss your business\' operational clarity.',
       firstName: 'First Name',
       lastName: 'Last Name',
       email: 'Email Address',
@@ -166,8 +166,8 @@ export const translations = {
 
     // Contact Form
     form: {
-      title: 'Agendar Tu Sesión de Estrategia',
-      subtitle: 'Hablemos sobre claridad operacional para tu negocio.',
+      title: 'Agenda tu sesión',
+      subtitle: 'Hablemos sobre la claridad operacional de tu negocio.',
       firstName: 'Primer Nombre',
       lastName: 'Apellido',
       email: 'Correo Electrónico',

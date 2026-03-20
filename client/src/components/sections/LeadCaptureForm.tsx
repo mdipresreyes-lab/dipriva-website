@@ -166,10 +166,10 @@ export default function LeadCaptureForm() {
           className="mb-12"
         >
           <h2 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-4" style={{ letterSpacing: '0.18em' }} role="heading" aria-level={2}>
-            Agenda tu sesión
+            {t('form.title', language)}
           </h2>
           <p className="text-silver/60 text-lg" style={{ lineHeight: '1.6' }}>
-            Hablaremos sobre la claridad operacional de tu negocio.
+            {t('form.subtitle', language)}
           </p>
         </motion.div>
 
