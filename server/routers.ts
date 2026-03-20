@@ -34,12 +34,12 @@ async function submitToGHL(data: {
           phone: data.phone,
           customField: {
             primary_challenge: data.primaryChallenge,
-            preferred_language: data.preferredLanguage || 'en',
+
             brand_interest: "Dipriva Consulting Group",
           },
         },
         source: "Dipriva High-Fidelity Web Portal",
-        tags: ["Lead", "High-End UX", "2026_Campaign"],
+        tags: ["Lead", "High-End UX", "2026_Campaign", ...(data.preferredLanguage === 'es' ? ["Spanish"] : ["English"])],
       };
 
     const response = await fetch(GHL_API_ENDPOINT, {
