@@ -144,7 +144,7 @@ export default function LeadCaptureForm() {
           viewport={{ once: true }}
           className="mb-12"
         >
-          <h2 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-4" style={{ letterSpacing: '0.18em' }}>
+          <h2 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-4" style={{ letterSpacing: '0.18em' }} role="heading" aria-level={2}>
             Schedule Your Strategy Session
           </h2>
           <p className="text-silver/60 text-lg" style={{ lineHeight: '1.6' }}>
@@ -171,7 +171,7 @@ export default function LeadCaptureForm() {
                 className="flex flex-col items-center justify-center py-12"
               >
                 <CheckCircle2 className="w-16 h-16 text-gold mb-4" />
-                <h3 className="text-2xl font-playfair font-bold text-silver mb-2">
+                <h3 className="text-2xl font-playfair font-bold text-silver mb-2" role="heading" aria-level={3}>
                   Thank you for reaching out
                 </h3>
                 <p className="text-silver/60 text-center mb-6">
@@ -196,7 +196,7 @@ export default function LeadCaptureForm() {
                 className="flex flex-col items-center justify-center py-12"
               >
                 <AlertCircle className="w-16 h-16 text-red-500 mb-4" />
-                <h3 className="text-2xl font-playfair font-bold text-silver mb-2">
+                <h3 className="text-2xl font-playfair font-bold text-silver mb-2" role="heading" aria-level={3}>
                   Something went wrong
                 </h3>
                 <p className="text-silver/60 text-center mb-6">{errorMessage}</p>
@@ -240,7 +240,7 @@ export default function LeadCaptureForm() {
 
                 {/* Form field */}
                 <div className="mb-8">
-                  <label className="block text-silver font-playfair text-lg font-semibold tracking-luxury mb-4">
+                  <label className="block text-silver font-playfair text-lg font-semibold mb-4" style={{ letterSpacing: '0.13em' }}>
                     {currentStep.label}
                   </label>
 

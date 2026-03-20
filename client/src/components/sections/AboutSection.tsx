@@ -14,7 +14,7 @@ export default function AboutSection() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-8" style={{ letterSpacing: '0.18em' }}>
+          <h2 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-8" style={{ letterSpacing: '0.18em' }} role="heading" aria-level={2}>
             About Dipriva
           </h2>
 

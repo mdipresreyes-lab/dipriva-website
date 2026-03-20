@@ -20,10 +20,12 @@ export default function HeroSection() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
+        role="img"
+        aria-label="Abstract obsidian and silver 3D texture representing operational clarity and strategic consulting excellence"
       />
 
       {/* Dark overlay for text legibility */}
-      <div className="absolute inset-0 bg-gradient-to-b from-obsidian/50 via-obsidian/30 to-obsidian/70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-obsidian/50 via-obsidian/30 to-obsidian/70" aria-hidden="true" />
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -32,7 +34,7 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-playfair font-bold text-silver mb-6 leading-tight" style={{ letterSpacing: '0.18em' }}>
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-playfair font-bold text-silver mb-6 leading-tight" style={{ letterSpacing: '0.18em' }} role="heading" aria-level={1}>
             Engineering Operational Clarity
           </h1>
         </motion.div>

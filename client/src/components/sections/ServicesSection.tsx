@@ -67,18 +67,21 @@ const ServiceCardComponent = ({ service, index }: { service: ServiceCard; index:
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="group relative h-80 rounded-glass overflow-hidden border border-silver/20 backdrop-blur-md bg-charcoal/40 hover:border-gold/50 transition-all duration-300 hover:shadow-glass-hover cursor-pointer"
     >
-      {/* Background texture */}
+      {/* Background texture - lazy loaded via CSS */}
       <div
         className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300"
         style={{
           backgroundImage: `url(${service.texture})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          backgroundAttachment: 'scroll',
         }}
+        role="img"
+        aria-label={`${service.title}: Strategic consulting for operational clarity and business growth`}
       />
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-obsidian/20 to-obsidian/40" />
+      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-obsidian/20 to-obsidian/40" aria-hidden="true" />
 
       {/* Content */}
       <div className="relative z-10 p-8 h-full flex flex-col justify-between">
@@ -86,9 +89,9 @@ const ServiceCardComponent = ({ service, index }: { service: ServiceCard; index:
           <div className="mb-4 text-gold group-hover:scale-110 transition-transform duration-300">
             {service.icon}
           </div>
-          <h3 className="text-2xl font-playfair font-bold text-silver mb-3" style={{ letterSpacing: '0.13em' }}>
+          <h2 className="text-2xl font-playfair font-bold text-silver mb-3" style={{ letterSpacing: '0.13em' }}>
             {service.title}
-          </h3>
+          </h2>
         </div>
 
         <p className="text-silver/70 leading-luxury text-sm group-hover:text-silver/90 transition-colors">
@@ -97,7 +100,7 @@ const ServiceCardComponent = ({ service, index }: { service: ServiceCard; index:
       </div>
 
       {/* Glow effect on hover */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-glass shadow-glow" />
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-glass shadow-glow" aria-hidden="true" />
     </motion.div>
   );
 };
@@ -119,7 +122,7 @@ export default function ServicesSection() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-4" style={{ letterSpacing: '0.18em' }}>
+          <h2 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-4" style={{ letterSpacing: '0.18em' }} role="heading" aria-level={2}>
             Strategic Services
           </h2>
           <p className="text-silver/60 text-lg max-w-2xl" style={{ lineHeight: '1.6' }}>
