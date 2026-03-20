@@ -1,5 +1,7 @@
 import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
 
+
+
 /**
  * Core user table backing auth flow.
  * Extend this file with additional tables as your product grows.
@@ -32,6 +34,7 @@ export const leads = mysqlTable("leads", {
   email: varchar("email", { length: 320 }).notNull(),
   phone: varchar("phone", { length: 20 }).notNull(),
   primaryChallenge: text("primaryChallenge").notNull(),
+  preferredLanguage: mysqlEnum("preferredLanguage", ["en", "es"]).default("en").notNull(),
   ghlContactId: varchar("ghlContactId", { length: 255 }),
   ghlStatus: varchar("ghlStatus", { length: 50 }).default("pending"),
   submittedAt: timestamp("submittedAt").defaultNow().notNull(),
@@ -40,3 +43,4 @@ export const leads = mysqlTable("leads", {
 
 export type Lead = typeof leads.$inferSelect;
 export type InsertLead = typeof leads.$inferInsert;
+export type PreferredLanguage = 'en' | 'es';

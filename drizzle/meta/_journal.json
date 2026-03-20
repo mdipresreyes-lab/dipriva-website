@@ -15,6 +15,13 @@
       "when": 1773969186237,
       "tag": "0001_peaceful_romulus",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1773972373132,
+      "tag": "0002_sweet_gladiator",
+      "breakpoints": true
     }
   ]
 }

@@ -1,4 +1,5 @@
 import { COOKIE_NAME } from "@shared/const";
+import type { Language } from "../client/src/contexts/LanguageContext";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
@@ -16,6 +17,7 @@ async function submitToGHL(data: {
   email: string;
   phone: string;
   primaryChallenge: string;
+  preferredLanguage?: string;
 }) {
   if (!ENV.ghlPitToken) {
     console.warn("[GHL] PIT token not configured");
@@ -23,21 +25,22 @@ async function submitToGHL(data: {
   }
 
   try {
-    const payload = {
-      locationId: GHL_LOCATION_ID,
-      contact: {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        phone: data.phone,
-        customField: {
-          primary_challenge: data.primaryChallenge,
-          brand_interest: "Dipriva Consulting Group",
+      const payload = {
+        locationId: GHL_LOCATION_ID,
+        contact: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phone: data.phone,
+          customField: {
+            primary_challenge: data.primaryChallenge,
+            preferred_language: data.preferredLanguage || 'en',
+            brand_interest: "Dipriva Consulting Group",
+          },
         },
-      },
-      source: "Dipriva High-Fidelity Web Portal",
-      tags: ["Lead", "High-End UX", "2026_Campaign"],
-    };
+        source: "Dipriva High-Fidelity Web Portal",
+        tags: ["Lead", "High-End UX", "2026_Campaign"],
+      };
 
     const response = await fetch(GHL_API_ENDPOINT, {
       method: "POST",
@@ -84,6 +87,7 @@ export const appRouter = router({
           email: z.string().email("Invalid email address"),
           phone: z.string().min(1, "Phone is required"),
           primaryChallenge: z.string().min(1, "Primary challenge is required"),
+          preferredLanguage: z.enum(["en", "es"]).optional(),
         })
       )
       .mutation(async ({ input }) => {
@@ -95,13 +99,17 @@ export const appRouter = router({
             email: input.email,
             phone: input.phone,
             primaryChallenge: input.primaryChallenge,
+            preferredLanguage: input.preferredLanguage || 'en',
             ghlStatus: "pending",
           });
 
           const leadId = (leadResult as any).insertId || 0;
 
           // Attempt GHL submission
-          const ghlContactId = await submitToGHL(input);
+          const ghlContactId = await submitToGHL({
+            ...input,
+            preferredLanguage: input.preferredLanguage || 'en',
+          });
 
           // Update lead with GHL status
           if (ghlContactId && leadId) {

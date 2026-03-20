@@ -5,6 +5,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { CheckCircle2, AlertCircle } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { t } from '@/i18n/translations';
 
 type FormStep = 'firstName' | 'lastName' | 'email' | 'phone' | 'challenge' | 'success' | 'error';
 
@@ -29,6 +31,7 @@ const formSteps: { step: FormStep; label: string; placeholder: string }[] = [
 ];
 
 export default function LeadCaptureForm() {
+  const { language } = useLanguage();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [formData, setFormData] = useState<FormData>({
     firstName: '',
@@ -122,6 +125,7 @@ export default function LeadCaptureForm() {
         email: formData.email,
         phone: formData.phone,
         primaryChallenge: formData.challenge,
+        preferredLanguage: language,
       });
     } catch (error) {
       console.error('Form submission error:', error);

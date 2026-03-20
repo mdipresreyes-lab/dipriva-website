@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { t } from '@/i18n/translations';
 
 // Extend window type for dataLayer and gtag
 declare global {
@@ -13,6 +15,7 @@ declare global {
 const COOKIE_CONSENT_KEY = 'dipriva-cookie-consent';
 
 export function CookieConsentBanner() {
+  const { language } = useLanguage();
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
@@ -49,6 +52,8 @@ export function CookieConsentBanner() {
       const gtag = (...args: any[]) => {
         window.dataLayer.push(args);
       };
+      window.gtag = gtag;
+
       gtag('js', new Date());
       gtag('config', import.meta.env.VITE_GA4_ID);
     }
@@ -56,9 +61,14 @@ export function CookieConsentBanner() {
     // Load Microsoft Clarity
     if (import.meta.env.VITE_CLARITY_ID) {
       const clarityScript = document.createElement('script');
-      clarityScript.type = 'text/javascript';
       clarityScript.async = true;
-      clarityScript.src = `https://www.clarity.ms/tag/${import.meta.env.VITE_CLARITY_ID}`;
+      clarityScript.innerHTML = `
+        (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "${import.meta.env.VITE_CLARITY_ID}");
+      `;
       document.head.appendChild(clarityScript);
     }
   };
@@ -74,22 +84,22 @@ export function CookieConsentBanner() {
           className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6"
         >
           <div className="max-w-2xl mx-auto bg-charcoal/95 backdrop-blur-md border border-silver/20 rounded-lg p-6 shadow-lg">
-            <p className="text-silver/80 text-sm sm:text-base mb-4" style={{ lineHeight: '1.6' }}>
-              We use Google Analytics and Microsoft Clarity to understand how you interact with our site. These tools help us improve your experience. Your consent is optional and can be withdrawn anytime.
+            <p className="text-silver/80 text-sm mb-4">
+              {t('cookie.message', language)}
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:justify-end">
+            <div className="flex gap-3">
               <Button
-                variant="outline"
                 onClick={handleReject}
-                className="text-silver border-silver/30 hover:bg-silver/10"
+                variant="outline"
+                className="flex-1"
               >
-                Reject
+                {t('cookie.reject', language)}
               </Button>
               <Button
                 onClick={handleAccept}
-                className="bg-gold text-obsidian hover:bg-gold/90"
+                className="flex-1 bg-gold text-obsidian hover:bg-gold/90"
               >
-                Accept
+                {t('cookie.accept', language)}
               </Button>
             </div>
           </div>

@@ -1,6 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { LanguageToggle } from '@/components/LanguageToggle';
+import { t } from '@/i18n/translations';
 import HeroSection from '@/components/sections/HeroSection';
 import ServicesSection from '@/components/sections/ServicesSection';
 import AboutSection from '@/components/sections/AboutSection';
@@ -8,6 +11,7 @@ import LeadCaptureForm from '@/components/sections/LeadCaptureForm';
 import FooterSection from '@/components/sections/FooterSection';
 
 export default function Home() {
+  const { language } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -32,16 +36,19 @@ export default function Home() {
           <div className="text-2xl font-playfair font-bold tracking-luxury text-silver">
             Dipriva
           </div>
-          <div className="hidden md:flex gap-8">
+          <div className="hidden md:flex gap-8 items-center">
             <a href="#services" className="text-silver hover:text-gold transition-colors">
-              Services
+              {t('nav.services', language)}
             </a>
             <a href="#about" className="text-silver hover:text-gold transition-colors">
-              About
+              {t('nav.about', language)}
             </a>
             <a href="#contact" className="text-silver hover:text-gold transition-colors">
-              Contact
+              {t('nav.contact', language)}
             </a>
+            <div className="border-l border-silver/20 pl-8">
+              <LanguageToggle />
+            </div>
           </div>
         </div>
       </nav>

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Lightbulb, Cog } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { t } from '@/i18n/translations';
 
 const TEXTURE_1 = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663453268811/gB77xUunk9zzj5LPxbmUtZ/texture-negative-space-1-Bgmb584PkUojdeYKQ4rVPd.webp';
 const TEXTURE_2 = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663453268811/gB77xUunk9zzj5LPxbmUtZ/texture-negative-space-2-GMkdGyi6hPe7hWvmPo2FZV.webp';
@@ -38,6 +40,7 @@ interface ServiceCard {
 ];
 
 const ServiceCardComponent = ({ service, index }: { service: ServiceCard; index: number }) => {
+  const { language } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -90,12 +93,12 @@ const ServiceCardComponent = ({ service, index }: { service: ServiceCard; index:
             {service.icon}
           </div>
           <h2 className="text-2xl font-playfair font-bold text-silver mb-3" style={{ letterSpacing: '0.13em' }}>
-            {service.title}
+            {t(`services.card${service.id === 'corporate-strategy' ? '1' : service.id === 'startup-operations' ? '2' : '3'}.title`, language)}
           </h2>
         </div>
 
         <p className="text-silver/70 leading-luxury text-sm group-hover:text-silver/90 transition-colors">
-          {service.description}
+          {t(`services.card${service.id === 'corporate-strategy' ? '1' : service.id === 'startup-operations' ? '2' : '3'}.description`, language)}
         </p>
       </div>
 
@@ -106,6 +109,7 @@ const ServiceCardComponent = ({ service, index }: { service: ServiceCard; index:
 };
 
 export default function ServicesSection() {
+  const { language } = useLanguage();
   return (
     <section
       id="services"
@@ -123,10 +127,10 @@ export default function ServicesSection() {
           className="mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-4" style={{ letterSpacing: '0.18em' }} role="heading" aria-level={2}>
-            Strategic Services
+            {t('services.title', language)}
           </h2>
           <p className="text-silver/60 text-lg max-w-2xl" style={{ lineHeight: '1.6' }}>
-            Tailored solutions for operational excellence.
+            {t('services.description', language)}
           </p>
         </motion.div>
 

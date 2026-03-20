@@ -1,10 +1,13 @@
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { t } from '@/i18n/translations';
 
 const HERO_TEXTURE = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663453268811/gB77xUunk9zzj5LPxbmUtZ/texture-hero-obsidian-silver-H8EKwvoAnF5MzujnTdgUT4.webp';
 
 export default function HeroSection() {
+  const { language } = useLanguage();
   const scrollToServices = () => {
     const servicesSection = document.getElementById('services');
     servicesSection?.scrollIntoView({ behavior: 'smooth' });
@@ -35,7 +38,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-playfair font-bold text-silver mb-6 leading-tight" style={{ letterSpacing: '0.18em' }} role="heading" aria-level={1}>
-            Engineering Operational Clarity
+            {t('hero.headline', language)}
           </h1>
         </motion.div>
 
@@ -45,7 +48,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <p className="text-lg sm:text-xl text-silver/80 mb-12 max-w-2xl mx-auto" style={{ lineHeight: '1.6' }}>
-            For businesses built to grow.
+            {t('hero.subheadline', language)}
           </p>
         </motion.div>
 
@@ -59,7 +62,7 @@ export default function HeroSection() {
             onClick={scrollToServices}
             className="px-8 py-3 bg-gold text-obsidian font-semibold hover:bg-gold/90 transition-all rounded-lg shadow-lg hover:shadow-glow"
           >
-            Schedule a Strategy Session
+            {t('hero.cta', language)}
           </Button>
         </motion.div>
       </div>

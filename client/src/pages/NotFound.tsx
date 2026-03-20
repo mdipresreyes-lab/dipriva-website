@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useLocation } from "wouter";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export default function NotFound() {
+  const { language } = useLanguage();
   const [, setLocation] = useLocation();
 
   const handleGoHome = () => {
@@ -55,10 +58,10 @@ export default function NotFound() {
             role="heading"
             aria-level={2}
           >
-            This page does not exist.
+            {t('notFound.headline', language)}
           </h2>
           <p className="text-silver/60 text-lg" style={{ lineHeight: '1.6' }}>
-            The page you're looking for may have been moved or deleted.
+            {t('notFound.description', language)}
           </p>
         </motion.div>
 
@@ -73,7 +76,7 @@ export default function NotFound() {
             onClick={handleGoHome}
             className="px-8 py-3 bg-gold text-obsidian font-semibold hover:bg-gold/90 transition-all duration-300 rounded-lg"
           >
-            Return to Home
+            {t('notFound.cta', language)}
           </Button>
         </motion.div>
       </motion.div>

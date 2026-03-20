@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion';
 import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { t } from '@/i18n/translations';
 
 export default function Privacy() {
+  const { language } = useLanguage();
   const [, setLocation] = useLocation();
 
   return (
@@ -14,10 +17,10 @@ export default function Privacy() {
             onClick={() => setLocation('/')}
             className="text-silver hover:text-gold transition-colors"
           >
-            ← Back to Home
+            {t('privacy.backToHome', language)}
           </button>
           <h1 className="text-lg font-playfair font-bold" style={{ letterSpacing: '0.05em' }}>
-            Privacy Policy
+            {t('privacy.title', language)}
           </h1>
           <div className="w-24" />
         </div>
@@ -37,9 +40,9 @@ export default function Privacy() {
               className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-4"
               style={{ letterSpacing: '0.18em' }}
             >
-              Privacy Policy
+              {t('privacy.title', language)}
             </h1>
-            <p className="text-silver/60">Last updated: March 2026</p>
+            <p className="text-silver/60">{t('privacy.lastUpdated', language)}</p>
           </div>
 
           {/* Data Collection */}

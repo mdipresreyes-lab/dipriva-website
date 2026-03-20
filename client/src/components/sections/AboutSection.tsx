@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { t } from '@/i18n/translations';
 
 export default function AboutSection() {
+  const { language } = useLanguage();
   return (
     <section
       id="about"
@@ -15,22 +18,12 @@ export default function AboutSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-8" style={{ letterSpacing: '0.18em' }} role="heading" aria-level={2}>
-            About Dipriva
+            {t('about.title', language)}
           </h2>
 
-          <div className="space-y-6 text-lg text-silver/80" style={{ lineHeight: '1.6' }}>
-            <p>
-              We partner with growth-oriented businesses to architect operational clarity. Corporate strategy, startup operations, and AI-driven automation—translating complexity into competitive advantage.
-            </p>
-
-            <p>
-              Direct approach. Diagnose root causes, design scalable systems, execute with precision. Strategic clarity that drives measurable results.
-            </p>
-
-            <p className="text-gold font-semibold">
-              Dipriva. Strategic clarity for businesses built to grow.
-            </p>
-          </div>
+          <p className="text-lg text-silver/80" style={{ lineHeight: '1.6' }}>
+            {t('about.description', language)}
+          </p>
         </motion.div>
       </div>
 
