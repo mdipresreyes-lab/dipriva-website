@@ -132,7 +132,7 @@ export const translations = {
 
     // Hero Section
     hero: {
-      headline: 'Ingeniería de Claridad Operacional',
+      headline: 'Identificando La Claridad Operacional',
       subheadline: 'Para negocios construidos para crecer',
       cta: 'Agendar Sesión de Estrategia',
     },
@@ -143,11 +143,11 @@ export const translations = {
       description: 'Consultoría personalizada para excelencia operacional',
       card1: {
         title: 'Estrategia Corporativa',
-        description: 'Navega desafíos organizacionales complejos y desbloquea potencial de crecimiento mediante planificación estratégica y optimización operacional.',
+        description: 'Navega desafíos organizacionales complejos y desbloquea el potencial de crecimiento mediante planificación estratégica y optimización operacional.',
       },
       card2: {
         title: 'Operaciones de Startups',
-        description: 'Construye sistemas y procesos escalables desde el primer día. Ayudamos a equipos en etapa temprana a establecer claridad operacional y crecimiento sostenible.',
+        description: 'Construye sistemas y procesos escalables desde el primer día. Ayudamos a equipos de etapa inicial a establecer claridad operacional y crecimiento sostenible.',
       },
       card3: {
         title: 'IA y Automatización',
@@ -158,14 +158,14 @@ export const translations = {
     // About Section
     about: {
       title: 'Acerca de Dipriva',
-      description: 'Nos asociamos con negocios ambiciosos para ingenierizar claridad operacional. Nuestro enfoque combina pensamiento estratégico con ejecución práctica, entregando resultados medibles que se componen con el tiempo.',
+      description: 'Nos asociamos con negocios ambiciosos para implementar claridad operacional. Nuestro enfoque combina el pensamiento estratégico con la ejecución práctica, entregando resultados medibles que se componen con el tiempo.',
     },
 
     // Contact Form
     form: {
       title: 'Agendar Tu Sesión de Estrategia',
       subtitle: 'Hablemos sobre claridad operacional para tu negocio.',
-      firstName: 'Nombre',
+      firstName: 'Primer Nombre',
       lastName: 'Apellido',
       email: 'Correo Electrónico',
       phone: 'Número de Teléfono',

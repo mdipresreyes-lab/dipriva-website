@@ -168,7 +168,7 @@ export default function LeadCaptureForm() {
             Agenda tu sesión
           </h2>
           <p className="text-silver/60 text-lg" style={{ lineHeight: '1.6' }}>
-            Vamos a hablar sobre la claridad operacional de tu negocio.
+            Hablaremos sobre la claridad operacional de tu negocio.
           </p>
         </motion.div>
 
