@@ -37,7 +37,7 @@ const FooterSectionComponent: FooterSectionComponent = () => {
               {t('footer.privacyPolicy', language)}
             </a>
             <a
-              href="https://linkedin.com/company/dipriva"
+              href="https://www.linkedin.com/company/dipriva-consulting-group"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-silver/60 hover:text-gold transition-colors"
