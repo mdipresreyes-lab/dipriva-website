@@ -32,7 +32,7 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-playfair font-bold tracking-luxury-plus text-silver mb-6 leading-tight">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-playfair font-bold text-silver mb-6 leading-tight" style={{ letterSpacing: '0.18em' }}>
             Engineering Operational Clarity
           </h1>
         </motion.div>
@@ -42,7 +42,7 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <p className="text-lg sm:text-xl text-silver/80 mb-12 max-w-2xl mx-auto leading-luxury">
+          <p className="text-lg sm:text-xl text-silver/80 mb-12 max-w-2xl mx-auto" style={{ lineHeight: '1.6' }}>
             For businesses built to grow.
           </p>
         </motion.div>

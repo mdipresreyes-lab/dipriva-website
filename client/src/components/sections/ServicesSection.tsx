@@ -13,25 +13,25 @@ interface ServiceCard {
   texture: string;
 }
 
-const services: ServiceCard[] = [
+  const services: ServiceCard[] = [
   {
     id: 'corporate-strategy',
     title: 'Corporate Strategy',
-    description: 'Navigate complexity. Unlock competitive advantage. We architect strategies that scale.',
+    description: 'Navigate complexity. Unlock competitive advantage.',
     icon: <Lightbulb className="w-8 h-8" />,
     texture: TEXTURE_1,
   },
   {
     id: 'startup-operations',
     title: 'Startup Operations',
-    description: 'Build operational foundations. From chaos to clarity. Systems that accelerate growth.',
+    description: 'From chaos to clarity. Systems that accelerate growth.',
     icon: <Zap className="w-8 h-8" />,
     texture: TEXTURE_2,
   },
   {
     id: 'ai-automation',
     title: 'AI and Automation',
-    description: 'Leverage artificial intelligence to amplify human capability. Workflows reimagined.',
+    description: 'Amplify human capability. Workflows reimagined.',
     icon: <Cog className="w-8 h-8" />,
     texture: TEXTURE_1,
   },
@@ -86,7 +86,7 @@ const ServiceCardComponent = ({ service, index }: { service: ServiceCard; index:
           <div className="mb-4 text-gold group-hover:scale-110 transition-transform duration-300">
             {service.icon}
           </div>
-          <h3 className="text-2xl font-playfair font-bold tracking-luxury text-silver mb-3">
+          <h3 className="text-2xl font-playfair font-bold text-silver mb-3" style={{ letterSpacing: '0.13em' }}>
             {service.title}
           </h3>
         </div>
@@ -106,7 +106,8 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="relative py-32 px-4 sm:px-6 lg:px-8 bg-obsidian overflow-hidden"
+      className="relative bg-obsidian overflow-hidden px-4 sm:px-6 lg:px-8"
+      style={{ paddingTop: '160px', paddingBottom: '160px' }}
     >
       {/* Section padding */}
       <div className="max-w-7xl mx-auto">
@@ -118,25 +119,23 @@ export default function ServicesSection() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-playfair font-bold tracking-luxury-plus text-silver mb-4">
+          <h2 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-4" style={{ letterSpacing: '0.18em' }}>
             Strategic Services
           </h2>
-          <p className="text-silver/60 text-lg leading-luxury max-w-2xl">
-            Tailored solutions for operational excellence and sustainable growth.
+          <p className="text-silver/60 text-lg max-w-2xl" style={{ lineHeight: '1.6' }}>
+            Tailored solutions for operational excellence.
           </p>
         </motion.div>
 
-        {/* Bento Grid - 3 cards, max 2 visible in viewport */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Bento Grid - max 2 cards visible in initial viewport */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-96 overflow-hidden">
           {services.map((service, index) => (
             <ServiceCardComponent key={service.id} service={service} index={index} />
           ))}
         </div>
       </div>
 
-      {/* Decorative background elements */}
-      <div className="absolute top-20 right-0 w-96 h-96 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
+
     </section>
   );
 }

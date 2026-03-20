@@ -133,7 +133,8 @@ export default function LeadCaptureForm() {
   return (
     <section
       id="contact"
-      className="relative py-32 px-4 sm:px-6 lg:px-8 bg-obsidian overflow-hidden"
+      className="relative bg-obsidian overflow-hidden px-4 sm:px-6 lg:px-8"
+      style={{ paddingTop: '160px', paddingBottom: '160px' }}
     >
       <div className="max-w-2xl mx-auto">
         <motion.div
@@ -143,11 +144,11 @@ export default function LeadCaptureForm() {
           viewport={{ once: true }}
           className="mb-12"
         >
-          <h2 className="text-4xl sm:text-5xl font-playfair font-bold tracking-luxury-plus text-silver mb-4">
+          <h2 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-4" style={{ letterSpacing: '0.18em' }}>
             Schedule Your Strategy Session
           </h2>
-          <p className="text-silver/60 text-lg leading-luxury">
-            Let's discuss how we can drive operational clarity for your business.
+          <p className="text-silver/60 text-lg" style={{ lineHeight: '1.6' }}>
+            Let's discuss operational clarity for your business.
           </p>
         </motion.div>
 
