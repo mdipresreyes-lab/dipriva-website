@@ -165,10 +165,10 @@ export default function LeadCaptureForm() {
           className="mb-12"
         >
           <h2 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-4" style={{ letterSpacing: '0.18em' }} role="heading" aria-level={2}>
-            Schedule Your Strategy Session
+            Agenda tu sesión
           </h2>
           <p className="text-silver/60 text-lg" style={{ lineHeight: '1.6' }}>
-            Let's discuss operational clarity for your business.
+            Vamos a hablar sobre la claridad operacional de tu negocio.
           </p>
         </motion.div>
 
