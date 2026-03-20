@@ -240,7 +240,7 @@ export default function LeadCaptureForm() {
                   }}
                   className="px-6 py-2 bg-gold text-obsidian font-semibold hover:bg-gold/90"
                 >
-                  {language === 'es' ? 'Intentar de Nuevo' : 'Try Again'}
+                  {t('form.tryAgain', language)}
                 </Button>
               </motion.div>
             )}
@@ -328,7 +328,7 @@ export default function LeadCaptureForm() {
                     disabled={submitMutation.isPending}
                     className="flex-1 px-6 py-2 bg-gold text-obsidian font-semibold hover:bg-gold/90 disabled:opacity-50"
                   >
-                    {submitMutation.isPending ? (language === 'es' ? 'Enviando...' : 'Submitting...') : isLastStep ? t('form.submit', language) : (language === 'es' ? 'Próximo' : 'Next')}
+                    {submitMutation.isPending ? t('form.submitting', language) : isLastStep ? t('form.submit', language) : t('form.next', language)}
                   </Button>
                 </div>
               </motion.div>

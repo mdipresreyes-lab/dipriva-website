@@ -55,12 +55,15 @@ export const translations = {
         challenge: 'Describe your most pressing operational challenge...',
       },
       submit: 'Submit',
+      next: 'Next',
       back: 'Back',
       success: 'Thank you for reaching out',
       successMessage: 'We\'ll be in touch shortly to schedule your strategy session.',
       submitAnother: 'Submit Another Inquiry',
       error: 'Something went wrong',
       errorMessage: 'Failed to submit form. Please try again.',
+      tryAgain: 'Try Again',
+      submitting: 'Submitting...'
     },
 
     // Footer
@@ -178,12 +181,15 @@ export const translations = {
         challenge: 'Describe tu desafío operacional más urgente...',
       },
       submit: 'Enviar',
+      next: 'Próximo',
       back: 'Atrás',
       success: 'Gracias por comunicarte con nosotros',
       successMessage: 'Nos pondremos en contacto pronto para agendar tu sesión de estrategia.',
       submitAnother: 'Enviar Otra Consulta',
       error: 'Algo salió mal',
       errorMessage: 'Error al enviar el formulario. Por favor, intenta de nuevo.',
+      tryAgain: 'Intentar de Nuevo',
+      submitting: 'Enviando...'
     },
 
     // Footer
