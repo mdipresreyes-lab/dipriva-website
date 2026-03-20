@@ -1,6 +1,13 @@
 import { Linkedin } from 'lucide-react';
+import { useLocation } from 'wouter';
 
-export default function FooterSection() {
+interface FooterSectionProps {}
+
+type FooterSectionComponent = React.FC<FooterSectionProps> & {
+  displayName?: string;
+};
+
+const FooterSectionComponent: FooterSectionComponent = () => {
   return (
     <footer className="bg-charcoal border-t border-silver/10 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -18,16 +25,24 @@ export default function FooterSection() {
             </a>
           </div>
 
-          {/* LinkedIn link */}
-          <a
-            href="https://linkedin.com/company/dipriva"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-silver/60 hover:text-gold transition-colors"
-          >
-            <Linkedin className="w-5 h-5" />
-            <span className="text-sm">LinkedIn</span>
-          </a>
+          {/* Links */}
+          <div className="flex items-center gap-6">
+            <a
+              href="/privacy"
+              className="text-silver/60 hover:text-gold transition-colors text-sm"
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="https://linkedin.com/company/dipriva"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-silver/60 hover:text-gold transition-colors"
+            >
+              <Linkedin className="w-5 h-5" />
+              <span className="text-sm">LinkedIn</span>
+            </a>
+          </div>
         </div>
 
         {/* Copyright */}
@@ -37,4 +52,7 @@ export default function FooterSection() {
       </div>
     </footer>
   );
-}
+};
+
+FooterSectionComponent.displayName = 'FooterSection';
+export default FooterSectionComponent;

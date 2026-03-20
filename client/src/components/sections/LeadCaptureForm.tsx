@@ -37,6 +37,7 @@ export default function LeadCaptureForm() {
     phone: '',
     challenge: '',
   });
+  const [honeypot, setHoneypot] = useState(''); // Honeypot field for spam protection
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -98,6 +99,21 @@ export default function LeadCaptureForm() {
   }, [submitMutation.isError]);
 
   const submitForm = async () => {
+    // Honeypot spam protection: if honeypot field is filled, silently reject
+    if (honeypot.trim()) {
+      setStatus('success');
+      setCurrentStepIndex(0);
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        challenge: '',
+      });
+      setHoneypot('');
+      return;
+    }
+
     setStatus('loading' as const);
     try {
       await submitMutation.mutateAsync({
@@ -151,6 +167,18 @@ export default function LeadCaptureForm() {
             Let's discuss operational clarity for your business.
           </p>
         </motion.div>
+
+        {/* Honeypot field - hidden from users */}
+        <input
+          type="text"
+          name="website"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          style={{ display: 'none' }}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+        />
 
         {/* Form Container */}
         <motion.div

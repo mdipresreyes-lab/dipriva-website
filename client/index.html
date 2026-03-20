@@ -4,6 +4,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     
     <!-- Technical SEO -->
     <title>Dipriva Consulting Group | Strategic Consulting for Operational Clarity</title>
@@ -17,12 +19,16 @@
     <meta property="og:title" content="Dipriva Consulting Group | Strategic Consulting for Operational Clarity" />
     <meta property="og:description" content="Engineering operational clarity for growth-oriented businesses. Strategic consulting, startup operations, and AI-driven automation." />
     <meta property="og:site_name" content="Dipriva Consulting Group" />
+    <meta property="og:image" content="https://d2xsxph8kpxj0f.cloudfront.net/310519663453268811/gB77xUunk9zzj5LPxbmUtZ/og-image-8eZvnGkazLogJpwof5vm7q.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://www.dipriva.com" />
     <meta name="twitter:title" content="Dipriva Consulting Group | Strategic Consulting for Operational Clarity" />
     <meta name="twitter:description" content="Engineering operational clarity for growth-oriented businesses." />
+    <meta name="twitter:image" content="https://d2xsxph8kpxj0f.cloudfront.net/310519663453268811/gB77xUunk9zzj5LPxbmUtZ/og-image-8eZvnGkazLogJpwof5vm7q.png" />
     
     <!-- JSON-LD LocalBusiness Schema -->
     <script type="application/ld+json">
@@ -36,6 +42,14 @@
     }
     </script>
     
+    <!-- Environment Variables for Analytics -->
+    <script>
+      window.ENV = {
+        GA4_ID: import.meta.env.VITE_GA4_ID || '',
+        CLARITY_ID: import.meta.env.VITE_CLARITY_ID || ''
+      };
+    </script>
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -45,10 +59,6 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
   </body>
 
 </html>
