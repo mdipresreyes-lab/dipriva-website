@@ -1,0 +1,23 @@
+{
+  "query": "SELECT * FROM leads;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 22YSatBvy59qysg.root --database gB77xUunk9zzj5LPxbmUtZ --execute SELECT * FROM leads;",
+  "rows": [
+    {
+      "id": "330002",
+      "firstName": "ManusBackEnd",
+      "lastName": "ManusBackEnd",
+      "email": "manusbackend@dipriva.com",
+      "phone": "555-0001",
+      "primaryChallenge": "Testing backend lead creation",
+      "ghlContactId": "NULL",
+      "ghlStatus": "pending",
+      "submittedAt": "2026-03-21 15:58:40",
+      "createdAt": "2026-03-21 15:58:40",
+      "preferredLanguage": "en"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tfirstName\tlastName\temail\tphone\tprimaryChallenge\tghlContactId\tghlStatus\tsubmittedAt\tcreatedAt\tpreferredLanguage\n330002\tManusBackEnd\tManusBackEnd\tmanusbackend@dipriva.com\t555-0001\tTesting backend lead creation\tNULL\tpending\t2026-03-21 15:58:40\t2026-03-21 15:58:40\ten\n",
+  "stderr": "",
+  "execution_time_ms": 357
+}

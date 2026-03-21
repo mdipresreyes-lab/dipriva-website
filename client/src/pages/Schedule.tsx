@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { t } from '@/i18n/translations';
-import HeroSection from '@/components/sections/HeroSection';
-import ServicesSection from '@/components/sections/ServicesSection';
-import AboutSection from '@/components/sections/AboutSection';
-import CTASection from '@/components/sections/CTASection';
+import LeadCaptureForm from '@/components/sections/LeadCaptureForm';
 import FooterSection from '@/components/sections/FooterSection';
 
-export default function Home() {
+export default function Schedule() {
   const { language } = useLanguage();
+  const [, navigate] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -37,19 +35,19 @@ export default function Home() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="text-2xl font-playfair font-bold tracking-luxury text-silver">
+          <button
+            onClick={() => navigate('/')}
+            className="text-2xl font-playfair font-bold tracking-luxury text-silver hover:text-gold transition-colors"
+          >
             Dipriva
-          </div>
+          </button>
           <div className="hidden md:flex gap-8 items-center">
-            <a href="#services" className="text-silver hover:text-gold transition-colors">
-              {t('nav.services', language)}
-            </a>
-            <a href="#about" className="text-silver hover:text-gold transition-colors">
-              {t('nav.about', language)}
-            </a>
-            <a href="#contact" className="text-silver hover:text-gold transition-colors">
-              {t('nav.contact', language)}
-            </a>
+            <button
+              onClick={() => navigate('/')}
+              className="text-silver hover:text-gold transition-colors"
+            >
+              {t('nav.home', language) || 'Home'}
+            </button>
             <div className="border-l border-silver/20 pl-8">
               <LanguageToggle />
             </div>
@@ -58,11 +56,8 @@ export default function Home() {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-16">
-        <HeroSection />
-        <ServicesSection />
-        <AboutSection />
-        <CTASection />
+      <main className="pt-24">
+        <LeadCaptureForm />
         <FooterSection />
       </main>
     </div>
