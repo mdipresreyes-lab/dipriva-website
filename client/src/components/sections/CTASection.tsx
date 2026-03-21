@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { t } from '@/i18n/translations';
 import { useLocation } from 'wouter';
+import Clarity from '@microsoft/clarity';
 
 export default function CTASection() {
   const { language } = useLanguage();
@@ -24,7 +25,14 @@ export default function CTASection() {
             {t('cta.subheadline', language) || 'Let\'s discuss how we can help you achieve operational clarity and sustainable growth.'}
           </p>
           <Button
-            onClick={() => navigate('/schedule')}
+            onClick={() => {
+              try {
+                Clarity.event('cta_click');
+              } catch (error) {
+                console.warn('Failed to track CTA click:', error);
+              }
+              navigate('/schedule');
+            }}
             className="px-8 py-3 bg-gold text-obsidian font-semibold hover:bg-gold/90 transition-all rounded-lg shadow-lg hover:shadow-glow"
           >
             {t('cta.button', language) || 'Schedule Your Session'}

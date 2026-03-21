@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { t } from '@/i18n/translations';
+import Clarity from '@microsoft/clarity';
 
 // Extend window type for dataLayer and gtag
 declare global {
@@ -42,6 +43,18 @@ export function CookieConsentBanner() {
   };
 
   const loadAnalytics = () => {
+    // Initialize Microsoft Clarity with GDPR consent
+    const clarityId = import.meta.env.VITE_CLARITY_ID;
+    if (clarityId) {
+      try {
+        Clarity.init(clarityId);
+        // Set consent for ad_Storage and analytics_Storage
+        Clarity.consentV2({ ad_Storage: 'granted', analytics_Storage: 'granted' });
+      } catch (error) {
+        console.warn('Failed to initialize Clarity:', error);
+      }
+    }
+
     // Load GA4 only after consent is given
     const gaScript = document.createElement('script');
     gaScript.async = true;

@@ -9,6 +9,7 @@ import { CheckCircle2, AlertCircle } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { t } from '@/i18n/translations';
+import Clarity from '@microsoft/clarity';
 
 type FormStep = 'firstName' | 'lastName' | 'email' | 'phone' | 'challenge';
 
@@ -303,7 +304,16 @@ export default function LeadCaptureForm() {
                     {t('form.back', language)}
                   </Button>
                   <Button
-                    onClick={handleNext}
+                    onClick={() => {
+                      if (isLastStep) {
+                        try {
+                          Clarity.event('cta_click');
+                        } catch (error) {
+                          console.warn('Failed to track CTA click:', error);
+                        }
+                      }
+                      handleNext();
+                    }}
                     disabled={status === 'loading'}
                     className="flex-1 bg-gold text-obsidian font-semibold hover:bg-gold/90"
                   >

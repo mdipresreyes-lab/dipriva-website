@@ -80,3 +80,11 @@
 - [x] Ensure analytics scripts are blocked until user accepts
 - [x] Test form submission still reaches GHL after changes (GHL integration unaffected)
 - [x] Verify cookie consent persists across page reloads
+
+## Phase 13: Microsoft Clarity Integration
+- [x] Install @microsoft/clarity npm package
+- [x] Initialize Clarity in CookieConsentBanner after consent is granted
+- [x] Add Clarity consent configuration (ad_Storage and analytics_Storage)
+- [x] Add CTA click event tracking to Schedule Your Session button (CTASection)
+- [x] Add CTA click event tracking to Schedule Your Session button (LeadCaptureForm submit)
+- [x] Test Clarity initialization and event tracking
