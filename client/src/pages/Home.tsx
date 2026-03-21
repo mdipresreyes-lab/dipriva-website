@@ -47,7 +47,7 @@ export default function Home() {
             <a href="#about" className="text-silver hover:text-gold transition-colors">
               {t('nav.about', language)}
             </a>
-            <a href="#contact" className="text-silver hover:text-gold transition-colors">
+            <a href="#cta" className="text-silver hover:text-gold transition-colors">
               {t('nav.contact', language)}
             </a>
             <div className="border-l border-silver/20 pl-8">

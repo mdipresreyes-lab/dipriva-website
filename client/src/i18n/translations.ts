@@ -10,7 +10,7 @@ export const translations = {
     // Hero Section
     hero: {
       headline: 'Engineering Operational Clarity',
-      subheadline: 'For businesses built to grow',
+      subheadline: 'Precision-built for businesses that operate at the executive level.',
       cta: 'Schedule Strategy Session',
     },
 
@@ -20,22 +20,22 @@ export const translations = {
       description: 'Tailored consulting for operational excellence',
       card1: {
         title: 'Corporate Strategy',
-        description: 'Navigate complex organizational challenges and unlock growth potential through strategic planning and operational optimization.',
+        description: 'Architect the decisions that determine organizational trajectory. We translate complex business challenges into disciplined strategy, structured execution plans, and measurable outcomes.',
       },
       card2: {
         title: 'Startup Operations',
-        description: 'Build scalable systems and processes from day one. We help early-stage teams establish operational clarity and sustainable growth.',
+        description: 'Build scalable systems and processes from day one. We help early-stage teams establish operational clarity and the infrastructure to sustain it.',
       },
       card3: {
         title: 'AI and Automation',
-        description: 'Leverage cutting-edge technology to streamline workflows, reduce manual effort, and drive efficiency across your organization.',
+        description: 'Deploy AI and automation to eliminate operational drag. We identify high-friction workflows, architect the right systems, and implement solutions that reduce manual effort and accelerate execution.',
       },
     },
 
     // About Section
     about: {
       title: 'About Dipriva',
-      description: 'We partner with ambitious businesses to engineer operational clarity. Our approach combines strategic thinking with practical execution, delivering measurable results that compound over time.',
+      description: 'Dipriva Consulting Group engineers operational clarity for business owners and executives who are scaling faster than their infrastructure can support. We close the gap between strategic intent and operational reality.\n\nOur engagements span five disciplines: Corporate Strategy, Data Science, Treasury Management, Startup Operations, and Digital Infrastructure. We do not offer generalist consulting. We deliver structured execution across the systems that determine whether a business grows or stalls.\n\nFounded by Manuel Diprés, Dipriva is built on the principle that operational discipline is not a luxury. It is the precondition for growth. Every engagement produces measurable outputs: structured frameworks, implemented systems, and documented processes that hold.\n\nWe recognized that most growing businesses have more ambition than infrastructure. At Dipriva, we close that gap.',
     },
 
     // Contact Form
@@ -70,7 +70,7 @@ export const translations = {
     // CTA Section
     cta: {
       headline: 'Ready to engineer operational clarity?',
-      subheadline: 'Let\'s discuss how we can help your business grow.',
+      subheadline: 'Tell us where the friction is. We will engineer the path forward.',
       button: 'Schedule Your Session',
     },
 
@@ -137,14 +137,14 @@ export const translations = {
     // Navigation
     nav: {
       services: 'Servicios',
-      about: 'Acerca de',
+      about: 'Quiénes Somos',
       contact: 'Contacto',
     },
 
     // Hero Section
     hero: {
-      headline: 'Identificando La Claridad Operacional',
-      subheadline: 'Para negocios construidos para crecer',
+      headline: 'Ingeniería de Claridad Operacional',
+      subheadline: 'Construido con precisión para empresas que operan a nivel ejecutivo.',
       cta: 'Agendar Sesión de Estrategia',
     },
 
@@ -154,22 +154,22 @@ export const translations = {
       description: 'Consultoría personalizada para excelencia operacional',
       card1: {
         title: 'Estrategia Corporativa',
-        description: 'Navega desafíos organizacionales complejos y desbloquea el potencial de crecimiento mediante planificación estratégica y optimización operacional.',
+        description: 'Diseña las decisiones que determinan la trayectoria organizacional. Traducimos desafíos empresariales complejos en estrategia disciplinada, planes de ejecución estructurados y resultados medibles.',
       },
       card2: {
         title: 'Operaciones de Startups',
-        description: 'Construye sistemas y procesos escalables desde el primer día. Ayudamos a equipos de etapa inicial a establecer claridad operacional y crecimiento sostenible.',
+        description: 'Construye sistemas y procesos escalables desde el primer día. Ayudamos a equipos de etapa inicial a establecer claridad operacional y la infraestructura para sostenerla.',
       },
       card3: {
         title: 'IA y Automatización',
-        description: 'Aprovecha tecnología de vanguardia para optimizar flujos de trabajo, reducir esfuerzo manual e impulsar eficiencia en toda tu organización.',
+        description: 'Despliega IA y automatización para eliminar la fricción operacional. Identificamos flujos de trabajo de alta fricción, diseñamos los sistemas adecuados e implementamos soluciones que reducen el esfuerzo manual y aceleran la ejecución.',
       },
     },
 
     // About Section
     about: {
-      title: 'Acerca de Dipriva',
-      description: 'Nos asociamos con negocios ambiciosos para implementar claridad operacional. Nuestro enfoque combina el pensamiento estratégico con la ejecución práctica, entregando resultados medibles que se componen con el tiempo.',
+      title: 'Quienes Somos',
+      description: 'Dipriva Consulting Group diseña claridad operacional para dueños de negocios y ejecutivos que escalan más rápido de lo que su infraestructura puede soportar. Cerramos la brecha entre la intención estratégica y la realidad operacional.\n\nNuestros compromisos abarcan cinco disciplinas: Estrategia Corporativa, Ciencia de Datos, Gestión de Tesorería, Operaciones de Startups e Infraestructura Digital. No ofrecemos consultoría generalista. Entregamos ejecución estructurada a través de los sistemas que determinan si un negocio crece o se estanca.\n\nFundada por Manuel Diprés, Dipriva se construye sobre el principio de que la disciplina operacional no es un lujo. Es la condición previa para el crecimiento. Cada compromiso produce resultados medibles: marcos estructurados, sistemas implementados y procesos documentados que perduran.\n\nReconocemos que la mayoría de los negocios en crecimiento tienen más ambición que infraestructura. En Dipriva, cerramos esa brecha.',
     },
 
     // Contact Form
@@ -203,8 +203,8 @@ export const translations = {
 
     // CTA Section
     cta: {
-      headline: '¿Listo para implementar claridad operacional?',
-      subheadline: 'Hablemos sobre cómo podemos ayudar a tu negocio a crecer.',
+      headline: '¿Listo para construir claridad operacional?',
+      subheadline: 'Dinos dónde está la fricción. Diseñaremos el camino a seguir.',
       button: 'Agenda tu Sesión',
     },
 
