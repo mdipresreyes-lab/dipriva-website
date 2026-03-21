@@ -13,6 +13,7 @@ declare global {
 }
 
 const COOKIE_CONSENT_KEY = 'dipriva-cookie-consent';
+const GA4_ID = 'G-GBW7DQ6T7V';
 
 export function CookieConsentBanner() {
   const { language } = useLanguage();
@@ -23,7 +24,7 @@ export function CookieConsentBanner() {
     const hasConsent = localStorage.getItem(COOKIE_CONSENT_KEY);
     if (!hasConsent) {
       setShowBanner(true);
-    } else {
+    } else if (hasConsent === 'accepted') {
       // Load analytics if consent was previously given
       loadAnalytics();
     }
@@ -41,38 +42,22 @@ export function CookieConsentBanner() {
   };
 
   const loadAnalytics = () => {
-    // Load GA4
-    const ga4Id = (import.meta.env as any).VITE_GA4_ID;
-    if (ga4Id) {
-      const gaScript = document.createElement('script');
-      gaScript.async = true;
-      gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${ga4Id}`;
-      document.head.appendChild(gaScript);
+    // Load GA4 only after consent is given
+    const gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
+    document.head.appendChild(gaScript);
 
-      window.dataLayer = window.dataLayer || [];
-      const gtag = (...args: any[]) => {
-        window.dataLayer.push(args);
-      };
-      window.gtag = gtag;
+    // Initialize dataLayer and gtag function
+    window.dataLayer = window.dataLayer || [];
+    const gtag = (...args: any[]) => {
+      window.dataLayer.push(args);
+    };
+    window.gtag = gtag;
 
-      gtag('js', new Date());
-      gtag('config', ga4Id);
-    }
-
-    // Load Microsoft Clarity
-    const clarityId = (import.meta.env as any).VITE_CLARITY_ID;
-    if (clarityId) {
-      const clarityScript = document.createElement('script');
-      clarityScript.async = true;
-      clarityScript.innerHTML = `
-        (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "${clarityId}");
-      `;
-      document.head.appendChild(clarityScript);
-    }
+    // Initialize GA4
+    gtag('js', new Date());
+    gtag('config', GA4_ID);
   };
 
   return (

@@ -73,3 +73,10 @@
 ## Phase 11: Analytics & Tracking
 - [x] Add Google Analytics (GA4) tracking code to index.html (ID: G-GBW7DQ6T7V)
 - [x] Add Analytics section to Privacy page (EN and ES) with working URLs for Google Analytics opt-out and NAI opt-out tools
+
+## Phase 12: GDPR Cookie Consent Compliance
+- [x] Remove GA4 script from index.html (move to consent-based loading)
+- [x] Update CookieConsentBanner to properly load GA4 only after consent
+- [x] Ensure analytics scripts are blocked until user accepts
+- [x] Test form submission still reaches GHL after changes (GHL integration unaffected)
+- [x] Verify cookie consent persists across page reloads
