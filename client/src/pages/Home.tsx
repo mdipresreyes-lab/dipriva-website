@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -9,10 +8,13 @@ import ServicesSection from '@/components/sections/ServicesSection';
 import AboutSection from '@/components/sections/AboutSection';
 import CTASection from '@/components/sections/CTASection';
 import FooterSection from '@/components/sections/FooterSection';
+import { Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const { language } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -36,11 +38,13 @@ export default function Home() {
             : 'bg-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="text-2xl font-playfair font-bold tracking-luxury text-silver">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center">
+          <div className="text-xl sm:text-2xl font-playfair font-bold tracking-luxury text-silver">
             Dipriva
           </div>
-          <div className="hidden md:flex gap-8 items-center">
+
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex gap-8 items-center text-sm md:text-base">
             <a href="#services" className="text-silver hover:text-gold transition-colors">
               {t('nav.services', language)}
             </a>
@@ -54,7 +58,49 @@ export default function Home() {
               <LanguageToggle />
             </div>
           </div>
+
+          {/* Mobile/Landscape Navigation */}
+          <div className="lg:hidden flex items-center gap-4">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-silver hover:text-gold transition-colors"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+            <div className="border-l border-silver/20 pl-4">
+              <LanguageToggle />
+            </div>
+          </div>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        {isMenuOpen && (
+          <div className="lg:hidden bg-obsidian/95 backdrop-blur-md border-b border-silver/10 px-4 py-4">
+            <div className="flex flex-col gap-4">
+              <a
+                href="#services"
+                className="text-silver hover:text-gold transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t('nav.services', language)}
+              </a>
+              <a
+                href="#about"
+                className="text-silver hover:text-gold transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t('nav.about', language)}
+              </a>
+              <a
+                href="#cta"
+                className="text-silver hover:text-gold transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t('nav.contact', language)}
+              </a>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Main Content */}
