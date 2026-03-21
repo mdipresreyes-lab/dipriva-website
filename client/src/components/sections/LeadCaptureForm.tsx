@@ -204,10 +204,10 @@ export default function LeadCaptureForm() {
                   {t('form.successMessage', language)}
                 </p>
                 <Button
-                  onClick={handleResetForm}
+                  onClick={() => window.location.href = 'https://www.dipriva.com'}
                   className="px-6 py-2 bg-gold text-obsidian font-semibold hover:bg-gold/90"
                 >
-                  {t('form.submitAnother', language)}
+                  {t('form.returnHome', language)}
                 </Button>
               </motion.div>
             )}
