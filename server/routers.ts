@@ -1,5 +1,4 @@
 import { COOKIE_NAME } from "@shared/const";
-import type { Language } from "../client/src/contexts/LanguageContext";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
@@ -7,10 +6,15 @@ import { z } from "zod";
 import { createLead, updateLeadGhlStatus } from "./db";
 import { ENV } from "./_core/env";
 
-// GHL API integration
+// GHL Configuration
 const GHL_LOCATION_ID = "sAdThi71k3Nkr8LGM8P9";
-const GHL_API_ENDPOINT = "https://rest.gohighlevel.com/v2/contacts";
+const GHL_API_ENDPOINT = "https://services.leadconnectorhq.com/contacts/";
+const GHL_API_VERSION = "2021-07-28";
 
+/**
+ * Submit contact to GHL
+ * Returns the contact ID if successful, null if failed
+ */
 async function submitToGHL(data: {
   firstName: string;
   lastName: string;
@@ -18,49 +22,80 @@ async function submitToGHL(data: {
   phone: string;
   primaryChallenge: string;
   preferredLanguage?: string;
-}) {
+}): Promise<string | null> {
+  console.log("[GHL] ========== SUBMIT TO GHL ==========");
+  console.log("[GHL] Contact:", { firstName: data.firstName, email: data.email });
+
+  // Verify token exists
   if (!ENV.ghlPitToken) {
-    console.warn("[GHL] PIT token not configured");
+    console.error("[GHL] ❌ ERROR: GHL_PIT_TOKEN not configured in environment");
     return null;
   }
 
+  console.log("[GHL] ✅ Token found, preparing request...");
+
   try {
-      const payload = {
-        locationId: GHL_LOCATION_ID,
-        contact: {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          phone: data.phone,
-          customField: {
-            primary_challenge: data.primaryChallenge,
+    // Build payload
+    const payload = {
+      locationId: GHL_LOCATION_ID,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      phone: data.phone,
+      source: "Dipriva High-Fidelity Web Portal",
+      tags: [
+        "Lead",
+        "High-End UX",
+        "2026_Campaign",
+        data.preferredLanguage === "es" ? "Spanish" : "English",
+      ],
+    };
 
-            brand_interest: "Dipriva Consulting Group",
-          },
-        },
-        source: "Dipriva High-Fidelity Web Portal",
-        tags: ["Lead", "High-End UX", "2026_Campaign", ...(data.preferredLanguage === 'es' ? ["Spanish"] : ["English"])],
-      };
+    console.log("[GHL] Payload:", JSON.stringify(payload, null, 2));
 
+    // Make request
+    console.log("[GHL] Sending POST to:", GHL_API_ENDPOINT);
     const response = await fetch(GHL_API_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${ENV.ghlPitToken}`,
+        Version: GHL_API_VERSION,
       },
       body: JSON.stringify(payload),
     });
 
+    console.log("[GHL] Response status:", response.status);
+
+    // Handle response
+    const responseText = await response.text();
+    console.log("[GHL] Response body:", responseText);
+
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error("[GHL] API error:", errorData);
+      try {
+        const errorData = JSON.parse(responseText);
+        console.error("[GHL] ❌ API Error:", errorData);
+      } catch {
+        console.error("[GHL] ❌ API Error (non-JSON):", responseText);
+      }
       return null;
     }
 
-    const result = await response.json();
-    return result.contact?.id || null;
+    // Parse success response
+    const result = JSON.parse(responseText);
+    console.log("[GHL] Full response:", JSON.stringify(result, null, 2));
+
+    // Extract contact ID
+    const contactId = result?.contact?.id;
+    if (contactId) {
+      console.log("[GHL] ✅ SUCCESS! Contact ID:", contactId);
+      return contactId;
+    } else {
+      console.error("[GHL] ❌ ERROR: No contact ID in response");
+      return null;
+    }
   } catch (error) {
-    console.error("[GHL] Submission failed:", error);
+    console.error("[GHL] ❌ Exception:", error);
     return null;
   }
 }
@@ -91,34 +126,52 @@ export const appRouter = router({
         })
       )
       .mutation(async ({ input }) => {
+        console.log("[LEADS] ========== FORM SUBMISSION ==========");
+        console.log("[LEADS] Input:", {
+          firstName: input.firstName,
+          email: input.email,
+          language: input.preferredLanguage,
+        });
+
         try {
-          // Create lead in database first (Supabase fallback)
+          // Step 1: Create lead in database
+          console.log("[LEADS] Step 1: Creating lead in database...");
           const leadResult = await createLead({
             firstName: input.firstName,
             lastName: input.lastName,
             email: input.email,
             phone: input.phone,
             primaryChallenge: input.primaryChallenge,
-            preferredLanguage: input.preferredLanguage || 'en',
+            preferredLanguage: input.preferredLanguage || "en",
             ghlStatus: "pending",
           });
 
           const leadId = (leadResult as any).insertId || 0;
+          console.log("[LEADS] ✅ Lead created with ID:", leadId);
 
-          // Attempt GHL submission
+          // Step 2: Submit to GHL
+          console.log("[LEADS] Step 2: Submitting to GHL...");
           const ghlContactId = await submitToGHL({
-            ...input,
-            preferredLanguage: input.preferredLanguage || 'en',
+            firstName: input.firstName,
+            lastName: input.lastName,
+            email: input.email,
+            phone: input.phone,
+            primaryChallenge: input.primaryChallenge,
+            preferredLanguage: input.preferredLanguage || "en",
           });
 
-          // Update lead with GHL status
+          // Step 3: Update lead with GHL status
+          console.log("[LEADS] Step 3: Updating lead status...");
           if (ghlContactId && leadId) {
+            console.log("[LEADS] ✅ GHL submission successful, updating lead...");
             await updateLeadGhlStatus(leadId, ghlContactId, "success");
           } else if (leadId) {
+            console.log("[LEADS] ⚠️  GHL submission failed, marking as fallback...");
             await updateLeadGhlStatus(leadId, "", "fallback");
           }
 
-          return {
+          // Step 4: Return response
+          const response = {
             success: true,
             leadId,
             ghlContactId: ghlContactId || null,
@@ -126,8 +179,11 @@ export const appRouter = router({
               ? "Lead submitted successfully to GHL"
               : "Lead saved locally (GHL submission failed)",
           };
+
+          console.log("[LEADS] ✅ FINAL RESPONSE:", response);
+          return response;
         } catch (error) {
-          console.error("[Leads] Form submission error:", error);
+          console.error("[LEADS] ❌ Form submission error:", error);
           throw new Error("Failed to process form submission");
         }
       }),

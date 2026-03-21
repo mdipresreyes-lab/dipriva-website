@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+'use client';
+
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,7 +10,7 @@ import { trpc } from '@/lib/trpc';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { t } from '@/i18n/translations';
 
-type FormStep = 'firstName' | 'lastName' | 'email' | 'phone' | 'challenge' | 'success' | 'error';
+type FormStep = 'firstName' | 'lastName' | 'email' | 'phone' | 'challenge';
 
 interface FormData {
   firstName: string;
@@ -40,7 +42,6 @@ export default function LeadCaptureForm() {
     phone: '',
     challenge: '',
   });
-  const [honeypot, setHoneypot] = useState(''); // Honeypot field for spam protection
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -48,11 +49,18 @@ export default function LeadCaptureForm() {
   const currentStep = formSteps[currentStepIndex];
   const isLastStep = currentStepIndex === formSteps.length - 1;
 
+  // Create mutation WITHOUT callbacks - we'll handle response manually
+  const submitMutation = trpc.leads.submitForm.useMutation();
+
   const handleInputChange = (value: string) => {
     setFormData((prev) => ({
       ...prev,
       [currentStep.step]: value,
     }));
+  };
+
+  const isValidEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
   const handleNext = async () => {
@@ -79,57 +87,44 @@ export default function LeadCaptureForm() {
     }
   };
 
-  const submitMutation = trpc.leads.submitForm.useMutation();
-
-  useEffect(() => {
-    if (submitMutation.isSuccess) {
-      setStatus('success');
-      setCurrentStepIndex(0);
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        challenge: '',
-      });
-    }
-  }, [submitMutation.isSuccess]);
-
-  useEffect(() => {
-    if (submitMutation.isError) {
-      setStatus('error');
-      setErrorMessage('Failed to submit form. Please try again.');
-    }
-  }, [submitMutation.isError]);
-
   const submitForm = async () => {
-    // Honeypot spam protection: if honeypot field is filled, silently reject
-    if (honeypot.trim()) {
-      setStatus('success');
-      setCurrentStepIndex(0);
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        challenge: '',
-      });
-      setHoneypot('');
-      return;
-    }
+    console.log('[Form] submitForm called with data:', formData);
+    setStatus('loading');
+    setErrorMessage('');
 
-    setStatus('loading' as const);
     try {
-      await submitMutation.mutateAsync({
+      // Make the API call directly
+      console.log('[Form] Calling mutateAsync...');
+      const response = await submitMutation.mutateAsync({
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
         phone: formData.phone,
         primaryChallenge: formData.challenge,
-        preferredLanguage: language,
+        preferredLanguage: language as 'en' | 'es',
       });
-    } catch (error) {
-      console.error('Form submission error:', error);
+
+      // Check the response
+      console.log('[Form] Response received:', response);
+      if (response && response.success) {
+        console.log('[Form] Success! Setting status to success');
+        setStatus('success');
+        // Reset form after success
+        setCurrentStepIndex(0);
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          challenge: '',
+        });
+      } else {
+        setStatus('error');
+        setErrorMessage(response?.message || 'Failed to submit form. Please try again.');
+      }
+    } catch (error: any) {
+      setStatus('error');
+      setErrorMessage(error?.message || 'An error occurred. Please try again.');
     }
   };
 
@@ -147,8 +142,18 @@ export default function LeadCaptureForm() {
     }
   };
 
-  const isValidEmail = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const handleResetForm = () => {
+    setStatus('idle');
+    setCurrentStepIndex(0);
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      challenge: '',
+    });
+    setErrorMessage('');
+    submitMutation.reset();
   };
 
   return (
@@ -173,18 +178,6 @@ export default function LeadCaptureForm() {
           </p>
         </motion.div>
 
-        {/* Honeypot field - hidden from users */}
-        <input
-          type="text"
-          name="website"
-          value={honeypot}
-          onChange={(e) => setHoneypot(e.target.value)}
-          style={{ display: 'none' }}
-          tabIndex={-1}
-          autoComplete="off"
-          aria-hidden="true"
-        />
-
         {/* Form Container */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -193,8 +186,8 @@ export default function LeadCaptureForm() {
           viewport={{ once: true }}
           className="relative rounded-glass border border-silver/20 backdrop-blur-md bg-charcoal/40 p-8 sm:p-12 shadow-glass"
         >
-          {/* Success State */}
           <AnimatePresence mode="wait">
+            {/* Success State */}
             {status === 'success' && (
               <motion.div
                 key="success"
@@ -211,7 +204,7 @@ export default function LeadCaptureForm() {
                   {t('form.successMessage', language)}
                 </p>
                 <Button
-                  onClick={() => setStatus('idle')}
+                  onClick={handleResetForm}
                   className="px-6 py-2 bg-gold text-obsidian font-semibold hover:bg-gold/90"
                 >
                   {t('form.submitAnother', language)}
@@ -232,12 +225,11 @@ export default function LeadCaptureForm() {
                 <h3 className="text-2xl font-playfair font-bold text-silver mb-2" role="heading" aria-level={3}>
                   {t('form.error', language)}
                 </h3>
-                <p className="text-silver/60 text-center mb-6">{errorMessage}</p>
+                <p className="text-silver/60 text-center mb-6">
+                  {errorMessage || 'Something went wrong. Please try again.'}
+                </p>
                 <Button
-                  onClick={() => {
-                    setStatus('idle');
-                    setCurrentStepIndex(0);
-                  }}
+                  onClick={handleResetForm}
                   className="px-6 py-2 bg-gold text-obsidian font-semibold hover:bg-gold/90"
                 >
                   {t('form.tryAgain', language)}
@@ -246,15 +238,47 @@ export default function LeadCaptureForm() {
             )}
 
             {/* Form Steps */}
-            {(status === 'idle' as any) && (
+            {status !== 'success' && status !== 'error' && (
               <motion.div
-                key={`step-${currentStepIndex}`}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
+                key="form"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Progress indicator */}
+                <div className="mb-8">
+                  <label className="block text-silver/80 text-sm font-medium mb-3">
+                    {currentStep.label}
+                  </label>
+
+                  {currentStep.step === 'challenge' ? (
+                    <Textarea
+                      value={formData[currentStep.step as keyof FormData]}
+                      onChange={(e) => handleInputChange(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      placeholder={currentStep.placeholder}
+                      className="w-full bg-obsidian/50 border border-silver/20 text-silver placeholder:text-silver/40 rounded-lg focus:border-gold focus:ring-gold"
+                      rows={4}
+                      autoFocus
+                    />
+                  ) : (
+                    <Input
+                      type={currentStep.step === 'email' ? 'email' : currentStep.step === 'phone' ? 'tel' : 'text'}
+                      value={formData[currentStep.step as keyof FormData]}
+                      onChange={(e) => handleInputChange(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      placeholder={currentStep.placeholder}
+                      className="w-full bg-obsidian/50 border border-silver/20 text-silver placeholder:text-silver/40 rounded-lg focus:border-gold focus:ring-gold"
+                      autoFocus
+                    />
+                  )}
+
+                  {errorMessage && (
+                    <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
+                  )}
+                </div>
+
+                {/* Progress Bar */}
                 <div className="mb-8">
                   <div className="flex gap-1">
                     {formSteps.map((_, index) => (
@@ -266,69 +290,33 @@ export default function LeadCaptureForm() {
                       />
                     ))}
                   </div>
-                  <p className="text-sm text-silver/60 mt-2">
-                    {language === 'es' ? 'Paso' : 'Step'} {currentStepIndex + 1} of {formSteps.length}
-                  </p>
                 </div>
 
-                {/* Form field */}
-                <div className="mb-8">
-                  <label className="block text-silver font-playfair text-lg font-semibold mb-4" style={{ letterSpacing: '0.13em' }}>
-                    {currentStep.label}
-                  </label>
-
-                  {currentStep.step === 'challenge' ? (
-                    <Textarea
-                      value={formData.challenge}
-                      onChange={(e) => handleInputChange(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      placeholder={currentStep.placeholder}
-                      className="w-full bg-obsidian/50 border border-silver/20 rounded-lg text-silver placeholder:text-silver/40 focus:border-gold focus:outline-none p-4 min-h-32"
-                    />
-                  ) : (
-                    <Input
-                      type={currentStep.step === 'email' ? 'email' : 'text'}
-                      value={formData[currentStep.step as keyof FormData]}
-                      onChange={(e) => handleInputChange(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      placeholder={currentStep.placeholder}
-                      className="w-full bg-obsidian/50 border border-silver/20 rounded-lg text-silver placeholder:text-silver/40 focus:border-gold focus:outline-none p-4"
-                    />
-                  )}
-
-                  {/* Error message */}
-                  <AnimatePresence>
-                    {errorMessage && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className="text-red-500 text-sm mt-2"
-                      >
-                        {errorMessage}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                {/* Navigation buttons */}
+                {/* Buttons */}
                 <div className="flex gap-4">
-                  {currentStepIndex > 0 && (
-                    <Button
-                      onClick={handleBack}
-                      variant="outline"
-                      className="px-6 py-2 border border-silver/30 text-silver hover:bg-silver/10"
-                    >
-                      {t('form.back', language)}
-                    </Button>
-                  )}
-
+                  <Button
+                    onClick={handleBack}
+                    disabled={currentStepIndex === 0 || status === 'loading'}
+                    variant="outline"
+                    className="flex-1 border-silver/20 text-silver hover:bg-silver/10"
+                  >
+                    {t('form.back', language)}
+                  </Button>
                   <Button
                     onClick={handleNext}
-                    disabled={submitMutation.isPending}
-                    className="flex-1 px-6 py-2 bg-gold text-obsidian font-semibold hover:bg-gold/90 disabled:opacity-50"
+                    disabled={status === 'loading'}
+                    className="flex-1 bg-gold text-obsidian font-semibold hover:bg-gold/90"
                   >
-                    {submitMutation.isPending ? t('form.submitting', language) : isLastStep ? t('form.submit', language) : t('form.next', language)}
+                    {status === 'loading' ? (
+                      <>
+                        <span className="inline-block animate-spin mr-2">⏳</span>
+                        {t('form.submitting', language)}
+                      </>
+                    ) : isLastStep ? (
+                      t('form.submit', language)
+                    ) : (
+                      t('form.next', language)
+                    )}
                   </Button>
                 </div>
               </motion.div>
@@ -336,9 +324,6 @@ export default function LeadCaptureForm() {
           </AnimatePresence>
         </motion.div>
       </div>
-
-      {/* Decorative background */}
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
     </section>
   );
 }
