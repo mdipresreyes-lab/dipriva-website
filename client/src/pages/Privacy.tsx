@@ -152,6 +152,43 @@ export default function Privacy() {
             </p>
           </section>
 
+          {/* Analytics */}
+          <section>
+            <h2
+              className="text-2xl font-playfair font-bold text-silver mb-4"
+              style={{ letterSpacing: '0.13em' }}
+            >
+              {privacyData.sections.analytics.title}
+            </h2>
+            <p className="text-silver/80 mb-4" style={{ lineHeight: '1.6' }}>
+              {privacyData.sections.analytics.intro}
+            </p>
+            <p className="text-silver/80 mb-4" style={{ lineHeight: '1.6' }}>
+              {privacyData.sections.analytics.usage}
+            </p>
+            <p className="text-silver/80 mb-4" style={{ lineHeight: '1.6' }}>
+              {privacyData.sections.analytics.transfer}{' '}
+              <a href={privacyData.sections.analytics.googlePrivacy} target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold/80 transition-colors">
+                {privacyData.sections.analytics.googlePrivacy}
+              </a>
+              .
+            </p>
+            <p className="text-silver/80 mb-4" style={{ lineHeight: '1.6' }}>
+              {privacyData.sections.analytics.optOut}{' '}
+              <a href={privacyData.sections.analytics.optOutUrl} target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold/80 transition-colors">
+                {privacyData.sections.analytics.optOutUrl}
+              </a>
+              .
+            </p>
+            <p className="text-silver/80" style={{ lineHeight: '1.6' }}>
+              {privacyData.sections.analytics.remarketing}{' '}
+              <a href={privacyData.sections.analytics.naiUrl} target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold/80 transition-colors">
+                {privacyData.sections.analytics.naiUrl}
+              </a>
+              .
+            </p>
+          </section>
+
           {/* Footer CTA */}
           <div className="mt-16 pt-12 border-t border-silver/10">
             <Button

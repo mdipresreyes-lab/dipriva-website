@@ -72,3 +72,4 @@
 
 ## Phase 11: Analytics & Tracking
 - [x] Add Google Analytics (GA4) tracking code to index.html (ID: G-GBW7DQ6T7V)
+- [x] Add Analytics section to Privacy page (EN and ES) with working URLs for Google Analytics opt-out and NAI opt-out tools
