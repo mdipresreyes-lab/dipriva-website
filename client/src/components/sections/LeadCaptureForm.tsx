@@ -45,6 +45,8 @@ export default function LeadCaptureForm() {
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [consentChecked, setConsentChecked] = useState(false);
+  const [consentError, setConsentError] = useState('');
 
   const formSteps = getFormSteps(language);
   const currentStep = formSteps[currentStepIndex];
@@ -81,6 +83,11 @@ export default function LeadCaptureForm() {
     setErrorMessage('');
 
     if (isLastStep) {
+      // Validate consent before submitting
+      if (!consentChecked) {
+        setConsentError(t('form.consent.required', language));
+        return;
+      }
       // Submit form
       await submitForm();
     } else {
@@ -154,6 +161,8 @@ export default function LeadCaptureForm() {
       challenge: '',
     });
     setErrorMessage('');
+    setConsentChecked(false);
+    setConsentError('');
     submitMutation.reset();
   };
 
@@ -278,6 +287,32 @@ export default function LeadCaptureForm() {
                     <p className="text-red-500 text-sm mt-2">{errorMessage}</p>
                   )}
                 </div>
+
+                {/* Consent Checkbox - Show only on last step */}
+                {isLastStep && (
+                  <div className="mb-8 p-4 bg-charcoal/60 border border-silver/20 rounded-lg">
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="checkbox"
+                        id="consent"
+                        checked={consentChecked}
+                        onChange={(e) => {
+                          setConsentChecked(e.target.checked);
+                          if (e.target.checked) {
+                            setConsentError('');
+                          }
+                        }}
+                        className="mt-1 w-4 h-4 accent-gold cursor-pointer"
+                      />
+                      <label htmlFor="consent" className="text-silver/80 text-sm cursor-pointer flex-1" style={{ lineHeight: '1.6' }}>
+                        {t('form.consent.label', language)}
+                      </label>
+                    </div>
+                    {consentError && (
+                      <p className="text-red-500 text-sm mt-2 ml-7">{consentError}</p>
+                    )}
+                  </div>
+                )}
 
                 {/* Progress Bar */}
                 <div className="mb-8">

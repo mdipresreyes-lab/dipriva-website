@@ -88,3 +88,12 @@
 - [x] Add CTA click event tracking to Schedule Your Session button (CTASection)
 - [x] Add CTA click event tracking to Schedule Your Session button (LeadCaptureForm submit)
 - [x] Test Clarity initialization and event tracking
+
+## Phase 14: Privacy Policy & Form Consent
+- [x] Add Analytics section to translations.ts (EN and ES)
+- [x] Render Analytics section on Privacy.tsx between Data Protection and Data Deletion
+- [x] Add complete consent section to form translations (EN and ES)
+- [x] Add required consent checkbox to LeadCaptureForm
+- [x] Implement consent validation - form cannot submit without checkbox
+- [x] Add Privacy Policy link to consent checkbox label (/privacy)
+- [x] Test consent checkbox functionality and validation
