@@ -97,3 +97,4 @@
 - [x] Implement consent validation - form cannot submit without checkbox
 - [x] Add Privacy Policy link to consent checkbox label (/privacy)
 - [x] Test consent checkbox functionality and validation
+- [x] Update checkbox text to remove manuel@dipriva.com reference (EN and ES)

@@ -67,7 +67,7 @@ export const translations = {
       submitting: 'Submitting...',
       consent: {
         title: 'Communication Consent',
-        label: 'By submitting this form, I consent to Dipriva Consulting Group contacting me at the information provided to schedule a strategy session and discuss my business needs. I understand I may withdraw consent at any time by contacting manuel@dipriva.com. I have read and agree to the Privacy Policy.',
+        label: 'By submitting this form, I consent to Dipriva Consulting Group contacting me at the information provided to schedule a strategy session and discuss my business needs. I understand I may withdraw consent at any time. I have read and agree to the Privacy Policy.',
         required: 'You must accept the consent terms to submit this form.',
       },
     },
@@ -217,7 +217,7 @@ export const translations = {
       submitting: 'Enviando...',
       consent: {
         title: 'Consentimiento de Comunicación',
-        label: 'Al enviar este formulario, doy mi consentimiento a Dipriva Consulting Group para contactarme a través de la información proporcionada con el fin de agendar una sesión de estrategia y analizar mis necesidades empresariales. Entiendo que puedo retirar mi consentimiento en cualquier momento contactando a manuel@dipriva.com. He leído y acepto la Política de Privacidad.',
+        label: 'Al enviar este formulario, doy mi consentimiento a Dipriva Consulting Group para contactarme a través de la información proporcionada con el fin de agendar una sesión de estrategia y analizar mis necesidades empresariales. Entiendo que puedo retirar mi consentimiento en cualquier momento. He leído y acepto la Política de Privacidad.',
         required: 'Debes aceptar los términos de consentimiento para enviar este formulario.',
       },
     },
