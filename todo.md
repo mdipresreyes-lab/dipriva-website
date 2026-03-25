@@ -104,3 +104,8 @@
 - [x] Configure widget to load on all pages
 - [x] Verify widget appears in bottom-right corner
 - [x] Test widget functionality across different pages
+
+## Phase 16: CTA and Consent Updates
+- [x] Delete "Schedule Strategy Session" button from home page header
+- [x] Change "Schedule Your Session" to "Let's Learn About Your Needs" (EN) and "Dinos de Tu Necesidad" (ES) in contact section
+- [x] Update consent checkbox to include SMS communications (EN and ES)

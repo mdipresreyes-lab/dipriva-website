@@ -54,19 +54,7 @@ export default function HeroSection() {
           </p>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-        >
-          <Button
-            onClick={() => window.open(MS365_BOOKINGS_URL, '_blank')}
-            className="px-8 py-3 bg-gold text-obsidian font-semibold hover:bg-gold/90 transition-all rounded-lg shadow-lg hover:shadow-glow"
-          >
-            {t('hero.cta', language)}
-          </Button>
-        </motion.div>
+
       </div>
 
       {/* Scroll indicator */}
