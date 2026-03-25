@@ -226,7 +226,7 @@ export const translations = {
     cta: {
       headline: '¿Listo para construir claridad operacional?',
       subheadline: 'Dinos dónde está la fricción. Diseñaremos el camino a seguir.',
-      button: 'Dinos de Tu Necesidad',
+      button: 'Dinos de Tus Necesidades',
     },
 
     // Footer

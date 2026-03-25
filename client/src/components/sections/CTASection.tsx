@@ -24,7 +24,7 @@ export default function CTASection() {
           <p className="text-lg text-silver/80 mb-12 max-w-2xl mx-auto">
             {t('cta.subheadline', language) || 'Let\'s discuss how we can help you achieve operational clarity and sustainable growth.'}
           </p>
-          <Button
+          <button
             onClick={() => {
               try {
                 Clarity.event('cta_click');
@@ -33,10 +33,10 @@ export default function CTASection() {
               }
               navigate('/schedule');
             }}
-            className="px-8 py-3 bg-gold text-obsidian font-semibold hover:bg-gold/90 transition-all rounded-lg shadow-lg hover:shadow-glow"
+            className="text-gold font-semibold hover:text-gold/80 transition-colors underline decoration-gold hover:decoration-gold/80 cursor-pointer text-lg"
           >
             {t('cta.button', language) || 'Schedule Your Session'}
-          </Button>
+          </button>
         </motion.div>
       </div>
     </section>
