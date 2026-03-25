@@ -98,3 +98,9 @@
 - [x] Add Privacy Policy link to consent checkbox label (/privacy)
 - [x] Test consent checkbox functionality and validation
 - [x] Update checkbox text to remove manuel@dipriva.com reference (EN and ES)
+
+## Phase 15: GHL Chat Widget Integration
+- [x] Add GHL chat widget script to client/index.html
+- [x] Configure widget to load on all pages
+- [x] Verify widget appears in bottom-right corner
+- [x] Test widget functionality across different pages
