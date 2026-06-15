@@ -76,7 +76,7 @@ export const translations = {
     cta: {
       headline: 'Ready to engineer operational clarity?',
       subheadline: 'Tell us where the friction is. We will engineer the path forward.',
-      button: 'Let\'s Learn About Your Needs',
+      button: 'Schedule a Strategy Session',
     },
 
     // Footer
@@ -226,7 +226,7 @@ export const translations = {
     cta: {
       headline: '¿Listo para construir claridad operacional?',
       subheadline: 'Dinos dónde está la fricción. Diseñaremos el camino a seguir.',
-      button: 'Dinos de Tus Necesidades',
+      button: 'Agendar Sesión de Estrategia',
     },
 
     // Footer

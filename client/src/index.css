@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -43,74 +43,75 @@
 }
 
 :root {
-  --primary: oklch(0.7 0.15 50);
-  --primary-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.7 0.15 50);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --chart-1: oklch(0.7 0.15 50);
-  --chart-2: oklch(0.65 0.15 45);
-  --chart-3: oklch(0.6 0.15 40);
-  --chart-4: oklch(0.55 0.15 35);
-  --chart-5: oklch(0.5 0.15 30);
+  /* Dipriva Brand Colors */
+  --primary: #2F4059;
+  --primary-foreground: #FFFFFF;
+  --sidebar-primary: #2F4059;
+  --sidebar-primary-foreground: #FFFFFF;
+  --chart-1: #2F4059;
+  --chart-2: #3d4f66;
+  --chart-3: #4a5d73;
+  --chart-4: #576b80;
+  --chart-5: #64798d;
   --radius: 0.65rem;
-  --background: #0A0A0A;
-  --foreground: #E8E8E8;
-  --card: #1A1A1A;
-  --card-foreground: #E8E8E8;
-  --popover: #1A1A1A;
-  --popover-foreground: #E8E8E8;
-  --secondary: #2A2A2A;
-  --secondary-foreground: #D4AF37;
-  --muted: #3A3A3A;
-  --muted-foreground: #A0A0A0;
-  --accent: #D4AF37;
-  --accent-foreground: #0A0A0A;
+  --background: #F5F5DC;
+  --foreground: #2F4059;
+  --card: #FFFFFF;
+  --card-foreground: #2F4059;
+  --popover: #FFFFFF;
+  --popover-foreground: #2F4059;
+  --secondary: #2F4059;
+  --secondary-foreground: #F5F5DC;
+  --muted: #E8E8E8;
+  --muted-foreground: #666666;
+  --accent: #2F4059;
+  --accent-foreground: #F5F5DC;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: rgba(232, 232, 232, 0.1);
-  --input: rgba(232, 232, 232, 0.15);
-  --ring: #D4AF37;
-  --sidebar: #1A1A1A;
-  --sidebar-foreground: #E8E8E8;
-  --sidebar-accent: #D4AF37;
-  --sidebar-accent-foreground: #0A0A0A;
-  --sidebar-border: rgba(232, 232, 232, 0.1);
-  --sidebar-ring: #D4AF37;
+  --border: rgba(47, 64, 89, 0.15);
+  --input: rgba(47, 64, 89, 0.1);
+  --ring: #2F4059;
+  --sidebar: #2F4059;
+  --sidebar-foreground: #F5F5DC;
+  --sidebar-accent: #F5F5DC;
+  --sidebar-accent-foreground: #2F4059;
+  --sidebar-border: rgba(47, 64, 89, 0.15);
+  --sidebar-ring: #2F4059;
 }
 
 .dark {
-  --primary: oklch(0.7 0.15 50);
-  --primary-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.7 0.15 50);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --background: #0A0A0A;
-  --foreground: #E8E8E8;
-  --card: #1A1A1A;
-  --card-foreground: #E8E8E8;
-  --popover: #1A1A1A;
-  --popover-foreground: #E8E8E8;
-  --secondary: #2A2A2A;
-  --secondary-foreground: #D4AF37;
-  --muted: #3A3A3A;
-  --muted-foreground: #A0A0A0;
-  --accent: #D4AF37;
-  --accent-foreground: #0A0A0A;
+  --primary: #2F4059;
+  --primary-foreground: #FFFFFF;
+  --sidebar-primary: #2F4059;
+  --sidebar-primary-foreground: #FFFFFF;
+  --background: #F5F5DC;
+  --foreground: #2F4059;
+  --card: #FFFFFF;
+  --card-foreground: #2F4059;
+  --popover: #FFFFFF;
+  --popover-foreground: #2F4059;
+  --secondary: #2F4059;
+  --secondary-foreground: #F5F5DC;
+  --muted: #E8E8E8;
+  --muted-foreground: #666666;
+  --accent: #2F4059;
+  --accent-foreground: #F5F5DC;
   --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: rgba(232, 232, 232, 0.1);
-  --input: rgba(232, 232, 232, 0.15);
-  --ring: #D4AF37;
-  --chart-1: oklch(0.7 0.15 50);
-  --chart-2: oklch(0.65 0.15 45);
-  --chart-3: oklch(0.6 0.15 40);
-  --chart-4: oklch(0.55 0.15 35);
-  --chart-5: oklch(0.5 0.15 30);
-  --sidebar: #1A1A1A;
-  --sidebar-foreground: #E8E8E8;
-  --sidebar-accent: #D4AF37;
-  --sidebar-accent-foreground: #0A0A0A;
-  --sidebar-border: rgba(232, 232, 232, 0.1);
-  --sidebar-ring: #D4AF37;
+  --border: rgba(47, 64, 89, 0.15);
+  --input: rgba(47, 64, 89, 0.1);
+  --ring: #2F4059;
+  --chart-1: #2F4059;
+  --chart-2: #3d4f66;
+  --chart-3: #4a5d73;
+  --chart-4: #576b80;
+  --chart-5: #64798d;
+  --sidebar: #2F4059;
+  --sidebar-foreground: #F5F5DC;
+  --sidebar-accent: #F5F5DC;
+  --sidebar-accent-foreground: #2F4059;
+  --sidebar-border: rgba(47, 64, 89, 0.15);
+  --sidebar-ring: #2F4059;
 }
 
 @layer base {
@@ -125,6 +126,8 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
     letter-spacing: 0.13em;
+    font-weight: 700;
+    color: #2F4059;
   }
   p {
     line-height: 1.6;
@@ -184,30 +187,31 @@
     }
   }
 
-  /* Luxury refinement: Enhanced spacing and typography */
+  /* Dipriva Brand Styling */
   .section-luxury {
     padding-top: 8rem;
     padding-bottom: 8rem;
+    background-color: #F5F5DC;
   }
 
   .heading-luxury {
     font-family: 'Playfair Display', serif;
-    font-weight: bold;
+    font-weight: 700;
     letter-spacing: 0.18em;
-    color: #E8E8E8;
+    color: #2F4059;
   }
 
   .text-luxury {
-    color: rgba(232, 232, 232, 0.8);
+    color: #2F4059;
     line-height: 1.6;
   }
 
   .card-glass {
     border-radius: 24px;
-    border: 1px solid rgba(232, 232, 232, 0.2);
+    border: 1px solid rgba(47, 64, 89, 0.15);
     backdrop-filter: blur(10px);
-    background-color: rgba(26, 26, 26, 0.4);
-    box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
+    background-color: #FFFFFF;
+    box-shadow: 0 8px 32px 0 rgba(47, 64, 89, 0.08);
   }
 
   .card-glass-hover {
@@ -215,7 +219,7 @@
   }
 
   .card-glass-hover:hover {
-    border-color: rgba(212, 175, 55, 0.5);
-    box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.15), 0 0 20px rgba(212, 175, 55, 0.2);
+    border-color: rgba(47, 64, 89, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(47, 64, 89, 0.15);
   }
 }
