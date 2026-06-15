@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -40,10 +41,11 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --font-playfair: 'Playfair Display', serif;
 }
 
 :root {
-  /* Dipriva Brand Colors */
+  /* Dipriva Brand: Deep Slate Charcoal + Warm Sand Beige */
   --primary: #2F4059;
   --primary-foreground: #FFFFFF;
   --sidebar-primary: #2F4059;
@@ -60,16 +62,16 @@
   --card-foreground: #2F4059;
   --popover: #FFFFFF;
   --popover-foreground: #2F4059;
-  --secondary: #2F4059;
-  --secondary-foreground: #F5F5DC;
-  --muted: #E8E8E8;
-  --muted-foreground: #666666;
+  --secondary: #E8E4D9;
+  --secondary-foreground: #2F4059;
+  --muted: #E8E4D9;
+  --muted-foreground: #5A6B7A;
   --accent: #2F4059;
   --accent-foreground: #F5F5DC;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
   --border: rgba(47, 64, 89, 0.15);
-  --input: rgba(47, 64, 89, 0.1);
+  --input: rgba(47, 64, 89, 0.12);
   --ring: #2F4059;
   --sidebar: #2F4059;
   --sidebar-foreground: #F5F5DC;
@@ -90,16 +92,16 @@
   --card-foreground: #2F4059;
   --popover: #FFFFFF;
   --popover-foreground: #2F4059;
-  --secondary: #2F4059;
-  --secondary-foreground: #F5F5DC;
-  --muted: #E8E8E8;
-  --muted-foreground: #666666;
+  --secondary: #E8E4D9;
+  --secondary-foreground: #2F4059;
+  --muted: #E8E4D9;
+  --muted-foreground: #5A6B7A;
   --accent: #2F4059;
   --accent-foreground: #F5F5DC;
   --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: oklch(0.985 0 0);
   --border: rgba(47, 64, 89, 0.15);
-  --input: rgba(47, 64, 89, 0.1);
+  --input: rgba(47, 64, 89, 0.12);
   --ring: #2F4059;
   --chart-1: #2F4059;
   --chart-2: #3d4f66;
@@ -125,12 +127,13 @@
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
-    letter-spacing: 0.13em;
+    letter-spacing: 0.05em;
     font-weight: 700;
     color: #2F4059;
   }
   p {
-    line-height: 1.6;
+    line-height: 1.7;
+    color: #3D5068;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -146,24 +149,11 @@
 }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
   .container {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
+    padding-left: 1rem;
     padding-right: 1rem;
   }
 
@@ -174,52 +164,16 @@
 
   @media (min-width: 640px) {
     .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
+      padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
   }
 
   @media (min-width: 1024px) {
     .container {
-      padding-left: 2rem; /* 32px - desktop padding */
+      padding-left: 2rem;
       padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
+      max-width: 1280px;
     }
-  }
-
-  /* Dipriva Brand Styling */
-  .section-luxury {
-    padding-top: 8rem;
-    padding-bottom: 8rem;
-    background-color: #F5F5DC;
-  }
-
-  .heading-luxury {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    color: #2F4059;
-  }
-
-  .text-luxury {
-    color: #2F4059;
-    line-height: 1.6;
-  }
-
-  .card-glass {
-    border-radius: 24px;
-    border: 1px solid rgba(47, 64, 89, 0.15);
-    backdrop-filter: blur(10px);
-    background-color: #FFFFFF;
-    box-shadow: 0 8px 32px 0 rgba(47, 64, 89, 0.08);
-  }
-
-  .card-glass-hover {
-    transition: all 300ms;
-  }
-
-  .card-glass-hover:hover {
-    border-color: rgba(47, 64, 89, 0.3);
-    box-shadow: 0 8px 32px 0 rgba(47, 64, 89, 0.15);
   }
 }
