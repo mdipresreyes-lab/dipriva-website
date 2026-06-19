@@ -39,9 +39,9 @@ export default function Home() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center">
-          <div className="text-xl sm:text-2xl font-playfair font-bold tracking-luxury text-silver">
+          <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="text-xl sm:text-2xl font-playfair font-bold tracking-luxury text-silver hover:text-gold transition-colors cursor-pointer">
             Dipriva
-          </div>
+          </a>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex gap-8 items-center text-sm md:text-base">

@@ -125,7 +125,7 @@ export default function HeroSection() {
                   {/* Stats or features */}
                   <div className="grid grid-cols-2 gap-4 pt-4 border-t border-primary/10">
                     <div>
-                      <div className="text-3xl font-playfair font-bold text-primary">500+</div>
+                      <div className="text-3xl font-playfair font-bold text-primary">150+</div>
                       <div className="text-sm text-foreground/60">
                         {language === 'en' ? 'Executives Served' : 'Ejecutivos Atendidos'}
                       </div>

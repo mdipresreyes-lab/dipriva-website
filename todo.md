@@ -131,3 +131,8 @@
 - [x] Update index.html meta tags with new OG image URL
 - [x] Update favicon and apple-touch-icon references
 - [x] Update Twitter card image references
+
+## Phase 20: Homepage Fixes
+- [x] Make Dipriva logo a live link that returns visitors to top of homepage
+- [x] Change "500+ Executives Served" to "150+" in hero section and about section
+- [x] Replace "Learn More" buttons in Services cards with live link to Contact page: "Contact us to learn what this means for your business"

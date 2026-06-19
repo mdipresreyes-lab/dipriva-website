@@ -65,7 +65,7 @@ export default function AboutSection() {
                 },
                 {
                   label: language === 'en' ? 'Clients' : 'Clientes',
-                  value: language === 'en' ? '500+' : '500+',
+                  value: language === 'en' ? '150+' : '150+',
                   detail: language === 'en' ? 'Executives transformed' : 'Ejecutivos transformados',
                 },
               ].map((item, index) => (
