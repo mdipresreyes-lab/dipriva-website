@@ -6,6 +6,7 @@ Allow: /
 Disallow: /admin
 Disallow: /.env
 Disallow: /node_modules
+Disallow: /client_form
 
 # Sitemap location
 Sitemap: https://www.dipriva.com/sitemap.xml

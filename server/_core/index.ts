@@ -27,6 +27,12 @@ async function startServer() {
     })
   );
   
+  // Prevent /client_form from being indexed by search engines (server-side)
+  app.use('/client_form', (_req, res, next) => {
+    res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+    next();
+  });
+
   // development mode uses Vite, production mode uses static files
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
@@ -38,7 +44,6 @@ async function startServer() {
   const PORT = 3000;
   console.log(`[SERVER] Starting server on port ${PORT}...`);
   console.log(`[SERVER] NODE_ENV: ${process.env.NODE_ENV}`);
-  console.log(`[SERVER] GHL_PIT_TOKEN configured: ${process.env.GHL_PIT_TOKEN ? 'YES' : 'NO'}`);
 
   server.listen(PORT, () => {
     console.log(`[SERVER] ✅ Server running on http://localhost:${PORT}/`);

@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, InsertLead, leads } from "../drizzle/schema";
+import { InsertUser, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -87,35 +87,4 @@ export async function getUserByOpenId(openId: string) {
   const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
 
   return result.length > 0 ? result[0] : undefined;
-}
-
-export async function createLead(lead: InsertLead) {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("[Database] Cannot create lead: database not available");
-  }
-
-  try {
-    const result = await db.insert(leads).values(lead);
-    return result;
-  } catch (error) {
-    console.error("[Database] Failed to create lead:", error);
-    throw error;
-  }
-}
-
-export async function updateLeadGhlStatus(leadId: number, ghlContactId: string, status: string) {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("[Database] Cannot update lead: database not available");
-  }
-
-  try {
-    await db.update(leads)
-      .set({ ghlContactId, ghlStatus: status })
-      .where(eq(leads.id, leadId));
-  } catch (error) {
-    console.error("[Database] Failed to update lead:", error);
-    throw error;
-  }
 }

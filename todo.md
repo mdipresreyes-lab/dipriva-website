@@ -136,3 +136,23 @@
 - [x] Make Dipriva logo a live link that returns visitors to top of homepage
 - [x] Change "500+ Executives Served" to "150+" in hero section and about section
 - [x] Replace "Learn More" buttons in Services cards with live link to Contact page: "Contact us to learn what this means for your business"
+
+## Phase 21: GHL CRM Removal & MS Forms Migration
+
+- [x] Replace custom LeadCaptureForm on /schedule with MS Forms iframe (JSX-safe)
+- [x] Add Lead Capture consent text below iframe (EN/ES bilingual)
+- [x] Create /client_form page with branded wrapper and Client Intake MS Form iframe
+- [x] Add Client Intake consent text below iframe (EN/ES bilingual)
+- [x] Add noindex meta tag to /client_form (not in nav, not in sitemap)
+- [x] Register /client_form route in App.tsx
+- [x] Remove GHL API call (POST to leadconnectorhq.com) from server/routers.ts
+- [x] Remove leads.submit tRPC procedure entirely
+- [x] Remove GHL_PIT_TOKEN from env schema and secrets
+- [x] Delete LeadCaptureForm.tsx component file
+- [x] Delete old form translations from translations.ts
+- [x] Grep broadly for leads. references and remove all callers/dependencies
+- [x] Rewrite Privacy Policy page with new EN/ES copy (all sections updated)
+- [x] Ensure all Privacy Policy URLs are clickable links
+- [x] Keep GHL chat widget untouched (widget ID 67fda9c8047126869aaaac64)
+- [x] Verify build compiles with zero errors
+- [x] Run tests and confirm no regressions

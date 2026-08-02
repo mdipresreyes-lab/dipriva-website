@@ -2,18 +2,19 @@
 
 ## Project Overview
 
-A luxury consulting landing page built with React 19, Tailwind CSS 4, Express 4, and tRPC 11. Features dark mode aesthetic with obsidian background, silver/gold accents, 3D abstract textures, and integrated lead capture with GoHighLevel (GHL) API.
+A luxury consulting landing page built with React 19, Tailwind CSS 4, Express 4, and tRPC 11. Features dark mode aesthetic with obsidian background, silver/gold accents, 3D abstract textures, and embedded Microsoft Forms for lead capture and client intake.
 
-**Live Dev Server:** https://3000-i4qe4xq1krivh1u24i815-b4d0ac40.us1.manus.computer
+**Live Domain:** https://www.dipriva.com
 
 ## Architecture
 
 ### Tech Stack
 - **Frontend:** React 19, Tailwind CSS 4, Framer Motion, shadcn/ui
 - **Backend:** Express 4, tRPC 11, Drizzle ORM
-- **Database:** MySQL (via Manus)
+- **Database:** MySQL (via Manus) — users table only
 - **Authentication:** Manus OAuth
-- **Lead Integration:** GoHighLevel API (v2/contacts)
+- **Forms:** Microsoft Forms (embedded via iframe)
+- **Chat Widget:** GoHighLevel chat widget (widget ID: 67fda9c8047126869aaaac64)
 - **Deployment:** Manus Hosting (built-in)
 
 ### Key Features Implemented
@@ -28,16 +29,20 @@ A luxury consulting landing page built with React 19, Tailwind CSS 4, Express 4,
    - Hero Section: 3D abstract texture background, headline, CTA button
    - Services Section: Bento Grid with three glassmorphism cards
    - About Section: Brand credibility and expertise messaging
-   - Lead Capture Form: Progressive single-field-at-a-time UX
    - Footer: Company info and navigation links
 
-3. **Form & API Integration**
-   - Dual submission: GHL primary, database fallback
-   - Zod validation
-   - Error handling with user-friendly messages
-   - Form state tracking (idle, loading, success, error)
+3. **Forms (Microsoft Forms embedded)**
+   - `/schedule` — Lead Capture form (public, replaces old custom form)
+   - `/client_form` — Client Intake form (private, noindex, direct-link only)
+   - Both forms have bilingual consent text (EN/ES)
+   - Data flows directly into Microsoft 365 (Forms → Excel in OneDrive)
 
-4. **Animations**
+4. **Chat Widget**
+   - GHL chat widget retained for live chat capability
+   - Widget ID: 67fda9c8047126869aaaac64
+   - Loaded from widgets.leadconnectorhq.com
+
+5. **Animations**
    - Framer Motion scroll-triggered animations
    - Card lift effects on scroll entry
    - Smooth transitions and micro-interactions
@@ -47,7 +52,6 @@ A luxury consulting landing page built with React 19, Tailwind CSS 4, Express 4,
 Required secrets (set via `webdev_request_secrets`):
 
 ```
-GHL_PIT_TOKEN=your-ghl-pit-token
 VITE_APP_TITLE=Dipriva Consulting Group
 VITE_APP_LOGO=https://your-logo-url.com/logo.png
 ```
@@ -60,52 +64,37 @@ Pre-configured system variables:
 - `BUILT_IN_FORGE_API_KEY` - Manus API key
 - `BUILT_IN_FORGE_API_URL` - Manus API endpoint
 
+**Retired (no longer needed):**
+- ~~`GHL_PIT_TOKEN`~~ — GHL CRM integration removed August 2026
+
 ## Database Schema
 
-### Leads Table
+### Users Table (only active table)
 ```sql
-CREATE TABLE `leads` (
+CREATE TABLE `users` (
   `id` int AUTO_INCREMENT PRIMARY KEY,
-  `firstName` varchar(100) NOT NULL,
-  `lastName` varchar(100) NOT NULL,
-  `email` varchar(320) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `primaryChallenge` text NOT NULL,
-  `ghlContactId` varchar(255),
-  `ghlStatus` varchar(50) DEFAULT 'pending',
-  `submittedAt` timestamp DEFAULT now(),
-  `createdAt` timestamp DEFAULT now()
+  `openId` varchar(64) NOT NULL UNIQUE,
+  `name` text,
+  `email` varchar(320),
+  `loginMethod` varchar(64),
+  `role` enum('user','admin') DEFAULT 'user' NOT NULL,
+  `createdAt` timestamp DEFAULT now() NOT NULL,
+  `updatedAt` timestamp DEFAULT now() ON UPDATE now() NOT NULL,
+  `lastSignedIn` timestamp DEFAULT now() NOT NULL
 );
 ```
 
-## API Integration
+### Leads Table (dormant — no longer written to)
+The `leads` table still exists in the database but is no longer used. New leads flow through Microsoft Forms directly into the owner's Microsoft 365 environment. The table can be dropped at any time without affecting site functionality.
 
-### GHL Contact Submission
-**Endpoint:** `POST https://rest.gohighlevel.com/v2/contacts`
+## Routes
 
-**Payload Structure:**
-```json
-{
-  "locationId": "sAdThi71k3Nkr8LGM8P9",
-  "contact": {
-    "firstName": "string",
-    "lastName": "string",
-    "email": "string",
-    "phone": "string",
-    "customField": {
-      "primary_challenge": "string",
-      "brand_interest": "Dipriva Consulting Group"
-    }
-  },
-  "source": "Dipriva High-Fidelity Web Portal",
-  "tags": ["Lead", "High-End UX", "2026_Campaign"]
-}
-```
-
-**Error Handling:**
-- If GHL submission fails, lead is saved to database with `ghlStatus: 'fallback'`
-- User receives success message regardless (graceful degradation)
-- Server logs all API errors for debugging
+| Route | Purpose | Indexed |
+|-------|---------|---------|
+| `/` | Homepage | Yes |
+| `/schedule` | Lead Capture (MS Form embed) | Yes |
+| `/client_form` | Client Intake (MS Form embed) | No (noindex via X-Robots-Tag + meta + robots.txt) |
+| `/privacy` | Privacy Policy | Yes |
 
 ## Deployment Instructions
 
@@ -124,13 +113,6 @@ CREATE TABLE `leads` (
 3. Update DNS records as instructed
 4. SSL certificate auto-provisioned
 
-### Option 3: External Hosting (Vercel, Railway, etc.)
-1. Export project code via GitHub integration
-2. Push to your repository
-3. Connect to hosting platform
-4. Set environment variables in platform dashboard
-5. Deploy via platform's CI/CD
-
 ## Testing Checklist
 
 - [x] Page renders without CSS errors
@@ -138,13 +120,15 @@ CREATE TABLE `leads` (
 - [x] Playfair Display font loads and renders
 - [x] Hero section displays with texture background
 - [x] Services cards visible with glassmorphism effects
-- [x] Form validation works correctly
-- [x] GHL API integration tested
-- [x] Database fallback functional
+- [x] MS Forms iframes load on /schedule and /client_form
+- [x] Consent text displays in both EN and ES
+- [x] /client_form has noindex (X-Robots-Tag header + meta override)
+- [x] GHL chat widget still loads
 - [x] Mobile responsiveness verified
 - [x] All animations smooth and performant
 - [x] TypeScript compilation passes
-- [x] All vitest tests passing (5/5)
+- [x] All vitest tests passing
+- [x] Privacy Policy renders new content in EN/ES
 
 ## Performance Metrics
 
@@ -160,17 +144,12 @@ CREATE TABLE `leads` (
 - Browser console: `.manus-logs/browserConsole.log`
 - Network requests: `.manus-logs/networkRequests.log`
 
-### Database Monitoring
-- Access via Management UI → Database panel
-- View leads table: All form submissions stored
-- Monitor GHL sync status via `ghlStatus` field
-
 ### Common Issues & Solutions
 
-**Issue:** Form submissions not reaching GHL
-- **Solution:** Verify GHL_PIT_TOKEN is set correctly
-- Check GHL Location ID: `sAdThi71k3Nkr8LGM8P9`
-- Review server logs for API errors
+**Issue:** MS Forms iframe not loading
+- **Solution:** Verify the form is published and the embed URL is correct
+- Check browser console for CSP or mixed-content errors
+- Ensure the MS Form has not been deleted or moved
 
 **Issue:** Styles not loading correctly
 - **Solution:** Clear browser cache and restart dev server
@@ -182,45 +161,23 @@ CREATE TABLE `leads` (
 - Check MySQL connection from Management UI
 - Ensure database user has correct permissions
 
-## Future Enhancements
-
-1. **Email Notifications**
-   - Send confirmation email to leads
-   - Admin notification on new submission
-   - Integrate with email service (SendGrid, Mailgun)
-
-2. **Advanced Analytics**
-   - Track form completion rates
-   - Monitor GHL sync success rates
-   - Heatmaps and user journey tracking
-
-3. **Dynamic Content**
-   - CMS integration for service descriptions
-   - Blog section for thought leadership
-   - Case study showcase
-
-4. **Lead Scoring**
-   - Automatic lead qualification
-   - Priority routing based on challenge type
-   - Integration with CRM workflows
-
-## Support & Documentation
-
-- **Manus Help Center:** https://help.manus.im
-- **Project README:** See root `README.md`
-- **API Documentation:** See `server/routers.ts` for tRPC procedures
-- **Component Library:** Check `client/src/components/` for reusable UI
-
 ## Version History
 
-- **v1.0.0** (Current): Initial launch with full feature set
+- **v2.0.0** (Current): GHL CRM removed, MS Forms migration
+  - Replaced custom lead capture form with MS Forms iframe
+  - Created /client_form page for client intake (private, noindex)
+  - Removed GHL API integration and leads.submit procedure
+  - Rewrote Privacy Policy with new EN/ES content
+  - Cleaned up orphaned code (LeadCaptureForm, form translations, ghl.test.ts)
+  - Retained GHL chat widget
+
+- **v1.0.0**: Initial launch with full feature set
   - Dark mode luxury aesthetic
-  - GHL API integration
-  - Lead capture form
+  - GHL API integration (now retired)
+  - Lead capture form (now replaced)
   - Framer Motion animations
   - Responsive design
 
 ---
 
-**Last Updated:** March 20, 2026
-**Checkpoint Version:** 69e88611
+**Last Updated:** August 2, 2026
