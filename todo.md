@@ -156,3 +156,7 @@
 - [x] Keep GHL chat widget untouched (widget ID 67fda9c8047126869aaaac64)
 - [x] Verify build compiles with zero errors
 - [x] Run tests and confirm no regressions
+
+## Phase 22: GitHub Source Export
+
+- [ ] Export the complete Dipriva website codebase and project documentation to GitHub
