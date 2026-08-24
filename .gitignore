@@ -7,6 +7,10 @@ dist/
 build/
 *.dist
 
+# Manus tooling (no longer used for deployment)
+.manus/
+.manus-logs/
+
 # Environment variables
 .env
 .env.local
