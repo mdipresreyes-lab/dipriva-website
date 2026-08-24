@@ -35,6 +35,18 @@ jobs:
 
       - run: cp dist/public/index.html dist/public/404.html
 
+      # /client_form is a private, direct-link-only page. GitHub Pages can't set
+      # a per-path X-Robots-Tag header, so give it its own static file with
+      # noindex baked into the raw HTML instead of relying solely on the
+      # client-side meta-tag override in ClientForm.tsx. This file lives one
+      # directory deeper than index.html, so relative asset paths need an
+      # extra "../" to still resolve.
+      - run: |
+          mkdir -p dist/public/client_form
+          sed -e 's/content="index, follow"/content="noindex, nofollow"/' \
+              -e 's#"\./#"../#g' \
+              dist/public/index.html > dist/public/client_form/index.html
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
