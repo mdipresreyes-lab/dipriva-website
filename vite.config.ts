@@ -7,6 +7,10 @@ const plugins = [react(), tailwindcss()];
 
 export default defineConfig({
   plugins,
+  // Relative so the build works both at the temporary
+  // mdipresreyes-lab.github.io/dipriva-website/ URL and at the
+  // custom domain root once DNS points here.
+  base: "./",
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
