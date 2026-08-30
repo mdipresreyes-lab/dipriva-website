@@ -9,6 +9,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { CookieConsentBanner } from "./components/CookieConsentBanner";
+import { LeaChat } from "./components/LeaChat";
 import Home from "./pages/Home";
 
 function Router() {
@@ -43,6 +44,7 @@ function App() {
             <Toaster />
             <Router />
             <CookieConsentBanner />
+            <LeaChat />
           </TooltipProvider>
         </ThemeProvider>
       </LanguageProvider>

@@ -71,6 +71,19 @@ export const translations = {
       reject: 'Reject',
       accept: 'Accept',
     },
+
+    // Lea Chat Widget
+    chat: {
+      openLabel: 'Chat with Lea',
+      closeLabel: 'Close chat',
+      headerTitle: 'Lea',
+      headerSubtitle: 'Executive Liaison, Dipriva Consulting Group',
+      greeting: 'Welcome to Dipriva Consulting Group. I am Lea, the Executive Liaison. We engineer operational clarity for executives and business owners. What brings you here today?',
+      placeholder: 'Type a message…',
+      sendLabel: 'Send',
+      thinking: 'Lea is typing…',
+      errorFallback: "I'm unable to continue this conversation right now. Please email manuel@dipriva.com directly.",
+    },
   },
 
   es: {
@@ -144,6 +157,19 @@ export const translations = {
       message: 'Usamos Google Analytics y Microsoft Clarity para entender cómo interactúas con nuestro sitio. Estas herramientas nos ayudan a mejorar tu experiencia. Tu consentimiento es opcional y puede ser retirado en cualquier momento.',
       reject: 'Rechazar',
       accept: 'Aceptar',
+    },
+
+    // Lea Chat Widget
+    chat: {
+      openLabel: 'Chatear con Lea',
+      closeLabel: 'Cerrar chat',
+      headerTitle: 'Lea',
+      headerSubtitle: 'Enlace Ejecutivo, Dipriva Consulting Group',
+      greeting: 'Bienvenido a Dipriva Consulting Group. Soy Lea, la Enlace Ejecutivo. Diseñamos claridad operacional para ejecutivos y dueños de negocio. ¿Qué lo trae hoy?',
+      placeholder: 'Escriba un mensaje…',
+      sendLabel: 'Enviar',
+      thinking: 'Lea está escribiendo…',
+      errorFallback: 'No puedo continuar esta conversación en este momento. Por favor escriba directamente a manuel@dipriva.com.',
     },
   },
 };
