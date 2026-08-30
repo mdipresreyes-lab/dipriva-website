@@ -77,11 +77,11 @@ export function CookieConsentBanner() {
     <AnimatePresence>
       {showBanner && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
+          exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6"
+          className="fixed top-12 left-0 right-0 z-50 p-4 sm:p-6"
         >
           <div className="max-w-2xl mx-auto bg-charcoal/95 backdrop-blur-md border border-silver/20 rounded-lg p-6 shadow-lg">
             <p className="text-silver/80 text-sm mb-4">
