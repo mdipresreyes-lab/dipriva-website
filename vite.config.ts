@@ -7,10 +7,12 @@ const plugins = [react(), tailwindcss()];
 
 export default defineConfig({
   plugins,
-  // Relative so the build works both at the temporary
-  // mdipresreyes-lab.github.io/dipriva-website/ URL and at the
-  // custom domain root once DNS points here.
-  base: "./",
+  // Absolute base — the custom domain dipriva.com is live so the site
+  // always runs at the root. Absolute paths are required for the GitHub
+  // Pages 404.html SPA fallback: a relative "./assets/" resolves to
+  // "/blog/slug/assets/" when GH Pages serves 404.html at a deep path,
+  // breaking the JS load. "/assets/" always resolves from root.
+  base: "/",
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
