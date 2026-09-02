@@ -71,7 +71,7 @@ export default function Blog() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <p className="text-gold text-sm tracking-luxury uppercase mb-4">Dipriva Insights</p>
+              <p className="text-sm tracking-luxury uppercase mb-4" style={{ color: '#D4AF37' }}>Dipriva Insights</p>
               <h1
                 className="text-4xl sm:text-5xl lg:text-6xl font-playfair font-bold text-silver"
                 style={{ letterSpacing: '0.13em' }}
@@ -110,7 +110,8 @@ export default function Blog() {
                     {/* Cluster badge */}
                     {post.cluster && (
                       <span
-                        className={`self-start text-xs tracking-luxury uppercase border rounded-full px-3 py-1 mb-4 ${clusterClass(post.cluster)}`}
+                        className="self-start text-xs tracking-luxury uppercase border rounded-full px-3 py-1 mb-4"
+                        style={{ color: '#D4AF37', borderColor: 'rgba(212,175,55,0.45)' }}
                       >
                         {post.cluster}
                       </span>
@@ -135,7 +136,10 @@ export default function Blog() {
                       ) : (
                         <span />
                       )}
-                      <span className="flex items-center gap-1 text-gold text-xs group-hover:gap-2 transition-all duration-200">
+                      <span
+                        className="flex items-center gap-1 text-xs group-hover:gap-2 transition-all duration-200"
+                        style={{ color: '#D4AF37' }}
+                      >
                         Read <ArrowRight className="w-3 h-3" />
                       </span>
                     </div>

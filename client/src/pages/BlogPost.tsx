@@ -127,7 +127,10 @@ export default function BlogPost() {
             >
               <button
                 onClick={() => setLocation('/blog')}
-                className="flex items-center gap-2 text-silver/50 hover:text-gold transition-colors text-sm"
+                className="flex items-center gap-2 transition-colors text-sm"
+                style={{ color: 'rgba(47,64,89,0.55)' }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(47,64,89,0.55)')}
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Insights
@@ -144,7 +147,8 @@ export default function BlogPost() {
               {/* Cluster badge */}
               {post.cluster && (
                 <span
-                  className={`inline-block text-xs tracking-luxury uppercase border rounded-full px-3 py-1 mb-6 ${clusterClass(post.cluster)}`}
+                  className="inline-block text-xs tracking-luxury uppercase border rounded-full px-3 py-1 mb-6"
+                  style={{ color: '#D4AF37', borderColor: 'rgba(212,175,55,0.45)' }}
                 >
                   {post.cluster}
                 </span>
@@ -184,11 +188,15 @@ export default function BlogPost() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.4 }}
-              className="mt-16 pt-8 border-t border-silver/10"
+              className="mt-16 pt-8"
+              style={{ borderTop: '1px solid rgba(47,64,89,0.15)' }}
             >
               <button
                 onClick={() => setLocation('/blog')}
-                className="flex items-center gap-2 text-silver/50 hover:text-gold transition-colors text-sm"
+                className="flex items-center gap-2 transition-colors text-sm"
+                style={{ color: 'rgba(47,64,89,0.55)' }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(47,64,89,0.55)')}
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Insights

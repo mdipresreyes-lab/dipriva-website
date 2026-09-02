@@ -176,9 +176,9 @@
     }
   }
 
-  /* Blog post markdown body — matches obsidian dark luxury aesthetic */
+  /* Blog post markdown body — matches the site's actual rendered palette */
   .blog-content {
-    color: rgb(232 232 232 / 0.75);
+    color: #3D5068;
     line-height: 1.85;
     font-size: 1.0625rem;
   }
@@ -191,7 +191,7 @@
   .blog-content h6 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    color: #E8E8E8;
+    color: #2F4059;
     margin-top: 2.5rem;
     margin-bottom: 1rem;
     letter-spacing: 0.05em;
@@ -205,7 +205,7 @@
 
   .blog-content p {
     margin-bottom: 1.5rem;
-    color: rgb(232 232 232 / 0.75);
+    color: #3D5068;
   }
 
   .blog-content ul,
@@ -219,11 +219,11 @@
 
   .blog-content li {
     margin-bottom: 0.5rem;
-    color: rgb(232 232 232 / 0.75);
+    color: #3D5068;
   }
 
   .blog-content strong {
-    color: #E8E8E8;
+    color: #2F4059;
     font-weight: 600;
   }
 
@@ -234,28 +234,32 @@
     padding-left: 1.25rem;
     margin-left: 0;
     margin-bottom: 1.5rem;
-    color: rgb(232 232 232 / 0.6);
+    color: rgba(47, 64, 89, 0.7);
     font-style: italic;
   }
 
   .blog-content hr {
     border: none;
-    border-top: 1px solid rgb(232 232 232 / 0.15);
+    border-top: 1px solid rgba(47, 64, 89, 0.15);
     margin: 3rem 0;
   }
 
   .blog-content a {
-    color: #D4AF37;
+    color: #2F4059;
     text-decoration: underline;
     text-underline-offset: 2px;
+    text-decoration-color: rgba(47, 64, 89, 0.4);
     transition: color 0.2s;
   }
 
-  .blog-content a:hover { color: rgb(212 175 55 / 0.75); }
+  .blog-content a:hover {
+    color: #D4AF37;
+    text-decoration-color: #D4AF37;
+  }
 
   .blog-content code {
-    background: rgb(42 42 42 / 0.8);
-    color: #D4AF37;
+    background: rgba(47, 64, 89, 0.08);
+    color: #2F4059;
     padding: 0.15em 0.4em;
     border-radius: 4px;
     font-size: 0.875em;
@@ -263,8 +267,8 @@
   }
 
   .blog-content pre {
-    background: rgb(26 26 26 / 0.9);
-    border: 1px solid rgb(232 232 232 / 0.1);
+    background: rgba(47, 64, 89, 0.05);
+    border: 1px solid rgba(47, 64, 89, 0.12);
     border-radius: 8px;
     padding: 1.25rem;
     margin-bottom: 1.5rem;
@@ -274,7 +278,7 @@
   .blog-content pre code {
     background: transparent;
     padding: 0;
-    color: rgb(232 232 232 / 0.85);
+    color: #2F4059;
     font-size: 0.875rem;
   }
 }
