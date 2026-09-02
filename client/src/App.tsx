@@ -4,6 +4,8 @@ import NotFound from "@/pages/NotFound";
 import Privacy from "@/pages/Privacy";
 import Schedule from "@/pages/Schedule";
 import ClientForm from "@/pages/ClientForm";
+import Blog from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -20,6 +22,8 @@ function Router() {
       <Route path={"/schedule"} component={Schedule} />
       <Route path={"/client_form"} component={ClientForm} />
       <Route path={"/privacy"} component={Privacy} />
+      <Route path={"/blog"} component={Blog} />
+      <Route path={"/blog/:slug"} component={BlogPost} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

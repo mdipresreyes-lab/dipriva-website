@@ -54,6 +54,9 @@ export default function Home() {
             <a href="#cta" className="text-silver hover:text-gold transition-colors">
               {t('nav.contact', language)}
             </a>
+            <a href="/blog" className="text-silver hover:text-gold transition-colors">
+              Insights
+            </a>
             <div className="border-l border-silver/20 pl-8">
               <LanguageToggle />
             </div>
@@ -97,6 +100,13 @@ export default function Home() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t('nav.contact', language)}
+              </a>
+              <a
+                href="/blog"
+                className="text-silver hover:text-gold transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Insights
               </a>
             </div>
           </div>

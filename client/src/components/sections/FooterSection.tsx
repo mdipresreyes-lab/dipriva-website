@@ -31,6 +31,12 @@ const FooterSectionComponent: FooterSectionComponent = () => {
           {/* Links */}
           <div className="flex items-center gap-6">
             <a
+              href="/blog"
+              className="text-silver/60 hover:text-gold transition-colors text-sm"
+            >
+              Insights
+            </a>
+            <a
               href="/privacy"
               className="text-silver/60 hover:text-gold transition-colors text-sm"
             >
