@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import FooterSection from '@/components/sections/FooterSection';
 import { publishedPosts } from '@/lib/blog';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { t } from '@/i18n/translations';
 import { ArrowRight } from 'lucide-react';
 
 const CLUSTER_COLORS: Record<string, string> = {
@@ -19,6 +21,7 @@ function clusterClass(cluster: string): string {
 export default function Blog() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [, setLocation] = useLocation();
+  const { language } = useLanguage();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -52,8 +55,8 @@ export default function Blog() {
             Dipriva
           </a>
           <div className="flex items-center gap-6">
-            <a href="/" className="hidden md:block text-silver/70 hover:text-gold transition-colors text-sm">
-              Home
+            <a href="/" className="hidden md:block transition-colors text-sm" style={{ color: 'rgba(47,64,89,0.6)' }}>
+              {language === 'en' ? 'Home' : 'Inicio'}
             </a>
             <div className="border-l border-silver/20 pl-6">
               <LanguageToggle />
@@ -71,15 +74,15 @@ export default function Blog() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <p className="text-sm tracking-luxury uppercase mb-4" style={{ color: '#D4AF37' }}>Dipriva Insights</p>
+              <p className="text-sm tracking-luxury uppercase mb-4" style={{ color: '#D4AF37' }}>{t('blog.sectionLabel', language)}</p>
               <h1
-                className="text-4xl sm:text-5xl lg:text-6xl font-playfair font-bold text-silver"
-                style={{ letterSpacing: '0.13em' }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-playfair font-bold"
+                style={{ letterSpacing: '0.13em', color: '#2F4059' }}
               >
-                Strategy. Capital. Growth.
+                {t('blog.headline', language)}
               </h1>
-              <p className="mt-6 text-silver/60 text-lg max-w-2xl leading-relaxed">
-                Perspectives on the decisions that compound — for founders and operators building businesses that last.
+              <p className="mt-6 text-lg max-w-2xl leading-relaxed" style={{ color: 'rgba(47,64,89,0.65)' }}>
+                {t('blog.subheadline', language)}
               </p>
             </motion.div>
           </div>
@@ -92,9 +95,10 @@ export default function Blog() {
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-silver/40 text-lg"
+                className="text-lg"
+                style={{ color: 'rgba(47,64,89,0.4)' }}
               >
-                No posts yet. Check back soon.
+                {t('blog.noPosts', language)}
               </motion.p>
             ) : (
               <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -140,7 +144,7 @@ export default function Blog() {
                         className="flex items-center gap-1 text-xs group-hover:gap-2 transition-all duration-200"
                         style={{ color: '#D4AF37' }}
                       >
-                        Read <ArrowRight className="w-3 h-3" />
+                        {t('blog.readMore', language)} <ArrowRight className="w-3 h-3" />
                       </span>
                     </div>
                   </motion.article>

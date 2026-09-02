@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'wouter';
 import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import FooterSection from '@/components/sections/FooterSection';
 import NotFound from '@/pages/NotFound';
 import { getPostBySlug } from '@/lib/blog';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { t } from '@/i18n/translations';
 
 const CLUSTER_COLORS: Record<string, string> = {
   'Corporate Strategy': 'text-gold border-gold/40',
@@ -41,6 +43,7 @@ export default function BlogPost() {
   const params = useParams<{ slug: string }>();
   const [isScrolled, setIsScrolled] = useState(false);
   const [, setLocation] = useLocation();
+  const { language } = useLanguage();
 
   const post = getPostBySlug(params.slug ?? '');
   const visible = post?.published === true;
@@ -104,9 +107,10 @@ export default function BlogPost() {
             <a
               href="/blog"
               onClick={(e) => { e.preventDefault(); setLocation('/blog'); }}
-              className="hidden md:block text-silver/70 hover:text-gold transition-colors text-sm"
+              className="hidden md:block transition-colors text-sm"
+              style={{ color: 'rgba(47,64,89,0.6)' }}
             >
-              Insights
+              {t('blog.navLink', language)}
             </a>
             <div className="border-l border-silver/20 pl-6">
               <LanguageToggle />
@@ -133,7 +137,7 @@ export default function BlogPost() {
                 onMouseLeave={e => (e.currentTarget.style.color = 'rgba(47,64,89,0.55)')}
               >
                 <ArrowLeft className="w-4 h-4" />
-                Back to Insights
+                {t('blog.backToInsights', language)}
               </button>
             </motion.div>
 
@@ -163,13 +167,32 @@ export default function BlogPost() {
               </h1>
 
               {/* Byline */}
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-silver/50 text-sm border-b border-silver/10 pb-8">
+              <div
+                className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm pb-8"
+                style={{ color: 'rgba(47,64,89,0.5)', borderBottom: '1px solid rgba(47,64,89,0.12)' }}
+              >
                 {post.author && <span>{post.author}</span>}
                 {post.author && post.formattedDate && (
-                  <span className="text-silver/20">·</span>
+                  <span style={{ color: 'rgba(47,64,89,0.2)' }}>·</span>
                 )}
                 {post.formattedDate && (
                   <time dateTime={post.date ?? ''}>{post.formattedDate}</time>
+                )}
+                {/* Google Translate bridge — shown when UI is in Spanish; articles are English-only */}
+                {language === 'es' && (
+                  <>
+                    <span style={{ color: 'rgba(47,64,89,0.2)' }}>·</span>
+                    <a
+                      href={`https://translate.google.com/translate?hl=es&sl=en&u=${encodeURIComponent(`https://www.dipriva.com/blog/${post.slug}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 transition-colors"
+                      style={{ color: '#D4AF37', fontSize: '0.8125rem' }}
+                    >
+                      {t('blog.translateLink', language)}
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </>
                 )}
               </div>
             </motion.header>
@@ -199,7 +222,7 @@ export default function BlogPost() {
                 onMouseLeave={e => (e.currentTarget.style.color = 'rgba(47,64,89,0.55)')}
               >
                 <ArrowLeft className="w-4 h-4" />
-                Back to Insights
+                {t('blog.backToInsights', language)}
               </button>
             </motion.div>
           </div>

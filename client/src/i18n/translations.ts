@@ -45,6 +45,19 @@ export const translations = {
       button: 'Schedule a Strategy Session',
     },
 
+    // Blog Section
+    blog: {
+      navLink: 'Insights',
+      sectionLabel: 'Dipriva Insights',
+      headline: 'Strategy. Capital. Growth.',
+      subheadline: 'Perspectives on the decisions that compound — for founders and operators building businesses that last.',
+      readMore: 'Read',
+      backToInsights: '← Back to Insights',
+      noPosts: 'No posts yet. Check back soon.',
+      translateNote: 'This article is available in English only.',
+      translateLink: 'Read in Spanish via Google Translate',
+    },
+
     // Footer
     footer: {
       privacyPolicy: 'Privacy Policy',
@@ -130,6 +143,19 @@ export const translations = {
       headline: '¿Listo para construir claridad operacional?',
       subheadline: 'Dinos dónde está la fricción. Diseñaremos el camino a seguir.',
       button: 'Agendar Sesión de Estrategia',
+    },
+
+    // Blog Section
+    blog: {
+      navLink: 'Perspectivas',
+      sectionLabel: 'Perspectivas Dipriva',
+      headline: 'Estrategia. Capital. Crecimiento.',
+      subheadline: 'Perspectivas sobre las decisiones que generan resultados — para fundadores y operadores que construyen empresas duraderas.',
+      readMore: 'Leer',
+      backToInsights: '← Volver a Perspectivas',
+      noPosts: 'Sin publicaciones aún. Vuelve pronto.',
+      translateNote: 'Este artículo está disponible solo en inglés.',
+      translateLink: 'Leer en español vía Google Translate',
     },
 
     // Footer

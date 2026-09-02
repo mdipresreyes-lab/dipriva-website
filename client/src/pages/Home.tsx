@@ -55,7 +55,7 @@ export default function Home() {
               {t('nav.contact', language)}
             </a>
             <a href="/blog" className="text-silver hover:text-gold transition-colors">
-              Insights
+              {t('blog.navLink', language)}
             </a>
             <div className="border-l border-silver/20 pl-8">
               <LanguageToggle />
@@ -106,7 +106,7 @@ export default function Home() {
                 className="text-silver hover:text-gold transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Insights
+                {t('blog.navLink', language)}
               </a>
             </div>
           </div>
