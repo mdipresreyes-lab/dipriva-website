@@ -1,6 +1,6 @@
 ---
 title: "Oracle Spent $55.7 Billion on AI and Then Cut Its Workforce"
-date: "{{"2026-09-02"}}"
+date: ""2026-09-02""
 slug: "oracle-ai-capital-allocation-discipline-of-subtraction"
 description: "Oracle's $55.7B AI buildout and layoffs reveal a capital trap founders must recognize before it reaches their own balance sheet."
 cluster: "Corporate Strategy"
