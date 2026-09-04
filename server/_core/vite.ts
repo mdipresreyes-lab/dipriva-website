@@ -47,6 +47,11 @@ export async function setupVite(app: Express, server: Server) {
   });
 }
 
+// Known AI and search crawler user-agent patterns.
+// Dynamic rendering for bots is explicitly permitted by Google, OpenAI, and Anthropic.
+const BOT_UA =
+  /GPTBot|ClaudeBot|anthropic-ai|PerplexityBot|Googlebot|bingbot|Applebot|DuckDuckBot/i;
+
 export function serveStatic(app: Express) {
   const distPath =
     process.env.NODE_ENV === "development"
@@ -56,6 +61,30 @@ export function serveStatic(app: Express) {
     console.error(
       `Could not find the build directory: ${distPath}, make sure to build the client first`
     );
+  }
+
+  // Resolve bot-html directory alongside the SPA dist.
+  const botHtmlPath =
+    process.env.NODE_ENV === "development"
+      ? path.resolve(import.meta.dirname, "../..", "dist", "bot-html")
+      : path.resolve(import.meta.dirname, "bot-html");
+
+  // Serve pre-rendered HTML to known crawlers BEFORE express.static so bots
+  // never receive the empty SPA shell. Human visitors are unaffected.
+  if (fs.existsSync(botHtmlPath)) {
+    app.use((req, res, next) => {
+      if (!BOT_UA.test(req.headers["user-agent"] ?? "")) return next();
+      const pathname = req.path.replace(/\/$/, "") || "/";
+      const filePath =
+        pathname === "/"
+          ? path.join(botHtmlPath, "index.html")
+          : path.join(botHtmlPath, pathname, "index.html");
+      if (fs.existsSync(filePath)) {
+        res.setHeader("Content-Type", "text/html; charset=utf-8");
+        return res.sendFile(filePath);
+      }
+      next();
+    });
   }
 
   app.use(express.static(distPath));

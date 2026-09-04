@@ -1,8 +1,6 @@
 import "dotenv/config";
 import express from "express";
-import fs from "fs";
 import { createServer } from "http";
-import path from "path";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { appRouter } from "../routers";
@@ -40,19 +38,6 @@ async function startServer() {
   app.use('/client_form', (_req, res, next) => {
     res.setHeader('X-Robots-Tag', 'noindex, nofollow');
     next();
-  });
-
-  // Serve pre-rendered HTML to AI crawlers that do not execute JavaScript
-  const BOT_UA_RE = /GPTBot|ClaudeBot|Claude-SearchBot|PerplexityBot|Applebot|bingbot|anthropic-ai|OAI-SearchBot/i;
-  const botHtmlPath = path.resolve(import.meta.dirname, '..', '..', 'dist', 'bot-html', 'index.html');
-  app.use((req, res, next) => {
-    const ua = req.headers['user-agent'] || '';
-    if (!BOT_UA_RE.test(ua)) return next();
-    if (!fs.existsSync(botHtmlPath)) {
-      console.warn('[bot-middleware] dist/bot-html/index.html not found — falling through to SPA');
-      return next();
-    }
-    res.sendFile(botHtmlPath);
   });
 
   // development mode uses Vite, production mode uses static files
