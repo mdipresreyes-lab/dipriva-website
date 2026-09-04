@@ -42,15 +42,51 @@
     <!-- Spanish Twitter Card Image -->
     <meta name="twitter:image:src" content="https://www.dipriva.com/og-image.png" />
     
-    <!-- JSON-LD LocalBusiness Schema -->
+    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Dipriva Consulting Group",
-      "url": "https://www.dipriva.com",
-      "description": "Engineering operational clarity for businesses built to grow",
-      "sameAs": "https://www.linkedin.com/company/dipriva"
+      "@graph": [
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://www.dipriva.com/#organization",
+          "name": "Dipriva Consulting Group",
+          "url": "https://www.dipriva.com",
+          "logo": "https://www.dipriva.com/og-image.png",
+          "description": "Bilingual executive consulting in corporate strategy, startup operations, and AI-driven automation serving the West Michigan mid-market.",
+          "founder": { "@id": "https://www.dipriva.com/#founder" },
+          "areaServed": [
+            { "@type": "City", "name": "Grand Rapids" },
+            { "@type": "State", "name": "Michigan" }
+          ],
+          "knowsAbout": [
+            "Corporate Strategy",
+            "Startup Operations",
+            "AI Automation",
+            "Treasury Management",
+            "Operational Due Diligence"
+          ],
+          "availableLanguage": ["English", "Spanish"],
+          "sameAs": [
+            "https://www.linkedin.com/company/112996520"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "sales",
+            "email": "manuel@dipriva.com",
+            "availableLanguage": ["English", "Spanish"]
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://www.dipriva.com/#founder",
+          "name": "Manuel Diprés",
+          "jobTitle": "Founder",
+          "worksFor": { "@id": "https://www.dipriva.com/#organization" },
+          "knowsLanguage": ["English", "Spanish"],
+          "sameAs": ["https://www.linkedin.com/in/manueldipres/"]
+        }
+      ]
     }
     </script>
     
