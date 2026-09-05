@@ -40,6 +40,21 @@ async function startServer() {
     next();
   });
 
+  // 301 permanent redirects for legacy Manus-generated routes (GSC soft-404 fix)
+  const legacyRedirects: Record<string, string> = {
+    '/home':             '/',
+    '/es':               '/',  // Spanish route placeholder — update if /es-* is added
+    '/approach-318656':  '/',
+    '/home-716983':      '/',
+    '/impact':           '/',
+    '/about':            '/about/manuel-dipres',
+  };
+  app.use((req, res, next) => {
+    const target = legacyRedirects[req.path];
+    if (target) return res.redirect(301, target);
+    next();
+  });
+
   // development mode uses Vite, production mode uses static files
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
