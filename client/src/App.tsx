@@ -9,6 +9,7 @@ import BlogPost from "@/pages/BlogPost";
 import ServicesStartupOperations from "@/pages/ServicesStartupOperations";
 import ServicesCorporateStrategy from "@/pages/ServicesCorporateStrategy";
 import ServicesAiAutomation from "@/pages/ServicesAiAutomation";
+import AboutManuelDipres from "@/pages/AboutManuelDipres";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -30,6 +31,7 @@ function Router() {
       <Route path={"/services/startup-operations"} component={ServicesStartupOperations} />
       <Route path={"/services/corporate-strategy"} component={ServicesCorporateStrategy} />
       <Route path={"/services/ai-automation"} component={ServicesAiAutomation} />
+      <Route path={"/about/manuel-dipres"} component={AboutManuelDipres} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

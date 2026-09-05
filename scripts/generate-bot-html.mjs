@@ -529,6 +529,58 @@ function generateAiAutomation() {
   console.log('  ✓ bot-html/services/ai-automation/index.html');
 }
 
+// ── About: Manuel Diprés ──────────────────────────────────────────────────────
+
+function generateAboutManuel() {
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Manuel Diprés | Founder, Dipriva Consulting Group</title>
+  <meta name="description" content="Manuel Diprés is the Founder of Dipriva Consulting Group, bringing over 20 years of experience building revenue operations and go-to-market systems for businesses in the Americas and Europe. Bilingual in English and Spanish.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://www.dipriva.com/#founder",
+    "name": "Manuel Diprés",
+    "jobTitle": "Founder",
+    "worksFor": {
+      "@id": "https://www.dipriva.com/#organization"
+    },
+    "knowsLanguage": ["English", "Spanish"],
+    "description": "Founder of Dipriva Consulting Group with over 20 years of experience in revenue operations, sales enablement, and go-to-market systems across the Americas and Europe.",
+    "sameAs": [
+      "https://www.linkedin.com/in/manueldipres/"
+    ],
+    "url": "https://www.dipriva.com/about/manuel-dipres"
+  }
+  </script>
+</head>
+<body>
+  <h1>Manuel Diprés</h1>
+  <h2>Founder, Dipriva Consulting Group</h2>
+  <p>Manuel Diprés brings over 20 years of global experience building revenue operations, sales enablement programs, and go-to-market systems at scale. Having led cross-functional teams across the Americas and Europe, his approach focuses on engineering operational clarity and closing the gap between strategic intent and the infrastructure required to execute it. Manuel delivers precise, scalable solutions for startups and mid-market businesses, ensuring that high-growth ambitions are supported by disciplined execution. He delivers consulting services in English and Spanish.</p>
+  <h2>The Dipriva Approach</h2>
+  <p>Every engagement starts with one question: where is the gap between what the business intends to do and what its infrastructure can actually support? From that diagnosis, Dipriva architects the systems, processes, and execution frameworks that close it. No theoretical deliverables. No recommendations without implementation. Measurable outcomes or the engagement is not finished.</p>
+  <h2>Client Results</h2>
+  <ul>
+    <li>Insurance agency: defined sales strategy increased per-client policy premiums by $1,000 and improved renewal rates by 13%</li>
+    <li>Roofing company: sales team alignment improved lead-to-close ratio by 20% over a 6-month window</li>
+    <li>Tax agency: re-purchase rate increased by 9 percentage points and services successfully upsold to Schedule C clients</li>
+  </ul>
+  <h2>Work With Manuel</h2>
+  <p>If your business needs operational clarity and an execution system that holds under pressure, start with a conversation.</p>
+  <a href="/schedule">Schedule a Consultation</a>
+</body>
+</html>`;
+
+  const outDir = path.join(OUT_DIR, 'about', 'manuel-dipres');
+  fs.mkdirSync(outDir, { recursive: true });
+  fs.writeFileSync(path.join(outDir, 'index.html'), html);
+  console.log('  ✓ bot-html/about/manuel-dipres/index.html');
+}
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 const mdFiles = fs
@@ -547,4 +599,5 @@ generatePrivacy();
 generateStartupOperations();
 generateCorporateStrategy();
 generateAiAutomation();
-console.log(`\nDone — ${posts.length} blog post(s) + home + blog index + privacy + startup-operations + corporate-strategy + ai-automation\n`);
+generateAboutManuel();
+console.log(`\nDone — ${posts.length} blog post(s) + home + blog index + privacy + startup-operations + corporate-strategy + ai-automation + about/manuel-dipres\n`);
