@@ -352,6 +352,77 @@ function generatePrivacy() {
   console.log('  ✓ bot-html/privacy/index.html');
 }
 
+// ── Services: Startup Operations ─────────────────────────────────────────────
+
+function generateStartupOperations() {
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Startup Operations Consulting | Dipriva Consulting Group</title>
+  <meta name="description" content="Dipriva helps founders of 10-50 person professional services firms in West Michigan build the operational structure to step back from day-to-day execution. Bilingual delivery in English and Spanish.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.dipriva.com/services/startup-operations#service",
+    "name": "Startup Operations Consulting",
+    "description": "Operational structure and 90-day roadmap for founders of 10-50 person professional services firms in West Michigan.",
+    "provider": {
+      "@id": "https://www.dipriva.com/#organization"
+    },
+    "areaServed": {
+      "@type": "State",
+      "name": "Michigan"
+    },
+    "availableLanguage": ["English", "Spanish"],
+    "serviceType": "Business Operations Consulting"
+  }
+  </script>
+</head>
+<body>
+  <h1>You Built the Business. Now Build the Operating System.</h1>
+  <h2>Everything Runs Through You</h2>
+  <p>Most founders of growing professional services firms
+  reach the same wall. Revenue is up, the team is
+  expanding, and yet every decision, every client issue,
+  and every internal process still lands on your desk.
+  Stepping back feels impossible because there is no
+  structure underneath you to hold it. That is not a
+  leadership problem. It is an operations problem.</p>
+  <h2>What a Startup Operations Engagement Delivers</h2>
+  <p>Dipriva works with founders of 10 to 50 person
+  professional services companies in West Michigan to
+  build the operational foundation their growth requires.
+  Every engagement is delivered in English or Spanish
+  and concludes with one primary deliverable: a 90-day
+  operational roadmap your team can execute without
+  you in the room.</p>
+  <h2>Who This Is For</h2>
+  <ul>
+    <li>Professional services founders in West Michigan
+    with 10 to 50 employees</li>
+    <li>Companies where growth has outpaced internal
+    structure and process</li>
+    <li>Founders who need to delegate but have nothing
+    documented to delegate to</li>
+    <li>Leadership teams preparing for a key hire,
+    a funding round, or an ownership transition</li>
+  </ul>
+  <h2>Ready to Step Back?</h2>
+  <p>If your business depends entirely on you to
+  function, that is the problem we solve. Start
+  with a conversation.</p>
+  <a href="/schedule">Schedule a Consultation</a>
+</body>
+</html>`;
+
+  const outDir = path.join(OUT_DIR, 'services', 'startup-operations');
+  fs.mkdirSync(outDir, { recursive: true });
+  fs.writeFileSync(path.join(outDir, 'index.html'), html);
+  console.log('  ✓ bot-html/services/startup-operations/index.html');
+}
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 const mdFiles = fs
@@ -367,4 +438,5 @@ generateHome();
 generateBlogIndex(posts);
 posts.forEach(generateBlogPost);
 generatePrivacy();
-console.log(`\nDone — ${posts.length} blog post(s) + home + blog index + privacy\n`);
+generateStartupOperations();
+console.log(`\nDone — ${posts.length} blog post(s) + home + blog index + privacy + startup-operations\n`);
