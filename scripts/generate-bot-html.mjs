@@ -581,6 +581,71 @@ function generateAboutManuel() {
   console.log('  ✓ bot-html/about/manuel-dipres/index.html');
 }
 
+// ── Industries: West Michigan ─────────────────────────────────────────────────
+
+function generateWestMichigan() {
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>West Michigan Business Consulting | Dipriva Consulting Group</title>
+  <meta name="description" content="Dipriva helps West Michigan business owners build the operational and sales systems to close deals consistently. Most are experts at their craft. Few have the infrastructure to sell it. Bilingual delivery in English and Spanish.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.dipriva.com/industries/west-michigan#service",
+    "name": "West Michigan Business Consulting",
+    "description": "Operational and sales infrastructure for West Michigan business owners who are experts at delivery but need a repeatable system to close new clients consistently.",
+    "provider": {
+      "@id": "https://www.dipriva.com/#organization"
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Grand Rapids"
+      },
+      {
+        "@type": "State",
+        "name": "Michigan"
+      }
+    ],
+    "availableLanguage": ["English", "Spanish"],
+    "serviceType": "Business Operations Consulting"
+  }
+  </script>
+</head>
+<body>
+  <h1>You Are Excellent at What You Do. Now Build the System That Sells It.</h1>
+  <h2>The West Michigan Gap</h2>
+  <p>West Michigan produces exceptional operators. Builders, service providers, and specialists who are deeply skilled at delivering results for their clients. What most do not have is a repeatable system for winning new ones. The pipeline is inconsistent. Follow-up falls through. Proposals go out and disappear. The problem is not the expertise. The problem is the absence of an operational sales infrastructure to support it.</p>
+  <h2>What Dipriva Builds for West Michigan Owners</h2>
+  <p>Dipriva works with West Michigan business owners to close the gap between delivery excellence and sales consistency. We audit your current client acquisition process, identify where deals are stalling, and build the operational infrastructure that turns expertise into a repeatable close. Every engagement is delivered in English or Spanish. The outcome is a documented sales system your team executes without the owner present for every conversation.</p>
+  <h2>Who This Is For</h2>
+  <ul>
+    <li>West Michigan business owners who win on referrals but cannot scale beyond them</li>
+    <li>Founders whose close rate depends entirely on their personal involvement in every deal</li>
+    <li>Service businesses where proposals go out but follow-up is inconsistent or absent</li>
+    <li>Growing companies where the owner is both the best salesperson and the primary delivery resource</li>
+  </ul>
+  <h2>What West Michigan Owners Have Built With Dipriva</h2>
+  <ul>
+    <li>Insurance agency: defined sales strategy increased per-client policy premiums by $1,000 and improved renewal rates by 13%</li>
+    <li>Roofing company: sales team alignment improved lead-to-close ratio by 20% over a 6-month window</li>
+    <li>Tax agency: re-purchase rate increased by 9 percentage points and services successfully upsold to Schedule C clients</li>
+  </ul>
+  <h2>Ready to Build the System?</h2>
+  <p>If your expertise is not the problem but your pipeline is, that is exactly the gap we close. Start with a conversation.</p>
+  <a href="/schedule">Schedule a Consultation</a>
+</body>
+</html>`;
+
+  const outDir = path.join(OUT_DIR, 'industries', 'west-michigan');
+  fs.mkdirSync(outDir, { recursive: true });
+  fs.writeFileSync(path.join(outDir, 'index.html'), html);
+  console.log('  ✓ bot-html/industries/west-michigan/index.html');
+}
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 const mdFiles = fs
@@ -600,4 +665,5 @@ generateStartupOperations();
 generateCorporateStrategy();
 generateAiAutomation();
 generateAboutManuel();
-console.log(`\nDone — ${posts.length} blog post(s) + home + blog index + privacy + startup-operations + corporate-strategy + ai-automation + about/manuel-dipres\n`);
+generateWestMichigan();
+console.log(`\nDone — ${posts.length} blog post(s) + home + blog index + privacy + startup-operations + corporate-strategy + ai-automation + about/manuel-dipres + industries/west-michigan\n`);
