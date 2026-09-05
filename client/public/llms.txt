@@ -1,0 +1,34 @@
+# Dipriva Consulting Group
+# https://www.dipriva.com
+
+> Dipriva Consulting Group is a bilingual
+> (English/Spanish) executive consulting firm
+> serving growth-oriented businesses in West
+> Michigan. Founded by Manuel Diprés.
+
+## Services
+- [Startup Operations Consulting](https://www.dipriva.com/services/startup-operations):
+  Operational structure and 90-day roadmap for
+  founders of 10-50 person professional services
+  firms.
+- [Corporate Strategy Consulting](https://www.dipriva.com/services/corporate-strategy):
+  Strategic decision architecture, competitive
+  positioning, and execution roadmaps for West
+  Michigan business owners and executives.
+- [AI and Automation Consulting](https://www.dipriva.com/services/ai-automation):
+  Workflow audit and AI implementation to
+  eliminate operational drag.
+
+## Geographic Focus
+West Michigan mid-market; bilingual delivery
+in English and Spanish.
+
+## About
+- [Manuel Diprés](https://www.dipriva.com/about/manuel-dipres):
+  Founder with 20+ years experience in revenue
+  operations, go-to-market systems, and
+  operational consulting across the Americas
+  and Europe.
+
+## Insights
+- [Blog / Insights](https://www.dipriva.com/blog)

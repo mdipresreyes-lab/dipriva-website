@@ -46,7 +46,7 @@ function shell({ title, description, canonical, jsonLd, body }) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${title}</title>
   <meta name="description" content="${description.replace(/"/g, '&quot;')}">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="noindex, follow">
   <link rel="canonical" href="${canonical}">
   <link rel="alternate" hreflang="en" href="${canonical}">
   <link rel="alternate" hreflang="x-default" href="https://www.dipriva.com">
@@ -80,6 +80,7 @@ function generateHome() {
     '@graph': [
       {
         '@type': 'ProfessionalService',
+        '@id': 'https://www.dipriva.com/#organization',
         name: 'Dipriva Consulting Group',
         url: 'https://www.dipriva.com',
         description:
@@ -87,7 +88,7 @@ function generateHome() {
         founder: { '@type': 'Person', name: 'Manuel Diprés' },
         areaServed: { '@type': 'Place', name: 'West Michigan' },
         serviceType: ['Corporate Strategy', 'Startup Operations', 'AI and Automation'],
-        sameAs: 'https://www.linkedin.com/company/dipriva',
+        sameAs: 'https://www.linkedin.com/company/112996520',
         inLanguage: ['en', 'es'],
       },
       {
@@ -357,33 +358,19 @@ function generatePrivacy() {
 // ── Services: Startup Operations ─────────────────────────────────────────────
 
 function generateStartupOperations() {
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Startup Operations Consulting | Dipriva Consulting Group</title>
-  <meta name="description" content="Dipriva helps founders of 10-50 person professional services firms in West Michigan build the operational structure to step back from day-to-day execution. Bilingual delivery in English and Spanish.">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": "https://www.dipriva.com/services/startup-operations#service",
-    "name": "Startup Operations Consulting",
-    "description": "Operational structure and 90-day roadmap for founders of 10-50 person professional services firms in West Michigan.",
-    "provider": {
-      "@id": "https://www.dipriva.com/#organization"
-    },
-    "areaServed": {
-      "@type": "State",
-      "name": "Michigan"
-    },
-    "availableLanguage": ["English", "Spanish"],
-    "serviceType": "Business Operations Consulting"
-  }
-  </script>
-</head>
-<body>
-  <h1>You Built the Business. Now Build the Operating System.</h1>
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': 'https://www.dipriva.com/services/startup-operations#service',
+    name: 'Startup Operations Consulting',
+    description: 'Operational structure and 90-day roadmap for founders of 10-50 person professional services firms in West Michigan.',
+    provider: { '@id': 'https://www.dipriva.com/#organization' },
+    areaServed: { '@type': 'State', name: 'Michigan' },
+    availableLanguage: ['English', 'Spanish'],
+    serviceType: 'Business Operations Consulting',
+  };
+
+  const body = `<h1>You Built the Business. Now Build the Operating System.</h1>
   <h2>Everything Runs Through You</h2>
   <p>Most founders of growing professional services firms
   reach the same wall. Revenue is up, the team is
@@ -415,46 +402,39 @@ function generateStartupOperations() {
   <p>If your business depends entirely on you to
   function, that is the problem we solve. Start
   with a conversation.</p>
-  <a href="/schedule">Schedule a Consultation</a>
-</body>
-</html>`;
+  <a href="/schedule">Schedule a Consultation</a>`;
 
   const outDir = path.join(OUT_DIR, 'services', 'startup-operations');
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), html);
+  fs.writeFileSync(
+    path.join(outDir, 'index.html'),
+    shell({
+      title: 'Startup Operations Consulting | Dipriva Consulting Group',
+      description: 'Dipriva helps founders of 10-50 person professional services firms in West Michigan build the operational structure to step back from day-to-day execution. Bilingual delivery in English and Spanish.',
+      canonical: 'https://www.dipriva.com/services/startup-operations',
+      jsonLd,
+      body,
+    })
+  );
   console.log('  ✓ bot/services/startup-operations/index.html');
 }
 
 // ── Services: Corporate Strategy ─────────────────────────────────────────────
 
 function generateCorporateStrategy() {
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Corporate Strategy Consulting | Dipriva Consulting Group</title>
-  <meta name="description" content="Dipriva architects structured execution plans for business owners and executives navigating growth, transition, or competitive pressure in West Michigan. Bilingual delivery in English and Spanish.">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": "https://www.dipriva.com/services/corporate-strategy#service",
-    "name": "Corporate Strategy Consulting",
-    "description": "Strategic decision architecture, competitive positioning, operational due diligence, and 90-day execution roadmaps for West Michigan business owners and executives.",
-    "provider": {
-      "@id": "https://www.dipriva.com/#organization"
-    },
-    "areaServed": {
-      "@type": "State",
-      "name": "Michigan"
-    },
-    "availableLanguage": ["English", "Spanish"],
-    "serviceType": "Business Strategy Consulting"
-  }
-  </script>
-</head>
-<body>
-  <h1>Your Strategy Needs More Than a Plan. It Needs Infrastructure.</h1>
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': 'https://www.dipriva.com/services/corporate-strategy#service',
+    name: 'Corporate Strategy Consulting',
+    description: 'Strategic decision architecture, competitive positioning, operational due diligence, and 90-day execution roadmaps for West Michigan business owners and executives.',
+    provider: { '@id': 'https://www.dipriva.com/#organization' },
+    areaServed: { '@type': 'State', name: 'Michigan' },
+    availableLanguage: ['English', 'Spanish'],
+    serviceType: 'Business Strategy Consulting',
+  };
+
+  const body = `<h1>Your Strategy Needs More Than a Plan. It Needs Infrastructure.</h1>
   <h2>The Gap Between Strategy and Execution</h2>
   <p>Most companies do not fail because of a bad strategy. They fail because the strategy never became a system. Decisions get made in meetings, initiatives get launched, and six months later the organization is back where it started — busy, but not advancing. The gap between strategic intent and operational reality is where growth stalls.</p>
   <h2>What a Corporate Strategy Engagement Delivers</h2>
@@ -468,46 +448,39 @@ function generateCorporateStrategy() {
   </ul>
   <h2>Ready to Architect the Decision?</h2>
   <p>If your organization is moving fast but not advancing, that is the gap we close. Start with a conversation.</p>
-  <a href="/schedule">Schedule a Strategy Session</a>
-</body>
-</html>`;
+  <a href="/schedule">Schedule a Strategy Session</a>`;
 
   const outDir = path.join(OUT_DIR, 'services', 'corporate-strategy');
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), html);
+  fs.writeFileSync(
+    path.join(outDir, 'index.html'),
+    shell({
+      title: 'Corporate Strategy Consulting | Dipriva Consulting Group',
+      description: 'Dipriva architects structured execution plans for business owners and executives navigating growth, transition, or competitive pressure in West Michigan. Bilingual delivery in English and Spanish.',
+      canonical: 'https://www.dipriva.com/services/corporate-strategy',
+      jsonLd,
+      body,
+    })
+  );
   console.log('  ✓ bot/services/corporate-strategy/index.html');
 }
 
 // ── Services: AI and Automation ───────────────────────────────────────────────
 
 function generateAiAutomation() {
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>AI and Automation Consulting | Dipriva Consulting Group</title>
-  <meta name="description" content="Dipriva identifies high-friction workflows and deploys AI and automation to eliminate operational drag for West Michigan business owners. Bilingual delivery in English and Spanish.">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": "https://www.dipriva.com/services/ai-automation#service",
-    "name": "AI and Automation Consulting",
-    "description": "Workflow audit and AI and automation implementation to eliminate operational drag for West Michigan business owners and executives.",
-    "provider": {
-      "@id": "https://www.dipriva.com/#organization"
-    },
-    "areaServed": {
-      "@type": "State",
-      "name": "Michigan"
-    },
-    "availableLanguage": ["English", "Spanish"],
-    "serviceType": "AI and Automation Consulting"
-  }
-  </script>
-</head>
-<body>
-  <h1>Eliminate the Work That Should Not Require You.</h1>
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': 'https://www.dipriva.com/services/ai-automation#service',
+    name: 'AI and Automation Consulting',
+    description: 'Workflow audit and AI and automation implementation to eliminate operational drag for West Michigan business owners and executives.',
+    provider: { '@id': 'https://www.dipriva.com/#organization' },
+    areaServed: { '@type': 'State', name: 'Michigan' },
+    availableLanguage: ['English', 'Spanish'],
+    serviceType: 'AI and Automation Consulting',
+  };
+
+  const body = `<h1>Eliminate the Work That Should Not Require You.</h1>
   <h2>Operational Drag Is a Revenue Problem</h2>
   <p>Every hour your team spends on manual data entry, repetitive follow-up, or disconnected handoffs is an hour not spent on execution that moves the business forward. Most West Michigan business owners know the drag exists. Few have the bandwidth to architect the fix. That is exactly what this engagement does.</p>
   <h2>What an AI and Automation Engagement Delivers</h2>
@@ -521,46 +494,40 @@ function generateAiAutomation() {
   </ul>
   <h2>Ready to Eliminate the Drag?</h2>
   <p>If your team is working hard but the business is not accelerating, operational drag is the most likely cause. Start with a conversation.</p>
-  <a href="/schedule">Schedule an Automation Audit</a>
-</body>
-</html>`;
+  <a href="/schedule">Schedule an Automation Audit</a>`;
 
   const outDir = path.join(OUT_DIR, 'services', 'ai-automation');
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), html);
+  fs.writeFileSync(
+    path.join(outDir, 'index.html'),
+    shell({
+      title: 'AI and Automation Consulting | Dipriva Consulting Group',
+      description: 'Dipriva identifies high-friction workflows and deploys AI and automation to eliminate operational drag for West Michigan business owners. Bilingual delivery in English and Spanish.',
+      canonical: 'https://www.dipriva.com/services/ai-automation',
+      jsonLd,
+      body,
+    })
+  );
   console.log('  ✓ bot/services/ai-automation/index.html');
 }
 
 // ── About: Manuel Diprés ──────────────────────────────────────────────────────
 
 function generateAboutManuel() {
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Manuel Diprés | Founder, Dipriva Consulting Group</title>
-  <meta name="description" content="Manuel Diprés is the Founder of Dipriva Consulting Group, bringing over 20 years of experience building revenue operations and go-to-market systems for businesses in the Americas and Europe. Bilingual in English and Spanish.">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "@id": "https://www.dipriva.com/#founder",
-    "name": "Manuel Diprés",
-    "jobTitle": "Founder",
-    "worksFor": {
-      "@id": "https://www.dipriva.com/#organization"
-    },
-    "knowsLanguage": ["English", "Spanish"],
-    "description": "Founder of Dipriva Consulting Group with over 20 years of experience in revenue operations, sales enablement, and go-to-market systems across the Americas and Europe.",
-    "sameAs": [
-      "https://www.linkedin.com/in/manueldipres/"
-    ],
-    "url": "https://www.dipriva.com/about/manuel-dipres"
-  }
-  </script>
-</head>
-<body>
-  <h1>Manuel Diprés</h1>
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': 'https://www.dipriva.com/#founder',
+    name: 'Manuel Diprés',
+    jobTitle: 'Founder',
+    worksFor: { '@id': 'https://www.dipriva.com/#organization' },
+    knowsLanguage: ['English', 'Spanish'],
+    description: 'Founder of Dipriva Consulting Group with over 20 years of experience in revenue operations, sales enablement, and go-to-market systems across the Americas and Europe.',
+    sameAs: ['https://www.linkedin.com/in/manueldipres/'],
+    url: 'https://www.dipriva.com/about/manuel-dipres',
+  };
+
+  const body = `<h1>Manuel Diprés</h1>
   <h2>Founder, Dipriva Consulting Group</h2>
   <p>Manuel Diprés brings over 20 years of global experience building revenue operations, sales enablement programs, and go-to-market systems at scale. Having led cross-functional teams across the Americas and Europe, his approach focuses on engineering operational clarity and closing the gap between strategic intent and the infrastructure required to execute it. Manuel delivers precise, scalable solutions for startups and mid-market businesses, ensuring that high-growth ambitions are supported by disciplined execution. He delivers consulting services in English and Spanish.</p>
   <h2>The Dipriva Approach</h2>
@@ -573,52 +540,42 @@ function generateAboutManuel() {
   </ul>
   <h2>Work With Manuel</h2>
   <p>If your business needs operational clarity and an execution system that holds under pressure, start with a conversation.</p>
-  <a href="/schedule">Schedule a Consultation</a>
-</body>
-</html>`;
+  <a href="/schedule">Schedule a Consultation</a>`;
 
   const outDir = path.join(OUT_DIR, 'about', 'manuel-dipres');
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), html);
+  fs.writeFileSync(
+    path.join(outDir, 'index.html'),
+    shell({
+      title: 'Manuel Diprés | Founder, Dipriva Consulting Group',
+      description: 'Manuel Diprés is the Founder of Dipriva Consulting Group, bringing over 20 years of experience building revenue operations and go-to-market systems for businesses in the Americas and Europe. Bilingual in English and Spanish.',
+      canonical: 'https://www.dipriva.com/about/manuel-dipres',
+      jsonLd,
+      body,
+    })
+  );
   console.log('  ✓ bot/about/manuel-dipres/index.html');
 }
 
 // ── Industries: West Michigan ─────────────────────────────────────────────────
 
 function generateWestMichigan() {
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>West Michigan Business Consulting | Dipriva Consulting Group</title>
-  <meta name="description" content="Dipriva helps West Michigan business owners build the operational and sales systems to close deals consistently. Most are experts at their craft. Few have the infrastructure to sell it. Bilingual delivery in English and Spanish.">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": "https://www.dipriva.com/industries/west-michigan#service",
-    "name": "West Michigan Business Consulting",
-    "description": "Operational and sales infrastructure for West Michigan business owners who are experts at delivery but need a repeatable system to close new clients consistently.",
-    "provider": {
-      "@id": "https://www.dipriva.com/#organization"
-    },
-    "areaServed": [
-      {
-        "@type": "City",
-        "name": "Grand Rapids"
-      },
-      {
-        "@type": "State",
-        "name": "Michigan"
-      }
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': 'https://www.dipriva.com/industries/west-michigan#service',
+    name: 'West Michigan Business Consulting',
+    description: 'Operational and sales infrastructure for West Michigan business owners who are experts at delivery but need a repeatable system to close new clients consistently.',
+    provider: { '@id': 'https://www.dipriva.com/#organization' },
+    areaServed: [
+      { '@type': 'City', name: 'Grand Rapids' },
+      { '@type': 'State', name: 'Michigan' },
     ],
-    "availableLanguage": ["English", "Spanish"],
-    "serviceType": "Business Operations Consulting"
-  }
-  </script>
-</head>
-<body>
-  <h1>You Are Excellent at What You Do. Now Build the System That Sells It.</h1>
+    availableLanguage: ['English', 'Spanish'],
+    serviceType: 'Business Operations Consulting',
+  };
+
+  const body = `<h1>You Are Excellent at What You Do. Now Build the System That Sells It.</h1>
   <h2>The West Michigan Gap</h2>
   <p>West Michigan produces exceptional operators. Builders, service providers, and specialists who are deeply skilled at delivering results for their clients. What most do not have is a repeatable system for winning new ones. The pipeline is inconsistent. Follow-up falls through. Proposals go out and disappear. The problem is not the expertise. The problem is the absence of an operational sales infrastructure to support it.</p>
   <h2>What Dipriva Builds for West Michigan Owners</h2>
@@ -638,13 +595,20 @@ function generateWestMichigan() {
   </ul>
   <h2>Ready to Build the System?</h2>
   <p>If your expertise is not the problem but your pipeline is, that is exactly the gap we close. Start with a conversation.</p>
-  <a href="/schedule">Schedule a Consultation</a>
-</body>
-</html>`;
+  <a href="/schedule">Schedule a Consultation</a>`;
 
   const outDir = path.join(OUT_DIR, 'industries', 'west-michigan');
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'index.html'), html);
+  fs.writeFileSync(
+    path.join(outDir, 'index.html'),
+    shell({
+      title: 'West Michigan Business Consulting | Dipriva Consulting Group',
+      description: 'Dipriva helps West Michigan business owners build the operational and sales systems to close deals consistently. Most are experts at their craft. Few have the infrastructure to sell it. Bilingual delivery in English and Spanish.',
+      canonical: 'https://www.dipriva.com/industries/west-michigan',
+      jsonLd,
+      body,
+    })
+  );
   console.log('  ✓ bot/industries/west-michigan/index.html');
 }
 
