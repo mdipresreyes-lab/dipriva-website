@@ -5,9 +5,27 @@ import { ArrowLeft } from 'lucide-react';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import FooterSection from '@/components/sections/FooterSection';
 
-const TITLE = 'Startup Operations | Dipriva';
+const TITLE = 'Startup Operations Consulting | Dipriva Consulting Group';
 const DESCRIPTION =
   'Dipriva helps founders of 10-50 person professional services firms in West Michigan build the operational structure to step back from day-to-day execution. Bilingual delivery in English and Spanish.';
+
+const JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': 'https://www.dipriva.com/services/startup-operations#service',
+  name: 'Startup Operations Consulting',
+  description:
+    'Operational structure and 90-day roadmap for founders of 10-50 person professional services firms in West Michigan.',
+  provider: {
+    '@id': 'https://www.dipriva.com/#organization',
+  },
+  areaServed: {
+    '@type': 'State',
+    name: 'Michigan',
+  },
+  availableLanguage: ['English', 'Spanish'],
+  serviceType: 'Business Operations Consulting',
+};
 
 function setMeta(selector: string, attr: string, value: string): () => void {
   let el = document.querySelector(selector) as HTMLMetaElement | null;
@@ -33,6 +51,13 @@ export default function ServicesStartupOperations() {
     window.scrollTo(0, 0);
     const prevTitle = document.title;
     document.title = TITLE;
+
+    // Inject JSON-LD
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(JSON_LD);
+    document.head.appendChild(script);
+
     const cleanups = [
       setMeta('meta[name="description"]', 'content', DESCRIPTION),
       setMeta('meta[property="og:title"]', 'content', TITLE),
@@ -41,6 +66,7 @@ export default function ServicesStartupOperations() {
     ];
     return () => {
       document.title = prevTitle;
+      script.remove();
       cleanups.forEach(fn => fn());
     };
   }, []);

@@ -1,10 +1,12 @@
 /**
  * Build-time prerender script.
  * Runs after `vite build` to generate static HTML for known AI/search crawlers.
- * Output: dist/bot-html/{index,blog/index,blog/[slug]/index,privacy/index}.html
+ * Output: client/public/bot/{index,services/*,about/*,industries/*,blog/*,privacy}.html
  *
- * These files are served by the bot-UA middleware in server/_core/vite.ts.
- * Human visitors always receive the normal SPA — nothing here touches dist/public/.
+ * Files are written into client/public/bot/ so Vite includes them in dist/public/bot/
+ * and the static host serves them directly at /bot/* URLs.
+ * A Cloudflare Transform Rule must rewrite bot UA requests to these paths.
+ * Human visitors always receive the normal SPA — nothing here touches dist/public/ directly.
  */
 
 import fs from 'node:fs';
@@ -15,7 +17,7 @@ import { marked } from 'marked';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT     = path.resolve(__dirname, '..');
 const BLOG_DIR = path.join(ROOT, 'content', 'blog');
-const OUT_DIR  = path.join(ROOT, 'dist', 'bot-html');
+const OUT_DIR  = path.join(ROOT, 'client', 'public', 'bot');
 
 // ── Frontmatter parser ────────────────────────────────────────────────────────
 
@@ -163,7 +165,7 @@ function generateHome() {
       body,
     })
   );
-  console.log('  ✓ bot-html/index.html');
+  console.log('  ✓ bot/index.html');
 }
 
 // ── Blog index ────────────────────────────────────────────────────────────────
@@ -236,7 +238,7 @@ ${articleList}
       body,
     })
   );
-  console.log('  ✓ bot-html/blog/index.html');
+  console.log('  ✓ bot/blog/index.html');
 }
 
 // ── Blog posts ────────────────────────────────────────────────────────────────
@@ -301,7 +303,7 @@ ${htmlBody}
       body,
     })
   );
-  console.log(`  ✓ bot-html/blog/${meta.slug}/index.html`);
+  console.log(`  ✓ bot/blog/${meta.slug}/index.html`);
 }
 
 // ── Privacy ───────────────────────────────────────────────────────────────────
@@ -349,7 +351,7 @@ function generatePrivacy() {
       body,
     })
   );
-  console.log('  ✓ bot-html/privacy/index.html');
+  console.log('  ✓ bot/privacy/index.html');
 }
 
 // ── Services: Startup Operations ─────────────────────────────────────────────
@@ -420,7 +422,7 @@ function generateStartupOperations() {
   const outDir = path.join(OUT_DIR, 'services', 'startup-operations');
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(path.join(outDir, 'index.html'), html);
-  console.log('  ✓ bot-html/services/startup-operations/index.html');
+  console.log('  ✓ bot/services/startup-operations/index.html');
 }
 
 // ── Services: Corporate Strategy ─────────────────────────────────────────────
@@ -473,7 +475,7 @@ function generateCorporateStrategy() {
   const outDir = path.join(OUT_DIR, 'services', 'corporate-strategy');
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(path.join(outDir, 'index.html'), html);
-  console.log('  ✓ bot-html/services/corporate-strategy/index.html');
+  console.log('  ✓ bot/services/corporate-strategy/index.html');
 }
 
 // ── Services: AI and Automation ───────────────────────────────────────────────
@@ -526,7 +528,7 @@ function generateAiAutomation() {
   const outDir = path.join(OUT_DIR, 'services', 'ai-automation');
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(path.join(outDir, 'index.html'), html);
-  console.log('  ✓ bot-html/services/ai-automation/index.html');
+  console.log('  ✓ bot/services/ai-automation/index.html');
 }
 
 // ── About: Manuel Diprés ──────────────────────────────────────────────────────
@@ -578,7 +580,7 @@ function generateAboutManuel() {
   const outDir = path.join(OUT_DIR, 'about', 'manuel-dipres');
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(path.join(outDir, 'index.html'), html);
-  console.log('  ✓ bot-html/about/manuel-dipres/index.html');
+  console.log('  ✓ bot/about/manuel-dipres/index.html');
 }
 
 // ── Industries: West Michigan ─────────────────────────────────────────────────
@@ -643,7 +645,7 @@ function generateWestMichigan() {
   const outDir = path.join(OUT_DIR, 'industries', 'west-michigan');
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(path.join(outDir, 'index.html'), html);
-  console.log('  ✓ bot-html/industries/west-michigan/index.html');
+  console.log('  ✓ bot/industries/west-michigan/index.html');
 }
 
 // ── Main ──────────────────────────────────────────────────────────────────────
