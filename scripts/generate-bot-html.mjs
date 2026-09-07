@@ -13,6 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
+import { ROUTE_META } from './route-meta.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT     = path.resolve(__dirname, '..');
@@ -358,17 +359,7 @@ function generatePrivacy() {
 // ── Services: Startup Operations ─────────────────────────────────────────────
 
 function generateStartupOperations() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    '@id': 'https://www.dipriva.com/services/startup-operations#service',
-    name: 'Startup Operations Consulting',
-    description: 'Operational structure and 90-day roadmap for founders of 10-50 person professional services firms in West Michigan.',
-    provider: { '@id': 'https://www.dipriva.com/#organization' },
-    areaServed: { '@type': 'State', name: 'Michigan' },
-    availableLanguage: ['English', 'Spanish'],
-    serviceType: 'Business Operations Consulting',
-  };
+  const { title, description, canonical, jsonLd } = ROUTE_META['/services/startup-operations'];
 
   const body = `<h1>You Built the Business. Now Build the Operating System.</h1>
   <h2>Everything Runs Through You</h2>
@@ -409,9 +400,9 @@ function generateStartupOperations() {
   fs.writeFileSync(
     path.join(outDir, 'index.html'),
     shell({
-      title: 'Startup Operations Consulting | Dipriva Consulting Group',
-      description: 'Dipriva helps founders of 10-50 person professional services firms in West Michigan build the operational structure to step back from day-to-day execution. Bilingual delivery in English and Spanish.',
-      canonical: 'https://www.dipriva.com/services/startup-operations',
+      title,
+      description,
+      canonical,
       jsonLd,
       body,
     })
@@ -422,17 +413,7 @@ function generateStartupOperations() {
 // ── Services: Corporate Strategy ─────────────────────────────────────────────
 
 function generateCorporateStrategy() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    '@id': 'https://www.dipriva.com/services/corporate-strategy#service',
-    name: 'Corporate Strategy Consulting',
-    description: 'Strategic decision architecture, competitive positioning, operational due diligence, and 90-day execution roadmaps for West Michigan business owners and executives.',
-    provider: { '@id': 'https://www.dipriva.com/#organization' },
-    areaServed: { '@type': 'State', name: 'Michigan' },
-    availableLanguage: ['English', 'Spanish'],
-    serviceType: 'Business Strategy Consulting',
-  };
+  const { title, description, canonical, jsonLd } = ROUTE_META['/services/corporate-strategy'];
 
   const body = `<h1>Your Strategy Needs More Than a Plan. It Needs Infrastructure.</h1>
   <h2>The Gap Between Strategy and Execution</h2>
@@ -455,9 +436,9 @@ function generateCorporateStrategy() {
   fs.writeFileSync(
     path.join(outDir, 'index.html'),
     shell({
-      title: 'Corporate Strategy Consulting | Dipriva Consulting Group',
-      description: 'Dipriva architects structured execution plans for business owners and executives navigating growth, transition, or competitive pressure in West Michigan. Bilingual delivery in English and Spanish.',
-      canonical: 'https://www.dipriva.com/services/corporate-strategy',
+      title,
+      description,
+      canonical,
       jsonLd,
       body,
     })
@@ -468,17 +449,7 @@ function generateCorporateStrategy() {
 // ── Services: AI and Automation ───────────────────────────────────────────────
 
 function generateAiAutomation() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    '@id': 'https://www.dipriva.com/services/ai-automation#service',
-    name: 'AI and Automation Consulting',
-    description: 'Workflow audit and AI and automation implementation to eliminate operational drag for West Michigan business owners and executives.',
-    provider: { '@id': 'https://www.dipriva.com/#organization' },
-    areaServed: { '@type': 'State', name: 'Michigan' },
-    availableLanguage: ['English', 'Spanish'],
-    serviceType: 'AI and Automation Consulting',
-  };
+  const { title, description, canonical, jsonLd } = ROUTE_META['/services/ai-automation'];
 
   const body = `<h1>Eliminate the Work That Should Not Require You.</h1>
   <h2>Operational Drag Is a Revenue Problem</h2>
@@ -501,9 +472,9 @@ function generateAiAutomation() {
   fs.writeFileSync(
     path.join(outDir, 'index.html'),
     shell({
-      title: 'AI and Automation Consulting | Dipriva Consulting Group',
-      description: 'Dipriva identifies high-friction workflows and deploys AI and automation to eliminate operational drag for West Michigan business owners. Bilingual delivery in English and Spanish.',
-      canonical: 'https://www.dipriva.com/services/ai-automation',
+      title,
+      description,
+      canonical,
       jsonLd,
       body,
     })
@@ -514,18 +485,7 @@ function generateAiAutomation() {
 // ── About: Manuel Diprés ──────────────────────────────────────────────────────
 
 function generateAboutManuel() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    '@id': 'https://www.dipriva.com/#founder',
-    name: 'Manuel Diprés',
-    jobTitle: 'Founder',
-    worksFor: { '@id': 'https://www.dipriva.com/#organization' },
-    knowsLanguage: ['English', 'Spanish'],
-    description: 'Founder of Dipriva Consulting Group with over 20 years of experience in revenue operations, sales enablement, and go-to-market systems across the Americas and Europe.',
-    sameAs: ['https://www.linkedin.com/in/manueldipres/'],
-    url: 'https://www.dipriva.com/about/manuel-dipres',
-  };
+  const { title, description, canonical, jsonLd } = ROUTE_META['/about/manuel-dipres'];
 
   const body = `<h1>Manuel Diprés</h1>
   <h2>Founder, Dipriva Consulting Group</h2>
@@ -547,9 +507,9 @@ function generateAboutManuel() {
   fs.writeFileSync(
     path.join(outDir, 'index.html'),
     shell({
-      title: 'Manuel Diprés | Founder, Dipriva Consulting Group',
-      description: 'Manuel Diprés is the Founder of Dipriva Consulting Group, bringing over 20 years of experience building revenue operations and go-to-market systems for businesses in the Americas and Europe. Bilingual in English and Spanish.',
-      canonical: 'https://www.dipriva.com/about/manuel-dipres',
+      title,
+      description,
+      canonical,
       jsonLd,
       body,
     })
@@ -560,20 +520,7 @@ function generateAboutManuel() {
 // ── Industries: West Michigan ─────────────────────────────────────────────────
 
 function generateWestMichigan() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    '@id': 'https://www.dipriva.com/industries/west-michigan#service',
-    name: 'West Michigan Business Consulting',
-    description: 'Operational and sales infrastructure for West Michigan business owners who are experts at delivery but need a repeatable system to close new clients consistently.',
-    provider: { '@id': 'https://www.dipriva.com/#organization' },
-    areaServed: [
-      { '@type': 'City', name: 'Grand Rapids' },
-      { '@type': 'State', name: 'Michigan' },
-    ],
-    availableLanguage: ['English', 'Spanish'],
-    serviceType: 'Business Operations Consulting',
-  };
+  const { title, description, canonical, jsonLd } = ROUTE_META['/industries/west-michigan'];
 
   const body = `<h1>You Are Excellent at What You Do. Now Build the System That Sells It.</h1>
   <h2>The West Michigan Gap</h2>
@@ -602,9 +549,9 @@ function generateWestMichigan() {
   fs.writeFileSync(
     path.join(outDir, 'index.html'),
     shell({
-      title: 'West Michigan Business Consulting | Dipriva Consulting Group',
-      description: 'Dipriva helps West Michigan business owners build the operational and sales systems to close deals consistently. Most are experts at their craft. Few have the infrastructure to sell it. Bilingual delivery in English and Spanish.',
-      canonical: 'https://www.dipriva.com/industries/west-michigan',
+      title,
+      description,
+      canonical,
       jsonLd,
       body,
     })
