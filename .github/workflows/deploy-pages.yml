@@ -33,18 +33,23 @@ jobs:
         env:
           NODE_ENV: production
 
+      # Write a real index.html at every client-side route. GitHub Pages returns
+      # HTTP 200 only when a file exists at the requested path; routes without one
+      # fall through to 404.html, which renders fine for humans but responds 404 so
+      # crawlers will not index the page. Each file carries that route's own title,
+      # description, canonical and JSON-LD, so metadata is correct before JS runs.
+      - run: node scripts/prerender-routes.mjs dist/public
+
+      # Fallback for URLs that match no route at all.
       - run: cp dist/public/index.html dist/public/404.html
 
       # /client_form is a private, direct-link-only page. GitHub Pages can't set
       # a per-path X-Robots-Tag header, so give it its own static file with
       # noindex baked into the raw HTML instead of relying solely on the
-      # client-side meta-tag override in ClientForm.tsx. This file lives one
-      # directory deeper than index.html, so relative asset paths need an
-      # extra "../" to still resolve.
+      # client-side meta-tag override in ClientForm.tsx.
       - run: |
           mkdir -p dist/public/client_form
           sed -e 's/content="index, follow"/content="noindex, nofollow"/' \
-              -e 's#"\./#"../#g' \
               dist/public/index.html > dist/public/client_form/index.html
 
       - uses: actions/configure-pages@v5
