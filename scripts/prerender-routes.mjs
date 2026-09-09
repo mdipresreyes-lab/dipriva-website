@@ -65,7 +65,7 @@ function setMeta(html, selectorAttr, selectorValue, content) {
   );
 }
 
-function applyMeta(shell, { title, description, canonical, jsonLd }) {
+function applyMeta(shell, { title, description, canonical, jsonLd, ogImage }) {
   let html = shell;
 
   html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${title}</title>`);
@@ -76,6 +76,13 @@ function applyMeta(shell, { title, description, canonical, jsonLd }) {
   html = setMeta(html, 'name', 'twitter:title', title);
   html = setMeta(html, 'name', 'twitter:description', description);
   html = setMeta(html, 'name', 'twitter:url', canonical);
+
+  if (ogImage) {
+    html = setMeta(html, 'property', 'og:image', ogImage);
+    html = setMeta(html, 'property', 'og:image:url', ogImage);
+    html = setMeta(html, 'name', 'twitter:image', ogImage);
+    html = setMeta(html, 'name', 'twitter:image:src', ogImage);
+  }
 
   html = html.replace(
     /<link rel="canonical" href="[^"]*"\s*\/?>/i,
@@ -142,6 +149,7 @@ if (fs.existsSync(BLOG_DIR)) {
         title: `${meta.title} | Dipriva Insights`,
         description: meta.description,
         canonical,
+        ogImage: `https://www.dipriva.com/og/${meta.slug}.png`,
         jsonLd: {
           '@context': 'https://schema.org',
           '@type': 'BlogPosting',
