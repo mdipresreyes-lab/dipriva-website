@@ -29,6 +29,12 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # Regenerate the crawler-facing static HTML from content/blog/ before the
+      # build, so Vite copies client/public/bot/ into dist/public/bot/ as part of
+      # its normal public-directory pass. Running it after the build would write
+      # into a source directory nothing reads again.
+      - run: node scripts/generate-bot-html.mjs
+
       - run: npx vite build
         env:
           NODE_ENV: production
