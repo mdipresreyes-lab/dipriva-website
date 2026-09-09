@@ -254,9 +254,11 @@ function generateBlogPost(post) {
   const { meta, body: mdBody } = post;
   const canonical = `https://www.dipriva.com/blog/${meta.slug}`;
   const htmlBody = String(marked.parse(mdBody));
+  // Prefer: explicit frontmatter image → generated per-slug PNG → generic blog fallback
+  const generatedImage = `https://www.dipriva.com/og/${meta.slug}.png`;
   const ogImage = meta.image
     ? (meta.image.startsWith('http') ? meta.image : `https://www.dipriva.com${meta.image}`)
-    : BLOG_OG_IMAGE;
+    : generatedImage;
 
   const jsonLd = {
     '@context': 'https://schema.org',
