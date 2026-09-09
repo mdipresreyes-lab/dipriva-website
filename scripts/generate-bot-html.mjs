@@ -39,7 +39,10 @@ function parseFrontmatter(raw) {
 
 // ── HTML shell ────────────────────────────────────────────────────────────────
 
-function shell({ title, description, canonical, jsonLd, body }) {
+const DEFAULT_OG_IMAGE = 'https://www.dipriva.com/og-image.png';
+const BLOG_OG_IMAGE    = 'https://www.dipriva.com/og-blog.png';
+
+function shell({ title, description, canonical, jsonLd, body, ogImage = DEFAULT_OG_IMAGE, ogType = 'website' }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -51,16 +54,18 @@ function shell({ title, description, canonical, jsonLd, body }) {
   <link rel="canonical" href="${canonical}">
   <link rel="alternate" hreflang="en" href="${canonical}">
   <link rel="alternate" hreflang="x-default" href="https://www.dipriva.com">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="${ogType}">
   <meta property="og:url" content="${canonical}">
   <meta property="og:title" content="${title.replace(/"/g, '&quot;')}">
   <meta property="og:description" content="${description.replace(/"/g, '&quot;')}">
   <meta property="og:site_name" content="Dipriva Consulting Group">
-  <meta property="og:image" content="https://www.dipriva.com/og-image.png">
+  <meta property="og:image" content="${ogImage}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${title.replace(/"/g, '&quot;')}">
   <meta name="twitter:description" content="${description.replace(/"/g, '&quot;')}">
-  <meta name="twitter:image" content="https://www.dipriva.com/og-image.png">
+  <meta name="twitter:image" content="${ogImage}">
   <script type="application/ld+json">${JSON.stringify(jsonLd, null, 2)}</script>
 </head>
 <body>
@@ -249,6 +254,9 @@ function generateBlogPost(post) {
   const { meta, body: mdBody } = post;
   const canonical = `https://www.dipriva.com/blog/${meta.slug}`;
   const htmlBody = String(marked.parse(mdBody));
+  const ogImage = meta.image
+    ? (meta.image.startsWith('http') ? meta.image : `https://www.dipriva.com${meta.image}`)
+    : BLOG_OG_IMAGE;
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -303,6 +311,8 @@ ${htmlBody}
       canonical,
       jsonLd,
       body,
+      ogImage,
+      ogType: 'article',
     })
   );
   console.log(`  ✓ bot/blog/${meta.slug}/index.html`);
