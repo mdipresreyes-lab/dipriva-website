@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -19,17 +19,33 @@ const GA4_ID = 'G-GBW7DQ6T7V';
 export function CookieConsentBanner() {
   const { language } = useLanguage();
   const [showBanner, setShowBanner] = useState(false);
+  const acceptBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    // Check if user has already given consent
     const hasConsent = localStorage.getItem(COOKIE_CONSENT_KEY);
     if (!hasConsent) {
       setShowBanner(true);
     } else if (hasConsent === 'accepted') {
-      // Load analytics if consent was previously given
       loadAnalytics();
     }
   }, []);
+
+  // Move focus to Accept button when banner appears
+  useEffect(() => {
+    if (showBanner) {
+      acceptBtnRef.current?.focus();
+    }
+  }, [showBanner]);
+
+  // Dismiss on Escape key
+  useEffect(() => {
+    if (!showBanner) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') handleReject();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [showBanner]);
 
   const handleAccept = () => {
     localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted');
@@ -43,32 +59,27 @@ export function CookieConsentBanner() {
   };
 
   const loadAnalytics = () => {
-    // Initialize Microsoft Clarity with GDPR consent
     const clarityId = import.meta.env.VITE_CLARITY_ID;
     if (clarityId) {
       try {
         Clarity.init(clarityId);
-        // Set consent for ad_Storage and analytics_Storage
         Clarity.consentV2({ ad_Storage: 'granted', analytics_Storage: 'granted' });
       } catch (error) {
         console.warn('Failed to initialize Clarity:', error);
       }
     }
 
-    // Load GA4 only after consent is given
     const gaScript = document.createElement('script');
     gaScript.async = true;
     gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
     document.head.appendChild(gaScript);
 
-    // Initialize dataLayer and gtag function
     window.dataLayer = window.dataLayer || [];
     const gtag = (...args: any[]) => {
       window.dataLayer.push(args);
     };
     window.gtag = gtag;
 
-    // Initialize GA4
     gtag('js', new Date());
     gtag('config', GA4_ID);
   };
@@ -82,9 +93,13 @@ export function CookieConsentBanner() {
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
           className="fixed top-12 left-0 right-0 z-50 p-4 sm:p-6"
+          role="alertdialog"
+          aria-labelledby="cookie-banner-title"
+          aria-describedby="cookie-banner-desc"
         >
           <div className="max-w-2xl mx-auto bg-charcoal/95 backdrop-blur-md border border-silver/20 rounded-lg p-6 shadow-lg">
-            <p className="text-silver/80 text-sm mb-4">
+            <p id="cookie-banner-title" className="sr-only">Cookie preferences</p>
+            <p id="cookie-banner-desc" className="text-silver/80 text-sm mb-4">
               {t('cookie.message', language)}
             </p>
             <div className="flex gap-3">
@@ -96,6 +111,7 @@ export function CookieConsentBanner() {
                 {t('cookie.reject', language)}
               </Button>
               <Button
+                ref={acceptBtnRef}
                 onClick={handleAccept}
                 className="flex-1 bg-gold text-obsidian hover:bg-gold/90"
               >

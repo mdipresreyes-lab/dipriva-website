@@ -40,6 +40,7 @@ export default function Blog() {
     <div className="min-h-screen bg-obsidian text-silver overflow-x-hidden">
       {/* Nav */}
       <nav
+        aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
             ? 'bg-obsidian/95 backdrop-blur-md border-b border-silver/10'
@@ -65,7 +66,7 @@ export default function Blog() {
         </div>
       </nav>
 
-      <main className="pt-24">
+      <main id="main-content" className="pt-24">
         {/* Header */}
         <section className="py-16 sm:py-24 border-b border-silver/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -112,6 +113,7 @@ export default function Blog() {
                     <a
                       href={`/blog/${post.slug}`}
                       onClick={(e) => { e.preventDefault(); setLocation(`/blog/${post.slug}`); }}
+                      aria-label={post.title}
                       className="group flex flex-col bg-charcoal border border-silver/10 rounded-xl p-6 hover:border-silver/20 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-obsidian"
                     >
                       {/* Cluster badge */}
@@ -147,7 +149,7 @@ export default function Blog() {
                           className="flex items-center gap-1 text-xs group-hover:gap-2 transition-all duration-200"
                           style={{ color: '#D4AF37' }}
                         >
-                          {t('blog.readMore', language)} <ArrowRight className="w-3 h-3" />
+                          {t('blog.readMore', language)} <ArrowRight className="w-3 h-3" aria-hidden="true" />
                         </span>
                       </div>
                     </a>

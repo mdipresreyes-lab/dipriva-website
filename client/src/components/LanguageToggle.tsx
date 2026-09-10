@@ -9,12 +9,19 @@ export function LanguageToggle() {
   };
 
   return (
-    <button
-      onClick={toggleLanguage}
-      className="text-silver/80 hover:text-gold transition-colors font-semibold text-sm"
-      aria-label={language === 'en' ? 'ES — Switch to Spanish' : 'EN — Switch to English'}
-    >
-      {language === 'en' ? 'ES' : 'EN'}
-    </button>
+    <>
+      <button
+        onClick={toggleLanguage}
+        className="text-silver/80 hover:text-gold transition-colors font-semibold text-sm"
+        aria-label={language === 'en' ? 'Switch to Spanish' : 'Switch to English'}
+        aria-pressed={language === 'es'}
+      >
+        {language === 'en' ? 'ES' : 'EN'}
+      </button>
+      {/* Announces language change to screen readers */}
+      <span role="status" aria-live="polite" className="sr-only">
+        {language === 'en' ? 'Language: English' : 'Idioma: Español'}
+      </span>
+    </>
   );
 }

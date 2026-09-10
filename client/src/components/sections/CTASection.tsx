@@ -58,17 +58,15 @@ export default function CTASection() {
             </div>
 
             {/* Headline */}
-            <h2 
+            <h2
               className="text-5xl sm:text-6xl lg:text-7xl font-playfair font-bold text-foreground leading-tight"
               style={{ letterSpacing: '0.02em' }}
-              role="heading"
-              aria-level={2}
             >
               {t('cta.headline', language)}
             </h2>
 
             {/* Subheadline */}
-            <p className="text-xl text-foreground/70 leading-relaxed max-w-xl">
+            <p className="text-xl text-muted-foreground leading-relaxed max-w-xl">
               {t('cta.subheadline', language)}
             </p>
 
@@ -79,7 +77,7 @@ export default function CTASection() {
                 className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group"
               >
                 <span>{t('cta.button', language)}</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </button>
             </div>
           </motion.div>

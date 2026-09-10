@@ -62,7 +62,7 @@ export default function Schedule() {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-24">
+      <main id="main-content" className="pt-24">
         <section className="py-16 sm:py-24">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Heading */}
@@ -81,11 +81,17 @@ export default function Schedule() {
             {/* MS Form Embed */}
             <div className="rounded-xl overflow-hidden bg-white/5 border border-silver/10 backdrop-blur-sm">
               <iframe
-                title="Dipriva Lead Capture"
+                title="Contact Form — Start the Conversation"
                 src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=zkMAMxEb1U6oyZeD4vLkQhBR3cb14l5DvvK1DsDmhEdUNUdMRE9TNUJOT1ozOFpDVUZJUk5ORkFEUS4u&embed=true"
                 allowFullScreen
                 style={{ border: 'none', width: '100%', height: '820px', maxWidth: '100%' }}
               />
+              <p className="mt-3 text-center text-sm" style={{ color: 'rgba(232,232,232,0.5)' }}>
+                {language === 'en'
+                  ? <>Can't load the form? <a href="mailto:hello@dipriva.com" className="underline hover:text-gold transition-colors">Email us directly.</a></>
+                  : <>¿No carga el formulario? <a href="mailto:hello@dipriva.com" className="underline hover:text-gold transition-colors">Escríbenos directamente.</a></>
+                }
+              </p>
             </div>
 
             {/* Consent Text */}

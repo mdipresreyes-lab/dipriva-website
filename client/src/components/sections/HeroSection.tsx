@@ -51,11 +51,9 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h1 
+              <h1
                 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-playfair font-bold text-foreground leading-tight"
                 style={{ letterSpacing: '0.02em' }}
-                role="heading"
-                aria-level={1}
               >
                 {t('hero.headline', language)}
               </h1>
@@ -84,7 +82,7 @@ export default function HeroSection() {
                 className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
               >
                 <span>{language === 'en' ? 'Explore Services' : 'Explorar Servicios'}</span>
-                <ChevronDown className="w-5 h-5" />
+                <ChevronDown className="w-5 h-5" aria-hidden="true" />
               </button>
             </motion.div>
           </div>
@@ -159,7 +157,7 @@ export default function HeroSection() {
           aria-label="Scroll to services"
         >
           <span className="text-xs uppercase tracking-widest font-medium">Scroll</span>
-          <ChevronDown className="w-5 h-5" />
+          <ChevronDown className="w-5 h-5" aria-hidden="true" />
         </button>
       </motion.div>
     </section>

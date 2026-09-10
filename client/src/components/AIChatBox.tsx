@@ -224,7 +224,12 @@ export function AIChatBox({
           </div>
         ) : (
           <ScrollArea className="h-full">
-            <div className="flex flex-col space-y-4 p-4">
+            <div
+              className="flex flex-col space-y-4 p-4"
+              aria-live="polite"
+              aria-atomic="false"
+              aria-label="Chat messages"
+            >
               {displayMessages.map((message, index) => {
                 // Apply min-height to last message only if NOT loading (when loading, the loading indicator gets it)
                 const isLastMessage = index === displayMessages.length - 1;
@@ -293,7 +298,11 @@ export function AIChatBox({
                     <Sparkles className="size-4 text-primary" />
                   </div>
                   <div className="rounded-lg bg-muted px-4 py-2.5">
-                    <Loader2 className="size-4 animate-spin text-muted-foreground" />
+                    <Loader2
+                      className="size-4 animate-spin text-muted-foreground"
+                      role="status"
+                      aria-label="Loading response"
+                    />
                   </div>
                 </div>
               )}

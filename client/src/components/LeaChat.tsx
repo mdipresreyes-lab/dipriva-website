@@ -27,6 +27,9 @@ export function LeaChat() {
   const [input, setInput] = useState("");
   const [isSending, setIsSending] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const toggleBtnRef = useRef<HTMLButtonElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const greeting = t("chat.greeting", language);
 
@@ -35,6 +38,50 @@ export function LeaChat() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, isOpen, isSending]);
+
+  // Focus management and focus trap when dialog is open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Move focus into the dialog
+    textareaRef.current?.focus();
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Close on Escape and return focus to toggle button
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        toggleBtnRef.current?.focus();
+        return;
+      }
+
+      // Trap Tab within the dialog
+      if (e.key === "Tab" && dialogRef.current) {
+        const focusable = Array.from(
+          dialogRef.current.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), textarea:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  const closeDialog = () => {
+    setIsOpen(false);
+    toggleBtnRef.current?.focus();
+  };
 
   const handleSend = async () => {
     const trimmed = input.trim();
@@ -78,6 +125,10 @@ export function LeaChat() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
+              ref={dialogRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="lea-dialog-title"
               initial={{ opacity: 0, y: 16, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 16, scale: 0.98 }}
@@ -86,19 +137,28 @@ export function LeaChat() {
             >
               <div className="flex items-center justify-between border-b border-border bg-primary px-4 py-3">
                 <div>
-                  <p className="font-serif text-base text-primary-foreground">{t("chat.headerTitle", language)}</p>
+                  <p id="lea-dialog-title" className="font-serif text-base text-primary-foreground">
+                    {t("chat.headerTitle", language)}
+                  </p>
                   <p className="text-[11px] text-primary-foreground/70">{t("chat.headerSubtitle", language)}</p>
                 </div>
                 <button
-                  onClick={() => setIsOpen(false)}
+                  onClick={closeDialog}
                   aria-label={t("chat.closeLabel", language)}
                   className="rounded-sm p-1 text-primary-foreground/80 transition-colors hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
 
-              <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
+              {/* aria-live so screen readers announce incoming AI replies */}
+              <div
+                ref={scrollRef}
+                aria-live="polite"
+                aria-atomic="false"
+                aria-label={language === "en" ? "Chat messages" : "Mensajes de chat"}
+                className="flex-1 space-y-3 overflow-y-auto px-4 py-4"
+              >
                 {displayMessages.map((message, index) => (
                   <div key={index} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                     <div
@@ -115,7 +175,11 @@ export function LeaChat() {
                 {isSending && (
                   <div className="flex justify-start">
                     <div className="flex items-center gap-2 rounded-md bg-secondary px-3 py-2 text-xs text-muted-foreground">
-                      <Loader2 className="h-3 w-3 animate-spin" />
+                      <Loader2
+                        className="h-3 w-3 animate-spin"
+                        role="status"
+                        aria-label={language === "en" ? "Loading response" : "Cargando respuesta"}
+                      />
                       {t("chat.thinking", language)}
                     </div>
                   </div>
@@ -124,6 +188,7 @@ export function LeaChat() {
 
               <div className="flex items-end gap-2 border-t border-border p-3">
                 <Textarea
+                  ref={textareaRef}
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
                   onKeyDown={handleKeyDown}
@@ -138,7 +203,7 @@ export function LeaChat() {
                   className="h-9 w-9 shrink-0 rounded-sm"
                   aria-label={t("chat.sendLabel", language)}
                 >
-                  <Send className="h-4 w-4" />
+                  <Send className="h-4 w-4" aria-hidden="true" />
                 </Button>
               </div>
             </motion.div>
@@ -146,13 +211,16 @@ export function LeaChat() {
         </AnimatePresence>
 
         <motion.button
+          ref={toggleBtnRef}
           onClick={() => setIsOpen((open) => !open)}
           aria-label={isOpen ? t("chat.closeLabel", language) : t("chat.openLabel", language)}
+          aria-expanded={isOpen}
+          aria-controls="lea-dialog"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg"
         >
-          {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
+          {isOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <MessageCircle className="h-6 w-6" aria-hidden="true" />}
         </motion.button>
       </div>
     </>

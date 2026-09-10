@@ -65,7 +65,7 @@ const ServiceCardComponent = ({ service, index }: { service: ServiceCard; index:
             <h3 className="text-2xl lg:text-3xl font-playfair font-bold text-foreground mb-3">
               {service.title}
             </h3>
-            <p className="text-foreground/70 text-lg leading-relaxed">
+            <p className="text-muted-foreground text-lg leading-relaxed">
               {service.description}
             </p>
           </div>
@@ -75,18 +75,22 @@ const ServiceCardComponent = ({ service, index }: { service: ServiceCard; index:
             {service.details.map((detail, i) => (
               <div key={i} className="flex items-start gap-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" aria-hidden="true" />
-                <span className="text-foreground/70 text-sm leading-relaxed">{detail}</span>
+                <span className="text-muted-foreground text-sm leading-relaxed">{detail}</span>
               </div>
             ))}
           </div>
 
           {/* CTA links */}
           <div className="pt-4 border-t border-primary/10 flex flex-col gap-3">
-            <a href={`/services/${service.id}`} className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all duration-300 group/link">
+            <a
+              href={`/services/${service.id}`}
+              aria-label={`${language === 'en' ? 'Learn more about' : 'Más información sobre'} ${service.title}`}
+              className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all duration-300 group/link"
+            >
               <span>{language === 'en' ? 'Learn more' : 'Más información'}</span>
-              <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" aria-hidden="true" />
             </a>
-            <a href="#cta" className="inline-flex items-center gap-2 text-sm text-foreground/60 font-medium hover:text-primary transition-colors duration-300">
+            <a href="#cta" className="inline-flex items-center gap-2 text-sm text-muted-foreground font-medium hover:text-primary transition-colors duration-300">
               <span>{language === 'en' ? 'Book a Consultation' : 'Reservar una consulta'}</span>
             </a>
           </div>
@@ -167,11 +171,9 @@ export default function ServicesSection() {
 
           {/* Title and description */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-            <h2 
+            <h2
               className="text-5xl sm:text-6xl lg:text-7xl font-playfair font-bold text-foreground leading-tight"
               style={{ letterSpacing: '0.02em' }}
-              role="heading"
-              aria-level={2}
             >
               {t('services.title', language)}
             </h2>

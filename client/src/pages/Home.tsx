@@ -118,7 +118,7 @@ export default function Home() {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-16">
+      <main id="main-content" className="pt-16">
         <HeroSection />
         <ServicesSection />
         <AboutSection />

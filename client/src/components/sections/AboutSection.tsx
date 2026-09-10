@@ -35,18 +35,16 @@ export default function AboutSection() {
           </div>
 
           {/* Title */}
-          <h2 
+          <h2
             className="text-5xl sm:text-6xl lg:text-7xl font-playfair font-bold text-foreground leading-tight"
             style={{ letterSpacing: '0.02em' }}
-            role="heading"
-            aria-level={2}
           >
             {t('about.title', language)}
           </h2>
 
           {/* Description with enhanced typography */}
           <div className="space-y-8">
-            <p className="text-xl lg:text-2xl text-foreground/80 leading-relaxed font-light">
+            <p className="text-xl lg:text-2xl text-muted-foreground leading-relaxed font-light">
               {t('about.description', language)}
             </p>
 
@@ -83,7 +81,7 @@ export default function AboutSection() {
                   <div className="text-4xl lg:text-5xl font-playfair font-bold text-foreground">
                     {item.value}
                   </div>
-                  <p className="text-foreground/70">
+                  <p className="text-muted-foreground">
                     {item.detail}
                   </p>
                 </motion.div>

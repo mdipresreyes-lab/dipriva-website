@@ -48,7 +48,7 @@ const FooterSectionComponent: FooterSectionComponent = () => {
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-silver/60 hover:text-gold transition-colors"
             >
-              <Linkedin className="w-5 h-5" />
+              <Linkedin className="w-5 h-5" aria-hidden="true" />
               <span className="text-sm">LinkedIn</span>
             </a>
           </div>
