@@ -4,6 +4,48 @@ import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import FooterSection from '@/components/sections/FooterSection';
+import { useLanguage } from '@/contexts/LanguageContext';
+
+const pageContent = {
+  en: {
+    back: 'Back to Home',
+    overline: 'Startup Operations',
+    h1: 'You Built the Business. Now Build the Operating System.',
+    s2heading: 'Everything Runs Through You',
+    s2body: 'Most founders of growing professional services firms reach the same wall. Revenue is up, the team is expanding, and yet every decision, every client issue, and every internal process still lands on your desk. Stepping back feels impossible because there is no structure underneath you to hold it. That is not a leadership problem. It is an operations problem.',
+    s3heading: 'What a Startup Operations Engagement Delivers',
+    s3body: 'Dipriva works with founders of 10 to 50 person professional services companies in West Michigan to build the operational foundation their growth requires. Every engagement is delivered in English or Spanish and concludes with one primary deliverable: a 90-day operational roadmap your team can execute without you in the room.',
+    s4heading: 'Who This Is For',
+    list: [
+      'Professional services founders in West Michigan with 10 to 50 employees',
+      'Companies where growth has outpaced internal structure and process',
+      'Founders who need to delegate but have nothing documented to delegate to',
+      'Leadership teams preparing for a key hire, a funding round, or an ownership transition',
+    ],
+    ctaHeading: 'Ready to Step Back?',
+    ctaBody: 'If your business depends entirely on you to function, that is the problem we solve. Start with a conversation.',
+    ctaButton: 'Schedule a Consultation',
+  },
+  es: {
+    back: 'Volver al Inicio',
+    overline: 'Operaciones de Startups',
+    h1: 'Construiste el Negocio. Ahora Construye el Sistema Operativo.',
+    s2heading: 'Todo Pasa Por Ti',
+    s2body: 'La mayoría de los fundadores de firmas de servicios profesionales en crecimiento llegan a la misma pared. Los ingresos aumentan, el equipo se expande y sin embargo cada decisión, cada problema de cliente y cada proceso interno sigue llegando a tu escritorio. Dar un paso atrás se siente imposible porque no hay estructura debajo de ti que lo sostenga. Eso no es un problema de liderazgo. Es un problema de operaciones.',
+    s3heading: 'Qué Entrega un Compromiso de Operaciones de Startups',
+    s3body: 'Dipriva trabaja con fundadores de empresas de servicios profesionales de 10 a 50 personas en West Michigan para construir la base operacional que su crecimiento requiere. Cada compromiso se entrega en inglés o español y concluye con un entregable principal: un mapa operacional de 90 días que tu equipo puede ejecutar sin que estés en la sala.',
+    s4heading: 'Para Quién Es Esto',
+    list: [
+      'Fundadores de servicios profesionales en West Michigan con 10 a 50 empleados',
+      'Empresas donde el crecimiento ha superado la estructura interna y los procesos',
+      'Fundadores que necesitan delegar pero no tienen nada documentado a qué delegar',
+      'Equipos directivos que se preparan para una contratación clave, una ronda de financiamiento o una transición de propiedad',
+    ],
+    ctaHeading: '¿Listo para Delegar?',
+    ctaBody: 'Si tu negocio depende completamente de ti para funcionar, ese es el problema que resolvemos. Comienza con una conversación.',
+    ctaButton: 'Agendar una Consulta',
+  },
+};
 
 const TITLE = 'Startup Operations Consulting | Dipriva Consulting Group';
 const DESCRIPTION =
@@ -46,6 +88,8 @@ function setMeta(selector: string, attr: string, value: string): () => void {
 export default function ServicesStartupOperations() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [, setLocation] = useLocation();
+  const { language } = useLanguage();
+  const c = pageContent[language];
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -93,7 +137,7 @@ export default function ServicesStartupOperations() {
             className="flex items-center gap-2 text-silver hover:text-gold transition-colors"
           >
             <ArrowLeft size={16} />
-            <span className="text-sm">Back to Home</span>
+            <span className="text-sm">{c.back}</span>
           </button>
           <span className="text-lg font-playfair font-bold" style={{ letterSpacing: '0.05em' }}>
             Dipriva
@@ -112,54 +156,32 @@ export default function ServicesStartupOperations() {
         >
           {/* Section 1 */}
           <div>
-            <p className="text-gold text-sm tracking-widest uppercase mb-4">Startup Operations</p>
+            <p className="text-gold text-sm tracking-widest uppercase mb-4">{c.overline}</p>
             <h1 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-6 leading-tight">
-              You Built the Business. Now Build the Operating System.
+              {c.h1}
             </h1>
           </div>
 
           {/* Section 2 */}
           <div className="border-l-2 border-gold/40 pl-6">
-            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">
-              Everything Runs Through You
-            </h2>
-            <p className="text-silver/80" style={{ lineHeight: '1.7' }}>
-              Most founders of growing professional services firms reach the same wall. Revenue is
-              up, the team is expanding, and yet every decision, every client issue, and every
-              internal process still lands on your desk. Stepping back feels impossible because there
-              is no structure underneath you to hold it. That is not a leadership problem. It is an
-              operations problem.
-            </p>
+            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">{c.s2heading}</h2>
+            <p className="text-silver/80" style={{ lineHeight: '1.7' }}>{c.s2body}</p>
           </div>
 
           {/* Section 3 */}
           <div>
-            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">
-              What a Startup Operations Engagement Delivers
-            </h2>
-            <p className="text-silver/80" style={{ lineHeight: '1.7' }}>
-              Dipriva works with founders of 10 to 50 person professional services companies in West
-              Michigan to build the operational foundation their growth requires. Every engagement is
-              delivered in English or Spanish and concludes with one primary deliverable: a 90-day
-              operational roadmap your team can execute without you in the room.
-            </p>
+            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">{c.s3heading}</h2>
+            <p className="text-silver/80" style={{ lineHeight: '1.7' }}>{c.s3body}</p>
           </div>
 
           {/* Section 4 */}
           <div>
-            <h2 className="text-2xl font-playfair font-bold text-silver mb-6">Who This Is For</h2>
+            <h2 className="text-2xl font-playfair font-bold text-silver mb-6">{c.s4heading}</h2>
             <ul className="space-y-4">
-              {[
-                'Professional services founders in West Michigan with 10 to 50 employees',
-                'Companies where growth has outpaced internal structure and process',
-                'Founders who need to delegate but have nothing documented to delegate to',
-                'Leadership teams preparing for a key hire, a funding round, or an ownership transition',
-              ].map((item, i) => (
+              {c.list.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="text-gold mt-1 shrink-0">—</span>
-                  <span className="text-silver/80" style={{ lineHeight: '1.6' }}>
-                    {item}
-                  </span>
+                  <span className="text-silver/80" style={{ lineHeight: '1.6' }}>{item}</span>
                 </li>
               ))}
             </ul>
@@ -167,18 +189,13 @@ export default function ServicesStartupOperations() {
 
           {/* Section 5 — CTA */}
           <div className="border border-silver/10 rounded-lg p-8 bg-silver/5">
-            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">
-              Ready to Step Back?
-            </h2>
-            <p className="text-silver/80 mb-6" style={{ lineHeight: '1.7' }}>
-              If your business depends entirely on you to function, that is the problem we solve.
-              Start with a conversation.
-            </p>
+            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">{c.ctaHeading}</h2>
+            <p className="text-silver/80 mb-6" style={{ lineHeight: '1.7' }}>{c.ctaBody}</p>
             <a
               href="/schedule"
               className="inline-block bg-gold text-obsidian font-semibold px-8 py-3 rounded hover:bg-gold/90 transition-colors"
             >
-              Schedule a Consultation
+              {c.ctaButton}
             </a>
           </div>
         </motion.div>

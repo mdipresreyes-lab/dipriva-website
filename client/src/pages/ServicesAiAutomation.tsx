@@ -4,6 +4,48 @@ import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import FooterSection from '@/components/sections/FooterSection';
+import { useLanguage } from '@/contexts/LanguageContext';
+
+const pageContent = {
+  en: {
+    back: 'Back to Home',
+    overline: 'AI and Automation',
+    h1: 'Eliminate the Work That Should Not Require You.',
+    s2heading: 'Operational Drag Is a Revenue Problem',
+    s2body: 'Every hour your team spends on manual data entry, repetitive follow-up, or disconnected handoffs is an hour not spent on execution that moves the business forward. Most West Michigan business owners know the drag exists. Few have the bandwidth to architect the fix. That is exactly what this engagement does.',
+    s3heading: 'What an AI and Automation Engagement Delivers',
+    s3body: 'Dipriva audits your highest-friction workflows, identifies where AI and automation create the most leverage, and implements the systems that reduce manual effort without adding complexity. Every engagement is delivered in English or Spanish and concludes with deployed, documented automation your team operates independently. No theoretical frameworks. No vendor recommendations without implementation.',
+    s4heading: 'Who This Is For',
+    list: [
+      'Business owners whose teams spend significant time on manual, repeatable tasks that slow execution',
+      'Operations leaders managing disconnected tools and manual handoffs between systems',
+      'Companies where growth has increased administrative load faster than headcount',
+      'Founders who want AI deployed in their business but do not know where to start without creating more complexity',
+    ],
+    ctaHeading: 'Ready to Eliminate the Drag?',
+    ctaBody: 'If your team is working hard but the business is not accelerating, operational drag is the most likely cause. Start with a conversation.',
+    ctaButton: 'Schedule an Automation Audit',
+  },
+  es: {
+    back: 'Volver al Inicio',
+    overline: 'IA y Automatización',
+    h1: 'Elimina el Trabajo Que No Debería Requerirte a Ti.',
+    s2heading: 'La Fricción Operacional Es un Problema de Ingresos',
+    s2body: 'Cada hora que tu equipo dedica a ingresar datos manualmente, seguimientos repetitivos o traspasos desconectados es una hora que no se dedica a la ejecución que mueve el negocio hacia adelante. La mayoría de los dueños de negocios en West Michigan saben que existe la fricción. Pocos tienen el ancho de banda para diseñar la solución. Eso es exactamente lo que hace este compromiso.',
+    s3heading: 'Qué Entrega un Compromiso de IA y Automatización',
+    s3body: 'Dipriva audita tus flujos de trabajo de mayor fricción, identifica dónde la IA y la automatización crean más apalancamiento e implementa los sistemas que reducen el esfuerzo manual sin agregar complejidad. Cada compromiso se entrega en inglés o español y concluye con automatización implementada y documentada que tu equipo opera de forma independiente. Sin marcos teóricos. Sin recomendaciones de proveedores sin implementación.',
+    s4heading: 'Para Quién Es Esto',
+    list: [
+      'Dueños de negocios cuyos equipos dedican tiempo significativo a tareas manuales y repetibles que ralentizan la ejecución',
+      'Líderes de operaciones que gestionan herramientas desconectadas y traspasos manuales entre sistemas',
+      'Empresas donde el crecimiento ha aumentado la carga administrativa más rápido que la plantilla',
+      'Fundadores que quieren IA implementada en su negocio pero no saben por dónde empezar sin crear más complejidad',
+    ],
+    ctaHeading: '¿Listo para Eliminar la Fricción?',
+    ctaBody: 'Si tu equipo trabaja duro pero el negocio no acelera, la fricción operacional es la causa más probable. Comienza con una conversación.',
+    ctaButton: 'Agendar una Auditoría de Automatización',
+  },
+};
 
 const TITLE = 'AI and Automation Consulting | Dipriva Consulting Group';
 const DESCRIPTION =
@@ -46,6 +88,8 @@ function setMeta(selector: string, attr: string, value: string): () => void {
 export default function ServicesAiAutomation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [, setLocation] = useLocation();
+  const { language } = useLanguage();
+  const c = pageContent[language];
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -92,7 +136,7 @@ export default function ServicesAiAutomation() {
             className="flex items-center gap-2 text-silver hover:text-gold transition-colors"
           >
             <ArrowLeft size={16} />
-            <span className="text-sm">Back to Home</span>
+            <span className="text-sm">{c.back}</span>
           </button>
           <span className="text-lg font-playfair font-bold" style={{ letterSpacing: '0.05em' }}>
             Dipriva
@@ -111,54 +155,32 @@ export default function ServicesAiAutomation() {
         >
           {/* Section 1 */}
           <div>
-            <p className="text-gold text-sm tracking-widest uppercase mb-4">AI and Automation</p>
+            <p className="text-gold text-sm tracking-widest uppercase mb-4">{c.overline}</p>
             <h1 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-6 leading-tight">
-              Eliminate the Work That Should Not Require You.
+              {c.h1}
             </h1>
           </div>
 
           {/* Section 2 */}
           <div className="border-l-2 border-gold/40 pl-6">
-            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">
-              Operational Drag Is a Revenue Problem
-            </h2>
-            <p className="text-silver/80" style={{ lineHeight: '1.7' }}>
-              Every hour your team spends on manual data entry, repetitive follow-up, or disconnected
-              handoffs is an hour not spent on execution that moves the business forward. Most West
-              Michigan business owners know the drag exists. Few have the bandwidth to architect the
-              fix. That is exactly what this engagement does.
-            </p>
+            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">{c.s2heading}</h2>
+            <p className="text-silver/80" style={{ lineHeight: '1.7' }}>{c.s2body}</p>
           </div>
 
           {/* Section 3 */}
           <div>
-            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">
-              What an AI and Automation Engagement Delivers
-            </h2>
-            <p className="text-silver/80" style={{ lineHeight: '1.7' }}>
-              Dipriva audits your highest-friction workflows, identifies where AI and automation
-              create the most leverage, and implements the systems that reduce manual effort without
-              adding complexity. Every engagement is delivered in English or Spanish and concludes
-              with deployed, documented automation your team operates independently. No theoretical
-              frameworks. No vendor recommendations without implementation.
-            </p>
+            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">{c.s3heading}</h2>
+            <p className="text-silver/80" style={{ lineHeight: '1.7' }}>{c.s3body}</p>
           </div>
 
           {/* Section 4 */}
           <div>
-            <h2 className="text-2xl font-playfair font-bold text-silver mb-6">Who This Is For</h2>
+            <h2 className="text-2xl font-playfair font-bold text-silver mb-6">{c.s4heading}</h2>
             <ul className="space-y-4">
-              {[
-                'Business owners whose teams spend significant time on manual, repeatable tasks that slow execution',
-                'Operations leaders managing disconnected tools and manual handoffs between systems',
-                'Companies where growth has increased administrative load faster than headcount',
-                'Founders who want AI deployed in their business but do not know where to start without creating more complexity',
-              ].map((item, i) => (
+              {c.list.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="text-gold mt-1 shrink-0">—</span>
-                  <span className="text-silver/80" style={{ lineHeight: '1.6' }}>
-                    {item}
-                  </span>
+                  <span className="text-silver/80" style={{ lineHeight: '1.6' }}>{item}</span>
                 </li>
               ))}
             </ul>
@@ -166,18 +188,13 @@ export default function ServicesAiAutomation() {
 
           {/* Section 5 — CTA */}
           <div className="border border-silver/10 rounded-lg p-8 bg-silver/5">
-            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">
-              Ready to Eliminate the Drag?
-            </h2>
-            <p className="text-silver/80 mb-6" style={{ lineHeight: '1.7' }}>
-              If your team is working hard but the business is not accelerating, operational drag is
-              the most likely cause. Start with a conversation.
-            </p>
+            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">{c.ctaHeading}</h2>
+            <p className="text-silver/80 mb-6" style={{ lineHeight: '1.7' }}>{c.ctaBody}</p>
             <a
               href="/schedule"
               className="inline-block bg-gold text-obsidian font-semibold px-8 py-3 rounded hover:bg-gold/90 transition-colors"
             >
-              Schedule an Automation Audit
+              {c.ctaButton}
             </a>
           </div>
         </motion.div>
