@@ -94,9 +94,9 @@ export default function IndustriesWestMichigan() {
             <ArrowLeft size={16} />
             <span className="text-sm">Back to Home</span>
           </button>
-          <h1 className="text-lg font-playfair font-bold" style={{ letterSpacing: '0.05em' }}>
+          <span className="text-lg font-playfair font-bold" style={{ letterSpacing: '0.05em' }}>
             Dipriva
-          </h1>
+          </span>
           <LanguageToggle />
         </div>
       </nav>

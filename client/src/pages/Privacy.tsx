@@ -220,9 +220,9 @@ export default function Privacy() {
           >
             {content.backToHome}
           </button>
-          <h1 className="text-lg font-playfair font-bold" style={{ letterSpacing: '0.05em' }}>
+          <span className="text-lg font-playfair font-bold" style={{ letterSpacing: '0.05em' }}>
             {content.title}
-          </h1>
+          </span>
           <div className="w-24" />
         </div>
       </nav>
