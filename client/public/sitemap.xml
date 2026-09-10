@@ -24,4 +24,40 @@
     <loc>https://www.dipriva.com/industries/west-michigan</loc>
     <lastmod>2026-09-04</lastmod>
   </url>
+  <url>
+    <loc>https://www.dipriva.com/blog</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.dipriva.com/schedule</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.dipriva.com/blog/architect-the-micro-multinational-scaling-global-enterprise-without-headcount-drag</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.dipriva.com/blog/refine-before-you-automate-why-startups-must-architect-processes-before-deploying-ai</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.dipriva.com/blog/assortment-architecture-pruning-sku-supermarket-margins</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.dipriva.com/blog/operational-capacity-architecture-decoupling-headcount-b2b-scale</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

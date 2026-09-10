@@ -67,7 +67,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <p className="text-lg sm:text-xl lg:text-2xl text-foreground/70 max-w-xl leading-relaxed font-light">
+              <p className="text-lg sm:text-xl lg:text-2xl text-[#3D5068] max-w-xl leading-relaxed font-light">
                 {t('hero.subheadline', language)}
               </p>
             </motion.div>
@@ -111,12 +111,12 @@ export default function HeroSection() {
                         {language === 'en' ? 'Our Approach' : 'Nuestro Enfoque'}
                       </span>
                     </div>
-                    <h3 className="text-2xl font-playfair font-bold text-foreground">
+                    <h2 className="text-2xl font-playfair font-bold text-foreground">
                       {language === 'en' ? 'Structured Execution' : 'Ejecución Estructurada'}
-                    </h3>
+                    </h2>
                   </div>
 
-                  <p className="text-foreground/70 leading-relaxed">
+                  <p className="text-[#3D5068] leading-relaxed">
                     {language === 'en' 
                       ? 'We architect systems that eliminate operational friction and accelerate growth.' 
                       : 'Diseñamos sistemas que eliminan la fricción operacional y aceleran el crecimiento.'}
@@ -126,13 +126,13 @@ export default function HeroSection() {
                   <div className="grid grid-cols-2 gap-4 pt-4 border-t border-primary/10">
                     <div>
                       <div className="text-3xl font-playfair font-bold text-primary">150+</div>
-                      <div className="text-sm text-foreground/60">
+                      <div className="text-sm text-[#4A5D73]">
                         {language === 'en' ? 'Executives Served' : 'Ejecutivos Atendidos'}
                       </div>
                     </div>
                     <div>
                       <div className="text-3xl font-playfair font-bold text-primary">15+</div>
-                      <div className="text-sm text-foreground/60">
+                      <div className="text-sm text-[#4A5D73]">
                         {language === 'en' ? 'Years Experience' : 'Años de Experiencia'}
                       </div>
                     </div>
