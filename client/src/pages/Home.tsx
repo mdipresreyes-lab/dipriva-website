@@ -32,6 +32,7 @@ export default function Home() {
     <div className="min-h-screen bg-obsidian text-silver overflow-x-hidden">
       {/* Navigation Bar */}
       <nav
+        aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
             ? 'bg-obsidian/95 backdrop-blur-md border-b border-silver/10'
@@ -66,6 +67,9 @@ export default function Home() {
           <div className="lg:hidden flex items-center gap-4">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav-menu"
               className="text-silver hover:text-gold transition-colors"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -78,7 +82,7 @@ export default function Home() {
 
         {/* Mobile Menu Dropdown */}
         {isMenuOpen && (
-          <div className="lg:hidden bg-obsidian/95 backdrop-blur-md border-b border-silver/10 px-4 py-4">
+          <div id="mobile-nav-menu" className="lg:hidden bg-obsidian/95 backdrop-blur-md border-b border-silver/10 px-4 py-4">
             <div className="flex flex-col gap-4">
               <a
                 href="#services"
