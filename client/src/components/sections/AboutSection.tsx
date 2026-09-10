@@ -55,7 +55,7 @@ export default function AboutSection() {
               {[
                 {
                   label: language === 'en' ? 'Founded' : 'Fundado',
-                  value: language === 'en' ? '2010' : '2010',
+                  value: language === 'en' ? '2019' : '2019',
                   detail: language === 'en' ? 'Strategic consulting excellence' : 'Excelencia en consultoría estratégica',
                 },
                 {
