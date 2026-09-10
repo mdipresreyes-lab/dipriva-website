@@ -57,7 +57,7 @@ const JSON_LD = {
   '@id': 'https://www.dipriva.com/services/corporate-strategy#service',
   name: 'Corporate Strategy Consulting',
   description:
-    'Strategic decision architecture, competitive positioning, operational due diligence, and 90-day execution roadmaps for West Michigan business owners and executives.',
+    'Structured strategy engagements for West Michigan business owners and executives: decision architecture, competitive positioning, and 90-day execution roadmaps.',
   provider: {
     '@id': 'https://www.dipriva.com/#organization',
   },
