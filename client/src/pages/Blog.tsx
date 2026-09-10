@@ -108,45 +108,49 @@ export default function Blog() {
                     initial={{ opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: i * 0.08 }}
-                    className="group flex flex-col bg-charcoal border border-silver/10 rounded-xl p-6 hover:border-silver/20 transition-all duration-300 cursor-pointer"
-                    onClick={() => setLocation(`/blog/${post.slug}`)}
                   >
-                    {/* Cluster badge */}
-                    {post.cluster && (
-                      <span
-                        className="self-start text-xs tracking-luxury uppercase border rounded-full px-3 py-1 mb-4"
-                        style={{ color: '#D4AF37', borderColor: 'rgba(212,175,55,0.45)' }}
-                      >
-                        {post.cluster}
-                      </span>
-                    )}
-
-                    {/* Title */}
-                    <h2 className="font-playfair font-bold text-silver text-xl leading-snug mb-3 group-hover:text-gold transition-colors duration-300" style={{ letterSpacing: '0.05em' }}>
-                      {post.title}
-                    </h2>
-
-                    {/* Description */}
-                    <p className="text-silver/60 text-sm leading-relaxed flex-1 mb-6">
-                      {post.description}
-                    </p>
-
-                    {/* Footer: date + read link */}
-                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-silver/10">
-                      {post.formattedDate ? (
-                        <time className="text-silver/40 text-xs" dateTime={post.date ?? ''}>
-                          {post.formattedDate}
-                        </time>
-                      ) : (
-                        <span />
+                    <a
+                      href={`/blog/${post.slug}`}
+                      onClick={(e) => { e.preventDefault(); setLocation(`/blog/${post.slug}`); }}
+                      className="group flex flex-col bg-charcoal border border-silver/10 rounded-xl p-6 hover:border-silver/20 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-obsidian"
+                    >
+                      {/* Cluster badge */}
+                      {post.cluster && (
+                        <span
+                          className="self-start text-xs tracking-luxury uppercase border rounded-full px-3 py-1 mb-4"
+                          style={{ color: '#D4AF37', borderColor: 'rgba(212,175,55,0.45)' }}
+                        >
+                          {post.cluster}
+                        </span>
                       )}
-                      <span
-                        className="flex items-center gap-1 text-xs group-hover:gap-2 transition-all duration-200"
-                        style={{ color: '#D4AF37' }}
-                      >
-                        {t('blog.readMore', language)} <ArrowRight className="w-3 h-3" />
-                      </span>
-                    </div>
+
+                      {/* Title */}
+                      <h2 className="font-playfair font-bold text-silver text-xl leading-snug mb-3 group-hover:text-gold transition-colors duration-300" style={{ letterSpacing: '0.05em' }}>
+                        {post.title}
+                      </h2>
+
+                      {/* Description */}
+                      <p className="text-silver/60 text-sm leading-relaxed flex-1 mb-6">
+                        {post.description}
+                      </p>
+
+                      {/* Footer: date + read link */}
+                      <div className="flex items-center justify-between mt-auto pt-4 border-t border-silver/10">
+                        {post.formattedDate ? (
+                          <time className="text-silver/40 text-xs" dateTime={post.date ?? ''}>
+                            {post.formattedDate}
+                          </time>
+                        ) : (
+                          <span />
+                        )}
+                        <span
+                          className="flex items-center gap-1 text-xs group-hover:gap-2 transition-all duration-200"
+                          style={{ color: '#D4AF37' }}
+                        >
+                          {t('blog.readMore', language)} <ArrowRight className="w-3 h-3" />
+                        </span>
+                      </div>
+                    </a>
                   </motion.article>
                 ))}
               </div>
