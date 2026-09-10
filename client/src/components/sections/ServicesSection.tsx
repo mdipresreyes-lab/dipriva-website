@@ -80,11 +80,14 @@ const ServiceCardComponent = ({ service, index }: { service: ServiceCard; index:
             ))}
           </div>
 
-          {/* CTA link */}
-          <div className="pt-4 border-t border-primary/10">
-            <a href="#cta" className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all duration-300 group/link">
-              <span>{language === 'en' ? 'Contact us to learn what this means for your business' : 'Contáctenos para saber lo que esto significa para su negocio'}</span>
+          {/* CTA links */}
+          <div className="pt-4 border-t border-primary/10 flex flex-col gap-3">
+            <a href={`/services/${service.id}`} className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all duration-300 group/link">
+              <span>{language === 'en' ? 'Learn more' : 'Más información'}</span>
               <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+            </a>
+            <a href="#cta" className="inline-flex items-center gap-2 text-sm text-foreground/60 font-medium hover:text-primary transition-colors duration-300">
+              <span>{language === 'en' ? 'Book a Consultation' : 'Reservar una consulta'}</span>
             </a>
           </div>
         </div>
