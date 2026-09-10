@@ -57,6 +57,30 @@ export default function BlogPost() {
     const prevTitle = document.title;
     document.title = `${post.title} | Dipriva`;
 
+    const jsonLd = {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: post.title,
+      description: post.description,
+      url: `https://www.dipriva.com/blog/${post.slug}`,
+      datePublished: post.date ?? undefined,
+      dateModified: post.lastModified ?? post.date ?? undefined,
+      image: {
+        '@type': 'ImageObject',
+        url: post.image ?? 'https://www.dipriva.com/og-image.jpg',
+      },
+      author: {
+        '@type': 'Person',
+        name: 'Manuel Diprés',
+        url: 'https://www.dipriva.com/about',
+        sameAs: ['https://www.linkedin.com/in/manueldipres/'],
+      },
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(jsonLd);
+    document.head.appendChild(script);
+
     const cleanups = [
       setMeta('meta[name="description"]', 'content', post.description),
       setMeta('meta[property="og:title"]', 'content', post.title),
@@ -74,6 +98,7 @@ export default function BlogPost() {
 
     return () => {
       document.title = prevTitle;
+      script.remove();
       cleanups.forEach(fn => fn());
     };
   }, [visible, post]);

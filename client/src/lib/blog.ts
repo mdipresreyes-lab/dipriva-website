@@ -6,6 +6,8 @@ export interface BlogPost {
   description: string;
   date: string | null;       // ISO YYYY-MM-DD or null when unparseable
   formattedDate: string;     // e.g. "September 2, 2026"
+  lastModified: string | null; // ISO YYYY-MM-DD from frontmatter, falls back to date
+  image: string | null;        // featured/OG image URL from frontmatter
   cluster: string;
   author: string;
   published: boolean;
@@ -80,12 +82,15 @@ function buildPost(_filePath: string, raw: string): BlogPost | null {
   if (!slug || !title) return null;
 
   const date = extractIsoDate(data.date as string | undefined);
+  const lastModified = extractIsoDate(data.lastModified as string | undefined) ?? date;
   return {
     slug,
     title,
     description: typeof data.description === 'string' ? data.description : '',
     date,
     formattedDate: formatDate(date),
+    lastModified,
+    image: typeof data.image === 'string' && data.image ? data.image : null,
     cluster: typeof data.cluster === 'string' ? data.cluster : '',
     author: typeof data.author === 'string' ? data.author : '',
     published: data.published === true,
