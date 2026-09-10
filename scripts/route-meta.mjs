@@ -157,4 +157,4 @@ export const ROUTE_META = {
  * keep the shell's default head tags. `/` is emitted by Vite itself.
  * `/client_form` gets its own noindex variant in the deploy workflow.
  */
-export const PASSTHROUGH_ROUTES = ['/404'];
+export const PASSTHROUGH_ROUTES = ['/404', '/services', '/industries'];

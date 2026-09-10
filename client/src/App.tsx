@@ -11,7 +11,7 @@ import ServicesCorporateStrategy from "@/pages/ServicesCorporateStrategy";
 import ServicesAiAutomation from "@/pages/ServicesAiAutomation";
 import AboutManuelDipres from "@/pages/AboutManuelDipres";
 import IndustriesWestMichigan from "@/pages/IndustriesWestMichigan";
-import { Route, Switch } from "wouter";
+import { Redirect, Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
@@ -34,6 +34,8 @@ function Router() {
       <Route path={"/services/ai-automation"} component={ServicesAiAutomation} />
       <Route path={"/about/manuel-dipres"} component={AboutManuelDipres} />
       <Route path={"/industries/west-michigan"} component={IndustriesWestMichigan} />
+      <Route path={"/services"}><Redirect to="/#services" /></Route>
+      <Route path={"/industries"}><Redirect to="/" /></Route>
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
