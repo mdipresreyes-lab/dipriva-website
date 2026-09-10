@@ -1,7 +1,5 @@
 # Dipriva Consulting Group
-# Content usage signals for AI crawlers
 User-agent: *
-Content-Signal: search=yes,ai-input=yes,ai-train=yes,use=full
 Allow: /
 Disallow: /admin
 Disallow: /client_form
