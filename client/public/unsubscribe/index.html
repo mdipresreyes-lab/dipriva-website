@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Kept out of search: noindex here, no link to this page anywhere on the site, and no sitemap entry.
+     It is deliberately NOT blocked in robots.txt, because a crawler has to be able to read this tag to obey it. -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Unsubscribe | Dipriva Consulting Group</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+         background: #0A0A0A; color: #E8E8E8; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         line-height: 1.6; padding: 24px 16px; }
+  main { width: 100%; max-width: 520px; }
+  .brand { font-family: "Playfair Display", Georgia, "Times New Roman", serif; letter-spacing: 0.08em;
+           color: #D4AF37; font-size: 15px; text-transform: uppercase; margin: 0 0 28px; }
+  h1 { font-family: "Playfair Display", Georgia, "Times New Roman", serif; font-weight: 500; font-size: 28px;
+       line-height: 1.25; margin: 0 0 6px; }
+  .es { color: #B9B9B9; }
+  h1 .es { display: block; font-size: 20px; margin-top: 4px; }
+  p { margin: 14px 0; }
+  button { margin-top: 18px; width: 100%; padding: 14px 18px; font-size: 16px; font-weight: 600; cursor: pointer;
+           color: #0A0A0A; background: #D4AF37; border: 0; border-radius: 4px; }
+  button:hover { background: #E2C254; }
+  button:focus-visible { outline: 2px solid #E8E8E8; outline-offset: 3px; }
+  button[disabled] { opacity: 0.6; cursor: default; }
+  .note { font-size: 14px; color: #9A9A9A; margin-top: 26px; }
+  a { color: #D4AF37; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <p class="brand">Dipriva Consulting Group</p>
+
+  <section id="ask" hidden>
+    <h1>Stop emails from Manuel Diprés? <span class="es">¿Dejar de recibir correos de Manuel Diprés?</span></h1>
+    <p>One click and I will not write to you again.<br><span class="es">Un clic y no volveré a escribirle.</span></p>
+    <button id="confirm" type="button">Unsubscribe · Darme de baja</button>
+  </section>
+
+  <section id="done" hidden aria-live="polite">
+    <h1>Done. <span class="es">Listo.</span></h1>
+    <p>You will not hear from me again. Thank you for your time.<br>
+       <span class="es">No volverá a recibir mensajes míos. Gracias por su tiempo.</span></p>
+  </section>
+
+  <section id="problem" hidden aria-live="polite">
+    <h1>That did not work. <span class="es">No funcionó.</span></h1>
+    <p>Please reply "no thanks" to the email you received and I will take you off the list myself.<br>
+       <span class="es">Responda "no gracias" al correo que recibió y yo mismo lo daré de baja.</span></p>
+  </section>
+
+  <p class="note">Dipriva Consulting Group · 2435 Eastern Ave SE Suite 202, Grand Rapids MI 49507 ·
+     <a href="https://www.dipriva.com/">www.dipriva.com</a></p>
+</main>
+<script>
+  // A person has to press the button. Mail scanners open links on their own, and a link that
+  // unsubscribed on arrival would take people off the list without their asking.
+  var API = "https://dipriva-optout.dipriva.workers.dev/optout";
+  var token = new URLSearchParams(location.search).get("t") || "";
+  var show = function (id) {
+    ["ask", "done", "problem"].forEach(function (name) { document.getElementById(name).hidden = name !== id; });
+  };
+  if (!/^[0-9a-f]{12}\.[0-9a-f]{20}$/.test(token)) {
+    show("problem");
+  } else {
+    show("ask");
+    document.getElementById("confirm").addEventListener("click", function (event) {
+      event.target.disabled = true;
+      fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ t: token }) })
+        .then(function (response) { show(response.ok ? "done" : "problem"); })
+        .catch(function () { show("problem"); });
+    });
+  }
+</script>
+</body>
+</html>
