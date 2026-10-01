@@ -3,6 +3,7 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /client_form
+Disallow: /unsubscribe
 Disallow: /.env
 
 User-agent: Bytespider
