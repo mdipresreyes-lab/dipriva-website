@@ -13,7 +13,7 @@ published: true
 
 Running a 10 to 50 person service business has become significantly more expensive over the past twenty-four months, yet most owners keep their billing rates flat. Experienced accountants, insurance producers, roofing foremen, and software technicians command higher compensation. Specialized software subscriptions, liability coverage, and commercial office leases continue to climb.
 
-The data proves that this squeeze is nationwide across Main Street employer firms. According to the 2026 Report on Employer Firms from the Federal Reserve Banks Small Business Credit Survey, 77 percent of small employer firms reported that the rising costs of goods, services, and wages represented a top operational and financial challenge. The survey revealed that small businesses are now more likely to report that revenues decreased rather than increased over the prior twelve months, with future revenue expectations falling to their lowest levels since 2020.
+The data proves that this squeeze is nationwide across Main Street employer firms. According to the 2026 Report on Employer Firms from the Federal Reserve Banks Small Business Credit Survey, 77 percent of small employer firms reported rising costs, tariffs, or both as a top operational and financial challenge. The survey revealed that small businesses are now more likely to report that revenues decreased rather than increased over the prior twelve months, with future revenue expectations falling to their lowest levels since 2020.
 
 At the same time, disciplined operators have already begun correcting their rates. The National Federation of Independent Business reported in its Small Business Economic Trends survey that a net 38 percent of small business owners raised their average selling prices, while a net 32 percent plan further price increases over the coming quarter. Furthermore, the U.S. Bureau of Labor Statistics reported in its Employment Cost Index that compensation costs for private industry workers increased 3.3 percent and benefit costs rose 3.8 percent for the 12-month period ending in June 2026.
 
@@ -85,7 +85,7 @@ A mature service business does not apologize for sustaining healthy profit margi
 
 Owners of 10 to 50 person service firms can execute a disciplined price increase without losing core accounts by taking three structured actions:
 
-1. Segment Your Client Roster into Value Quartiles.
+1. Segment Your Client Roster into Value Tiers.
 Never apply an indiscriminate, blanket rate increase across your entire client base. Export your trailing twelve-month revenue by client and calculate the gross margin and partner hours dedicated to each account. Divide your roster into distinct tiers: top accounts (high profit, low friction), steady accounts (reliable profit), and low-margin accounts (high administrative demand). Your best clients deserve personal communication and grandfathered transition periods. Chronic underpaying accounts must receive immediate rate adjustments or be pruned to liberate delivery capacity.
 
 2. Bundle Price Increases with Scope Clarification.
