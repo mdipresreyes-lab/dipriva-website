@@ -331,20 +331,32 @@ function generatePrivacy() {
     isPartOf: { '@type': 'WebSite', url: 'https://www.dipriva.com' },
   };
 
-  const body = `<header>
+  const body = `<a href="#main-content" style="position:absolute;top:-100%;left:0.5rem;padding:0.5rem 1rem;background:#2F4059;color:#fff;font-weight:600;font-size:0.875rem;text-decoration:none;border-radius:0 0 4px 4px;" onfocus="this.style.top='0'" onblur="this.style.top='-100%'">Skip to main content</a>
+<header>
   <nav aria-label="Main navigation">
     <a href="/">&#8592; Back to Home</a>
   </nav>
 </header>
-<main>
+<main id="main-content">
   <article>
     <h1>Privacy Policy</h1>
-    <p><em>Last updated: August 2026</em></p>
+    <p><em>Last updated: October 2026</em></p>
     <p>Dipriva Consulting Group ("Dipriva", "we", "our") operates the website at dipriva.com. This Privacy Policy describes how we collect, use, and protect information about visitors to our site.</p>
     <h2>Information We Collect</h2>
     <p>We use Google Analytics and Microsoft Clarity to understand how visitors interact with our site. These tools collect anonymized usage data including page views, session duration, and device type. This data is used solely to improve site performance and user experience.</p>
     <h2>Cookies</h2>
     <p>Our site uses cookies for analytics purposes only. You may decline analytics cookies via the consent banner displayed on your first visit. Declining cookies does not affect your ability to use the site.</p>
+    <h2>Social Media Publishing</h2>
+    <p>Dipriva publishes its own content to its official social media accounts on LinkedIn, Facebook, Instagram, and TikTok. We use an internal publishing tool, Dipriva Community Engine, that connects to these platforms through their official application programming interfaces (APIs).</p>
+    <p>When an authorized Dipriva administrator connects a Dipriva account to this tool, the platform asks the administrator to approve specific permissions. We use those permissions to publish content we have prepared to Dipriva&rsquo;s own pages and profiles. A member of our team reviews and approves every post before it is published.</p>
+    <p>What this means for you:</p>
+    <ul>
+      <li>We do not use these integrations to collect personal information about the people who view, follow, or engage with our posts.</li>
+      <li>We do not use data obtained through these platforms for advertising targeting, sales prospecting, recruiting, or building audience lists.</li>
+      <li>Access credentials issued by these platforms are kept in encrypted secret storage, are limited to authorized personnel, and are revoked when no longer needed.</li>
+      <li>Content we publish may be drafted with AI-assisted tools and is reviewed by a member of our team before publication, as described in the AI and Automation section. Where a platform offers a label for AI-generated content, we apply it.</li>
+    </ul>
+    <p>Each platform processes information under its own terms and privacy policy. To request deletion of any information we hold that relates to our social media accounts, contact <a href="mailto:manuel@dipriva.com">manuel@dipriva.com</a>. We process deletion requests within 30 days.</p>
     <h2>Contact</h2>
     <p>For privacy questions, contact us at <a href="mailto:manuel@dipriva.com">manuel@dipriva.com</a>.</p>
   </article>
@@ -359,7 +371,7 @@ function generatePrivacy() {
     path.join(OUT_DIR, 'privacy', 'index.html'),
     shell({
       title: 'Privacy Policy | Dipriva Consulting Group',
-      description: 'How Dipriva Consulting Group collects and protects visitor information.',
+      description: 'How Dipriva Consulting Group collects, uses, and protects information, including our social media publishing.',
       canonical: 'https://www.dipriva.com/privacy',
       jsonLd,
       body,
