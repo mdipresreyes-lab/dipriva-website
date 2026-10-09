@@ -74,7 +74,7 @@ export const translations = {
     // Privacy Page
     privacy: {
       title: 'Privacy Policy',
-      lastUpdated: 'Last updated: August 2026',
+      lastUpdated: 'Last updated: October 2026',
       backToHome: '\u2190 Back to Home',
     },
 
@@ -174,7 +174,7 @@ export const translations = {
     // Privacy Page
     privacy: {
       title: 'Política de Privacidad',
-      lastUpdated: 'Última actualización: agosto de 2026',
+      lastUpdated: 'Última actualización: octubre de 2026',
       backToHome: '\u2190 Volver al Inicio',
     },
 

@@ -7,7 +7,7 @@ import { t } from '@/i18n/translations';
 const privacyContent = {
   en: {
     title: 'Privacy Policy',
-    lastUpdated: 'Last updated: August 2026',
+    lastUpdated: 'Last updated: October 2026',
     backToHome: '\u2190 Back to Home',
     intro: 'Dipriva Consulting Group (\u201cDipriva,\u201d \u201cwe,\u201d \u201cus\u201d) respects your privacy. This policy explains what information we collect through dipriva.com and our intake forms, how we use it, where it is stored, and the choices you have.',
     sections: [
@@ -41,6 +41,21 @@ const privacyContent = {
           'All output produced with these tools is reviewed by a member of our team before it is used or shared. No decisions affecting you are made solely by automated means.',
           'Information processed with these tools is handled under commercial terms that include confidentiality and data-protection commitments.',
         ],
+      },
+      {
+        title: 'Social Media Publishing',
+        paragraphs: [
+          'Dipriva publishes its own content to its official social media accounts on LinkedIn, Facebook, Instagram, and TikTok. We use an internal publishing tool, Dipriva Community Engine, that connects to these platforms through their official application programming interfaces (APIs).',
+          'When an authorized Dipriva administrator connects a Dipriva account to this tool, the platform asks the administrator to approve specific permissions. We use those permissions to publish content we have prepared to Dipriva’s own pages and profiles. A member of our team reviews and approves every post before it is published.',
+          'What this means for you:',
+        ],
+        items: [
+          'We do not use these integrations to collect personal information about the people who view, follow, or engage with our posts.',
+          'We do not use data obtained through these platforms for advertising targeting, sales prospecting, recruiting, or building audience lists.',
+          'Access credentials issued by these platforms are kept in encrypted secret storage, are limited to authorized personnel, and are revoked when no longer needed.',
+          'Content we publish may be drafted with AI-assisted tools and is reviewed by a member of our team before publication, as described in the AI and Automation section. Where a platform offers a label for AI-generated content, we apply it.',
+        ],
+        afterItems: 'Each platform processes information under its own terms and privacy policy. To request deletion of any information we hold that relates to our social media accounts, contact manuel@dipriva.com. We process deletion requests within 30 days.',
       },
       {
         title: 'Data Storage',
@@ -86,6 +101,10 @@ const privacyContent = {
         text: 'This website also uses Google Ads remarketing, which allows us to show advertisements to previous visitors as they browse other websites and apps within the Google Display Network. These ads are served based on your prior visit to dipriva.com using cookies stored on your device. You can opt out of personalized advertising by visiting Google\u2019s Ads Settings or by using the NAI opt-out tool at',
         url: 'https://optout.networkadvertising.org',
       },
+      clarity: {
+        text: 'This website also uses Microsoft Clarity, a behavior analytics service provided by Microsoft Corporation. Clarity collects information such as pages visited, clicks, scrolling, and session recordings to help us understand how visitors use the site and improve it. Clarity loads only after you accept analytics cookies. You can review Microsoft’s privacy practices at',
+        url: 'https://privacy.microsoft.com/privacystatement',
+      },
     },
     rights: {
       title: 'Your Rights and Choices',
@@ -105,7 +124,7 @@ const privacyContent = {
   },
   es: {
     title: 'Pol\u00edtica de Privacidad',
-    lastUpdated: '\u00daltima actualizaci\u00f3n: agosto de 2026',
+    lastUpdated: '\u00daltima actualizaci\u00f3n: octubre de 2026',
     backToHome: '\u2190 Volver al Inicio',
     intro: 'Dipriva Consulting Group (\u201cDipriva\u201d, \u201cnosotros\u201d) respeta su privacidad. Esta pol\u00edtica explica qu\u00e9 informaci\u00f3n recopilamos a trav\u00e9s de dipriva.com y de nuestros formularios, c\u00f3mo la usamos, d\u00f3nde se almacena y qu\u00e9 opciones tiene usted.',
     sections: [
@@ -139,6 +158,21 @@ const privacyContent = {
           'Todo resultado producido con estas herramientas es revisado por un miembro de nuestro equipo antes de usarse o compartirse. Ninguna decisi\u00f3n que le afecte se toma de forma \u00fanicamente automatizada.',
           'La informaci\u00f3n procesada con estas herramientas se maneja bajo t\u00e9rminos comerciales que incluyen compromisos de confidencialidad y de protecci\u00f3n de datos.',
         ],
+      },
+      {
+        title: 'Publicaci\u00f3n en redes sociales',
+        paragraphs: [
+          'Dipriva publica su propio contenido en sus cuentas oficiales de redes sociales en LinkedIn, Facebook, Instagram y TikTok. Utilizamos una herramienta interna de publicaci\u00f3n, Dipriva Community Engine, que se conecta a estas plataformas mediante sus interfaces de programaci\u00f3n de aplicaciones (API) oficiales.',
+          'Cuando un administrador autorizado de Dipriva conecta una cuenta de Dipriva a esta herramienta, la plataforma solicita al administrador que apruebe permisos espec\u00edficos. Utilizamos esos permisos para publicar el contenido que hemos preparado en las p\u00e1ginas y perfiles propios de Dipriva. Un miembro de nuestro equipo revisa y aprueba cada publicaci\u00f3n antes de que se publique.',
+          'Lo que esto significa para usted:',
+        ],
+        items: [
+          'No utilizamos estas integraciones para recopilar informaci\u00f3n personal de las personas que ven, siguen o interact\u00faan con nuestras publicaciones.',
+          'No utilizamos los datos obtenidos a trav\u00e9s de estas plataformas para segmentaci\u00f3n publicitaria, prospecci\u00f3n de ventas, reclutamiento ni para crear listas de audiencia.',
+          'Las credenciales de acceso que emiten estas plataformas se conservan en almacenamiento cifrado de secretos, se limitan al personal autorizado y se revocan cuando dejan de ser necesarias.',
+          'El contenido que publicamos puede redactarse con herramientas asistidas por IA y es revisado por un miembro de nuestro equipo antes de su publicaci\u00f3n, como se describe en la secci\u00f3n de Inteligencia artificial y automatizaci\u00f3n. Cuando una plataforma ofrece una etiqueta para contenido generado por IA, la aplicamos.',
+        ],
+        afterItems: 'Cada plataforma procesa la informaci\u00f3n conforme a sus propios t\u00e9rminos y pol\u00edtica de privacidad. Para solicitar la eliminaci\u00f3n de cualquier informaci\u00f3n que conservemos relacionada con nuestras cuentas de redes sociales, escriba a manuel@dipriva.com. Procesamos las solicitudes de eliminaci\u00f3n en un plazo de 30 d\u00edas.',
       },
       {
         title: 'Almacenamiento de datos',
@@ -183,6 +217,10 @@ const privacyContent = {
       remarketing: {
         text: 'Este sitio web tambi\u00e9n utiliza remarketing de Google Ads, que nos permite mostrar anuncios a visitantes anteriores mientras navegan por otros sitios web y aplicaciones dentro de la Red de Display de Google. Estos anuncios se muestran en funci\u00f3n de su visita previa a dipriva.com mediante cookies almacenadas en su dispositivo. Puede excluirse de la publicidad personalizada visitando la Configuraci\u00f3n de anuncios de Google o usando la herramienta de exclusi\u00f3n de la NAI en',
         url: 'https://optout.networkadvertising.org',
+      },
+      clarity: {
+        text: 'Este sitio web también utiliza Microsoft Clarity, un servicio de analítica de comportamiento proporcionado por Microsoft Corporation. Clarity recopila información como las páginas visitadas, los clics, el desplazamiento y las grabaciones de sesión para ayudarnos a comprender cómo los visitantes usan el sitio y mejorarlo. Clarity se carga solo después de que usted acepta las cookies de analítica. Puede revisar las prácticas de privacidad de Microsoft en',
+        url: 'https://privacy.microsoft.com/privacystatement',
       },
     },
     rights: {
@@ -307,10 +345,17 @@ export default function Privacy() {
               </a>
               .
             </p>
-            <p className="text-silver/80" style={{ lineHeight: '1.6' }}>
+            <p className="text-silver/80 mb-4" style={{ lineHeight: '1.6' }}>
               {content.analytics.remarketing.text}{' '}
               <a href={content.analytics.remarketing.url} target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold/80 transition-colors">
                 {content.analytics.remarketing.url}
+              </a>
+              .
+            </p>
+            <p className="text-silver/80" style={{ lineHeight: '1.6' }}>
+              {content.analytics.clarity.text}{' '}
+              <a href={content.analytics.clarity.url} target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold/80 transition-colors">
+                {content.analytics.clarity.url}
               </a>
               .
             </p>

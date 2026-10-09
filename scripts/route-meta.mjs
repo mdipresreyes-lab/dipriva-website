@@ -126,7 +126,7 @@ export const ROUTE_META = {
   '/privacy': {
     title: 'Privacy Policy | Dipriva Consulting Group',
     description:
-      'How Dipriva Consulting Group collects and protects visitor information.',
+      'How Dipriva Consulting Group collects, uses, and protects information, including our social media publishing.',
     canonical: 'https://www.dipriva.com/privacy',
     jsonLd: {
       '@context': 'https://schema.org',
