@@ -122,19 +122,19 @@ export default function ServicesCorporateStrategy() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-obsidian text-silver overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Nav */}
       <nav
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-obsidian/95 backdrop-blur-md border-b border-silver/10'
-            : 'bg-obsidian/80 backdrop-blur-md border-b border-silver/10'
+            ? 'bg-background/95 backdrop-blur-md border-b border-border'
+            : 'bg-background/80 backdrop-blur-md border-b border-border'
         }`}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <button
             onClick={() => setLocation('/')}
-            className="flex items-center gap-2 text-silver hover:text-gold transition-colors"
+            className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
           >
             <ArrowLeft size={16} />
             <span className="text-sm">{c.back}</span>
@@ -156,44 +156,44 @@ export default function ServicesCorporateStrategy() {
         >
           {/* Section 1 */}
           <div>
-            <p className="text-gold text-sm tracking-widest uppercase mb-4">{c.overline}</p>
-            <h1 className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-6 leading-tight">
+            <p className="text-primary text-sm tracking-widest uppercase mb-4">{c.overline}</p>
+            <h1 className="text-4xl sm:text-5xl font-playfair font-bold text-foreground mb-6 leading-tight">
               {c.h1}
             </h1>
           </div>
 
           {/* Section 2 */}
-          <div className="border-l-2 border-gold/40 pl-6">
-            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">{c.s2heading}</h2>
-            <p className="text-silver/80" style={{ lineHeight: '1.7' }}>{c.s2body}</p>
+          <div className="border-l-2 border-primary/40 pl-6">
+            <h2 className="text-2xl font-playfair font-bold text-foreground mb-4">{c.s2heading}</h2>
+            <p className="text-foreground/80" style={{ lineHeight: '1.7' }}>{c.s2body}</p>
           </div>
 
           {/* Section 3 */}
           <div>
-            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">{c.s3heading}</h2>
-            <p className="text-silver/80" style={{ lineHeight: '1.7' }}>{c.s3body}</p>
+            <h2 className="text-2xl font-playfair font-bold text-foreground mb-4">{c.s3heading}</h2>
+            <p className="text-foreground/80" style={{ lineHeight: '1.7' }}>{c.s3body}</p>
           </div>
 
           {/* Section 4 */}
           <div>
-            <h2 className="text-2xl font-playfair font-bold text-silver mb-6">{c.s4heading}</h2>
+            <h2 className="text-2xl font-playfair font-bold text-foreground mb-6">{c.s4heading}</h2>
             <ul className="space-y-4">
               {c.list.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="text-gold mt-1 shrink-0">—</span>
-                  <span className="text-silver/80" style={{ lineHeight: '1.6' }}>{item}</span>
+                  <span className="text-primary mt-1 shrink-0">—</span>
+                  <span className="text-foreground/80" style={{ lineHeight: '1.6' }}>{item}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Section 5 — CTA */}
-          <div className="border border-silver/10 rounded-lg p-8 bg-silver/5">
-            <h2 className="text-2xl font-playfair font-bold text-silver mb-4">{c.ctaHeading}</h2>
-            <p className="text-silver/80 mb-6" style={{ lineHeight: '1.7' }}>{c.ctaBody}</p>
+          <div className="border border-border rounded-lg p-8 bg-card">
+            <h2 className="text-2xl font-playfair font-bold text-foreground mb-4">{c.ctaHeading}</h2>
+            <p className="text-foreground/80 mb-6" style={{ lineHeight: '1.7' }}>{c.ctaBody}</p>
             <a
               href="/schedule"
-              className="inline-block bg-gold text-obsidian font-semibold px-8 py-3 rounded hover:bg-gold/90 transition-colors"
+              className="inline-block bg-primary text-primary-foreground font-semibold px-8 py-3 rounded hover:bg-primary/90 transition-colors"
             >
               {c.ctaButton}
             </a>

@@ -17,14 +17,6 @@ const config: Config = {
       lineHeight: {
         luxury: '1.6',
       },
-      colors: {
-        obsidian: '#0A0A0A',
-        charcoal: '#1A1A1A',
-        slate: '#2A2A2A',
-        silver: '#E8E8E8',
-        gold: '#D4AF37',
-        'dark-navy': '#0F1419',
-      },
       borderRadius: {
         glass: '24px',
       },

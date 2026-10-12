@@ -13,7 +13,7 @@ export default function NotFound() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-obsidian overflow-hidden">
+    <div className="min-h-screen w-full flex items-center justify-center bg-background overflow-hidden">
       {/* Background texture overlay */}
       <div
         className="absolute inset-0 opacity-20"
@@ -38,7 +38,7 @@ export default function NotFound() {
           className="mb-8"
         >
           <h1
-            className="text-9xl sm:text-[120px] font-playfair font-bold text-silver/30"
+            className="text-9xl sm:text-[120px] font-playfair font-bold text-foreground/30"
             style={{ letterSpacing: '0.18em', lineHeight: '1' }}
           >
             404
@@ -53,14 +53,14 @@ export default function NotFound() {
           className="mb-6"
         >
           <h2
-            className="text-3xl sm:text-4xl font-playfair font-bold text-silver mb-4"
+            className="text-3xl sm:text-4xl font-playfair font-bold text-foreground mb-4"
             style={{ letterSpacing: '0.18em' }}
             role="heading"
             aria-level={2}
           >
             {t('notFound.headline', language)}
           </h2>
-          <p className="text-silver/60 text-lg" style={{ lineHeight: '1.6' }}>
+          <p className="text-muted-foreground text-lg" style={{ lineHeight: '1.6' }}>
             {t('notFound.description', language)}
           </p>
         </motion.div>
@@ -74,7 +74,7 @@ export default function NotFound() {
         >
           <Button
             onClick={handleGoHome}
-            className="px-8 py-3 bg-gold text-obsidian font-semibold hover:bg-gold/90 transition-all duration-300 rounded-lg"
+            className="px-8 py-3 bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all duration-300 rounded-lg"
           >
             {t('notFound.cta', language)}
           </Button>

@@ -12,7 +12,7 @@ export function LanguageToggle() {
     <>
       <button
         onClick={toggleLanguage}
-        className="text-silver/80 hover:text-gold transition-colors font-semibold text-sm"
+        className="text-foreground/80 hover:text-primary transition-colors font-semibold text-sm"
         aria-label={language === 'en' ? 'Switch to Spanish' : 'Switch to English'}
         aria-pressed={language === 'es'}
       >

@@ -50,12 +50,12 @@ export default function ClientForm() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-obsidian text-silver overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Navigation Bar */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-obsidian/95 backdrop-blur-md border-b border-silver/10'
+            ? 'bg-background/95 backdrop-blur-md border-b border-border'
             : 'bg-transparent'
         }`}
       >
@@ -63,12 +63,12 @@ export default function ClientForm() {
           <a
             href="/"
             onClick={(e) => { e.preventDefault(); window.location.href = '/'; window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="text-2xl font-playfair font-bold tracking-luxury text-silver hover:text-gold transition-colors cursor-pointer"
+            className="text-2xl font-playfair font-bold tracking-luxury text-foreground hover:text-primary transition-colors cursor-pointer"
           >
             Dipriva
           </a>
           <div className="hidden md:flex gap-8 items-center">
-            <div className="border-l border-silver/20 pl-8">
+            <div className="border-l border-primary/20 pl-8">
               <LanguageToggle />
             </div>
           </div>
@@ -82,18 +82,18 @@ export default function ClientForm() {
             {/* Heading */}
             <div className="text-center mb-10">
               <h1
-                className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-bold text-silver mb-4"
+                className="text-3xl sm:text-4xl lg:text-5xl font-playfair font-bold text-foreground mb-4"
                 style={{ letterSpacing: '0.13em' }}
               >
                 {pageText[language].heading}
               </h1>
-              <p className="text-silver/70 text-lg">
+              <p className="text-foreground/70 text-lg">
                 {pageText[language].subheading}
               </p>
             </div>
 
             {/* MS Form Embed */}
-            <div className="rounded-xl overflow-hidden bg-white/5 border border-silver/10 backdrop-blur-sm">
+            <div className="rounded-xl overflow-hidden bg-white/5 border border-border backdrop-blur-sm">
               <iframe
                 title="Dipriva Client Intake"
                 src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=zkMAMxEb1U6oyZeD4vLkQhBR3cb14l5DvvK1DsDmhEdUMzBXSlkxUlEwVjZVMVcwQU1XT0xSV0dYRy4u&embed=true"
@@ -103,9 +103,9 @@ export default function ClientForm() {
             </div>
 
             {/* Consent Text */}
-            <p className="mt-6 text-silver/60 text-sm text-center leading-relaxed max-w-2xl mx-auto">
+            <p className="mt-6 text-muted-foreground text-sm text-center leading-relaxed max-w-2xl mx-auto">
               {consentText[language]}{' '}
-              <a href="/privacy" className="text-gold hover:text-gold/80 transition-colors underline">
+              <a href="/privacy" className="text-primary hover:text-primary/80 transition-colors underline">
                 {language === 'en' ? 'Privacy Policy' : 'Política de Privacidad'}
               </a>
             </p>

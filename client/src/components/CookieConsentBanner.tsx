@@ -97,9 +97,9 @@ export function CookieConsentBanner() {
           aria-labelledby="cookie-banner-title"
           aria-describedby="cookie-banner-desc"
         >
-          <div className="max-w-2xl mx-auto bg-charcoal/95 backdrop-blur-md border border-silver/20 rounded-lg p-6 shadow-lg">
+          <div className="max-w-2xl mx-auto bg-card/95 backdrop-blur-md border border-primary/20 rounded-lg p-6 shadow-lg">
             <p id="cookie-banner-title" className="sr-only">Cookie preferences</p>
-            <p id="cookie-banner-desc" className="text-silver/80 text-sm mb-4">
+            <p id="cookie-banner-desc" className="text-foreground/80 text-sm mb-4">
               {t('cookie.message', language)}
             </p>
             <div className="flex gap-3">
@@ -113,7 +113,7 @@ export function CookieConsentBanner() {
               <Button
                 ref={acceptBtnRef}
                 onClick={handleAccept}
-                className="flex-1 bg-gold text-obsidian hover:bg-gold/90"
+                className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 {t('cookie.accept', language)}
               </Button>

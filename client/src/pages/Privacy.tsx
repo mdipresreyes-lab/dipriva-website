@@ -248,13 +248,13 @@ export default function Privacy() {
   const content = privacyContent[language];
 
   return (
-    <div className="min-h-screen bg-obsidian text-silver">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-obsidian/80 backdrop-blur-md border-b border-silver/10">
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <button
             onClick={() => setLocation('/')}
-            className="text-silver hover:text-gold transition-colors"
+            className="text-foreground hover:text-primary transition-colors"
           >
             {content.backToHome}
           </button>
@@ -276,16 +276,16 @@ export default function Privacy() {
           {/* Header */}
           <div className="mb-12">
             <h1
-              className="text-4xl sm:text-5xl font-playfair font-bold text-silver mb-4"
+              className="text-4xl sm:text-5xl font-playfair font-bold text-foreground mb-4"
               style={{ letterSpacing: '0.18em' }}
             >
               {content.title}
             </h1>
-            <p className="text-silver/60">{content.lastUpdated}</p>
+            <p className="text-muted-foreground">{content.lastUpdated}</p>
           </div>
 
           {/* Intro */}
-          <p className="text-silver/80" style={{ lineHeight: '1.6' }}>
+          <p className="text-foreground/80" style={{ lineHeight: '1.6' }}>
             {content.intro}
           </p>
 
@@ -293,25 +293,25 @@ export default function Privacy() {
           {content.sections.map((section, idx) => (
             <section key={idx}>
               <h2
-                className="text-2xl font-playfair font-bold text-silver mb-4"
+                className="text-2xl font-playfair font-bold text-foreground mb-4"
                 style={{ letterSpacing: '0.13em' }}
               >
                 {section.title}
               </h2>
               {section.paragraphs.map((para, pIdx) => (
-                <p key={pIdx} className="text-silver/80 mb-4" style={{ lineHeight: '1.6' }}>
+                <p key={pIdx} className="text-foreground/80 mb-4" style={{ lineHeight: '1.6' }}>
                   {para}
                 </p>
               ))}
               {section.items && (
-                <ul className="list-disc list-inside space-y-2 text-silver/80 ml-4 mb-4" style={{ lineHeight: '1.6' }}>
+                <ul className="list-disc list-inside space-y-2 text-foreground/80 ml-4 mb-4" style={{ lineHeight: '1.6' }}>
                   {section.items.map((item, iIdx) => (
                     <li key={iIdx}>{item}</li>
                   ))}
                 </ul>
               )}
               {section.afterItems && (
-                <p className="text-silver/80" style={{ lineHeight: '1.6' }}>
+                <p className="text-foreground/80" style={{ lineHeight: '1.6' }}>
                   {section.afterItems}
                 </p>
               )}
@@ -321,40 +321,40 @@ export default function Privacy() {
           {/* Analytics */}
           <section>
             <h2
-              className="text-2xl font-playfair font-bold text-silver mb-4"
+              className="text-2xl font-playfair font-bold text-foreground mb-4"
               style={{ letterSpacing: '0.13em' }}
             >
               {content.analytics.title}
             </h2>
             {content.analytics.paragraphs.map((para, idx) => (
-              <p key={idx} className="text-silver/80 mb-4" style={{ lineHeight: '1.6' }}>
+              <p key={idx} className="text-foreground/80 mb-4" style={{ lineHeight: '1.6' }}>
                 {para}
               </p>
             ))}
-            <p className="text-silver/80 mb-4" style={{ lineHeight: '1.6' }}>
+            <p className="text-foreground/80 mb-4" style={{ lineHeight: '1.6' }}>
               {content.analytics.googlePrivacy.text}{' '}
-              <a href={content.analytics.googlePrivacy.url} target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold/80 transition-colors">
+              <a href={content.analytics.googlePrivacy.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">
                 {content.analytics.googlePrivacy.url}
               </a>
               .
             </p>
-            <p className="text-silver/80 mb-4" style={{ lineHeight: '1.6' }}>
+            <p className="text-foreground/80 mb-4" style={{ lineHeight: '1.6' }}>
               {content.analytics.optOut.text}{' '}
-              <a href={content.analytics.optOut.url} target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold/80 transition-colors">
+              <a href={content.analytics.optOut.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">
                 {content.analytics.optOut.url}
               </a>
               .
             </p>
-            <p className="text-silver/80 mb-4" style={{ lineHeight: '1.6' }}>
+            <p className="text-foreground/80 mb-4" style={{ lineHeight: '1.6' }}>
               {content.analytics.remarketing.text}{' '}
-              <a href={content.analytics.remarketing.url} target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold/80 transition-colors">
+              <a href={content.analytics.remarketing.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">
                 {content.analytics.remarketing.url}
               </a>
               .
             </p>
-            <p className="text-silver/80" style={{ lineHeight: '1.6' }}>
+            <p className="text-foreground/80" style={{ lineHeight: '1.6' }}>
               {content.analytics.clarity.text}{' '}
-              <a href={content.analytics.clarity.url} target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold/80 transition-colors">
+              <a href={content.analytics.clarity.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">
                 {content.analytics.clarity.url}
               </a>
               .
@@ -364,14 +364,14 @@ export default function Privacy() {
           {/* Your Rights */}
           <section>
             <h2
-              className="text-2xl font-playfair font-bold text-silver mb-4"
+              className="text-2xl font-playfair font-bold text-foreground mb-4"
               style={{ letterSpacing: '0.13em' }}
             >
               {content.rights.title}
             </h2>
-            <p className="text-silver/80" style={{ lineHeight: '1.6' }}>
+            <p className="text-foreground/80" style={{ lineHeight: '1.6' }}>
               {content.rights.content}{' '}
-              <a href={`mailto:${content.rights.email}`} className="text-gold hover:text-gold/80 transition-colors">
+              <a href={`mailto:${content.rights.email}`} className="text-primary hover:text-primary/80 transition-colors">
                 {content.rights.email}
               </a>
               {content.rights.afterEmail}
@@ -381,12 +381,12 @@ export default function Privacy() {
           {/* Changes */}
           <section>
             <h2
-              className="text-2xl font-playfair font-bold text-silver mb-4"
+              className="text-2xl font-playfair font-bold text-foreground mb-4"
               style={{ letterSpacing: '0.13em' }}
             >
               {content.changes.title}
             </h2>
-            <p className="text-silver/80" style={{ lineHeight: '1.6' }}>
+            <p className="text-foreground/80" style={{ lineHeight: '1.6' }}>
               {content.changes.content}
             </p>
           </section>
@@ -394,14 +394,14 @@ export default function Privacy() {
           {/* Questions */}
           <section>
             <h2
-              className="text-2xl font-playfair font-bold text-silver mb-4"
+              className="text-2xl font-playfair font-bold text-foreground mb-4"
               style={{ letterSpacing: '0.13em' }}
             >
               {content.questions.title}
             </h2>
-            <p className="text-silver/80" style={{ lineHeight: '1.6' }}>
+            <p className="text-foreground/80" style={{ lineHeight: '1.6' }}>
               {content.questions.content}{' '}
-              <a href={`mailto:${content.questions.email}`} className="text-gold hover:text-gold/80 transition-colors">
+              <a href={`mailto:${content.questions.email}`} className="text-primary hover:text-primary/80 transition-colors">
                 {content.questions.email}
               </a>
               .
@@ -409,10 +409,10 @@ export default function Privacy() {
           </section>
 
           {/* Footer CTA */}
-          <div className="mt-16 pt-12 border-t border-silver/10">
+          <div className="mt-16 pt-12 border-t border-border">
             <Button
               onClick={() => setLocation('/')}
-              className="px-8 py-3 bg-gold text-obsidian font-semibold hover:bg-gold/90 transition-all duration-300 rounded-lg"
+              className="px-8 py-3 bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all duration-300 rounded-lg"
             >
               {t('notFound.cta', language)}
             </Button>

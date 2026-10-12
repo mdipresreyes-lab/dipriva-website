@@ -29,36 +29,36 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-obsidian text-silver overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Navigation Bar */}
       <nav
         aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-obsidian/95 backdrop-blur-md border-b border-silver/10'
+            ? 'bg-background/95 backdrop-blur-md border-b border-border'
             : 'bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-4 flex justify-between items-center">
-          <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="text-xl sm:text-2xl font-playfair font-bold tracking-luxury text-silver hover:text-gold transition-colors cursor-pointer">
+          <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="text-xl sm:text-2xl font-playfair font-bold tracking-luxury text-foreground hover:text-primary transition-colors cursor-pointer">
             Dipriva
           </a>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex gap-8 items-center text-sm md:text-base">
-            <a href="#services" className="text-silver hover:text-gold transition-colors">
+            <a href="#services" className="text-foreground hover:text-primary transition-colors">
               {t('nav.services', language)}
             </a>
-            <a href="#about" className="text-silver hover:text-gold transition-colors">
+            <a href="#about" className="text-foreground hover:text-primary transition-colors">
               {t('nav.about', language)}
             </a>
-            <a href="#cta" className="text-silver hover:text-gold transition-colors">
+            <a href="#cta" className="text-foreground hover:text-primary transition-colors">
               {t('nav.contact', language)}
             </a>
-            <a href="/blog" className="text-silver hover:text-gold transition-colors">
+            <a href="/blog" className="text-foreground hover:text-primary transition-colors">
               {t('blog.navLink', language)}
             </a>
-            <div className="border-l border-silver/20 pl-8">
+            <div className="border-l border-primary/20 pl-8">
               <LanguageToggle />
             </div>
           </div>
@@ -70,11 +70,11 @@ export default function Home() {
               aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'}
               aria-expanded={isMenuOpen}
               aria-controls="mobile-nav-menu"
-              className="text-silver hover:text-gold transition-colors"
+              className="text-foreground hover:text-primary transition-colors"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
-            <div className="border-l border-silver/20 pl-4">
+            <div className="border-l border-primary/20 pl-4">
               <LanguageToggle />
             </div>
           </div>
@@ -82,32 +82,32 @@ export default function Home() {
 
         {/* Mobile Menu Dropdown */}
         {isMenuOpen && (
-          <div id="mobile-nav-menu" className="lg:hidden bg-obsidian/95 backdrop-blur-md border-b border-silver/10 px-4 py-4">
+          <div id="mobile-nav-menu" className="lg:hidden bg-background/95 backdrop-blur-md border-b border-border px-4 py-4">
             <div className="flex flex-col gap-4">
               <a
                 href="#services"
-                className="text-silver hover:text-gold transition-colors"
+                className="text-foreground hover:text-primary transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t('nav.services', language)}
               </a>
               <a
                 href="#about"
-                className="text-silver hover:text-gold transition-colors"
+                className="text-foreground hover:text-primary transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t('nav.about', language)}
               </a>
               <a
                 href="#cta"
-                className="text-silver hover:text-gold transition-colors"
+                className="text-foreground hover:text-primary transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t('nav.contact', language)}
               </a>
               <a
                 href="/blog"
-                className="text-silver hover:text-gold transition-colors"
+                className="text-foreground hover:text-primary transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t('blog.navLink', language)}

@@ -9,13 +9,13 @@ import { t } from '@/i18n/translations';
 import { ArrowRight } from 'lucide-react';
 
 const CLUSTER_COLORS: Record<string, string> = {
-  'Corporate Strategy': 'text-gold border-gold/40',
-  'Startup Operations': 'text-gold border-gold/40',
-  'AI and Automation': 'text-gold border-gold/40',
+  'Corporate Strategy': 'text-primary border-primary/40',
+  'Startup Operations': 'text-primary border-primary/40',
+  'AI and Automation': 'text-primary border-primary/40',
 };
 
 function clusterClass(cluster: string): string {
-  return CLUSTER_COLORS[cluster] ?? 'text-gold border-gold/40';
+  return CLUSTER_COLORS[cluster] ?? 'text-primary border-primary/40';
 }
 
 export default function Blog() {
@@ -37,13 +37,13 @@ export default function Blog() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-obsidian text-silver overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Nav */}
       <nav
         aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-obsidian/95 backdrop-blur-md border-b border-silver/10'
+            ? 'bg-background/95 backdrop-blur-md border-b border-border'
             : 'bg-transparent'
         }`}
       >
@@ -51,7 +51,7 @@ export default function Blog() {
           <a
             href="/"
             onClick={(e) => { e.preventDefault(); setLocation('/'); }}
-            className="text-2xl font-playfair font-bold tracking-luxury text-silver hover:text-gold transition-colors cursor-pointer"
+            className="text-2xl font-playfair font-bold tracking-luxury text-foreground hover:text-primary transition-colors cursor-pointer"
           >
             Dipriva
           </a>
@@ -59,7 +59,7 @@ export default function Blog() {
             <a href="/" className="hidden md:block transition-colors text-sm" style={{ color: 'rgba(47,64,89,0.6)' }}>
               {language === 'en' ? 'Home' : 'Inicio'}
             </a>
-            <div className="border-l border-silver/20 pl-6">
+            <div className="border-l border-primary/20 pl-6">
               <LanguageToggle />
             </div>
           </div>
@@ -68,7 +68,7 @@ export default function Blog() {
 
       <main id="main-content" className="pt-24">
         {/* Header */}
-        <section className="py-16 sm:py-24 border-b border-silver/10">
+        <section className="py-16 sm:py-24 border-b border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -114,7 +114,7 @@ export default function Blog() {
                       href={`/blog/${post.slug}`}
                       onClick={(e) => { e.preventDefault(); setLocation(`/blog/${post.slug}`); }}
                       aria-label={post.title}
-                      className="group flex flex-col bg-charcoal border border-silver/10 rounded-xl p-6 hover:border-silver/20 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-obsidian"
+                      className="group flex flex-col bg-card border border-border rounded-xl p-6 hover:border-primary/20 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                     >
                       {/* Cluster badge */}
                       {post.cluster && (
@@ -127,19 +127,19 @@ export default function Blog() {
                       )}
 
                       {/* Title */}
-                      <h2 className="font-playfair font-bold text-silver text-xl leading-snug mb-3 group-hover:text-gold transition-colors duration-300" style={{ letterSpacing: '0.05em' }}>
+                      <h2 className="font-playfair font-bold text-foreground text-xl leading-snug mb-3 group-hover:text-primary transition-colors duration-300" style={{ letterSpacing: '0.05em' }}>
                         {post.title}
                       </h2>
 
                       {/* Description */}
-                      <p className="text-silver/60 text-sm leading-relaxed flex-1 mb-6">
+                      <p className="text-muted-foreground text-sm leading-relaxed flex-1 mb-6">
                         {post.description}
                       </p>
 
                       {/* Footer: date + read link */}
-                      <div className="flex items-center justify-between mt-auto pt-4 border-t border-silver/10">
+                      <div className="flex items-center justify-between mt-auto pt-4 border-t border-border">
                         {post.formattedDate ? (
-                          <time className="text-silver/40 text-xs" dateTime={post.date ?? ''}>
+                          <time className="text-muted-foreground text-xs" dateTime={post.date ?? ''}>
                             {post.formattedDate}
                           </time>
                         ) : (
