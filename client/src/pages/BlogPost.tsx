@@ -10,13 +10,13 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { t } from '@/i18n/translations';
 
 const CLUSTER_COLORS: Record<string, string> = {
-  'Corporate Strategy': 'text-gold border-gold/40',
-  'Startup Operations': 'text-gold border-gold/40',
-  'AI and Automation': 'text-gold border-gold/40',
+  'Corporate Strategy': 'text-primary border-primary/40',
+  'Startup Operations': 'text-primary border-primary/40',
+  'AI and Automation': 'text-primary border-primary/40',
 };
 
 function clusterClass(cluster: string): string {
-  return CLUSTER_COLORS[cluster] ?? 'text-gold border-gold/40';
+  return CLUSTER_COLORS[cluster] ?? 'text-primary border-primary/40';
 }
 
 // Imperatively set/restore a <meta> tag in <head>.
@@ -113,12 +113,12 @@ export default function BlogPost() {
   if (!post || !post.published) return <NotFound />;
 
   return (
-    <div className="min-h-screen bg-obsidian text-silver overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Nav */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-obsidian/95 backdrop-blur-md border-b border-silver/10'
+            ? 'bg-background/95 backdrop-blur-md border-b border-border'
             : 'bg-transparent'
         }`}
       >
@@ -126,7 +126,7 @@ export default function BlogPost() {
           <a
             href="/"
             onClick={(e) => { e.preventDefault(); setLocation('/'); }}
-            className="text-2xl font-playfair font-bold tracking-luxury text-silver hover:text-gold transition-colors cursor-pointer"
+            className="text-2xl font-playfair font-bold tracking-luxury text-foreground hover:text-primary transition-colors cursor-pointer"
           >
             Dipriva
           </a>
@@ -139,7 +139,7 @@ export default function BlogPost() {
             >
               {t('blog.navLink', language)}
             </a>
-            <div className="border-l border-silver/20 pl-6">
+            <div className="border-l border-primary/20 pl-6">
               <LanguageToggle />
             </div>
           </div>
@@ -187,7 +187,7 @@ export default function BlogPost() {
 
               {/* Title */}
               <h1
-                className="font-playfair font-bold text-silver text-3xl sm:text-4xl lg:text-5xl leading-tight mb-6"
+                className="font-playfair font-bold text-foreground text-3xl sm:text-4xl lg:text-5xl leading-tight mb-6"
                 style={{ letterSpacing: '0.05em' }}
               >
                 {post.title}
