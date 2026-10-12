@@ -17,7 +17,7 @@ The federal data reveals a clear divide in how firms are navigating this shift. 
 
 Small businesses are closing the gap with larger corporations, but execution remains fragmented. A September 2025 research spotlight from the U.S. Small Business Administration Office of Advocacy, drawing on the same Census survey, reported that AI adoption among small businesses with fewer than 250 employees rose from 6.3 percent to 8.8 percent over six months, narrowing the gap with larger enterprises.
 
-Yet enthusiasm has far outpaced governance. The MetLife and U.S. Chamber of Commerce Small Business Index found that 74 percent of small businesses say having employees who use AI tools could give them an edge over competitors, and 71 percent believe hiring workers with AI skills could save them time. Only 15 percent have established a company-wide AI policy.
+Yet enthusiasm has far outpaced governance. In 2024, the MetLife and U.S. Chamber of Commerce Small Business Index found that 74 percent of small businesses say having employees who use AI tools could give them an edge over competitors, and 71 percent believe hiring workers with AI skills could save them time. Only 15 percent have established a company-wide AI policy.
 
 The takeaway for service firm owners is clear. Competitors are experimenting with artificial intelligence, but most do so haphazardly without guardrails. The opportunity is not buying ten software subscriptions; it is deploying practical tools systematically where they strip out manual friction without adding client-facing risk.
 
