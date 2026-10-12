@@ -180,7 +180,7 @@ export default function ServicesStartupOperations() {
             <ul className="space-y-4">
               {c.list.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="text-primary mt-1 shrink-0">—</span>
+                  <span className="text-primary mt-1 shrink-0">–</span>
                   <span className="text-foreground/80" style={{ lineHeight: '1.6' }}>{item}</span>
                 </li>
               ))}
