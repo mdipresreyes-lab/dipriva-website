@@ -1,0 +1,39 @@
+{
+  "consentVersion": "2026-10-08-v1",
+  "replyBusinessDays": 2,
+  "magnets": {
+    "startup": {"page": "/startup", "serviceLine": "ops", "label": {"en": "90-Day Operating Roadmap", "es": "Hoja de ruta operativa de 90 días"}},
+    "strategy": {"page": "/strategy", "serviceLine": "strategy", "label": {"en": "Sales Follow-Up Kit", "es": "Kit de seguimiento de ventas"}},
+    "ai": {"page": "/ai-automation", "serviceLine": "ai", "label": {"en": "Where to Automate First", "es": "Por dónde automatizar primero"}}
+  },
+  "groups": [
+    {"id": "ops", "label": {"en": "Operations", "es": "Operaciones"}},
+    {"id": "strategy", "label": {"en": "Sales and strategy", "es": "Ventas y estrategia"}},
+    {"id": "ai", "label": {"en": "AI and automation", "es": "IA y automatización"}}
+  ],
+  "options": [
+    {"id": "ops_runs_through_me", "group": "ops", "label": {"en": "Everything still runs through me", "es": "Todo sigue pasando por mí"}},
+    {"id": "ops_undocumented", "group": "ops", "label": {"en": "Our processes are not written down", "es": "Nuestros procesos no están documentados"}},
+    {"id": "strategy_proposals", "group": "strategy", "label": {"en": "Proposals go quiet and follow-up slips", "es": "Las propuestas se enfrían y el seguimiento se descuida"}},
+    {"id": "strategy_referrals", "group": "strategy", "label": {"en": "We win on referrals but have no repeatable sales system", "es": "Ganamos clientes por referidos, pero no tenemos un sistema de ventas repetible"}},
+    {"id": "ai_manual", "group": "ai", "label": {"en": "My team repeats the same manual tasks", "es": "Mi equipo repite las mismas tareas manuales"}},
+    {"id": "ai_start", "group": "ai", "label": {"en": "I want AI in the business but do not know where to start", "es": "Quiero usar IA en el negocio, pero no sé por dónde empezar"}}
+  ],
+  "otherLabel": {"en": "Something else", "es": "Otra cosa"},
+  "otherMaxChars": 140,
+  "sizes": ["1 to 9", "10 to 50", "51 to 500", "500+"],
+  "copy": {
+    "helper": {
+      "en": "Pick every one that applies. Your picks shape the one suggestion Manuel sends back.",
+      "es": "Elija todas las que apliquen. Sus respuestas definen la sugerencia que Manuel le enviará."
+    },
+    "insightsConsent": {
+      "en": "Send me Dipriva insights now and then. Unsubscribe anytime.",
+      "es": "Envíenme ideas de Dipriva de vez en cuando. Puede darse de baja en cualquier momento."
+    },
+    "notice": {
+      "en": "We use your details to send your download and reply to your request.",
+      "es": "Usamos sus datos para enviarle su descarga y responder a su solicitud."
+    }
+  }
+}

@@ -21,6 +21,20 @@ const privacyContent = {
         afterItems: 'Business and financial information (client intake form). Clients who engage us and complete our intake form provide additional business information used to prepare their strategy. This may include business profile details and financial figures such as revenue, costs, cash reserves, debt, equity, marketing spend, and customer metrics. This information is collected only from clients who choose to complete the intake form as part of an engagement.',
       },
       {
+        title: 'Download Requests and Insights Emails',
+        paragraphs: ['When you request a free download on dipriva.com, we collect:'],
+        items: [
+          'Name',
+          'Email address',
+          'Business name',
+          'Team size, if you choose to give it',
+          'The challenges you select, and an optional one-line note',
+          'Whether you ticked the insights box, and the version of the consent wording you saw',
+          'The link or campaign that brought you to the page, when there is one',
+        ],
+        afterItems: 'We use these details to send your download and to reply to your request. We do not store your phone number or IP address with your request. Cloudflare Turnstile checks that each request comes from a person, and Cloudflare processes technical information about your browser for that check under its own privacy policy. The insights box is unticked by default. We send Dipriva insights emails only if you tick it, and every insights email includes a way to unsubscribe. Leaving the box unticked does not affect your download.',
+      },
+      {
         title: 'How We Use Your Information',
         paragraphs: ['We use the information you provide to:'],
         items: [
@@ -73,6 +87,7 @@ const privacyContent = {
           'Cloud storage and productivity services (where your submissions and files are stored)',
           'AI processing tools (used as described in the AI and Automation section)',
           'Website analytics and advertising services (described in the Analytics section)',
+          'Spam protection for our forms (Cloudflare Turnstile)',
         ],
         afterItems: 'Some of these providers may transfer and store data on servers located outside your country.',
       },
@@ -138,6 +153,20 @@ const privacyContent = {
         afterItems: 'Informaci\u00f3n empresarial y financiera (formulario de cliente). Los clientes que nos contratan y completan nuestro formulario de admisi\u00f3n proporcionan informaci\u00f3n empresarial adicional que se utiliza para preparar su estrategia. Esto puede incluir datos del perfil del negocio y cifras financieras como ingresos, costos, reservas de efectivo, deuda, patrimonio neto, gasto en marketing y m\u00e9tricas de clientes. Esta informaci\u00f3n se recopila \u00fanicamente de los clientes que deciden completar el formulario como parte de un servicio contratado.',
       },
       {
+        title: 'Solicitudes de descarga y correos de ideas',
+        paragraphs: ['Cuando usted solicita una descarga gratuita en dipriva.com, recopilamos:'],
+        items: [
+          'Nombre',
+          'Correo electr\u00f3nico',
+          'Nombre del negocio',
+          'Tama\u00f1o del equipo, si decide indicarlo',
+          'Los desaf\u00edos que seleccione y una nota opcional de una l\u00ednea',
+          'Si marc\u00f3 la casilla de ideas y la versi\u00f3n del texto de consentimiento que vio',
+          'El enlace o la campa\u00f1a que le trajo a la p\u00e1gina, cuando lo haya',
+        ],
+        afterItems: 'Usamos estos datos para enviarle su descarga y responder a su solicitud. No guardamos su n\u00famero de tel\u00e9fono ni su direcci\u00f3n IP con su solicitud. Cloudflare Turnstile verifica que cada solicitud provenga de una persona, y Cloudflare procesa informaci\u00f3n t\u00e9cnica de su navegador para esa verificaci\u00f3n conforme a su propia pol\u00edtica de privacidad. La casilla de ideas aparece sin marcar. Solo le enviamos correos de ideas de Dipriva si usted la marca, y cada uno incluye una forma de darse de baja. Dejar la casilla sin marcar no afecta su descarga.',
+      },
+      {
         title: 'C\u00f3mo usamos su informaci\u00f3n',
         paragraphs: ['Usamos la informaci\u00f3n que usted proporciona para:'],
         items: [
@@ -190,6 +219,7 @@ const privacyContent = {
           'Servicios de almacenamiento en la nube y de productividad (donde se guardan sus env\u00edos y archivos)',
           'Herramientas de procesamiento con IA (utilizadas seg\u00fan se describe en la secci\u00f3n de Inteligencia artificial y automatizaci\u00f3n)',
           'Servicios de anal\u00edtica web y de publicidad (descritos en la secci\u00f3n de Anal\u00edtica)',
+          'Protecci\u00f3n contra spam en nuestros formularios (Cloudflare Turnstile)',
         ],
         afterItems: 'Algunos de estos proveedores pueden transferir y almacenar datos en servidores ubicados fuera de su pa\u00eds.',
       },

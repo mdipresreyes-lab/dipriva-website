@@ -137,6 +137,54 @@ export const ROUTE_META = {
     },
   },
 
+  '/startup': {
+    title: 'The 90-Day Operating Roadmap | Dipriva Consulting Group',
+    description:
+      'A one-page plan to move the work that runs through you to an owner with a date. Free download in English and Spanish, PDF and Word.',
+    canonical: 'https://www.dipriva.com/startup',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'The 90-Day Operating Roadmap',
+      url: 'https://www.dipriva.com/startup',
+      inLanguage: ['en', 'es'],
+      publisher: { '@id': ORG },
+      isPartOf: { '@type': 'WebSite', url: 'https://www.dipriva.com' },
+    },
+  },
+
+  '/strategy': {
+    title: 'The Sales Follow-Up Kit | Dipriva Consulting Group',
+    description:
+      'Five touches after every proposal, five messages ready to send, and an Excel tracker that dates each one. Free download in English and Spanish.',
+    canonical: 'https://www.dipriva.com/strategy',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'The Sales Follow-Up Kit',
+      url: 'https://www.dipriva.com/strategy',
+      inLanguage: ['en', 'es'],
+      publisher: { '@id': ORG },
+      isPartOf: { '@type': 'WebSite', url: 'https://www.dipriva.com' },
+    },
+  },
+
+  '/ai-automation': {
+    title: 'Where to Automate First | Dipriva Consulting Group',
+    description:
+      'Score the tasks your team repeats and find the one to automate first. Free worksheet in English and Spanish, PDF and Excel.',
+    canonical: 'https://www.dipriva.com/ai-automation',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'Where to Automate First',
+      url: 'https://www.dipriva.com/ai-automation',
+      inLanguage: ['en', 'es'],
+      publisher: { '@id': ORG },
+      isPartOf: { '@type': 'WebSite', url: 'https://www.dipriva.com' },
+    },
+  },
+
   '/schedule': {
     title: 'Schedule a Strategy Session | Dipriva Consulting Group',
     description:

@@ -11,6 +11,7 @@ import ServicesCorporateStrategy from "@/pages/ServicesCorporateStrategy";
 import ServicesAiAutomation from "@/pages/ServicesAiAutomation";
 import AboutManuelDipres from "@/pages/AboutManuelDipres";
 import IndustriesWestMichigan from "@/pages/IndustriesWestMichigan";
+import LeadMagnetPage from "@/pages/LeadMagnetPage";
 import { Redirect, Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -34,6 +35,9 @@ function Router() {
       <Route path={"/services/ai-automation"} component={ServicesAiAutomation} />
       <Route path={"/about/manuel-dipres"} component={AboutManuelDipres} />
       <Route path={"/industries/west-michigan"} component={IndustriesWestMichigan} />
+      <Route path={"/startup"}><LeadMagnetPage magnet="startup" /></Route>
+      <Route path={"/strategy"}><LeadMagnetPage magnet="strategy" /></Route>
+      <Route path={"/ai-automation"}><LeadMagnetPage magnet="ai" /></Route>
       <Route path={"/services"}><Redirect to="/#services" /></Route>
       <Route path={"/industries"}><Redirect to="/" /></Route>
       <Route path={"/404"} component={NotFound} />
