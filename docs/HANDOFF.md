@@ -19,7 +19,7 @@ Start a new Claude Code session on the web (claude.ai/code) with these repositor
 - `mdipresreyes-lab/dipriva-social`: the social engine. Its `CLAUDE.md` rules apply to all three repos (no em dashes ever, banned terms in `config/brand-rules.json`, formal "usted" Spanish, approved figures only, official APIs only, stage files by explicit path, never edit an approved post package, never weaken verification).
 - `mdipresreyes-lab/dipriva-growth`: outreach engine. Read only. The site's `/unsubscribe/` page is a byte copy of `worker/optout/page/index.html`, and the Bookings link comes from `config/outreach.yaml`.
 - Read `docs/HANDOFF.md` in dipriva-website first. Sections 2 to 4 record Manuel's decisions, the ripple map and the task list. Section 7 is the SEO and GEO plan.
-- Decisions already made by Manuel (do not reopen): audience is companies with 10 to 500 employees, and larger companies are welcome; the micro-multinational post is deleted (done); the other 8 posts stay; the schedule page shows manuel@dipriva.com and the Microsoft Bookings link (done); Microsoft Clarity and Google Ads stay in the privacy policy for future use; Spanish readers on `/es/` links get Spanish blog posts; the site never mentions Diprivian.
+- Decisions already made by Manuel (do not reopen): audience is companies with 10 to 500 employees, and larger companies are welcome; the micro-multinational post is deleted (done); the other 8 posts stay; the schedule page shows manuel@dipriva.com and the Microsoft Bookings link (done); Microsoft Clarity and Google Ads stay in the privacy policy as "may use" (done); Spanish readers on `/es/` links get Spanish blog posts; Diprivian is named only in `llms.txt` (done), never on a visible page, in hidden HTML or in structured data.
 
 **Task.** Complete tasks T1 to T8 in section 4 of `docs/HANDOFF.md`, in order. Commit after each task. Push to `redesign` (website) and to a `claude/` branch with a pull request (dipriva-social).
 
@@ -56,20 +56,20 @@ Start a new Claude Code session on the web (claude.ai/code) with these repositor
 |---|---|---|
 | D1 | Audience: companies with **10 to 500 employees**; larger companies welcome | Site done. dipriva-social and outside profiles: T1, M6 |
 | D2 | Blog posts that miss the audience: re-checked against 10 to 500. Deleted: *Architect the Micro-Multinational* (written for solo founders). Kept: *Refine Before You Automate* (growing startups; matches the AI tool's message) and the West Michigan manufacturer, grocer and enterprise posts (companies of that size fall inside 10 to 500) | Deletion done on `redesign` with a 301 to the closest post. Rewrite and sourcing: T4 |
-| D3 | Privacy policy: keep Microsoft Clarity and Google Ads text for future use | Kept. See the note below |
+| D3 | Privacy policy: keep Microsoft Clarity and Google Ads for future use, worded "may use" | Done in English and Spanish |
 | D4 | Schedule page fallback email: manuel@dipriva.com | Done |
 | D5 | Add the Microsoft Bookings 30-minute link to the schedule page | Done, as the main option above the form |
 | D6 | Spanish blog posts for readers on `/es/` | T5 |
-| D7 | Do not mention Diprivian anywhere | Done. Nothing on the site names it |
+| D7 | Name Diprivian only where AI tools read it and visitors do not | Done: one line in `llms.txt` (not linked from any page). Not in hidden HTML or structured data, see below |
 | D8 | Privacy sentences on automated social approval (12-hour veto window) | **Still needs Manuel's yes or no.** Shown with a REVIEW marker on QA only |
 
 **Does keeping Clarity and Google Ads in the policy hurt?** The risk is low, but it is not zero:
 - Saying you use a tracker you do not run does not harm visitors, and regulators focus on promises a company breaks. The bigger risk is the opposite case, running a tool the policy does not mention.
 - Meta and LinkedIn app reviewers read the policy for accuracy. An extra tool is rarely a problem.
-- Cost-free fix if you want it later: change "we use" to "we may use" in those two paragraphs.
+- Applied: both paragraphs now say "may use" (Manuel's decision).
 - When you do turn them on, three things must change together: the consent banner must name the tool (`site/src/components/Consent.astro`), the tool must load only after Accept, and Google Ads needs Consent Mode settings in GA4. Without those, the policy and the banner disagree.
 
-**Why not mention Diprivian?** Naming them would help AI engines tell the two names apart, but it also puts their name on your pages, which can strengthen the link between the two brands. Strong signals about your own brand do the same job without naming them: the entity layer (T6) and a Google Business Profile that matches the site (C3).
+**Where Diprivian appears, and why only there.** One sentence in `/llms.txt`, a plain-text file written for AI tools and not linked from any page. It is deliberately not in hidden page text or in structured data: Google's spam policies treat text hidden from visitors as a violation, and its structured data rules require marked-up content to be visible on the page. Either could cost rankings or rich results. The entity layer (T6) and a matching Google Business Profile carry the rest of the disambiguation.
 
 ---
 
@@ -107,7 +107,7 @@ Start a new Claude Code session on the web (claude.ai/code) with these repositor
 
 **T2. Privacy policy follow-ups (website)**
 - Add one sentence on Microsoft Bookings (what it collects, that Microsoft processes it under its own privacy terms), in English and Spanish, with a QA-only REVIEW marker.
-- Leave the Clarity and Ads text as is (D3).
+- The Clarity and Ads paragraphs already say "may use" (D3). Leave them.
 - Do not remove the REVIEW markers on the automated approval sentences until Manuel answers D8.
 
 **T3. Port `/industries/west-michigan/` and `/es/industrias/oeste-de-michigan/`**
@@ -158,7 +158,7 @@ Start a new Claude Code session on the web (claude.ai/code) with these repositor
   - Add `alternateName` to the WebSite node.
 - Build `/about/` and `/es/nosotros/` as the company page: who, what, for whom (10 to 500 employees), where, languages, founder link. Then change the `/about/` 302 in `site/scripts/write-edge-files.mjs` to serve the page.
 - Use one LinkedIn company URL everywhere.
-- Never mention Diprivian.
+- Do not add Diprivian anywhere except the existing line in `llms.txt`.
 
 **T7. Blog template for SEO and GEO**
 - In `site/src/pages/blog/[slug].astro`, render:

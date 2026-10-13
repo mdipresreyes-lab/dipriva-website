@@ -233,14 +233,14 @@ export const privacy: Record<Lang, Policy> = {
           },
           {
             kind: 'link',
-            text: 'This website also uses Google Ads remarketing, which allows us to show advertisements to previous visitors as they browse other websites and apps within the Google Display Network. These ads are served based on your prior visit to dipriva.com using cookies stored on your device. You can opt out of personalized advertising by visiting Google’s Ads Settings or by using the NAI opt-out tool at',
+            text: 'This website may also use Google Ads remarketing, which allows us to show advertisements to previous visitors as they browse other websites and apps within the Google Display Network. These ads are served based on your prior visit to dipriva.com using cookies stored on your device. You can opt out of personalized advertising by visiting Google’s Ads Settings or by using the NAI opt-out tool at',
             href: 'https://optout.networkadvertising.org',
             label: 'https://optout.networkadvertising.org',
             after: '.',
           },
           {
             kind: 'link',
-            text: 'This website also uses Microsoft Clarity, a behavior analytics service provided by Microsoft Corporation. Clarity collects information such as pages visited, clicks, scrolling, and session recordings to help us understand how visitors use the site and improve it. Clarity loads only after you accept analytics cookies. You can review Microsoft’s privacy practices at',
+            text: 'This website may also use Microsoft Clarity, a behavior analytics service provided by Microsoft Corporation. Clarity collects information such as pages visited, clicks, scrolling, and session recordings to help us understand how visitors use the site and improve it. Clarity loads only after you accept analytics cookies. You can review Microsoft’s privacy practices at',
             href: 'https://privacy.microsoft.com/privacystatement',
             label: 'https://privacy.microsoft.com/privacystatement',
             after: '.',
@@ -488,14 +488,14 @@ export const privacy: Record<Lang, Policy> = {
           },
           {
             kind: 'link',
-            text: 'Este sitio web también utiliza remarketing de Google Ads, que nos permite mostrar anuncios a visitantes anteriores mientras navegan por otros sitios web y aplicaciones dentro de la Red de Display de Google. Estos anuncios se muestran en función de su visita previa a dipriva.com mediante cookies almacenadas en su dispositivo. Puede excluirse de la publicidad personalizada visitando la Configuración de anuncios de Google o usando la herramienta de exclusión de la NAI en',
+            text: 'Este sitio web también puede utilizar remarketing de Google Ads, que nos permite mostrar anuncios a visitantes anteriores mientras navegan por otros sitios web y aplicaciones dentro de la Red de Display de Google. Estos anuncios se muestran en función de su visita previa a dipriva.com mediante cookies almacenadas en su dispositivo. Puede excluirse de la publicidad personalizada visitando la Configuración de anuncios de Google o usando la herramienta de exclusión de la NAI en',
             href: 'https://optout.networkadvertising.org',
             label: 'https://optout.networkadvertising.org',
             after: '.',
           },
           {
             kind: 'link',
-            text: 'Este sitio web también utiliza Microsoft Clarity, un servicio de analítica de comportamiento proporcionado por Microsoft Corporation. Clarity recopila información como las páginas visitadas, los clics, el desplazamiento y las grabaciones de sesión para ayudarnos a comprender cómo los visitantes usan el sitio y mejorarlo. Clarity se carga solo después de que usted acepta las cookies de analítica. Puede revisar las prácticas de privacidad de Microsoft en',
+            text: 'Este sitio web también puede utilizar Microsoft Clarity, un servicio de analítica de comportamiento proporcionado por Microsoft Corporation. Clarity recopila información como las páginas visitadas, los clics, el desplazamiento y las grabaciones de sesión para ayudarnos a comprender cómo los visitantes usan el sitio y mejorarlo. Clarity se carga solo después de que usted acepta las cookies de analítica. Puede revisar las prácticas de privacidad de Microsoft en',
             href: 'https://privacy.microsoft.com/privacystatement',
             label: 'https://privacy.microsoft.com/privacystatement',
             after: '.',
