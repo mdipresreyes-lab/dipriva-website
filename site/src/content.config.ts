@@ -6,11 +6,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 /**
- * Blog posts arrive from the Make.com pipeline as content/blog/<slug>.md on main.
- * The pipeline has produced malformed frontmatter before (for example
- * date: ""2026-09-04"" and {{"2026-09-02"}}), which a strict YAML parser rejects.
- * This loader reads each line leniently, the same way the current site does, so
- * one bad value never fails the build. Unpublished or slugless files are skipped.
+ * Blog posts are Markdown files in content/blog/<slug>.md, written in Claude Code
+ * sessions from an outside draft and merged to main. Make.com wrote two early
+ * posts (2026-09-02 to 2026-09-04) with malformed dates such as date: ""2026-09-04"",
+ * so this loader reads each line leniently until those files are cleaned up.
+ * Unpublished or slugless files are skipped.
  */
 function parseFrontmatter(raw: string): { meta: Record<string, string>; body: string } {
   const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);

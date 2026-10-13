@@ -1,0 +1,21 @@
+// Static hosting for the Astro build on Cloudflare Workers (static assets).
+// Default environment = QA at qa.dipriva.com. The production environment is
+// defined for cutover only; nothing deploys it automatically.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "dipriva-site-qa",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    // /schedule serves /schedule/ with one redirect, matching trailingSlash: 'always'.
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "routes": [{ "pattern": "qa.dipriva.com", "custom_domain": true }],
+  "env": {
+    "production": {
+      "name": "dipriva-site",
+      "routes": [{ "pattern": "www.dipriva.com", "custom_domain": true }]
+    }
+  }
+}

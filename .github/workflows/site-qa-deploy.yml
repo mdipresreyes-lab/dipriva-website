@@ -1,0 +1,40 @@
+name: Deploy QA site
+
+# Builds site/ (QA mode: noindex, review banner, no live form or chat calls)
+# and deploys it to qa.dipriva.com on Cloudflare Workers static assets.
+# Needs two repository secrets that Manuel enters himself:
+# CLOUDFLARE_API_TOKEN (Workers Scripts: Edit, Zone: Workers Routes: Edit for dipriva.com)
+# and CLOUDFLARE_ACCOUNT_ID.
+
+on:
+  push:
+    branches: [redesign]
+    paths: ['site/**', 'content/blog/**', '.github/workflows/site-qa-deploy.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-qa
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - run: npx --yes wrangler@4 deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

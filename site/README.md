@@ -33,7 +33,7 @@ Node 22.12 or newer.
 ## Rules this build keeps
 
 - One URL form: every canonical, sitemap entry, hreflang and internal link ends in a slash.
-- The Make.com pipeline keeps writing to `content/blog/` on `main`; the loader reads it as is.
+- Blog posts are Markdown files in `content/blog/` on `main`, written in Claude Code sessions (Make.com stopped on 2026-09-04). The loader reads them as is. See `docs/HANDOFF.md` for the publishing plan.
 - Lead magnet URLs (`/startup/`, `/strategy/`, `/ai-automation/`) and `/schedule/` stay where
   social posts link to them.
 - No em dashes and no banned terms (`dipriva-social/config/brand-rules.json`).
