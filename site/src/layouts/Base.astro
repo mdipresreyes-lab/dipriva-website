@@ -1,0 +1,121 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Lea from '../components/Lea.astro';
+import MobileCta from '../components/MobileCta.astro';
+import { copy, type Lang } from '../lib/copy';
+import { IS_PRODUCTION, SITE_URL, absolute, coreGraph, graph } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** Counterpart page in the other language, when one exists. */
+  alternate?: { en: string; es: string };
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  /** Extra JSON-LD nodes for this page; merged with the organization graph. */
+  schema?: object[];
+  /** Section anchors in the header point at the homepage from other pages. */
+  onHome?: boolean;
+}
+
+const { lang, title, description, alternate, ogType = 'website', ogImage = '/og-image.png', schema = [], onHome = false } =
+  Astro.props;
+const t = copy[lang];
+const canonical = new URL(Astro.url.pathname, SITE_URL).toString();
+const ld = graph([...coreGraph(), ...schema]);
+
+// Prerender same-site pages on hover intent so navigation feels instant.
+const speculation = {
+  prerender: [
+    {
+      where: { and: [{ href_matches: '/*' }, { not: { href_matches: '/downloads/*' } }] },
+      eagerness: 'moderate',
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang={lang} data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {
+      alternate && (
+        <>
+          <link rel="alternate" hreflang="en" href={absolute(alternate.en)} />
+          <link rel="alternate" hreflang="es" href={absolute(alternate.es)} />
+          <link rel="alternate" hreflang="x-default" href={absolute(alternate.en)} />
+        </>
+      )
+    }
+    <meta name="robots" content={IS_PRODUCTION ? 'index, follow, max-image-preview:large' : 'noindex, nofollow'} />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f5f5dc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121a25" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Dipriva Consulting Group" />
+    <meta property="og:locale" content={lang === 'es' ? 'es_US' : 'en_US'} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={absolute(ogImage)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absolute(ogImage)} />
+
+    <Font cssVariable="--font-playfair" preload />
+    <Font cssVariable="--font-inter" preload />
+
+    <script is:inline>
+      // Apply the saved or system theme before first paint to avoid a flash.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        var saved = null;
+        try {
+          saved = localStorage.getItem('dipriva-theme');
+        } catch (e) {}
+        var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        root.setAttribute('data-theme', dark ? 'dark' : 'light');
+      })();
+    </script>
+    <script type="speculationrules" is:inline set:html={JSON.stringify(speculation)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(ld)} />
+  </head>
+  <body class="min-h-dvh bg-paper text-ink">
+    <a class="skip-link" href="#main">{t.nav.skip}</a>
+    {
+      !IS_PRODUCTION && (
+        <div class="bg-band text-on-band text-center text-[0.8rem] font-medium tracking-wide py-2 px-4" role="note">
+          {t.banner}
+        </div>
+      )
+    }
+    <Header lang={lang} alternate={alternate} onHome={onHome} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <Lea lang={lang} />
+    <MobileCta lang={lang} />
+
+    <script>
+      import '../scripts/core';
+    </script>
+  </body>
+</html>

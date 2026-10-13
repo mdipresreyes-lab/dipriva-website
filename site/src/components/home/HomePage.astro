@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import type { Lang } from '../../lib/copy';
+import Hero from './Hero.astro';
+import Marquee from './Marquee.astro';
+import Problem from './Problem.astro';
+import Services from './Services.astro';
+import Method from './Method.astro';
+import Diagnostic from './Diagnostic.astro';
+import Proof from './Proof.astro';
+import System from './System.astro';
+import Next from './Next.astro';
+import Insights from './Insights.astro';
+import About from './About.astro';
+import Faq from './Faq.astro';
+import Final from './Final.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const posts = (await getCollection('blog'))
+  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
+  .slice(0, 3);
+---
+
+<Hero lang={lang} />
+<Marquee lang={lang} />
+<Problem lang={lang} />
+<Services lang={lang} />
+<Method lang={lang} />
+<Diagnostic lang={lang} />
+<Proof lang={lang} />
+<System lang={lang} />
+<Next lang={lang} />
+<Insights lang={lang} posts={posts} />
+<About lang={lang} />
+<Faq lang={lang} />
+<Final lang={lang} />

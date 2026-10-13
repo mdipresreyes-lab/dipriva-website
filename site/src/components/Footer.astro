@@ -1,0 +1,107 @@
+---
+import Icon from './Icon.astro';
+import { copy, type Lang } from '../lib/copy';
+import { CONTACT_EMAIL, LINKEDIN_COMPANY, homePath } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang];
+const f = t.footer;
+const year = new Date().getFullYear();
+---
+
+<footer class="band relative overflow-hidden">
+  <div class="grid-paper grid-fade pointer-events-none absolute inset-0 opacity-70" aria-hidden="true"></div>
+  <div class="container-x relative pt-20 pb-10">
+    <div class="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
+      <div class="max-w-xs">
+        <a href={homePath(lang)} class="flex items-center gap-3">
+          <span
+            class="grid size-10 place-content-center rounded-[11px] bg-on-band font-display text-[1.45rem] font-semibold text-band"
+            aria-hidden="true">D</span
+          >
+          <span class="font-display text-2xl font-semibold">Dipriva</span>
+        </a>
+        <p class="mt-5 font-display text-xl italic text-on-band">{f.tagline}</p>
+        <p class="mt-3 text-sm text-muted">{f.based}</p>
+      </div>
+
+      <nav aria-label={f.servicesTitle}>
+        <h2 class="eyebrow !text-on-band/70">{f.servicesTitle}</h2>
+        <ul class="mt-4 space-y-3 text-sm">
+          {
+            t.services.lines.map((s) => (
+              <li>
+                <a href={s.href} class="text-muted transition-colors hover:text-on-band">
+                  {s.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label={f.toolsTitle}>
+        <h2 class="eyebrow !text-on-band/70">{f.toolsTitle}</h2>
+        <ul class="mt-4 space-y-3 text-sm">
+          {
+            t.services.tools.links.map((l) => (
+              <li>
+                <a href={l.href} class="text-muted transition-colors hover:text-on-band">
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label={f.companyTitle}>
+        <h2 class="eyebrow !text-on-band/70">{f.companyTitle}</h2>
+        <ul class="mt-4 space-y-3 text-sm">
+          {
+            f.company.map((l) => (
+              <li>
+                <a href={l.href} class="text-muted transition-colors hover:text-on-band">
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="eyebrow !text-on-band/70">{f.contactTitle}</h2>
+        <ul class="mt-4 space-y-3 text-sm">
+          <li>
+            <a href={`mailto:${CONTACT_EMAIL}`} class="inline-flex items-center gap-2 text-muted hover:text-on-band">
+              <Icon name="mail" size={16} />
+              {CONTACT_EMAIL}
+            </a>
+          </li>
+          <li>
+            <a
+              href={LINKEDIN_COMPANY}
+              rel="noopener"
+              class="inline-flex items-center gap-2 text-muted hover:text-on-band"
+            >
+              <Icon name="linkedin" size={16} />
+              LinkedIn
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-16 flex flex-col gap-4 border-t border-line pt-8 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+      <p>&copy; {year} Dipriva Consulting Group</p>
+      <p class="font-display text-[clamp(3rem,12vw,9rem)] leading-none font-semibold tracking-[-0.03em] text-on-band/[0.07] select-none" aria-hidden="true">
+        Dipriva
+      </p>
+    </div>
+  </div>
+</footer>

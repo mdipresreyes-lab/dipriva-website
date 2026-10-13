@@ -1,0 +1,60 @@
+---
+import Icon from '../Icon.astro';
+import { copy, type Lang } from '../../lib/copy';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang].system;
+---
+
+<section id="practice" class="band relative overflow-hidden py-24 lg:py-32" aria-labelledby="practice-title">
+  <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+  <div class="container-x relative">
+    <div class="grid gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <p class="section-label reveal"><span class="num">06</span>{t.label}</p>
+        <h2 id="practice-title" class="h2 reveal mt-6 max-w-[18ch]" style="--d: 80ms">{t.h2}</h2>
+      </div>
+      <p class="lede reveal lg:col-span-5 lg:self-end" style="--d: 140ms">{t.intro}</p>
+    </div>
+
+    <ol class="pipeline mt-16 grid gap-3 md:grid-cols-3 xl:grid-cols-6">
+      {
+        t.steps.map((step, i) => (
+          <li class="gate reveal relative flex flex-col rounded-2xl border border-line p-5" style={`--i: ${i}; --d: ${i * 70}ms`}>
+            <div class="flex items-center justify-between">
+              <span class="font-display text-sm italic text-muted tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+              <span class="gate-check grid size-7 place-content-center rounded-full border border-line">
+                <Icon name="check" size={14} />
+              </span>
+            </div>
+            <h3 class="mt-6 font-display text-lg font-semibold">{step.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="mt-10 grid gap-3 md:grid-cols-2">
+      {
+        t.facts.map((fact, i) => (
+          <p class="reveal flex items-start gap-4 rounded-2xl border border-line p-5 leading-relaxed" style={`--d: ${i * 80}ms`}>
+            <Icon name="shield" size={22} class="mt-0.5 shrink-0" />
+            {fact}
+          </p>
+        ))
+      }
+    </div>
+
+    <div class="mt-14 flex flex-col gap-6 border-t border-line pt-10 lg:flex-row lg:items-center lg:justify-between">
+      <p class="reveal max-w-[44ch] font-display text-[clamp(1.35rem,2.2vw,1.75rem)] leading-snug italic">{t.close}</p>
+      <a href={t.href} class="btn btn-primary reveal shrink-0">
+        {t.cta}
+        <Icon name="arrow" size={18} class="arrow" />
+      </a>
+    </div>
+  </div>
+</section>

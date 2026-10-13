@@ -1,0 +1,70 @@
+---
+import Icon from './Icon.astro';
+import { copy, type Lang } from '../lib/copy';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang].lea;
+---
+
+<button
+  type="button"
+  popovertarget="lea-panel"
+  class="lea-launcher fixed right-3 bottom-3 z-40 grid size-14 place-content-center rounded-full bg-brand text-on-brand shadow-xl transition-transform duration-300 hover:-translate-y-0.5 sm:right-6 sm:bottom-6"
+  aria-label={t.open}
+>
+  <Icon name="chat" size={24} />
+  <span class="absolute -top-0.5 -right-0.5 grid h-5 min-w-5 place-content-center rounded-full bg-paper px-1 text-[0.6rem] font-bold text-ink ring-2 ring-brand"
+    >{lang === 'es' ? 'IA' : 'AI'}</span
+  >
+</button>
+
+<div
+  id="lea-panel"
+  popover
+  class="sheet fixed right-3 bottom-20 left-auto top-auto h-[min(560px,72dvh)] w-[min(380px,calc(100vw-24px))] overflow-hidden rounded-3xl border border-line bg-paper-raised shadow-2xl sm:right-6 sm:bottom-24"
+  role="dialog"
+  aria-labelledby="lea-title"
+  data-reply={t.demoReply}
+>
+  <div class="flex h-full flex-col">
+  <div class="flex items-center justify-between gap-3 bg-brand px-5 py-4 text-on-brand">
+    <div class="flex items-center gap-3">
+      <span class="grid size-9 place-content-center rounded-full bg-on-brand/15 font-display text-lg" aria-hidden="true">L</span>
+      <div>
+        <p id="lea-title" class="font-display text-lg leading-tight">{t.title}</p>
+        <p class="text-xs opacity-80">{t.subtitle}</p>
+      </div>
+    </div>
+    <button
+      type="button"
+      popovertarget="lea-panel"
+      popovertargetaction="hide"
+      class="grid size-9 place-content-center rounded-full hover:bg-on-brand/10"
+      aria-label={t.close}
+    >
+      <Icon name="close" size={18} />
+    </button>
+  </div>
+  <p class="border-b border-line bg-surface px-5 py-2 text-xs text-muted">{t.disclosure}</p>
+  <div class="lea-log flex-1 space-y-3 overflow-y-auto px-5 py-4" aria-live="polite">
+    <p class="max-w-[85%] rounded-2xl rounded-tl-sm bg-surface px-4 py-3 text-sm leading-relaxed">{t.greeting}</p>
+  </div>
+  <form class="lea-form flex items-end gap-2 border-t border-line p-3">
+    <label class="sr-only" for="lea-input">{t.placeholder}</label>
+    <textarea
+      id="lea-input"
+      rows="1"
+      maxlength="600"
+      placeholder={t.placeholder}
+      class="max-h-28 min-h-11 flex-1 resize-none rounded-2xl border border-line bg-paper px-4 py-3 text-sm focus:border-ink focus:outline-none"
+    ></textarea>
+    <button type="submit" class="grid size-11 place-content-center rounded-full bg-brand text-on-brand" aria-label={t.send}>
+      <Icon name="send" size={18} />
+    </button>
+  </form>
+</div>
+</div>

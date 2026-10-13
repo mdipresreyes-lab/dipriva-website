@@ -1,0 +1,146 @@
+---
+import Icon from '../Icon.astro';
+import { copy, type Lang } from '../../lib/copy';
+import { schedulePath } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang].diagnostic;
+const circumference = 2 * Math.PI * 70;
+---
+
+<section id="diagnostic" class="py-24 lg:py-32" aria-labelledby="diagnostic-title">
+  <div class="container-x">
+    <div class="max-w-3xl">
+      <p class="section-label reveal"><span class="num">04</span>{t.label}</p>
+      <h2 id="diagnostic-title" class="h2 reveal mt-6" style="--d: 80ms">{t.h2}</h2>
+      <p class="lede reveal mt-6" style="--d: 140ms">{t.intro}</p>
+    </div>
+
+    <div class="card reveal mt-14 grid overflow-clip lg:grid-cols-[1.25fr_1fr]">
+      <form
+        class="clarity-form space-y-8 p-6 sm:p-10"
+        data-results={JSON.stringify(t.results)}
+        data-dims={JSON.stringify(t.questions.map((q) => q.dim))}
+        data-pending={t.pending}
+      >
+        {
+          t.questions.map((q, qi) => (
+            <fieldset>
+              <legend class="flex gap-3 font-display text-xl leading-snug font-semibold">
+                <span class="text-muted tabular-nums">{qi + 1}.</span>
+                {q.q}
+              </legend>
+              <div class="mt-4 grid gap-2.5">
+                {q.options.map((option, oi) => (
+                  <label class="choice">
+                    <input type="radio" name={q.id} value={oi} />
+                    <span class="leading-snug">{option}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          ))
+        }
+      </form>
+
+      <div class="border-t border-line bg-surface lg:border-t-0 lg:border-l">
+       <div class="flex flex-col gap-8 p-6 sm:p-10 lg:sticky lg:top-24">
+        <div class="flex items-center gap-6">
+          <div class="relative size-40 shrink-0">
+            <svg viewBox="0 0 160 160" class="size-40 -rotate-90" aria-hidden="true">
+              <circle class="dial-track" cx="80" cy="80" r="70" fill="none" stroke-width="10"></circle>
+              <circle
+                class="dial-value"
+                cx="80"
+                cy="80"
+                r="70"
+                fill="none"
+                stroke-width="10"
+                stroke-linecap="round"
+                stroke-dasharray={circumference.toFixed(2)}
+                stroke-dashoffset={circumference.toFixed(2)}
+                data-circumference={circumference.toFixed(2)}></circle>
+            </svg>
+            <div class="absolute inset-0 grid place-content-center text-center">
+              <span class="clarity-score font-display text-5xl leading-none font-semibold tabular-nums">?</span>
+              <span class="mt-1 text-xs text-muted">/ 100</span>
+            </div>
+          </div>
+          <p class="eyebrow">{t.scoreLabel}</p>
+        </div>
+
+        <div aria-live="polite">
+          <p class="clarity-result text-lg leading-relaxed font-medium">{t.pending}</p>
+          <a href="#" class="clarity-cta btn btn-primary mt-6 hidden">
+            <span class="clarity-cta-label"></span>
+            <Icon name="arrow" size={18} class="arrow" />
+          </a>
+        </div>
+
+        <div class="space-y-3 border-t border-line pt-6 text-sm text-muted">
+          <p>{t.note}</p>
+          <a href={schedulePath} class="link-arrow text-ink">
+            {t.secondary}
+            <Icon name="arrow" size={15} class="arrow" />
+          </a>
+        </div>
+       </div>
+      </div>
+    </div>
+    <noscript>
+      <p class="mt-6 text-sm text-muted">
+        {t.noscript} <a class="underline" href="/startup/">/startup/</a>
+      </p>
+    </noscript>
+  </div>
+</section>
+
+<script>
+  type Result = { text: string; cta: string; href: string };
+
+  const form = document.querySelector<HTMLFormElement>('.clarity-form');
+  if (form) {
+    const results = JSON.parse(form.dataset.results ?? '{}') as Record<string, Result>;
+    const dims = JSON.parse(form.dataset.dims ?? '[]') as string[];
+    const scoreEl = document.querySelector<HTMLElement>('.clarity-score');
+    const resultEl = document.querySelector<HTMLElement>('.clarity-result');
+    const cta = document.querySelector<HTMLAnchorElement>('.clarity-cta');
+    const ctaLabel = document.querySelector<HTMLElement>('.clarity-cta-label');
+    const dial = document.querySelector<SVGCircleElement>('.dial-value');
+    const circumference = Number(dial?.dataset.circumference ?? 0);
+
+    const update = () => {
+      const data = new FormData(form);
+      const points = dims.map((_, i) => data.get(`q${i + 1}`));
+      const answered = points.filter((p) => p !== null).length;
+      const values = points.map((p) => (p === null ? 0 : Number(p)));
+      const score = Math.round((values.reduce((a, b) => a + b, 0) / (dims.length * 2)) * 100);
+
+      if (dial) dial.style.strokeDashoffset = String(circumference * (1 - (answered ? score : 0) / 100));
+      if (answered < dims.length) {
+        if (scoreEl) scoreEl.textContent = answered ? String(score) : '?';
+        if (resultEl) resultEl.textContent = form.dataset.pending ?? '';
+        cta?.classList.add('hidden');
+        return;
+      }
+
+      // The weakest dimension is the first constraint. Ties resolve in question order.
+      const min = Math.min(...values);
+      const key = min === 2 ? 'none' : dims[values.indexOf(min)];
+      const result = results[key];
+      if (scoreEl) scoreEl.textContent = String(score);
+      if (resultEl) resultEl.textContent = result.text;
+      if (cta && ctaLabel) {
+        cta.href = result.href;
+        ctaLabel.textContent = result.cta;
+        cta.classList.remove('hidden');
+      }
+    };
+
+    form.addEventListener('change', update);
+  }
+</script>

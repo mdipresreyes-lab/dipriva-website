@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { IS_PRODUCTION } from '../lib/site';
+
+const heading = IS_PRODUCTION ? 'This page does not exist.' : 'This page is not in the prototype yet.';
+const body = IS_PRODUCTION
+  ? 'The link may be outdated. The homepage and the insights library are one click away.'
+  : 'The full build carries every current URL, including service pages, tools and the schedule page. Return to the homepage to keep reviewing.';
+---
+
+<Base lang="en" title="Page not found | Dipriva" description="The page you requested was not found.">
+  <section class="relative overflow-hidden">
+    <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="container-x relative py-28 lg:py-40">
+      <p class="eyebrow">404</p>
+      <h1 class="display mt-6 max-w-[16ch] text-[clamp(2.4rem,5.6vw,4.6rem)]">{heading}</h1>
+      <p class="lede mt-6 max-w-[54ch]">{body}</p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a href="/" class="btn btn-primary">Back to the homepage <Icon name="arrow" size={18} class="arrow" /></a>
+        <a href="/blog/" class="btn btn-ghost">Browse insights</a>
+      </div>
+    </div>
+  </section>
+</Base>

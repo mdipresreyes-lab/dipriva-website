@@ -1,0 +1,35 @@
+---
+import Icon from '../Icon.astro';
+import { copy, type Lang } from '../../lib/copy';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang].faq;
+---
+
+<section id="faq" class="border-t border-line py-24 lg:py-32" aria-labelledby="faq-title">
+  <div class="container-x grid gap-12 lg:grid-cols-12">
+    <div class="lg:col-span-4">
+      <p class="section-label reveal"><span class="num">10</span>{t.label}</p>
+      <h2 id="faq-title" class="h2 reveal mt-6" style="--d: 80ms">{t.h2}</h2>
+    </div>
+    <div class="faq lg:col-span-8">
+      {
+        t.items.map((item, i) => (
+          <details class="reveal group border-b border-line first:border-t" style={`--d: ${i * 60}ms`} name="faq">
+            <summary class="flex items-center justify-between gap-6 py-6 text-left">
+              <span class="font-display text-[clamp(1.2rem,1.8vw,1.45rem)] leading-snug font-semibold">{item.q}</span>
+              <span class="plus grid size-9 shrink-0 place-content-center rounded-full border border-line">
+                <Icon name="plus" size={16} />
+              </span>
+            </summary>
+            <p class="max-w-[62ch] pb-7 leading-relaxed text-muted">{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

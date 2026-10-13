@@ -1,0 +1,35 @@
+---
+import { copy, type Lang } from '../../lib/copy';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang].next;
+---
+
+<section id="next" class="py-24 lg:py-32" aria-labelledby="next-title">
+  <div class="container-x">
+    <p class="section-label reveal"><span class="num">07</span>{t.label}</p>
+    <h2 id="next-title" class="h2 reveal mt-6 max-w-[20ch]" style="--d: 80ms">{t.h2}</h2>
+
+    <ol class="relative mt-16 grid gap-10 md:grid-cols-4 md:gap-6">
+      <span class="absolute top-[11px] right-0 left-0 hidden h-px bg-line md:block" aria-hidden="true"></span>
+      {
+        t.steps.map((step, i) => (
+          <li class="reveal relative pl-10 md:pl-0" style={`--d: ${i * 110}ms`}>
+            <span
+              class="absolute top-0 left-0 grid size-6 place-content-center rounded-full border border-ink bg-paper md:relative"
+              aria-hidden="true"
+            >
+              <span class="size-2 rounded-full bg-ink" />
+            </span>
+            <p class="eyebrow md:mt-6">{step.when}</p>
+            <p class="mt-3 max-w-[30ch] text-lg leading-snug">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

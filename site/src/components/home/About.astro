@@ -1,0 +1,45 @@
+---
+import Icon from '../Icon.astro';
+import { copy, type Lang } from '../../lib/copy';
+import { LINKEDIN_FOUNDER } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang].about;
+---
+
+<section id="about" class="py-24 lg:py-32" aria-labelledby="about-title">
+  <div class="container-x grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+    <div class="reveal lg:col-span-5">
+      <div class="band relative aspect-[4/5] overflow-hidden rounded-[28px]">
+        <div class="grid-paper absolute inset-0" aria-hidden="true"></div>
+        <span
+          class="absolute inset-0 grid place-content-center font-display text-[clamp(10rem,22vw,16rem)] leading-none font-semibold text-on-band/90"
+          aria-hidden="true">D</span
+        >
+        <div class="absolute inset-x-0 bottom-0 bg-linear-to-t from-band via-band/80 to-transparent p-7 pt-16">
+          <p class="font-display text-2xl font-semibold text-on-band">Manuel Diprés</p>
+          <p class="mt-1 text-sm text-muted">{t.role}</p>
+        </div>
+      </div>
+    </div>
+    <div class="lg:col-span-7">
+      <p class="section-label reveal"><span class="num">09</span>{t.label}</p>
+      <h2 id="about-title" class="h2 reveal mt-6" style="--d: 80ms">{t.h2}</h2>
+      <p class="lede reveal mt-6 max-w-[56ch]" style="--d: 140ms">{t.body}</p>
+      <div class="reveal mt-10 flex flex-wrap items-center gap-6" style="--d: 200ms">
+        <a href={t.href} class="link-arrow">
+          {t.cta}
+          <Icon name="arrow" size={16} class="arrow" />
+        </a>
+        <a href={LINKEDIN_FOUNDER} rel="noopener" class="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-ink">
+          <Icon name="linkedin" size={18} />
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

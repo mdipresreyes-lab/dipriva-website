@@ -1,0 +1,222 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { blogCopy as b, copy } from '../../lib/copy';
+import { FOUNDER_ID, ORG_ID, absolute, formatDate, readingMinutes } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post, posts } }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { post, posts } = Astro.props;
+const { Content, headings } = await render(post);
+const d = post.data;
+const url = absolute(`/blog/${post.id}/`);
+const toc = headings.filter((h) => h.depth === 2);
+const cta = b.ctaByCluster[d.cluster] ?? b.ctaByCluster['Startup Operations'];
+const ogFile = path.join(process.cwd(), 'public', 'og', `${post.id}.png`);
+const ogImage = fs.existsSync(ogFile) ? `/og/${post.id}.png` : '/og-image.png';
+const published = d.date ? d.date.toISOString().slice(0, 10) : undefined;
+
+const related = posts
+  .filter((p) => p.id !== post.id)
+  .sort((a, z) => Number(z.data.cluster === d.cluster) - Number(a.data.cluster === d.cluster) || (z.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
+  .slice(0, 3);
+
+const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+const shareEmail = `mailto:?subject=${encodeURIComponent(d.title)}&body=${encodeURIComponent(url)}`;
+
+const schema = [
+  {
+    '@type': 'BlogPosting',
+    '@id': `${url}#article`,
+    headline: d.title,
+    description: d.description,
+    url,
+    mainEntityOfPage: url,
+    image: absolute(ogImage),
+    ...(published ? { datePublished: published, dateModified: published } : {}),
+    author: { '@id': FOUNDER_ID },
+    publisher: { '@id': ORG_ID },
+    articleSection: d.cluster,
+    ...(d.keyword ? { keywords: d.keyword } : {}),
+    wordCount: d.words,
+    inLanguage: 'en',
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: b.home, item: absolute('/') },
+      { '@type': 'ListItem', position: 2, name: b.title, item: absolute('/blog/') },
+      { '@type': 'ListItem', position: 3, name: d.title, item: url },
+    ],
+  },
+];
+---
+
+<Base lang="en" title={`${d.title} | Dipriva Insights`} description={d.description} ogType="article" ogImage={ogImage} schema={schema}>
+  <article>
+    <header class="relative overflow-hidden border-b border-line">
+      <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+      <div class="container-x relative pt-14 pb-14 lg:pt-20 lg:pb-16">
+        <nav aria-label="Breadcrumb" class="text-sm text-muted">
+          <ol class="flex flex-wrap items-center gap-2">
+            <li><a href="/" class="hover:text-ink">{b.home}</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a href="/blog/" class="hover:text-ink">{b.title}</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-ink">{d.cluster}</li>
+          </ol>
+        </nav>
+        <h1 class="display mt-8 max-w-[22ch] text-[clamp(2.1rem,4.6vw,3.9rem)]">{d.title}</h1>
+        <p class="lede mt-6 max-w-[62ch]">{d.description}</p>
+        <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-muted">
+          <span class="flex items-center gap-3">
+            <span class="grid size-9 place-content-center rounded-full bg-brand font-display text-on-brand" aria-hidden="true">M</span>
+            <span>
+              {b.by} <a href="/about/manuel-dipres/" class="font-semibold text-ink hover:underline">{d.author}</a>
+            </span>
+          </span>
+          <span>{formatDate(d.date) ?? b.undated}</span>
+          <span>{readingMinutes(d.words)} {b.minRead}</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="container-x grid gap-12 py-14 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16 xl:grid-cols-[240px_minmax(0,720px)_1fr]">
+      <aside class="hidden lg:block">
+        {
+          toc.length > 1 && (
+            <nav class="toc sticky top-28" aria-label={b.onThisPage}>
+              <p class="eyebrow">{b.onThisPage}</p>
+              <ol class="mt-4 space-y-1 border-l border-line">
+                {toc.map((h) => (
+                  <li>
+                    <a
+                      href={`#${h.slug}`}
+                      class="relative -ml-px block border-l border-transparent py-1.5 pl-4 text-sm leading-snug text-muted transition-colors before:absolute before:top-0 before:-left-px before:h-full before:w-px hover:text-ink"
+                    >
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )
+        }
+      </aside>
+
+      <div class="min-w-0">
+        <div class="prose-dipriva">
+          <Content />
+        </div>
+
+        <aside class="band relative mt-16 overflow-hidden rounded-[26px] p-8 sm:p-10" aria-label={cta.cta}>
+          <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+          <div class="relative">
+            <p class="eyebrow">{d.cluster}</p>
+            <p class="mt-4 font-display text-[clamp(1.5rem,2.6vw,2rem)] leading-tight font-semibold">{cta.title}</p>
+            <p class="mt-3 max-w-[52ch] leading-relaxed text-muted">{cta.body}</p>
+            <a href={cta.href} class="btn btn-primary mt-7">
+              {cta.cta}
+              <Icon name="arrow" size={18} class="arrow" />
+            </a>
+          </div>
+        </aside>
+
+        <div class="mt-12 flex flex-col gap-6 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <div class="flex items-center gap-4">
+            <span class="grid size-12 place-content-center rounded-full bg-brand font-display text-xl text-on-brand" aria-hidden="true">M</span>
+            <div>
+              <p class="font-semibold">{d.author}</p>
+              <p class="text-sm text-muted">{copy.en.about.role}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <a href={shareLinkedIn} rel="noopener" class="grid size-10 place-content-center rounded-full border border-line hover:bg-surface" aria-label="Share on LinkedIn">
+              <Icon name="linkedin" size={18} />
+            </a>
+            <a href={shareEmail} class="grid size-10 place-content-center rounded-full border border-line hover:bg-surface" aria-label="Share by email">
+              <Icon name="mail" size={18} />
+            </a>
+            <button type="button" class="copy-link inline-flex h-10 items-center gap-2 rounded-full border border-line px-4 text-sm font-semibold hover:bg-surface" data-url={url} data-done="Link copied">
+              Copy link
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  {
+    related.length > 0 && (
+      <section class="bg-surface py-16 lg:py-20" aria-labelledby="related-title">
+        <div class="container-x">
+          <div class="flex items-end justify-between gap-6">
+            <h2 id="related-title" class="h3 !text-[1.9rem]">
+              {b.related}
+            </h2>
+            <a href="/blog/" class="link-arrow text-sm">
+              {b.back}
+              <Icon name="arrow" size={15} class="arrow" />
+            </a>
+          </div>
+          <div class="mt-8 grid gap-4 md:grid-cols-3">
+            {related.map((p) => (
+              <article class="card spotlight group flex flex-col p-6">
+                <span class="w-fit rounded-full border border-line px-3 py-1 text-xs font-semibold text-muted">{p.data.cluster}</span>
+                <h3 class="mt-5 font-display text-lg leading-snug font-semibold">
+                  <a href={`/blog/${p.id}/`} class="after:absolute after:inset-0">
+                    {p.data.title}
+                  </a>
+                </h3>
+                <p class="mt-auto pt-6 text-sm text-muted">{formatDate(p.data.date) ?? b.undated}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</Base>
+
+<script>
+  // Highlight the section being read in the table of contents.
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.toc a'));
+  const targets = links
+    .map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1))))
+    .filter((el): el is HTMLElement => Boolean(el));
+  if (targets.length) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (!visible) return;
+        links.forEach((a) => a.setAttribute('aria-current', String(a.hash.slice(1) === visible.target.id)));
+      },
+      { rootMargin: '-15% 0px -70% 0px' },
+    );
+    targets.forEach((t) => io.observe(t));
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.copy-link').forEach((button) =>
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.url ?? location.href);
+        const label = button.textContent;
+        button.textContent = button.dataset.done ?? label;
+        window.setTimeout(() => (button.textContent = label), 1800);
+      } catch {
+        /* clipboard can be blocked; the URL is still in the address bar */
+      }
+    }),
+  );
+</script>

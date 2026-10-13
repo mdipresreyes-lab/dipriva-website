@@ -1,0 +1,150 @@
+---
+import Icon from '../Icon.astro';
+import { copy, type Lang } from '../../lib/copy';
+import { schedulePath } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang].hero;
+const [before, emphasis, after] = t.h1;
+---
+
+<section class="relative overflow-hidden" data-hero aria-labelledby="hero-title">
+  <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+  <canvas id="flow" class="flow pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true"></canvas>
+
+  <div class="container-x relative pt-12 pb-16 sm:pt-16 lg:pt-16 lg:pb-20">
+    <div class="grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-12">
+      <div>
+        <p class="eyebrow reveal">{t.eyebrow}</p>
+        <h1 id="hero-title" class="display mt-6 text-[clamp(2.5rem,4.9vw,4.3rem)] text-ink">
+          {before}<span class="swipe">{emphasis}</span>{after}
+        </h1>
+        <p class="lede reveal mt-7 max-w-[58ch]" style="--d: 120ms">{t.sub}</p>
+        <div class="reveal mt-9 flex flex-wrap gap-3" style="--d: 200ms">
+          <a href={schedulePath} class="btn btn-primary">
+            {t.ctaPrimary}
+            <Icon name="arrow" size={18} class="arrow" />
+          </a>
+          <a href="#diagnostic" class="btn btn-ghost">{t.ctaSecondary}</a>
+        </div>
+      </div>
+
+      <aside class="roadmap-card reveal card p-6 sm:p-7" style="--d: 260ms" aria-label={t.roadmap.label}>
+        <div class="flex items-center justify-between gap-4">
+          <p class="eyebrow !text-ink">{t.roadmap.label}</p>
+          <span class="grid size-8 place-content-center rounded-full bg-brand font-display text-sm text-on-brand" aria-hidden="true">D</span>
+        </div>
+        <div class="relative mt-6 h-1.5 overflow-hidden rounded-full bg-surface" aria-hidden="true">
+          <span class="roadmap-fill absolute inset-y-0 left-0 rounded-full bg-brand"></span>
+          <span class="absolute inset-y-0 left-1/3 w-px bg-paper-raised"></span>
+          <span class="absolute inset-y-0 left-2/3 w-px bg-paper-raised"></span>
+        </div>
+        <ol class="mt-6 space-y-5">
+          {
+            t.roadmap.phases.map((phase, i) => (
+              <li class="grid grid-cols-[auto_1fr] gap-4">
+                <span
+                  class:list={[
+                    'grid size-7 place-content-center rounded-full border text-xs font-semibold tabular-nums',
+                    i === 0 ? 'border-brand bg-brand text-on-brand' : 'border-line text-muted',
+                  ]}
+                  aria-hidden="true"
+                >
+                  {i + 1}
+                </span>
+                <div>
+                  <p class="text-xs font-semibold tracking-wide text-muted">{phase.days}</p>
+                  <p class="mt-1 font-display text-[1.08rem] leading-snug font-semibold">{phase.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+        <a href="/startup/" class="link-arrow mt-7 text-sm">
+          {t.roadmap.cta}
+          <Icon name="arrow" size={15} class="arrow" />
+        </a>
+      </aside>
+    </div>
+
+    <dl
+      class="reveal mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4"
+      style="--d: 320ms"
+    >
+      {
+        t.stats.map((s) => (
+          <div class="flex flex-col-reverse gap-1 bg-paper-raised px-5 py-4">
+            <dt class="text-xs leading-snug text-muted">{s.label}</dt>
+            <dd class="font-display text-xl font-semibold tracking-tight sm:text-2xl">{s.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .flow {
+    opacity: 0;
+    transition: opacity 1.4s ease;
+    mask-image: radial-gradient(ellipse 75% 85% at 70% 45%, #000 40%, transparent 82%);
+  }
+  .flow:global(.is-live) {
+    opacity: 1;
+  }
+  @media (max-width: 1023px) {
+    .flow {
+      mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 75%, transparent 100%);
+    }
+    .flow:global(.is-live) {
+      opacity: 0.5;
+    }
+  }
+  .roadmap-card {
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(6px);
+    background: color-mix(in oklab, var(--paper-raised) 92%, transparent);
+  }
+  .roadmap-fill {
+    width: 34%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .roadmap-card {
+      animation: float 7s ease-in-out infinite;
+    }
+    .roadmap-fill {
+      width: 0%;
+      animation: fill-roadmap 9s cubic-bezier(0.65, 0, 0.35, 1) 1.2s infinite;
+    }
+  }
+  @keyframes float {
+    50% {
+      translate: 0 -8px;
+    }
+  }
+  @keyframes fill-roadmap {
+    0% {
+      width: 0%;
+    }
+    70%,
+    88% {
+      width: 100%;
+    }
+    100% {
+      width: 100%;
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  import { mountFlowField } from '../../scripts/flowfield';
+
+  const canvas = document.getElementById('flow') as HTMLCanvasElement | null;
+  const host = document.querySelector<HTMLElement>('[data-hero]');
+  if (canvas && host) mountFlowField(canvas, host);
+</script>
