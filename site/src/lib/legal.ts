@@ -104,6 +104,24 @@ export const privacy: Record<Lang, Policy> = {
         ],
       },
       {
+        id: 'chat-assistant',
+        title: 'Chat Assistant (Lea)',
+        blocks: [
+          {
+            kind: 'p',
+            text: 'Lea is an AI assistant on dipriva.com, and Lea tells visitors it is an AI. What you type in the chat window is sent to an AI service provider so it can generate replies.',
+          },
+          {
+            kind: 'p',
+            text: 'If you ask to speak with our team, Lea asks for your business name, your name, your phone number and email address, your biggest business challenge in your own words, and any additional context you choose to share. We use this information only to prepare for and reply to your inquiry. It is sent by email to Dipriva’s founder through an email delivery provider and saved in a Microsoft 365 list that Dipriva uses to manage inquiries.',
+          },
+          {
+            kind: 'p',
+            text: 'To limit abuse, the chat service temporarily uses your IP address to count messages for one hour. To ask for access to or deletion of what you shared, email manuel@dipriva.com.',
+          },
+        ],
+      },
+      {
         id: 'how-we-use-your-information',
         title: 'How We Use Your Information',
         blocks: [
@@ -358,6 +376,24 @@ export const privacy: Record<Lang, Policy> = {
           {
             kind: 'p',
             text: 'Usamos estos datos para enviarle su descarga y responder a su solicitud. No guardamos su número de teléfono ni su dirección IP con su solicitud. Cloudflare Turnstile verifica que cada solicitud provenga de una persona, y Cloudflare procesa información técnica de su navegador para esa verificación conforme a su propia política de privacidad. La casilla de ideas aparece sin marcar. Solo le enviamos correos de ideas de Dipriva si usted la marca, y cada uno incluye una forma de darse de baja. Dejar la casilla sin marcar no afecta su descarga.',
+          },
+        ],
+      },
+      {
+        id: 'asistente-de-chat',
+        title: 'Asistente de chat (Lea)',
+        blocks: [
+          {
+            kind: 'p',
+            text: 'Lea es una asistente de IA en dipriva.com, y Lea informa a los visitantes de que es una IA. Lo que usted escribe en la ventana de chat se envía a un proveedor de servicios de IA para generar las respuestas.',
+          },
+          {
+            kind: 'p',
+            text: 'Si usted solicita hablar con nuestro equipo, Lea le pide el nombre de su negocio, su nombre, su número de teléfono y correo electrónico, su mayor desafío empresarial en sus propias palabras y cualquier contexto adicional que decida compartir. Usamos esta información solo para preparar y responder a su consulta. Se envía por correo electrónico al fundador de Dipriva mediante un proveedor de envío de correos y se guarda en una lista de Microsoft 365 que Dipriva utiliza para gestionar las consultas.',
+          },
+          {
+            kind: 'p',
+            text: 'Para limitar el abuso, el servicio de chat utiliza temporalmente su dirección IP para contar los mensajes durante una hora. Para solicitar acceso a lo que compartió, o su eliminación, escriba a manuel@dipriva.com.',
           },
         ],
       },
