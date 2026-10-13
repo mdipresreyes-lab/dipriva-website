@@ -25,7 +25,7 @@ const [before, emphasis, after] = t.h1;
         </h1>
         <p class="lede reveal mt-7 max-w-[58ch]" style="--d: 120ms">{t.sub}</p>
         <div class="reveal mt-9 flex flex-wrap gap-3" style="--d: 200ms">
-          <a href={schedulePath} class="btn btn-primary">
+          <a href={schedulePath(lang)} class="btn btn-primary">
             {t.ctaPrimary}
             <Icon name="arrow" size={18} class="arrow" />
           </a>

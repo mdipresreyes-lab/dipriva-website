@@ -1,0 +1,136 @@
+---
+/**
+ * Analytics consent. Google Analytics 4 loads only after the visitor accepts,
+ * and only on the production build. The storage key matches the previous site,
+ * so returning visitors keep the choice they already made.
+ */
+import type { Lang } from '../lib/copy';
+import { IS_PRODUCTION, paths } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const GA4_ID = 'G-GBW7DQ6T7V';
+
+const t = {
+  en: {
+    label: 'Analytics preferences',
+    message: 'We use Google Analytics to see which pages help visitors. It loads only if you accept, and you can change your choice anytime.',
+    privacy: 'Privacy policy',
+    reject: 'Reject',
+    accept: 'Accept',
+  },
+  es: {
+    label: 'Preferencias de analítica',
+    message:
+      'Usamos Google Analytics para saber qué páginas ayudan a los visitantes. Solo se carga si usted acepta, y puede cambiar su decisión en cualquier momento.',
+    privacy: 'Política de privacidad',
+    reject: 'Rechazar',
+    accept: 'Aceptar',
+  },
+}[lang];
+---
+
+<div
+  id="consent"
+  class="consent"
+  role="dialog"
+  aria-live="polite"
+  aria-label={t.label}
+  data-ga={IS_PRODUCTION ? GA4_ID : ''}
+  hidden
+>
+  <p class="text-sm leading-relaxed">
+    {t.message}{' '}
+    <a href={paths.privacy[lang]} class="underline underline-offset-2">{t.privacy}</a>
+  </p>
+  <div class="mt-4 flex gap-3">
+    <button type="button" class="btn btn-ghost !min-h-10 flex-1 !py-2 text-sm" data-consent="rejected">{t.reject}</button>
+    <button type="button" class="btn btn-primary !min-h-10 flex-1 !py-2 text-sm" data-consent="accepted">{t.accept}</button>
+  </div>
+</div>
+
+<style>
+  .consent {
+    position: fixed;
+    z-index: 60;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid var(--line-strong);
+    background: var(--paper-raised);
+    color: var(--ink);
+    box-shadow: var(--shadow);
+  }
+  .consent[hidden] {
+    display: none;
+  }
+</style>
+
+<script>
+  const KEY = 'dipriva-cookie-consent';
+  const box = document.getElementById('consent');
+
+  const read = () => {
+    try {
+      return localStorage.getItem(KEY);
+    } catch {
+      return 'unavailable';
+    }
+  };
+
+  const loadAnalytics = () => {
+    const id = box?.dataset.ga;
+    if (!id || (window as unknown as { gtag?: unknown }).gtag) return;
+    const w = window as unknown as { dataLayer: unknown[]; gtag: (...args: unknown[]) => void };
+    w.dataLayer = w.dataLayer || [];
+    w.gtag = function gtag() {
+      // gtag.js reads the arguments object, not an array.
+      // eslint-disable-next-line prefer-rest-params
+      w.dataLayer.push(arguments);
+    };
+    w.gtag('js', new Date());
+    w.gtag('config', id);
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+    document.head.appendChild(script);
+  };
+
+  if (box) {
+    const choice = read();
+    if (choice === 'accepted') loadAnalytics();
+    else if (choice === null) box.hidden = false;
+
+    box.addEventListener('click', (event) => {
+      const value = (event.target as HTMLElement).closest<HTMLElement>('[data-consent]')?.dataset.consent;
+      if (!value) return;
+      try {
+        localStorage.setItem(KEY, value);
+      } catch {
+        /* storage blocked: honor the choice for this page view only */
+      }
+      box.hidden = true;
+      if (value === 'accepted') loadAnalytics();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !box.hidden) {
+        box.querySelector<HTMLElement>('[data-consent="rejected"]')?.click();
+      }
+    });
+
+    // The footer's "Analytics preferences" link reopens the choice.
+    document.querySelectorAll('[data-consent-open]').forEach((el) =>
+      el.addEventListener('click', () => {
+        box.hidden = false;
+        box.querySelector<HTMLElement>('[data-consent="accepted"]')?.focus();
+      }),
+    );
+  }
+</script>

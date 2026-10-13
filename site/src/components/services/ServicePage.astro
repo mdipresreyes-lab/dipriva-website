@@ -87,11 +87,11 @@ const schema = [
         <h1 id="svc-title" class="display mt-5 text-[clamp(2.3rem,4.6vw,4rem)]">{s.h1}</h1>
         <p class="lede mt-6 max-w-[60ch]">{s.sub}</p>
         <div class="mt-9 flex flex-wrap gap-3">
-          <a href={schedulePath} class="btn btn-primary">
+          <a href={schedulePath(lang)} class="btn btn-primary">
             {L.cta}
             <Icon name="arrow" size={18} class="arrow" />
           </a>
-          <a href={service.tool.path} class="btn btn-ghost">
+          <a href={service.tool.path[lang]} class="btn btn-ghost">
             <Icon name="download" size={18} />
             {service.tool.label[lang]}
           </a>
@@ -229,7 +229,7 @@ const schema = [
           <h2 id="svc-tool" class="h3 mt-3 !text-[clamp(1.5rem,2.4vw,2rem)]">{service.tool.label[lang]}</h2>
           <p class="mt-3 leading-relaxed text-muted">{service.tool.body[lang]}</p>
         </div>
-        <a href={service.tool.path} class="btn btn-primary shrink-0">
+        <a href={service.tool.path[lang]} class="btn btn-primary shrink-0">
           <Icon name="download" size={18} />
           {L.getTool} {service.tool.label[lang]}
         </a>
@@ -317,7 +317,7 @@ const schema = [
         <div class="relative max-w-3xl">
           <h2 id="svc-cta" class="display text-[clamp(2.2rem,4.6vw,3.8rem)]">{s.cta.h2}</h2>
           <p class="lede mt-6 max-w-[52ch]">{s.cta.body}</p>
-          <a href={schedulePath} class="btn btn-primary mt-9">
+          <a href={schedulePath(lang)} class="btn btn-primary mt-9">
             {L.cta}
             <Icon name="arrow" size={18} class="arrow" />
           </a>

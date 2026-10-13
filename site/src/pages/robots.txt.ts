@@ -10,6 +10,7 @@ export const GET: APIRoute = ({ site }) => {
         'User-agent: *',
         'Allow: /',
         'Disallow: /client_form/',
+        'Disallow: /es/formulario-de-cliente/',
         '',
         'User-agent: Bytespider',
         'Disallow: /',

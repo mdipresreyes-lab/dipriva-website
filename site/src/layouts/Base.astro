@@ -5,6 +5,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Lea from '../components/Lea.astro';
 import MobileCta from '../components/MobileCta.astro';
+import Consent from '../components/Consent.astro';
 import { copy, type Lang } from '../lib/copy';
 import { IS_PRODUCTION, SITE_URL, absolute, coreGraph, graph } from '../lib/site';
 
@@ -20,10 +21,25 @@ interface Props {
   schema?: object[];
   /** Section anchors in the header point at the homepage from other pages. */
   onHome?: boolean;
+  /** Keep the page out of search results even in production (intake forms). */
+  noindex?: boolean;
+  /** Pages whose main action is a form hide the floating schedule button. */
+  hideMobileCta?: boolean;
 }
 
-const { lang, title, description, alternate, ogType = 'website', ogImage = '/og-image.png', schema = [], onHome = false } =
-  Astro.props;
+const {
+  lang,
+  title,
+  description,
+  alternate,
+  ogType = 'website',
+  ogImage = '/og-image.png',
+  schema = [],
+  onHome = false,
+  noindex = false,
+  hideMobileCta = false,
+} = Astro.props;
+const robots = IS_PRODUCTION && !noindex ? 'index, follow, max-image-preview:large' : 'noindex, nofollow';
 const t = copy[lang];
 const canonical = new URL(Astro.url.pathname, SITE_URL).toString();
 const ld = graph([...coreGraph(), ...schema]);
@@ -56,7 +72,7 @@ const speculation = {
         </>
       )
     }
-    <meta name="robots" content={IS_PRODUCTION ? 'index, follow, max-image-preview:large' : 'noindex, nofollow'} />
+    <meta name="robots" content={robots} />
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#f5f5dc" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#121a25" media="(prefers-color-scheme: dark)" />
@@ -112,7 +128,8 @@ const speculation = {
     </main>
     <Footer lang={lang} />
     <Lea lang={lang} />
-    <MobileCta lang={lang} />
+    {!hideMobileCta && <MobileCta lang={lang} />}
+    <Consent lang={lang} />
 
     <script>
       import '../scripts/core';

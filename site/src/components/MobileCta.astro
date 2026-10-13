@@ -11,7 +11,7 @@ const { lang } = Astro.props;
 ---
 
 <div class="mobile-cta fixed bottom-3 left-3 right-[76px] z-30 md:hidden">
-  <a href={schedulePath} class="btn btn-primary w-full !min-h-14 shadow-xl">
+  <a href={schedulePath(lang)} class="btn btn-primary w-full !min-h-14 shadow-xl">
     {copy[lang].mobileCta}
     <Icon name="arrow" size={18} class="arrow" />
   </a>

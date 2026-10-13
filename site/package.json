@@ -5,10 +5,11 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/check-copy.mjs --sources && astro build && node scripts/check-copy.mjs",
+    "build": "node scripts/check-copy.mjs --sources && node scripts/check-lead-form.mjs && astro build && node scripts/check-copy.mjs",
     "build:production": "PUBLIC_DEPLOY_ENV=production npm run build",
     "preview": "astro preview",
-    "check:copy": "node scripts/check-copy.mjs"
+    "check:copy": "node scripts/check-copy.mjs",
+    "check:lead-form": "node scripts/check-lead-form.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

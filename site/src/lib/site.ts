@@ -12,7 +12,22 @@ export const LINKEDIN_COMPANY = 'https://www.linkedin.com/company/112996520';
 export const LINKEDIN_FOUNDER = 'https://www.linkedin.com/in/manueldipres/';
 
 export const homePath = (lang: Lang) => (lang === 'es' ? '/es/' : '/');
-export const schedulePath = '/schedule/';
+
+/**
+ * Fixed URLs. The English paths are printed in downloads and social posts and
+ * reviewed by LinkedIn and Meta, so they never change. Spanish pages use
+ * Spanish slugs under /es/.
+ */
+export const paths = {
+  schedule: { en: '/schedule/', es: '/es/agendar/' },
+  privacy: { en: '/privacy/', es: '/es/privacidad/' },
+  about: { en: '/about/', es: '/es/nosotros/' },
+  founder: { en: '/about/manuel-dipres/', es: '/es/nosotros/manuel-dipres/' },
+  clientForm: { en: '/client_form/', es: '/es/formulario-de-cliente/' },
+  blog: { en: '/blog/', es: '/es/blog/' },
+} as const;
+
+export const schedulePath = (lang: Lang = 'en') => paths.schedule[lang];
 
 export const absolute = (path: string) => new URL(path, SITE_URL).toString();
 

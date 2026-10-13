@@ -30,7 +30,7 @@ const t = copy[lang].final;
         <h2 id="final-title" class="display text-[clamp(2.4rem,5.2vw,4.4rem)]">{t.h2}</h2>
         <p class="lede mt-6 max-w-[48ch]">{t.body}</p>
         <div class="mt-10 flex flex-wrap gap-3">
-          <a href={schedulePath} class="btn btn-primary">
+          <a href={schedulePath(lang)} class="btn btn-primary">
             {t.primary}
             <Icon name="arrow" size={18} class="arrow" />
           </a>
