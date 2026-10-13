@@ -1,0 +1,33 @@
+name: Site build and brand gate
+
+# Builds the Astro site and runs the brand gate on every change to the site or
+# the blog. The gate fails on any em dash or banned term, so a post that breaks
+# the rules cannot merge.
+on:
+  push:
+    branches: [redesign]
+    paths: ['site/**', 'content/blog/**', '.github/workflows/site-ci.yml']
+  pull_request:
+    paths: ['site/**', 'content/blog/**', '.github/workflows/site-ci.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - name: Build (QA) with brand gate
+        run: npm run build
+      - name: Build (production) with brand gate
+        run: npm run build:production
