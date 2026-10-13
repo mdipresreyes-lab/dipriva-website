@@ -29,6 +29,7 @@ export const GET: APIRoute = async () => {
     ...magnets.map((m) => `- [${m.en.name}](${absolute(m.en.path)}): ${m.en.summary}`),
     '',
     '## About',
+    `- [About Dipriva Consulting Group](${absolute(paths.about.en)}): who we are, what we do, who we work with, where we are based and in which languages.`,
     `- [Manuel Diprés, founder](${absolute(paths.founder.en)}): background, standards and client results.`,
     `- [Schedule a 30-minute strategy session](${absolute(paths.schedule.en)})`,
     `- Contact: ${CONTACT_EMAIL}`,

@@ -211,6 +211,17 @@ In Cloudflare, open Zero Trust, then Access, Applications, Add, Self-hosted. Set
   - phone, if any
   - founding date
   - your Google Business Profile URL
+- **TODO in code, waiting on these values (T6).** `coreGraph()` in `site/src/lib/site.ts` leaves these Organization fields out on purpose. Send the values and a session adds them in one commit; nothing is guessed.
+
+  | Field | What Manuel confirms | Where it will show |
+  |---|---|---|
+  | `legalName` | Exact legal name of the company | Organization schema |
+  | `address` | Public street address, or "service area only" | Organization schema |
+  | `telephone` | A public number, or none | Organization schema |
+  | `foundingDate` | Year or full date | Organization schema |
+  | `sameAs` | Facebook Page URL, Instagram profile (@dipriva_consulting_group) URL and Google Business Profile URL, added next to the LinkedIn URL | Organization schema |
+  | LinkedIn company URL | One URL. The new site uses `https://www.linkedin.com/company/112996520` (footer, company page, `sameAs`). The old live footer uses `https://www.linkedin.com/company/dipriva-consulting-group`. Pick one and the constant `LINKEDIN_COMPANY` changes in one place | Footer, company page, schema |
+
 - Update the audience to 10 to 500 employees in:
   - Google Business Profile
   - LinkedIn About

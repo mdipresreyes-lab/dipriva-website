@@ -333,7 +333,7 @@ export const copy = {
       companyTitle: 'Company',
       contactTitle: 'Contact',
       company: [
-        { label: 'About', href: '/about/manuel-dipres/' },
+        { label: 'About', href: '/about/' },
         { label: 'Insights', href: '/blog/' },
         { label: 'West Michigan', href: '/industries/west-michigan/' },
         { label: 'Privacy', href: '/privacy/' },
@@ -697,7 +697,7 @@ export const copy = {
       companyTitle: 'Empresa',
       contactTitle: 'Contacto',
       company: [
-        { label: 'Nosotros', href: '/es/nosotros/manuel-dipres/' },
+        { label: 'Nosotros', href: '/es/nosotros/' },
         { label: 'Análisis', href: '/es/blog/' },
         { label: 'West Michigan', href: '/es/industrias/oeste-de-michigan/' },
         { label: 'Privacidad', href: '/es/privacidad/' },

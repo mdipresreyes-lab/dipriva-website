@@ -14,8 +14,7 @@ const { lang } = Astro.props;
 const f = founder[lang];
 const t = copy[lang];
 const url = absolute(paths.founder[lang]);
-// There is no standalone About page yet: the About crumb points at the homepage's About section.
-const aboutHref = `${homePath(lang)}#about`;
+const aboutHref = paths.about[lang];
 const show = (fig: { to: number; prefix: string; suffix: string }) => `${fig.prefix}${fig.to.toLocaleString('en-US')}${fig.suffix}`;
 
 const schema = [

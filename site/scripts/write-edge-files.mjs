@@ -41,8 +41,7 @@ const redirects = [
   '/approach-318656 / 301',
   '/impact / 301',
   '/industries / 301',
-  '/about /about/manuel-dipres/ 301',
-  '/about/ /about/manuel-dipres/ 302',
+  // /about and /about/ serve the company page (2026-10-13). They used to redirect to the founder page.
   // Retired posts (2026-10-13: written for solo founders, outside the 10 to 500 employee audience).
   '/blog/architect-the-micro-multinational-scaling-global-enterprise-without-headcount-drag/ /blog/operational-capacity-architecture-decoupling-headcount-b2b-scale/ 301',
   '/blog/architect-the-micro-multinational-scaling-global-enterprise-without-headcount-drag /blog/operational-capacity-architecture-decoupling-headcount-b2b-scale/ 301',
