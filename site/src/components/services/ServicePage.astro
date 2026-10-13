@@ -1,9 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Icon from '../Icon.astro';
 import ServiceVisual from './ServiceVisual.astro';
 import { copy, type Lang } from '../../lib/copy';
+import { getPosts, postPath } from '../../lib/blog';
 import { services, serviceLabels, servicePath, servicesHubPath, type Service } from '../../lib/services';
 import { ORG_ID, WEBSITE_ID, absolute, formatDate, homePath, readingMinutes, schedulePath } from '../../lib/site';
 
@@ -22,10 +22,7 @@ const others = services.filter((x) => x.key !== service.key);
 const proof = service.proof.map((i) => t.proof.cards[i]);
 const show = (f: { to: number; prefix: string; suffix: string }) => `${f.prefix}${f.to.toLocaleString('en-US')}${f.suffix}`;
 
-const related = (await getCollection('blog'))
-  .filter((p) => p.data.cluster === service.cluster)
-  .sort((a, z) => (z.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
-  .slice(0, 3);
+const related = (await getPosts(lang)).filter((p) => p.data.cluster === service.cluster).slice(0, 3);
 
 const schema = [
   {
@@ -269,16 +266,15 @@ const schema = [
             <h2 id="svc-related" class="h2 !text-[clamp(1.8rem,3vw,2.6rem)]">
               {L.related}
             </h2>
-            {lang === 'es' && <p class="text-sm text-muted">{t.insights.langNote}</p>}
           </div>
           <div class="mt-10 grid gap-4 md:grid-cols-3">
             {related.map((post) => (
-              <article class="card spotlight group flex flex-col p-6" lang="en">
+              <article class="card spotlight group flex flex-col p-6">
                 <span class="text-xs text-muted">
                   {readingMinutes(post.data.words)} {t.insights.minRead}
                 </span>
                 <h3 class="mt-4 font-display text-lg leading-snug font-semibold">
-                  <a href={`/blog/${post.id}/`} class="after:absolute after:inset-0">
+                  <a href={postPath(lang, post.id)} class="after:absolute after:inset-0">
                     {post.data.title}
                   </a>
                 </h3>

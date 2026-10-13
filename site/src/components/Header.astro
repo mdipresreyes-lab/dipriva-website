@@ -3,6 +3,7 @@ import Icon from './Icon.astro';
 import { copy, type Lang } from '../lib/copy';
 import { homePath, schedulePath } from '../lib/site';
 import { servicesHubPath } from '../lib/services';
+import { blogIndexPath } from '../lib/blog';
 
 interface Props {
   lang: Lang;
@@ -21,7 +22,7 @@ const links = [
   { label: t.services, href: onHome ? '#services' : servicesHubPath(lang) },
   { label: t.method, href: anchor('method') },
   { label: t.results, href: anchor('results') },
-  { label: t.insights, href: lang === 'en' ? '/blog/' : anchor('insights') },
+  { label: t.insights, href: blogIndexPath(lang) },
   { label: t.about, href: anchor('about') },
 ];
 ---

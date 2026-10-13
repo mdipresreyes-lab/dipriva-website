@@ -13,8 +13,10 @@ interface Props {
   lang: Lang;
   title: string;
   description: string;
-  /** Counterpart page in the other language, when one exists. */
+  /** Counterpart page in the other language, when one exists. Drives hreflang and the language switch. */
   alternate?: { en: string; es: string };
+  /** Where the language switch goes when there is no real translation (no hreflang is written for it). */
+  switchTo?: { en: string; es: string };
   ogType?: 'website' | 'article';
   ogImage?: string;
   /** Extra JSON-LD nodes for this page; merged with the organization graph. */
@@ -32,6 +34,7 @@ const {
   title,
   description,
   alternate,
+  switchTo,
   ogType = 'website',
   ogImage = '/og-image.png',
   schema = [],
@@ -122,7 +125,7 @@ const speculation = {
         </div>
       )
     }
-    <Header lang={lang} alternate={alternate} onHome={onHome} />
+    <Header lang={lang} alternate={switchTo ?? alternate} onHome={onHome} />
     <main id="main" tabindex="-1">
       <slot />
     </main>

@@ -272,6 +272,13 @@ function checkPost(post, englishSlugs, englishPosts) {
         const es = urls(meta.sources);
         const missing = [...en].filter((u) => !es.has(u));
         const extra = [...es].filter((u) => !en.has(u));
+        for (const esSource of Array.isArray(meta.sources) ? meta.sources : []) {
+          const enSource = (Array.isArray(original.sources) ? original.sources : []).find((x) => x?.url === esSource?.url && x?.quote === esSource?.quote)
+            ?? (Array.isArray(original.sources) ? original.sources : []).find((x) => x?.url === esSource?.url);
+          if (!enSource) continue;
+          const differs = ['publisher', 'title', 'published', 'retrieved', 'quote'].filter((k) => String(enSource[k]) !== String(esSource[k]));
+          if (differs.length) fail(`source ${esSource.url} differs from the English post in: ${differs.join(', ')} (Spanish posts cite the same verified sources, quotes included)`);
+        }
         if (missing.length) fail(`sources missing from the English post: ${missing.join(', ')}`);
         if (extra.length) fail(`sources not in the English post (use the same verified sources): ${extra.join(', ')}`);
         if (String(original.date) !== String(meta.date)) warn('date differs from the English post');

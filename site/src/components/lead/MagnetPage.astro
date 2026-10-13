@@ -1,9 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Icon from '../Icon.astro';
 import LeadForm from './LeadForm.astro';
 import { copy, type Lang } from '../../lib/copy';
+import { getPosts, postPath } from '../../lib/blog';
 import { magnetLabels, type Magnet } from '../../lib/magnets';
 import { services, servicePath } from '../../lib/services';
 import { ORG_ID, WEBSITE_ID, absolute, formatDate, homePath, readingMinutes } from '../../lib/site';
@@ -21,13 +21,7 @@ const url = absolute(m.path);
 const service = services.find((s) => s.key === magnet.service)!;
 const p = m.preview;
 
-const related =
-  lang === 'en'
-    ? (await getCollection('blog'))
-        .filter((post) => post.data.cluster === magnet.cluster)
-        .sort((a, z) => (z.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
-        .slice(0, 3)
-    : [];
+const related = (await getPosts(lang)).filter((post) => post.data.cluster === magnet.cluster).slice(0, 3);
 
 const schema = [
   {
@@ -295,7 +289,7 @@ const schema = [
                     {readingMinutes(post.data.words)} {t.insights.minRead}
                   </span>
                   <h3 class="mt-4 font-display text-lg leading-snug font-semibold">
-                    <a href={`/blog/${post.id}/`} class="after:absolute after:inset-0">
+                    <a href={postPath(lang, post.id)} class="after:absolute after:inset-0">
                       {post.data.title}
                     </a>
                   </h3>

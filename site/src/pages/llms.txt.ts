@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
+import { getPosts, postPath } from '../lib/blog';
 import { magnets } from '../lib/magnets';
 import { services, servicePath } from '../lib/services';
 import { CONTACT_EMAIL, absolute, paths } from '../lib/site';
@@ -8,9 +8,8 @@ import { CONTACT_EMAIL, absolute, paths } from '../lib/site';
 // (https://llmstxt.org). Built from the same data as the pages, so it never
 // drifts from what the site says.
 export const GET: APIRoute = async () => {
-  const posts = (await getCollection('blog')).sort(
-    (a, z) => (z.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0),
-  );
+  const posts = await getPosts('en');
+  const postsEs = await getPosts('es');
 
   const lines = [
     '# Dipriva Consulting Group',
@@ -35,11 +34,15 @@ export const GET: APIRoute = async () => {
     `- Contact: ${CONTACT_EMAIL}`,
     '',
     '## Insights',
-    ...posts.map((p) => `- [${p.data.title}](${absolute(`/blog/${p.id}/`)})${p.data.description ? `: ${p.data.description}` : ''}`),
+    ...posts.map((p) => `- [${p.data.title}](${absolute(postPath('en', p.id))}): ${p.data.description}`),
     '',
     '## Spanish',
     ...services.map((s) => `- [${s.es.name}](${absolute(servicePath(s, 'es'))})`),
     ...magnets.map((m) => `- [${m.es.name}](${absolute(m.es.path)})`),
+    '',
+    '## Análisis (insights in Spanish)',
+    `- [Todos los análisis](${absolute(paths.blog.es)})`,
+    ...postsEs.map((p) => `- [${p.data.title}](${absolute(postPath('es', p.id))}): ${p.data.description}`),
     '',
   ];
 

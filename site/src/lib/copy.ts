@@ -638,7 +638,7 @@ export const copy = {
       intro: 'Análisis para dueños y directivos que dirigen con números.',
       all: 'Todos los análisis',
       minRead: 'min de lectura',
-      langNote: 'Artículos en inglés.',
+      langNote: '',
     },
     about: {
       label: 'Dirigida por su fundador',
@@ -698,7 +698,7 @@ export const copy = {
       contactTitle: 'Contacto',
       company: [
         { label: 'Nosotros', href: '/es/nosotros/manuel-dipres/' },
-        { label: 'Análisis', href: '/blog/' },
+        { label: 'Análisis', href: '/es/blog/' },
         { label: 'West Michigan', href: '/es/industrias/oeste-de-michigan/' },
         { label: 'Privacidad', href: '/es/privacidad/' },
       ],
@@ -724,39 +724,100 @@ export const copy = {
 
 export type Copy = (typeof copy)['en'];
 
-export const blogCopy = {
-  title: 'Dipriva Insights',
-  metaTitle: 'Insights on Strategy, Operations and AI | Dipriva',
-  description:
-    'Analysis for owners and executives of companies with 10 to 500 employees: corporate strategy, startup operations and AI automation.',
-  h1: 'Field notes on strategy, operations and AI.',
-  intro: 'Analysis for owners and executives of companies with 10 to 500 employees. Written to be used.',
-  all: 'All',
-  by: 'By',
-  minRead: 'min read',
-  onThisPage: 'On this page',
-  related: 'Related insights',
-  back: 'All insights',
-  home: 'Home',
-  undated: 'Undated',
-  ctaByCluster: {
-    'Corporate Strategy': {
-      title: 'Proposals go quiet. Follow-up wins them back.',
-      body: 'Five touches after every proposal and the message for each one. Free in English and Spanish.',
-      cta: 'Get the Sales Follow-Up Kit',
-      href: '/strategy/',
+type BlogCta = { title: string; body: string; cta: string; href: string };
+
+export const blogCopy: Record<
+  Lang,
+  {
+    title: string;
+    metaTitle: string;
+    description: string;
+    h1: string;
+    intro: string;
+    all: string;
+    by: string;
+    minRead: string;
+    onThisPage: string;
+    related: string;
+    back: string;
+    home: string;
+    undated: string;
+    share: { linkedin: string; email: string; copy: string; copied: string };
+    ctaByCluster: Record<string, BlogCta>;
+  }
+> = {
+  en: {
+    title: 'Dipriva Insights',
+    metaTitle: 'Insights on Strategy, Operations and AI | Dipriva',
+    description:
+      'Analysis for owners and executives of companies with 10 to 500 employees: corporate strategy, startup operations and AI automation.',
+    h1: 'Field notes on strategy, operations and AI.',
+    intro: 'Analysis for owners and executives of companies with 10 to 500 employees. Written to be used.',
+    all: 'All',
+    by: 'By',
+    minRead: 'min read',
+    onThisPage: 'On this page',
+    related: 'Related insights',
+    back: 'All insights',
+    home: 'Home',
+    undated: 'Undated',
+    share: { linkedin: 'Share on LinkedIn', email: 'Share by email', copy: 'Copy link', copied: 'Link copied' },
+    ctaByCluster: {
+      'Corporate Strategy': {
+        title: 'Proposals go quiet. Follow-up wins them back.',
+        body: 'Five touches after every proposal and the message for each one. Free in English and Spanish.',
+        cta: 'Get the Sales Follow-Up Kit',
+        href: '/strategy/',
+      },
+      'Startup Operations': {
+        title: 'Everything runs through you. Move it in 90 days.',
+        body: 'A one-page plan that names what leaves your desk, who owns it next and the date it moves.',
+        cta: 'Get the 90-Day Operating Roadmap',
+        href: '/startup/',
+      },
+      'AI and Automation': {
+        title: 'Find where to automate first.',
+        body: 'Score the tasks your team repeats and find the one to automate first. Free in English and Spanish.',
+        cta: 'Get the worksheet',
+        href: '/ai-automation/',
+      },
     },
-    'Startup Operations': {
-      title: 'Everything runs through you. Move it in 90 days.',
-      body: 'A one-page plan that names what leaves your desk, who owns it next and the date it moves.',
-      cta: 'Get the 90-Day Operating Roadmap',
-      href: '/startup/',
+  },
+  es: {
+    title: 'Análisis de Dipriva',
+    metaTitle: 'Análisis de estrategia, operaciones e IA | Dipriva',
+    description:
+      'Análisis para dueños y directivos de empresas de 10 a 500 empleados: estrategia corporativa, operaciones de startups y automatización con IA.',
+    h1: 'Notas de campo sobre estrategia, operaciones e IA.',
+    intro: 'Análisis para dueños y directivos de empresas de 10 a 500 empleados. Escrito para usarse.',
+    all: 'Todos',
+    by: 'Por',
+    minRead: 'min de lectura',
+    onThisPage: 'En esta página',
+    related: 'Análisis relacionados',
+    back: 'Todos los análisis',
+    home: 'Inicio',
+    undated: 'Sin fecha',
+    share: { linkedin: 'Compartir en LinkedIn', email: 'Compartir por correo', copy: 'Copiar enlace', copied: 'Enlace copiado' },
+    ctaByCluster: {
+      'Corporate Strategy': {
+        title: 'Las propuestas se enfrían. El seguimiento las recupera.',
+        body: 'Cinco contactos después de cada propuesta y el mensaje para cada uno. Gratis en inglés y en español.',
+        cta: 'Reciba el kit de seguimiento de ventas',
+        href: '/es/kit-de-seguimiento-de-ventas/',
+      },
+      'Startup Operations': {
+        title: 'Todo pasa por usted. Muévalo en 90 días.',
+        body: 'Un plan de una página que nombra lo que sale de su escritorio, quién lo asume y la fecha en que cambia de manos.',
+        cta: 'Reciba la hoja de ruta operativa de 90 días',
+        href: '/es/hoja-de-ruta-operativa/',
+      },
+      'AI and Automation': {
+        title: 'Encuentre por dónde automatizar primero.',
+        body: 'Califique las tareas que su equipo repite y encuentre la primera que conviene automatizar. Gratis en inglés y en español.',
+        cta: 'Reciba la hoja de trabajo',
+        href: '/es/por-donde-automatizar-primero/',
+      },
     },
-    'AI and Automation': {
-      title: 'Find where to automate first.',
-      body: 'Score the tasks your team repeats and find the one to automate first. Free in English and Spanish.',
-      cta: 'Get the worksheet',
-      href: '/ai-automation/',
-    },
-  } as Record<string, { title: string; body: string; cta: string; href: string }>,
+  },
 };

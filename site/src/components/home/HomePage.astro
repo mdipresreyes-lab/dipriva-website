@@ -1,6 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
 import type { Lang } from '../../lib/copy';
+import { getPosts } from '../../lib/blog';
 import Hero from './Hero.astro';
 import Marquee from './Marquee.astro';
 import Problem from './Problem.astro';
@@ -20,9 +20,7 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const posts = (await getCollection('blog'))
-  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
-  .slice(0, 3);
+const posts = (await getPosts(lang)).slice(0, 3);
 ---
 
 <Hero lang={lang} />
