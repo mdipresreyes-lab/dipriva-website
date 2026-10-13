@@ -335,6 +335,7 @@ export const copy = {
       company: [
         { label: 'About', href: '/about/manuel-dipres/' },
         { label: 'Insights', href: '/blog/' },
+        { label: 'West Michigan', href: '/industries/west-michigan/' },
         { label: 'Privacy', href: '/privacy/' },
       ],
       based: 'West Michigan · United States and territories',
@@ -698,6 +699,7 @@ export const copy = {
       company: [
         { label: 'Nosotros', href: '/es/nosotros/manuel-dipres/' },
         { label: 'Análisis', href: '/blog/' },
+        { label: 'West Michigan', href: '/es/industrias/oeste-de-michigan/' },
         { label: 'Privacidad', href: '/es/privacidad/' },
       ],
       based: 'West Michigan · Estados Unidos y territorios',
