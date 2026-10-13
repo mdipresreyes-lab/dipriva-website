@@ -144,7 +144,7 @@ In Cloudflare, open Zero Trust, then Access, Applications, Add, Self-hosted. Set
 
 **M4. Make.com.** Delete the old blog scenario. Then revoke its GitHub access under GitHub Settings, Applications.
 
-**M5. Protect `main`.** In GitHub, open Settings, Branches, and add a rule for `main` that requires status checks to pass before merging.
+**M5. Protect `main` (dipriva-website only, after the cutover merge).** Do this after `redesign` is merged into `main`, because the check does not exist on `main` before that. In GitHub, open dipriva-website, then Settings, Branches, Add branch ruleset (or classic rule) for `main`, tick "Require status checks to pass before merging", and select the check named `build` (workflow "Site build and brand gate"). Leave "Require branches to be up to date" off. Do not add this rule to dipriva-social: its auto-verified pull requests auto-merge, and a required review would stop them.
 
 **M6. Facts and profiles to match the site**
 - Confirm, for T6:
