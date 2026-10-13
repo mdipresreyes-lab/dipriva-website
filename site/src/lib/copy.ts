@@ -349,7 +349,9 @@ export const copy = {
       send: 'Send',
       close: 'Close chat',
       demoReply:
-        'This prototype does not connect to the live assistant. Schedule a Strategy Session, or write to manuel@dipriva.com.',
+        'This QA build does not connect to the live assistant. Schedule a Strategy Session, or write to manuel@dipriva.com.',
+      thinking: 'Lea is typing',
+      errorFallback: 'I cannot continue this conversation right now. Please email manuel@dipriva.com directly.',
     },
     mobileCta: 'Schedule a Strategy Session',
   },
@@ -710,7 +712,9 @@ export const copy = {
       send: 'Enviar',
       close: 'Cerrar el chat',
       demoReply:
-        'Este prototipo no está conectado a la asistente en vivo. Agende una sesión estratégica o escriba a manuel@dipriva.com.',
+        'Esta versión de QA no está conectada a la asistente en vivo. Agende una sesión estratégica o escriba a manuel@dipriva.com.',
+      thinking: 'Lea está escribiendo',
+      errorFallback: 'No puedo continuar esta conversación en este momento. Por favor escriba directamente a manuel@dipriva.com.',
     },
     mobileCta: 'Agende una sesión estratégica',
   },

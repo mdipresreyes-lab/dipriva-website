@@ -94,27 +94,62 @@ if (counters.length && 'IntersectionObserver' in window && !reduceMotion) {
 const mobileNav = document.getElementById('mobile-nav') as (HTMLElement & { hidePopover?: () => void }) | null;
 mobileNav?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => mobileNav.hidePopover?.()));
 
-// Lea demo: the prototype shows the disclosed assistant without calling the live Worker.
+// Lea, the AI assistant. The greeting renders locally with no API call; it is
+// sent as the first assistant turn once the visitor writes, so Lea has it as
+// context. Production posts to the dipriva-chat Worker; QA shows a fixed notice.
 const panel = document.getElementById('lea-panel');
 const form = panel?.querySelector<HTMLFormElement>('.lea-form');
 const log = panel?.querySelector<HTMLElement>('.lea-log');
 const input = panel?.querySelector<HTMLTextAreaElement>('#lea-input');
-form?.addEventListener('submit', (event) => {
+type Turn = { role: 'user' | 'assistant'; content: string };
+let history: Turn[] = [];
+let sending = false;
+
+const bubble = (content: string, mine: boolean) => {
+  const p = document.createElement('p');
+  p.className = mine
+    ? 'ml-auto max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tr-sm bg-brand px-4 py-3 text-sm leading-relaxed text-on-brand'
+    : 'max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tl-sm bg-surface px-4 py-3 text-sm leading-relaxed';
+  p.textContent = content;
+  log?.append(p);
+  if (log) log.scrollTop = log.scrollHeight;
+  return p;
+};
+
+form?.addEventListener('submit', async (event) => {
   event.preventDefault();
   const text = input?.value.trim();
-  if (!text || !log || !panel) return;
-  const bubble = (content: string, mine: boolean) => {
-    const p = document.createElement('p');
-    p.className = mine
-      ? 'ml-auto max-w-[85%] rounded-2xl rounded-tr-sm bg-brand px-4 py-3 text-sm leading-relaxed text-on-brand'
-      : 'max-w-[85%] rounded-2xl rounded-tl-sm bg-surface px-4 py-3 text-sm leading-relaxed';
-    p.textContent = content;
-    log.append(p);
-    log.scrollTop = log.scrollHeight;
-  };
+  if (!text || !log || !panel || sending) return;
+  const d = panel.dataset;
+  if (history.length === 0) history = [{ role: 'assistant', content: d.greeting ?? '' }];
+  history.push({ role: 'user', content: text });
   bubble(text, true);
   if (input) input.value = '';
-  window.setTimeout(() => bubble(panel.dataset.reply ?? '', false), 650);
+
+  if (!d.endpoint) {
+    window.setTimeout(() => bubble(d.reply ?? '', false), 650);
+    return;
+  }
+
+  sending = true;
+  const typing = bubble(`${d.thinking ?? ''}...`, false);
+  typing.classList.add('text-muted');
+  let reply = d.fallback ?? '';
+  try {
+    const response = await fetch(d.endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history }),
+    });
+    const data = (await response.json()) as { reply?: string };
+    if (data.reply) reply = data.reply;
+  } catch {
+    /* network or Worker failure: show the email fallback */
+  }
+  typing.remove();
+  history.push({ role: 'assistant', content: reply });
+  bubble(reply, false);
+  sending = false;
 });
 input?.addEventListener('keydown', (event) => {
   if (event.key === 'Enter' && !event.shiftKey) {
@@ -122,3 +157,15 @@ input?.addEventListener('keydown', (event) => {
     form?.requestSubmit();
   }
 });
+
+// Analytics: the language switch event the previous site reported. gtag exists
+// only after the visitor accepts analytics on the production build.
+document.querySelectorAll<HTMLAnchorElement>('a[hreflang]').forEach((a) =>
+  a.addEventListener('click', () => {
+    const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
+    gtag?.('event', 'language_toggle', {
+      language: a.hreflang,
+      previous_language: document.documentElement.lang,
+    });
+  }),
+);

@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import { copy, type Lang } from '../lib/copy';
+import { IS_PRODUCTION } from '../lib/site';
 
 interface Props {
   lang: Lang;
@@ -8,6 +9,9 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = copy[lang].lea;
+// The dipriva-chat Worker answers CORS for www.dipriva.com only, so QA builds
+// reply with a fixed notice unless PUBLIC_CHAT_ENDPOINT points at a QA Worker.
+const endpoint = IS_PRODUCTION ? 'https://dipriva-chat.dipriva.workers.dev' : (import.meta.env.PUBLIC_CHAT_ENDPOINT ?? '');
 ---
 
 <button
@@ -25,7 +29,11 @@ const t = copy[lang].lea;
   class="sheet fixed right-3 bottom-20 left-auto top-auto h-[min(560px,72dvh)] w-[min(380px,calc(100vw-24px))] overflow-hidden rounded-3xl border border-line bg-paper-raised shadow-2xl sm:right-6 sm:bottom-24"
   role="dialog"
   aria-labelledby="lea-title"
+  data-endpoint={endpoint}
+  data-greeting={t.greeting}
   data-reply={t.demoReply}
+  data-thinking={t.thinking}
+  data-fallback={t.errorFallback}
 >
   <div class="flex h-full flex-col">
   <div class="flex items-center justify-between gap-3 bg-brand px-5 py-4 text-on-brand">
