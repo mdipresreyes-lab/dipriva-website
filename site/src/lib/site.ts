@@ -8,6 +8,9 @@ export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const IS_PRODUCTION = import.meta.env.PUBLIC_IS_PRODUCTION === true;
 
 export const CONTACT_EMAIL = 'manuel@dipriva.com';
+/** Microsoft Bookings, 30-minute strategy session. Same link dipriva-growth outreach emails use (config/outreach.yaml). */
+export const BOOKING_URL =
+  'https://bookings.cloud.microsoft/bookwithme/user/df9f836ac682468ab12b1891f552c6d6@dipriva.com/meetingtype/6UWVEWsqzk-ufJSvC0xFfA2?anonymous&ismsaljsauthenabled&ep=mlink';
 export const LINKEDIN_COMPANY = 'https://www.linkedin.com/company/112996520';
 export const LINKEDIN_FOUNDER = 'https://www.linkedin.com/in/manueldipres/';
 
@@ -42,7 +45,7 @@ export function coreGraph() {
       logo: absolute('/apple-touch-icon.png'),
       image: absolute('/og-image.png'),
       description:
-        'Bilingual consulting in corporate strategy, startup operations and AI automation for companies with 10 to 50 people.',
+        'Bilingual consulting in corporate strategy, startup operations and AI automation for companies with 10 to 500 employees.',
       founder: { '@id': FOUNDER_ID },
       areaServed: { '@type': 'Country', name: 'United States' },
       knowsLanguage: ['en', 'es'],

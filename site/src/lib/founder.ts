@@ -22,7 +22,7 @@ export const founder = {
     linkedin: 'Manuel on LinkedIn',
     inShortLabel: 'In short',
     inShort:
-      'Manuel Diprés is the founder of Dipriva Consulting Group, a consulting firm that delivers corporate strategy, startup operations and AI automation to companies with 10 to 50 people, built around a 90-day execution roadmap. He brings more than 20 years of experience building revenue operations, sales enablement programs and go-to-market systems, with cross-functional teams across the Americas and Europe. He works in English and Spanish with companies across the United States and its territories, from Dipriva’s base in West Michigan.',
+      'Manuel Diprés is the founder of Dipriva Consulting Group, a consulting firm that delivers corporate strategy, startup operations and AI automation to companies with 10 to 500 employees, built around a 90-day execution roadmap. He brings more than 20 years of experience building revenue operations, sales enablement programs and go-to-market systems, with cross-functional teams across the Americas and Europe. He works in English and Spanish with companies across the United States and its territories, from Dipriva’s base in West Michigan.',
     background: {
       label: 'Background',
       h2: 'More than 20 years building the systems that carry revenue.',
@@ -37,7 +37,7 @@ export const founder = {
         { term: 'Experience', value: '20+ years in revenue operations, sales enablement and go-to-market systems' },
         { term: 'Teams led', value: 'Cross-functional teams across the Americas and Europe' },
         { term: 'Languages', value: 'English and Spanish' },
-        { term: 'Works with', value: 'Companies with 10 to 50 people across the United States and its territories' },
+        { term: 'Works with', value: 'Companies with 10 to 500 employees across the United States and its territories' },
         { term: 'Based in', value: 'West Michigan' },
       ],
     },
@@ -70,7 +70,7 @@ export const founder = {
     linkedin: 'Manuel en LinkedIn',
     inShortLabel: 'En resumen',
     inShort:
-      'Manuel Diprés es el fundador de Dipriva Consulting Group, una firma de consultoría en estrategia corporativa, operaciones de startups y automatización con IA para empresas de 10 a 50 personas, organizada en torno a una hoja de ruta de ejecución de 90 días. Tiene más de 20 años de experiencia construyendo operaciones de ingresos, programas de habilitación de ventas y sistemas comerciales, con equipos multifuncionales en las Américas y Europa. Trabaja en inglés y en español con empresas de todo Estados Unidos y sus territorios, desde la sede de Dipriva en West Michigan.',
+      'Manuel Diprés es el fundador de Dipriva Consulting Group, una firma de consultoría en estrategia corporativa, operaciones de startups y automatización con IA para empresas de 10 a 500 empleados, organizada en torno a una hoja de ruta de ejecución de 90 días. Tiene más de 20 años de experiencia construyendo operaciones de ingresos, programas de habilitación de ventas y sistemas comerciales, con equipos multifuncionales en las Américas y Europa. Trabaja en inglés y en español con empresas de todo Estados Unidos y sus territorios, desde la sede de Dipriva en West Michigan.',
     background: {
       label: 'Trayectoria',
       h2: 'Más de 20 años construyendo los sistemas que sostienen los ingresos.',
@@ -85,7 +85,7 @@ export const founder = {
         { term: 'Experiencia', value: 'Más de 20 años en operaciones de ingresos, habilitación de ventas y sistemas comerciales' },
         { term: 'Equipos dirigidos', value: 'Equipos multifuncionales en las Américas y Europa' },
         { term: 'Idiomas', value: 'Inglés y español' },
-        { term: 'Trabaja con', value: 'Empresas de 10 a 50 personas en todo Estados Unidos y sus territorios' },
+        { term: 'Trabaja con', value: 'Empresas de 10 a 500 empleados en todo Estados Unidos y sus territorios' },
         { term: 'Sede', value: 'West Michigan' },
       ],
     },

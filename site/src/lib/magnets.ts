@@ -163,7 +163,7 @@ export const magnets: Magnet[] = [
       faq: [
         {
           q: 'Who is the 90-Day Operating Roadmap for?',
-          a: 'Founders and owners of companies with 10 to 50 people where approvals, client updates or pricing still wait on them.',
+          a: 'Founders and owners of companies with 10 to 500 employees where approvals, client updates or pricing still wait on them.',
         },
         {
           q: 'What format is it?',
@@ -223,7 +223,7 @@ export const magnets: Magnet[] = [
       faq: [
         {
           q: '¿Para quién es la hoja de ruta operativa de 90 días?',
-          a: 'Para fundadores y dueños de empresas de 10 a 50 personas donde las aprobaciones, los informes a clientes o los precios todavía esperan por ellos.',
+          a: 'Para fundadores y dueños de empresas de 10 a 500 empleados donde las aprobaciones, los informes a clientes o los precios todavía esperan por ellos.',
         },
         {
           q: '¿En qué formato viene?',

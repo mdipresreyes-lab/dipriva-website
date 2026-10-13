@@ -15,7 +15,7 @@ export const GET: APIRoute = async () => {
   const lines = [
     '# Dipriva Consulting Group',
     '',
-    '> Dipriva Consulting Group is a founder-led, bilingual (English and Spanish) consulting firm based in West Michigan that serves companies with 10 to 50 people across the United States and its territories. It works in three areas: corporate strategy, startup operations, and AI and automation. Founder: Manuel Diprés, 20+ years of experience.',
+    '> Dipriva Consulting Group is a founder-led, bilingual (English and Spanish) consulting firm based in West Michigan that serves companies with 10 to 500 employees across the United States and its territories. It works in three areas: corporate strategy, startup operations, and AI and automation. Founder: Manuel Diprés, 20+ years of experience.',
     '',
     'Also known as: Dipriva, Dipriva Consulting.',
     '',

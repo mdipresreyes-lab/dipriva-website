@@ -1,7 +1,7 @@
 /**
  * All homepage, chrome and blog copy, in English and Spanish.
  * Claims rule: the only numbers allowed here are the approved firm figures
- * (90-day execution roadmap, 10 to 50 person companies, 20+ years of experience,
+ * (90-day execution roadmap, 10 to 500 employee companies, 20+ years of experience,
  * 30-minute strategy session) and the three proof points, worded as approved.
  * Spanish uses formal "usted" throughout. No em dashes anywhere.
  */
@@ -12,7 +12,7 @@ export const copy = {
     meta: {
       title: 'Strategy, Operations and AI Automation Consulting | Dipriva',
       description:
-        'Dipriva engineers operational clarity for companies with 10 to 50 people: corporate strategy, startup operations and AI automation, in English and Spanish.',
+        'Dipriva engineers operational clarity for companies with 10 to 500 employees: corporate strategy, startup operations and AI automation, in English and Spanish.',
     },
     banner: 'Design prototype for review. Not the live site.',
     nav: {
@@ -33,7 +33,7 @@ export const copy = {
     hero: {
       eyebrow: 'Corporate Strategy · Startup Operations · AI and Automation',
       h1: ['We engineer ', 'operational clarity', ' for companies outgrowing their systems.'],
-      sub: 'Corporate strategy, startup operations and AI automation for companies with 10 to 50 people. One 90-day execution roadmap. Delivered in English and Spanish.',
+      sub: 'Corporate strategy, startup operations and AI automation for companies with 10 to 500 employees. One 90-day execution roadmap. Delivered in English and Spanish.',
       ctaPrimary: 'Schedule a Strategy Session',
       ctaSecondary: 'Run the Clarity Check',
       roadmap: {
@@ -47,7 +47,7 @@ export const copy = {
       },
       stats: [
         { value: '90-day', label: 'execution roadmap' },
-        { value: '10 to 50', label: 'person companies' },
+        { value: '10 to 500', label: 'employees per client company' },
         { value: '20+ years', label: 'of experience' },
         { value: 'EN · ES', label: 'bilingual delivery' },
       ],
@@ -66,7 +66,7 @@ export const copy = {
     problem: {
       label: 'The constraint',
       h2: 'Growth stalls where the owner becomes the system.',
-      body: 'Most companies with 10 to 50 people hit the same wall. Revenue grows. Decisions still route through one desk. Follow-up depends on who has time. The team repeats work a system should carry.',
+      body: 'Most companies with 10 to 500 employees hit the same wall. Revenue grows. Decisions still route through one desk. Follow-up depends on who has time. The team repeats work a system should carry.',
       cards: [
         {
           title: 'Every decision waits on you.',
@@ -136,7 +136,7 @@ export const copy = {
       label: 'Method',
       h2: 'Five levers. One roadmap.',
       intro:
-        'Every engagement starts by measuring the five levers that move a company with 10 to 50 people. We fix the constraint with the highest return first.',
+        'Every engagement starts by measuring the five levers that move a company with 10 to 500 employees. We fix the constraint with the highest return first.',
       levers: [
         { key: 'pricing', name: 'Pricing', body: 'What you charge, and how you defend it.' },
         { key: 'retention', name: 'Retention', body: 'Why clients renew, and why they leave.' },
@@ -300,7 +300,7 @@ export const copy = {
       items: [
         {
           q: 'Who does Dipriva work with?',
-          a: 'Owners and executives of companies with 10 to 50 people that are growing faster than their systems. Our published client results come from an insurance agency, a roofing company and a tax agency.',
+          a: 'Owners and executives of companies with 10 to 500 employees that are growing faster than their systems. Larger companies are welcome. Our published client results come from an insurance agency, a roofing company and a tax agency.',
         },
         {
           q: 'How does an engagement start?',
@@ -360,7 +360,7 @@ export const copy = {
     meta: {
       title: 'Consultoría en estrategia, operaciones e IA | Dipriva',
       description:
-        'Dipriva diseña claridad operacional para empresas de 10 a 50 personas: estrategia corporativa, operaciones de startups y automatización con IA, en inglés y en español.',
+        'Dipriva diseña claridad operacional para empresas de 10 a 500 empleados: estrategia corporativa, operaciones de startups y automatización con IA, en inglés y en español.',
     },
     banner: 'Prototipo de diseño para revisión. No es el sitio en vivo.',
     nav: {
@@ -381,7 +381,7 @@ export const copy = {
     hero: {
       eyebrow: 'Estrategia corporativa · Operaciones de startups · IA y automatización',
       h1: ['Diseñamos ', 'claridad operacional', ' para empresas que crecen más rápido que sus sistemas.'],
-      sub: 'Estrategia corporativa, operaciones de startups y automatización con IA para empresas de 10 a 50 personas. Una hoja de ruta de ejecución de 90 días. En inglés y en español.',
+      sub: 'Estrategia corporativa, operaciones de startups y automatización con IA para empresas de 10 a 500 empleados. Una hoja de ruta de ejecución de 90 días. En inglés y en español.',
       ctaPrimary: 'Agende una sesión estratégica',
       ctaSecondary: 'Haga el diagnóstico de claridad',
       roadmap: {
@@ -395,7 +395,7 @@ export const copy = {
       },
       stats: [
         { value: '90 días', label: 'hoja de ruta de ejecución' },
-        { value: '10 a 50', label: 'personas por empresa' },
+        { value: '10 a 500', label: 'empleados por empresa cliente' },
         { value: '20+ años', label: 'de experiencia' },
         { value: 'EN · ES', label: 'atención bilingüe' },
       ],
@@ -414,7 +414,7 @@ export const copy = {
     problem: {
       label: 'La restricción',
       h2: 'El crecimiento se detiene cuando el dueño se convierte en el sistema.',
-      body: 'La mayoría de las empresas de 10 a 50 personas choca con el mismo muro. Los ingresos crecen. Las decisiones siguen pasando por un solo escritorio. El seguimiento depende de quién tenga tiempo. El equipo repite trabajo que un sistema debería absorber.',
+      body: 'La mayoría de las empresas de 10 a 500 empleados choca con el mismo muro. Los ingresos crecen. Las decisiones siguen pasando por un solo escritorio. El seguimiento depende de quién tenga tiempo. El equipo repite trabajo que un sistema debería absorber.',
       cards: [
         {
           title: 'Cada decisión lo espera a usted.',
@@ -484,7 +484,7 @@ export const copy = {
       label: 'Método',
       h2: 'Cinco palancas. Una hoja de ruta.',
       intro:
-        'Cada proyecto empieza midiendo las cinco palancas que mueven a una empresa de 10 a 50 personas. Primero resolvemos la restricción con mayor retorno.',
+        'Cada proyecto empieza midiendo las cinco palancas que mueven a una empresa de 10 a 500 empleados. Primero resolvemos la restricción con mayor retorno.',
       levers: [
         { key: 'pricing', name: 'Precios', body: 'Cuánto cobra y cómo lo sostiene.' },
         { key: 'retention', name: 'Retención', body: 'Por qué renuevan sus clientes y por qué se van.' },
@@ -663,7 +663,7 @@ export const copy = {
       items: [
         {
           q: '¿Con quién trabaja Dipriva?',
-          a: 'Con dueños y directivos de empresas de 10 a 50 personas que crecen más rápido que sus sistemas. Nuestros resultados publicados provienen de una agencia de seguros, una empresa de techado y una agencia de impuestos.',
+          a: 'Con dueños y directivos de empresas de 10 a 500 empleados que crecen más rápido que sus sistemas. También trabajamos con empresas más grandes. Nuestros resultados publicados provienen de una agencia de seguros, una empresa de techado y una agencia de impuestos.',
         },
         {
           q: '¿Cómo empieza un proyecto?',
@@ -726,9 +726,9 @@ export const blogCopy = {
   title: 'Dipriva Insights',
   metaTitle: 'Insights on Strategy, Operations and AI | Dipriva',
   description:
-    'Analysis for owners and executives of companies with 10 to 50 people: corporate strategy, startup operations and AI automation.',
+    'Analysis for owners and executives of companies with 10 to 500 employees: corporate strategy, startup operations and AI automation.',
   h1: 'Field notes on strategy, operations and AI.',
-  intro: 'Analysis for owners and executives of companies with 10 to 50 people. Written to be used.',
+  intro: 'Analysis for owners and executives of companies with 10 to 500 employees. Written to be used.',
   all: 'All',
   by: 'By',
   minRead: 'min read',

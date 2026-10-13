@@ -62,16 +62,16 @@ export const services: Service[] = [
     en: {
       slug: 'corporate-strategy',
       summary:
-        'Dipriva Consulting Group provides corporate strategy consulting for companies with 10 to 50 people. An engagement covers decision architecture, competitive positioning and operational due diligence, and ends with a 90-day execution roadmap that names an owner and a date for every initiative. Engagements are delivered in English or Spanish and start with a free 30-minute strategy session.',
+        'Dipriva Consulting Group provides corporate strategy consulting for companies with 10 to 500 employees. An engagement covers decision architecture, competitive positioning and operational due diligence, and ends with a 90-day execution roadmap that names an owner and a date for every initiative. Engagements are delivered in English or Spanish and start with a free 30-minute strategy session.',
       visual: { center: 'days', nodes: ['Decide'] },
       name: 'Corporate Strategy',
       meta: {
         title: 'Corporate Strategy Consulting | Dipriva Consulting Group',
         description:
-          'Corporate strategy consulting for companies with 10 to 50 people: decision architecture, positioning and a 90-day execution roadmap, in English or Spanish.',
+          'Corporate strategy consulting for companies with 10 to 500 employees: decision architecture, positioning and a 90-day execution roadmap, in English or Spanish.',
       },
       h1: 'Corporate strategy consulting that turns decisions into execution.',
-      sub: 'Your strategy needs more than a plan. It needs infrastructure. Dipriva architects the decisions that set your trajectory and the 90-day execution roadmap that carries them, for companies with 10 to 50 people.',
+      sub: 'Your strategy needs more than a plan. It needs infrastructure. Dipriva architects the decisions that set your trajectory and the 90-day execution roadmap that carries them, for companies with 10 to 500 employees.',
       problem: {
         h2: 'The gap between strategy and execution',
         body: 'Most companies do not fail because of a bad strategy. They fail because the strategy never became a system. Decisions get made in meetings, initiatives get launched, and six months later the organization is back where it started: busy, but not advancing. The gap between strategic intent and operational reality is where growth stalls.',
@@ -89,7 +89,7 @@ export const services: Service[] = [
       fit: {
         h2: 'Who this is for',
         items: [
-          'Owners and executives of companies with 10 to 50 people facing a growth inflection',
+          'Owners and executives of companies with 10 to 500 employees facing a growth inflection',
           'Organizations navigating an ownership transition, a market expansion or a competitive shift',
           'Leadership teams where strategy exists on paper but has not become disciplined execution',
           'Founders preparing for a key hire, a capital raise or a structural reorganization',
@@ -118,16 +118,16 @@ export const services: Service[] = [
     es: {
       slug: 'estrategia-corporativa',
       summary:
-        'Dipriva Consulting Group ofrece consultoría en estrategia corporativa para empresas de 10 a 50 personas. Un proyecto cubre arquitectura de decisiones, posicionamiento competitivo y debida diligencia operacional, y termina con una hoja de ruta de ejecución de 90 días con un responsable y una fecha para cada iniciativa. Se entrega en inglés o en español y empieza con una sesión estratégica gratuita de 30 minutos.',
+        'Dipriva Consulting Group ofrece consultoría en estrategia corporativa para empresas de 10 a 500 empleados. Un proyecto cubre arquitectura de decisiones, posicionamiento competitivo y debida diligencia operacional, y termina con una hoja de ruta de ejecución de 90 días con un responsable y una fecha para cada iniciativa. Se entrega en inglés o en español y empieza con una sesión estratégica gratuita de 30 minutos.',
       visual: { center: 'días', nodes: ['Decidir'] },
       name: 'Estrategia corporativa',
       meta: {
         title: 'Consultoría en estrategia corporativa | Dipriva',
         description:
-          'Consultoría en estrategia corporativa para empresas de 10 a 50 personas: arquitectura de decisiones, posicionamiento y una hoja de ruta de ejecución de 90 días.',
+          'Consultoría en estrategia corporativa para empresas de 10 a 500 empleados: arquitectura de decisiones, posicionamiento y una hoja de ruta de ejecución de 90 días.',
       },
       h1: 'Consultoría en estrategia corporativa que convierte decisiones en ejecución.',
-      sub: 'Su estrategia necesita más que un plan. Necesita infraestructura. Dipriva diseña las decisiones que definen su rumbo y la hoja de ruta de ejecución de 90 días que las sostiene, para empresas de 10 a 50 personas.',
+      sub: 'Su estrategia necesita más que un plan. Necesita infraestructura. Dipriva diseña las decisiones que definen su rumbo y la hoja de ruta de ejecución de 90 días que las sostiene, para empresas de 10 a 500 empleados.',
       problem: {
         h2: 'La brecha entre estrategia y ejecución',
         body: 'La mayoría de las empresas no fracasa por tener una mala estrategia. Fracasa porque la estrategia nunca se convirtió en un sistema. Las decisiones se toman en reuniones, se lanzan iniciativas y, seis meses después, la organización está donde empezó: ocupada, pero sin avanzar. La brecha entre la intención estratégica y la realidad operacional es donde el crecimiento se detiene.',
@@ -148,7 +148,7 @@ export const services: Service[] = [
       fit: {
         h2: 'Para quién es',
         items: [
-          'Dueños y directivos de empresas de 10 a 50 personas ante un punto de inflexión en su crecimiento',
+          'Dueños y directivos de empresas de 10 a 500 empleados ante un punto de inflexión en su crecimiento',
           'Organizaciones que atraviesan una transición de propiedad, una expansión de mercado o un cambio competitivo',
           'Equipos directivos con una estrategia en papel que todavía no se convierte en ejecución disciplinada',
           'Fundadores que se preparan para una contratación clave, una ronda de capital o una reorganización estructural',
@@ -190,16 +190,16 @@ export const services: Service[] = [
     en: {
       slug: 'startup-operations',
       summary:
-        'Dipriva Consulting Group provides startup operations consulting for founder-led companies with 10 to 50 people. An engagement inventories the work that runs only through the founder, assigns an owner and a finish date to each process, documents the procedures and ends with a 90-day operating roadmap the team executes without the founder in the room. Engagements are delivered in English or Spanish.',
+        'Dipriva Consulting Group provides startup operations consulting for founder-led companies with 10 to 500 employees. An engagement inventories the work that runs only through the founder, assigns an owner and a finish date to each process, documents the procedures and ends with a 90-day operating roadmap the team executes without the founder in the room. Engagements are delivered in English or Spanish.',
       visual: { center: 'You', nodes: ['Sales', 'Delivery', 'Finance', 'Hiring'] },
       name: 'Startup Operations',
       meta: {
         title: 'Startup Operations Consulting | Dipriva Consulting Group',
         description:
-          'Operations consulting for founders of companies with 10 to 50 people: documented processes, clear owners and a 90-day roadmap, in English or Spanish.',
+          'Operations consulting for founders of companies with 10 to 500 employees: documented processes, clear owners and a 90-day roadmap, in English or Spanish.',
       },
       h1: 'Startup operations consulting that moves the business off your desk.',
-      sub: 'You built the business. Now build the operating system. Dipriva gives founders of companies with 10 to 50 people the structure to step back from day-to-day execution.',
+      sub: 'You built the business. Now build the operating system. Dipriva gives founders of companies with 10 to 500 employees the structure to step back from day-to-day execution.',
       problem: {
         h2: 'Everything runs through you',
         body: 'Most founders of growing service firms reach the same wall. Revenue is up, the team is expanding, and yet every decision, every client issue and every internal process still lands on your desk. Stepping back feels impossible because there is no structure underneath you to hold it. That is not a leadership problem. It is an operations problem.',
@@ -217,7 +217,7 @@ export const services: Service[] = [
       fit: {
         h2: 'Who this is for',
         items: [
-          'Founders of service businesses with 10 to 50 people',
+          'Founders of service businesses with 10 to 500 employees',
           'Companies where growth has outpaced internal structure and process',
           'Founders who need to delegate but have nothing documented to delegate',
           'Leadership teams preparing for a key hire, a funding round or an ownership transition',
@@ -226,7 +226,7 @@ export const services: Service[] = [
       faq: [
         {
           q: 'Is this only for startups?',
-          a: 'No. Startup Operations is for any founder-led company with 10 to 50 people whose operations still depend on the founder.',
+          a: 'No. Startup Operations is for any founder-led company with 10 to 500 employees whose operations still depend on the founder.',
         },
         {
           q: 'What is the main deliverable?',
@@ -243,16 +243,16 @@ export const services: Service[] = [
     es: {
       slug: 'operaciones-de-startups',
       summary:
-        'Dipriva Consulting Group ofrece consultoría en operaciones de startups para empresas de 10 a 50 personas dirigidas por su fundador. Un proyecto documenta el trabajo que depende solo del fundador, asigna un responsable y una fecha de cierre a cada proceso, documenta los procedimientos y termina con una hoja de ruta operativa de 90 días que el equipo ejecuta sin el fundador en la sala. Se entrega en inglés o en español.',
+        'Dipriva Consulting Group ofrece consultoría en operaciones de startups para empresas de 10 a 500 empleados dirigidas por su fundador. Un proyecto documenta el trabajo que depende solo del fundador, asigna un responsable y una fecha de cierre a cada proceso, documenta los procedimientos y termina con una hoja de ruta operativa de 90 días que el equipo ejecuta sin el fundador en la sala. Se entrega en inglés o en español.',
       visual: { center: 'Usted', nodes: ['Ventas', 'Entrega', 'Finanzas', 'Personal'] },
       name: 'Operaciones de startups',
       meta: {
         title: 'Consultoría en operaciones de startups | Dipriva',
         description:
-          'Consultoría en operaciones para fundadores de empresas de 10 a 50 personas: procesos documentados, responsables claros y una hoja de ruta de 90 días.',
+          'Consultoría en operaciones para fundadores de empresas de 10 a 500 empleados: procesos documentados, responsables claros y una hoja de ruta de 90 días.',
       },
       h1: 'Consultoría en operaciones de startups que saca el negocio de su escritorio.',
-      sub: 'Usted construyó el negocio. Ahora construya el sistema operativo. Dipriva les da a los fundadores de empresas de 10 a 50 personas la estructura para soltar la ejecución del día a día.',
+      sub: 'Usted construyó el negocio. Ahora construya el sistema operativo. Dipriva les da a los fundadores de empresas de 10 a 500 empleados la estructura para soltar la ejecución del día a día.',
       problem: {
         h2: 'Todo pasa por usted',
         body: 'La mayoría de los fundadores de empresas de servicios en crecimiento choca con el mismo muro. Los ingresos aumentan, el equipo crece y, aun así, cada decisión, cada problema de un cliente y cada proceso interno sigue llegando a su escritorio. Dar un paso atrás parece imposible porque no hay una estructura debajo que lo sostenga. Eso no es un problema de liderazgo. Es un problema de operaciones.',
@@ -273,7 +273,7 @@ export const services: Service[] = [
       fit: {
         h2: 'Para quién es',
         items: [
-          'Fundadores de empresas de servicios de 10 a 50 personas',
+          'Fundadores de empresas de servicios de 10 a 500 empleados',
           'Empresas donde el crecimiento superó la estructura interna y los procesos',
           'Fundadores que necesitan delegar, pero no tienen nada documentado para hacerlo',
           'Equipos directivos que se preparan para una contratación clave, una ronda de financiamiento o una transición de propiedad',
@@ -282,7 +282,7 @@ export const services: Service[] = [
       faq: [
         {
           q: '¿Es solo para startups?',
-          a: 'No. Operaciones de startups es para cualquier empresa de 10 a 50 personas dirigida por su fundador cuya operación todavía depende del fundador.',
+          a: 'No. Operaciones de startups es para cualquier empresa de 10 a 500 empleados dirigida por su fundador cuya operación todavía depende del fundador.',
         },
         {
           q: '¿Cuál es el entregable principal?',
@@ -312,13 +312,13 @@ export const services: Service[] = [
     en: {
       slug: 'ai-automation',
       summary:
-        'Dipriva Consulting Group provides AI and automation consulting for companies with 10 to 50 people. An engagement starts with a workflow audit, ranks automation candidates by time returned and risk, deploys the automation and documents it so the team operates it independently, with human checks where an error is costly. Engagements are delivered in English or Spanish.',
+        'Dipriva Consulting Group provides AI and automation consulting for companies with 10 to 500 employees. An engagement starts with a workflow audit, ranks automation candidates by time returned and risk, deploys the automation and documents it so the team operates it independently, with human checks where an error is costly. Engagements are delivered in English or Spanish.',
       visual: { center: '', nodes: ['Task', 'Audit', 'Rank', 'Build', 'Ship'] },
       name: 'AI and Automation',
       meta: {
         title: 'AI and Automation Consulting | Dipriva Consulting Group',
         description:
-          'AI and automation consulting for companies with 10 to 50 people: a workflow audit, then automation deployed and documented for your team, in English or Spanish.',
+          'AI and automation consulting for companies with 10 to 500 employees: a workflow audit, then automation deployed and documented for your team, in English or Spanish.',
       },
       h1: 'AI and automation consulting that eliminates operational drag.',
       sub: 'Eliminate the work that should not require you. Dipriva audits your highest-friction workflows and deploys AI and automation where they return the most time, with controls your team can trust.',
@@ -371,13 +371,13 @@ export const services: Service[] = [
     es: {
       slug: 'ia-y-automatizacion',
       summary:
-        'Dipriva Consulting Group ofrece consultoría en IA y automatización para empresas de 10 a 50 personas. Un proyecto empieza con una auditoría de flujos de trabajo, prioriza las oportunidades por tiempo recuperado y riesgo, implementa la automatización y la documenta para que el equipo la opere de forma independiente, con verificaciones humanas donde un error es costoso. Se entrega en inglés o en español.',
+        'Dipriva Consulting Group ofrece consultoría en IA y automatización para empresas de 10 a 500 empleados. Un proyecto empieza con una auditoría de flujos de trabajo, prioriza las oportunidades por tiempo recuperado y riesgo, implementa la automatización y la documenta para que el equipo la opere de forma independiente, con verificaciones humanas donde un error es costoso. Se entrega en inglés o en español.',
       visual: { center: '', nodes: ['Tarea', 'Auditar', 'Priorizar', 'Construir', 'Entregar'] },
       name: 'IA y automatización',
       meta: {
         title: 'Consultoría en IA y automatización | Dipriva',
         description:
-          'Consultoría en IA y automatización para empresas de 10 a 50 personas: auditoría de flujos de trabajo y automatización implementada y documentada para su equipo.',
+          'Consultoría en IA y automatización para empresas de 10 a 500 empleados: auditoría de flujos de trabajo y automatización implementada y documentada para su equipo.',
       },
       h1: 'Consultoría en IA y automatización que elimina la fricción operacional.',
       sub: 'Elimine el trabajo que no debería requerirlo a usted. Dipriva audita sus flujos de trabajo de mayor fricción e implementa IA y automatización donde más tiempo devuelven, con controles en los que su equipo puede confiar.',
@@ -455,7 +455,7 @@ export const serviceLabels = {
     cta: 'Schedule a Strategy Session',
     hubTitle: 'Consulting Services | Dipriva Consulting Group',
     hubDescription:
-      'Corporate strategy, startup operations and AI and automation consulting for companies with 10 to 50 people, delivered in English or Spanish.',
+      'Corporate strategy, startup operations and AI and automation consulting for companies with 10 to 500 employees, delivered in English or Spanish.',
     hubH1: 'Consulting services for companies outgrowing their systems.',
     hubIntro:
       'Three service lines, one standard of execution. Every engagement starts with a free 30-minute strategy session and is built around a 90-day execution roadmap.',
@@ -482,7 +482,7 @@ export const serviceLabels = {
     cta: 'Agende una sesión estratégica',
     hubTitle: 'Servicios de consultoría | Dipriva Consulting Group',
     hubDescription:
-      'Consultoría en estrategia corporativa, operaciones de startups e IA y automatización para empresas de 10 a 50 personas, en inglés o en español.',
+      'Consultoría en estrategia corporativa, operaciones de startups e IA y automatización para empresas de 10 a 500 empleados, en inglés o en español.',
     hubH1: 'Servicios de consultoría para empresas que crecen más rápido que sus sistemas.',
     hubIntro:
       'Tres líneas de servicio, un mismo estándar de ejecución. Cada proyecto empieza con una sesión estratégica gratuita de 30 minutos y se organiza en una hoja de ruta de ejecución de 90 días.',

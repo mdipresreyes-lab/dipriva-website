@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Icon from '../Icon.astro';
 import { type Lang } from '../../lib/copy';
-import { ORG_ID, WEBSITE_ID, absolute, homePath, paths } from '../../lib/site';
+import { ORG_ID, WEBSITE_ID, absolute, homePath, paths, BOOKING_URL, CONTACT_EMAIL } from '../../lib/site';
 
 interface Props {
   lang: Lang;
@@ -11,7 +11,7 @@ interface Props {
 /** Microsoft Forms request form, the same one the live /schedule page embeds. */
 const FORM_URL =
   'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=zkMAMxEb1U6oyZeD4vLkQhBR3cb14l5DvvK1DsDmhEdUNUdMRE9TNUJOT1ozOFpDVUZJUk5ORkFEUS4u&embed=true';
-const FALLBACK_EMAIL = 'hello@dipriva.com';
+const FALLBACK_EMAIL = CONTACT_EMAIL;
 
 const text = {
   en: {
@@ -26,14 +26,19 @@ const text = {
     lede: 'A free working session with Manuel Diprés, in English or Spanish, to name the first constraint holding your company back.',
     nextLabel: 'What happens next',
     steps: [
-      { title: 'You send the form.', body: 'Tell us about your company, your team and what is slowing it down.' },
-      { title: 'Manuel replies within 2 business days.', body: 'He reads your request himself and replies to set a time.' },
+      { title: 'Pick a time or send a request.', body: 'Book a 30-minute slot now, or tell us about your company and what is slowing it down.' },
+      { title: 'Manuel confirms.', body: 'Bookings confirm at once. Requests get a reply within 2 business days.' },
       { title: 'You meet for 30 minutes.', body: 'You leave with the first constraint to remove.' },
     ],
-    formLabel: 'Your request',
+    bookLabel: 'Book a time',
+    bookTitle: 'Pick a 30-minute slot on Manuel’s calendar.',
+    bookBody: 'Microsoft Bookings shows open times in your time zone and sends the meeting invite.',
+    bookCta: 'Open the booking calendar',
+    newTab: '(opens in a new tab)',
+    formLabel: 'Or send a request',
     iframeTitle: 'Strategy session request form',
     fallback: "Can't load the form?",
-    fallbackLink: 'Email us directly.',
+    fallbackLink: 'Email Manuel at',
     consent:
       'By submitting this form, you consent to Dipriva Consulting Group collecting and processing the information provided to contact you regarding your business needs. You may withdraw consent at any time.',
     privacy: 'Privacy Policy',
@@ -50,17 +55,22 @@ const text = {
     lede: 'Una sesión de trabajo gratuita con Manuel Diprés, en inglés o en español, para identificar la primera restricción que frena a su empresa.',
     nextLabel: 'Qué sigue',
     steps: [
-      { title: 'Usted envía el formulario.', body: 'Cuéntenos sobre su empresa, su equipo y lo que la está frenando.' },
+      { title: 'Elija un horario o envíe una solicitud.', body: 'Reserve ahora 30 minutos, o cuéntenos sobre su empresa y lo que la está frenando.' },
       {
-        title: 'Manuel le responde en un plazo de 2 días hábiles.',
-        body: 'Lee su solicitud personalmente y le responde para acordar un horario.',
+        title: 'Manuel confirma.',
+        body: 'Las reservas se confirman al instante. Las solicitudes reciben respuesta en un plazo de 2 días hábiles.',
       },
       { title: 'Nos reunimos durante 30 minutos.', body: 'Usted termina la sesión con la primera restricción a eliminar.' },
     ],
-    formLabel: 'Su solicitud',
+    bookLabel: 'Reserve un horario',
+    bookTitle: 'Elija 30 minutos en el calendario de Manuel.',
+    bookBody: 'Microsoft Bookings muestra los horarios disponibles en su zona horaria y le envía la invitación.',
+    bookCta: 'Abrir el calendario de reservas',
+    newTab: '(se abre en una pestaña nueva)',
+    formLabel: 'O envíe una solicitud',
     iframeTitle: 'Formulario de solicitud de sesión estratégica',
     fallback: '¿No carga el formulario?',
-    fallbackLink: 'Escríbanos directamente.',
+    fallbackLink: 'Escriba a Manuel a',
     consent:
       'Al enviar este formulario, usted da su consentimiento a Dipriva Consulting Group para recopilar y procesar la información proporcionada con el fin de contactarle sobre sus necesidades empresariales. Puede retirar su consentimiento en cualquier momento.',
     privacy: 'Política de privacidad',
@@ -128,6 +138,24 @@ const schema = [
     </div>
   </section>
 
+  <section class="pt-14 lg:pt-20" aria-labelledby="schedule-book">
+    <div class="container-x max-w-[880px]">
+      <div class="band relative overflow-hidden rounded-[26px] p-8 sm:p-10">
+        <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+        <div class="relative">
+          <h2 id="schedule-book" class="eyebrow">{s.bookLabel}</h2>
+          <p class="mt-4 font-display text-[clamp(1.5rem,2.6vw,2rem)] leading-tight font-semibold">{s.bookTitle}</p>
+          <p class="mt-3 max-w-[52ch] leading-relaxed text-muted">{s.bookBody}</p>
+          <a href={BOOKING_URL} target="_blank" rel="noopener" class="btn btn-primary mt-7">
+            {s.bookCta}
+            <span class="sr-only">{s.newTab}</span>
+            <Icon name="arrow" size={18} class="arrow" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="py-14 lg:py-20" aria-labelledby="schedule-form">
     <div class="container-x max-w-[880px]">
       <h2 id="schedule-form" class="eyebrow">{s.formLabel}</h2>
@@ -142,7 +170,8 @@ const schema = [
       </div>
       <p class="mt-4 text-center text-sm text-muted">
         {s.fallback}{' '}
-        <a href={`mailto:${FALLBACK_EMAIL}`} class="font-semibold text-ink underline underline-offset-4">{s.fallbackLink}</a>
+        {s.fallbackLink}{' '}
+        <a href={`mailto:${FALLBACK_EMAIL}`} class="font-semibold text-ink underline underline-offset-4">{FALLBACK_EMAIL}</a>
       </p>
       <p class="mx-auto mt-6 max-w-2xl text-center text-sm leading-relaxed text-muted">
         {s.consent}{' '}
