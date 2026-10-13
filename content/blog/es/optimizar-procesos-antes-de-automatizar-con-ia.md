@@ -25,7 +25,7 @@ faq:
   - q: '¿Cómo sabe si una automatización funciona?'
     a: 'Siga dos resultados: el tiempo de ciclo del proceso, desde el disparador hasta la finalización, y la variación de errores, es decir, la tasa de excepciones, reprocesos e intervenciones manuales. La cantidad de automatizaciones implementadas no es un resultado.'
 sources:
-  - url: 'https://salesforcedevops.net/?p=39952'
+  - url: 'https://salesforcedevops.net/index.php/2024/08/19/ai-apocalypse/'
     publisher: 'SalesforceDevops.net (quoting RAND Corporation, James Ryseff, Brandon F. De Bruhl, Sydne J. Newberry, ''The Root Causes of Failure for Artificial Intelligence Projects and How They Can Succeed'', 2024)'
     title: 'AI Apocalypse: 80% of Projects Crash and Burn, Billions Wasted says RAND Report - SalesforceDevops.net'
     published: '2024-08-19'
@@ -46,7 +46,7 @@ sources:
     retrieved: '2026-10-13'
     quote: 'Since February we''ve amassed a dataset of over 3200 high growth technology startups. Our latest research found that the primary cause of failure is premature scaling, an affliction that 70% of startups in our dataset possess.'
     figures: ['70%']
-  - url: 'https://census.gov/library/stories/2026/05/ai-use-businesses.html'
+  - url: 'https://www.census.gov/library/stories/2026/05/ai-use-businesses.html'
     publisher: 'U.S. Census Bureau'
     title: 'Large Firms With at Least 20 Employees Biggest AI Users'
     published: '2026-05-26'

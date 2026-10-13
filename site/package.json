@@ -11,7 +11,8 @@
     "check:copy": "node scripts/check-copy.mjs",
     "check:lead-form": "node scripts/check-lead-form.mjs",
     "deploy:qa": "npm run build && npx --yes wrangler@4 deploy",
-    "check:blog": "node scripts/check-blog.mjs"
+    "check:blog": "node scripts/check-blog.mjs",
+    "check:jsonld": "node scripts/check-jsonld.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

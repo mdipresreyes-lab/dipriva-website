@@ -37,7 +37,7 @@ sources:
     retrieved: '2026-10-13'
     quote: 'The grocery sector delivered a 12.2 percent weighted average total shareholder return in 2025, below the S&P 500’s 18.3 percent, with sharp variation by format.'
     figures: ['12.2 percent', '18.3 percent']
-  - url: 'https://talkbusiness.net/2026/07/the-supply-side-value-remains-a-top-consumer-amid-inflation'
+  - url: 'https://talkbusiness.net/2026/07/the-supply-side-value-remains-a-top-consumer-amid-inflation/'
     publisher: 'Talk Business & Politics'
     title: 'The Supply Side: Value remains a top consumer amid inflation - Talk Business & Politics'
     published: '2026-07-07'

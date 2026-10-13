@@ -32,14 +32,14 @@ sources:
     retrieved: '2026-10-13'
     quote: 'Over 40% of agentic AI projects will be canceled by the end of 2027, due to escalating costs, unclear business value or inadequate risk controls, according to Gartner, Inc.'
     figures: ['40%']
-  - url: 'https://it-online.co.za/?p=284364'
+  - url: 'https://it-online.co.za/2024/10/22/these-are-the-top-10-strategic-tech-trends-for-2025/'
     publisher: 'Gartner (Top Strategic Technology Trends 2025 release dated 2024-10-21, reprinted by IT-Online)'
     title: 'These are the top 10 strategic tech trends for 2025 - IT-Online'
     published: '2024-10-22'
     retrieved: '2026-10-13'
     quote: 'Gartner predicts that by 2028, at least 15% of day-to-day work decisions will be made autonomously through agentic AI, up from 0% in 2024.'
     figures: ['15%', '0%']
-  - url: 'https://channeldrive.in/?p=71232'
+  - url: 'https://channeldrive.in/market-research/applying-uniform-governance-across-ai-agents-will-lead-to-enterprise-ai-agent-failure-gartner/'
     publisher: 'Gartner (press release, reprinted by Channel Drive)'
     title: 'Applying Uniform Governance Across AI Agents Will Lead to Enterprise AI Agent Failure: Gartner - Channel Drive'
     published: '2026-05-29'

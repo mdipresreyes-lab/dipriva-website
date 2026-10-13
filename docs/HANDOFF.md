@@ -1,52 +1,62 @@
 # dipriva.com rebuild: handoff and next steps
 
-Updated 2026-10-13 with Manuel's decisions. Branch `redesign` in `mdipresreyes-lab/dipriva-website`, site code in `site/`.
+Updated 2026-10-13, end of the completion session (tasks T1 to T8). Branch `redesign` in `mdipresreyes-lab/dipriva-website`, site code in `site/`.
 
-**Bottom line.** The rebuild covers every live URL that other systems depend on, uses the 10 to 500 employee audience, leads the schedule page with the Bookings link, and builds clean (35 pages, 0 brand gate failures). The rest is one Claude Code session (prompt in section 1), your manual steps (section 5), and a same-day cutover (section 6).
+**Bottom line.** The rebuild is complete and ready for QA. It builds 48 pages (home, services, lead pages, privacy, founder, company, West Michigan, schedule, client intake, unsubscribe, 12 downloads, 8 English and 8 Spanish blog posts) with 0 brand gate failures, a blog content gate that passes, and reciprocal English and Spanish hreflang. It does not deploy anywhere on its own. What it needs from Manuel is in section 5 (sign-offs, values, links) and the cutover in section 6.
+
+**What needs Manuel first (details in section 5).**
+1. Review dipriva-social pull request 13 (label `hold`): it changes what the content gate allows.
+2. Answer D8 and approve the Bookings privacy sentence (both carry a QA-only REVIEW marker).
+3. Send the company facts the schema leaves out: legal name, address, phone, founding date, Facebook, Instagram and Google Business Profile URLs, and which LinkedIn company URL is canonical (M6).
+4. Open the primary pages behind the blog sources that were blocked here and swap the links (M10).
+5. Confirm the judgment calls and the Spanish terms in the posts (M11, M12).
+6. Cloudflare token, QA lock and the cutover steps (M1, M2, section 6).
 
 ---
 
-## 1. Prompt for the next Claude Code session
+## 1. What the completion session did
 
-Start a new Claude Code session on the web (claude.ai/code) with these repositories attached: **mdipresreyes-lab/dipriva-website** (primary), **mdipresreyes-lab/dipriva-social**, **mdipresreyes-lab/dipriva-growth** (read only). Use Sonnet 5.5 or Opus 5.5. Paste everything between the lines.
+| Task | State | Commit | Evidence |
+|---|---|---|---|
+| T1 dipriva-social audience figure | Done, pull request 13, label `hold` | `d78024b` on `claude/dipriva-rebuild-completion-zgul1c` | `npm run typecheck`, `npm test` (134 pass) and `npm run gate:all` (27 packages) pass. No unpublished package used "10 to 50", so the old entry was removed |
+| T2 Bookings sentence | Done, REVIEW marker in QA builds only | `ea9300a` | Marker present in the QA build of `/privacy/` and `/es/privacidad/`, absent from the production build |
+| T3 West Michigan page | Done | `45df05d` | `/industries/west-michigan/`, `/es/industrias/oeste-de-michigan/`, footer link, WebPage, FAQPage and BreadcrumbList |
+| T4 Blog cleanup and gate | Done | `8a90597` | 8 posts relabeled and sourced, strict schema, `site/scripts/check-blog.mjs` in `npm run build` |
+| T5 Spanish blog | Done | `2d1fa45` | `/es/blog/` and 8 Spanish posts, hreflang pairs, Spanish `llms.txt` section |
+| T6 Entity layer | Done | `a763fc1` | `alternateName` on Organization and WebSite, `/about/` and `/es/nosotros/` |
+| T7 Blog template | Done | `3df1730` | Takeaways, FAQ, Sources, `citation`, `dateModified`, 16 satori OG images, share links |
+| T8 Publishing skill | Done | `23be25c` | `.claude/skills/publish-blog/SKILL.md`; two stale skills deleted |
 
----
+**Checks run on the final build.**
+- `cd site && npm run build`: brand gate 0 failures, lead form check passes, blog gate 0 failures and 0 warnings (8 English, 8 Spanish).
+- Every page (48 pages, `/unsubscribe/` excepted) has exactly one H1, a canonical ending in a slash and JSON-LD that parses. Every English and Spanish pair points at each other. `/unsubscribe/` is a byte copy of the dipriva-growth page and keeps its own markup.
+- Structural JSON-LD check (`npm run check:jsonld`): 265 nodes, 26 FAQPage, 42 BreadcrumbList, 16 BlogPosting, 0 problems. **Google's Rich Results Test was not run**: it is an interactive web tool that this environment cannot drive. To run it, open https://search.google.com/test/rich-results, choose the Code tab and paste the built HTML of one service page, one lead page and one post from `site/dist/`.
+- Every source quote in the 16 posts (76 entries) was fetched again and found verbatim on its page.
+- No em dash in any changed file in this repo or in dipriva-social (58 files and every commit message, checked with a script that compares the character U+2014; `grep -P` with `\x{2014}` errors in some locales and then proves nothing).
+- Screenshots of every page at 390 and 1440 px in light and dark mode, and Lighthouse mobile on five pages: results below.
 
-**Persona.** You are the senior engineer and SEO/GEO lead finishing the dipriva.com rebuild for Dipriva Consulting Group (owner: Manuel Diprés). You work carefully across three repositories and never break a live dependency.
+**Where the session stopped on its own.**
+- Pages that block automated fetching (Gartner, McKinsey, BLS, NFIB, BCG, SBA, ASQ) were not read directly and no workaround was tried. Figures from them are cited through a readable page that quotes them, or were removed. See M10.
+- `web.archive.org` is blocked by the network policy and was not used.
+- No secret was entered, printed or committed. No Cloudflare setting, Worker, `main` or production deploy was touched.
 
-**Context.**
-- `mdipresreyes-lab/dipriva-website`: work on branch `redesign`. The new Astro 7 site is in `site/`. Blog posts are Markdown in `content/blog/`. The live site is still the React app in `client/`, deployed from `main` to GitHub Pages. Do not change `main` or `client/` except where a task says so.
-- `mdipresreyes-lab/dipriva-social`: the social engine. Its `CLAUDE.md` rules apply to all three repos (no em dashes ever, banned terms in `config/brand-rules.json`, formal "usted" Spanish, approved figures only, official APIs only, stage files by explicit path, never edit an approved post package, never weaken verification).
-- `mdipresreyes-lab/dipriva-growth`: outreach engine. Read only. The site's `/unsubscribe/` page is a byte copy of `worker/optout/page/index.html`, and the Bookings link comes from `config/outreach.yaml`.
-- Read `docs/HANDOFF.md` in dipriva-website first. Sections 2 to 4 record Manuel's decisions, the ripple map and the task list. Section 7 is the SEO and GEO plan.
-- Decisions already made by Manuel (do not reopen): audience is companies with 10 to 500 employees, and larger companies are welcome; the micro-multinational post is deleted (done); the other 8 posts stay; the schedule page shows manuel@dipriva.com and the Microsoft Bookings link (done); Microsoft Clarity and Google Ads stay in the privacy policy as "may use" (done); Spanish readers on `/es/` links get Spanish blog posts; Diprivian is named only in `llms.txt` and in the identity note under the privacy policy intro (both done), never elsewhere, never in hidden HTML or structured data.
+**Screenshots.** 192 captures (48 pages, 390 and 1440 px wide, light and dark) taken from the QA build with a headless browser. After one fix, none of them scrolls sideways. The set sits in the session's scratchpad and is not committed (about 230 MB). To regenerate it: `cd site && npm run build && npm run preview`, then open each page at both widths.
 
-**Task.** Complete tasks T1 to T8 in section 4 of `docs/HANDOFF.md`, in order. Commit after each task. Push to `redesign` (website) and to a `claude/` branch with a pull request (dipriva-social).
+**Lighthouse, mobile** (Lighthouse 12.8 defaults: Moto G emulation, simulated slow 4G and 4x CPU slowdown, against the production build served locally; lab numbers, not field data).
 
-**Constraints.**
-- Never type the em dash character (code point 2014) anywhere, including commits and comments.
-- Website: stage files by explicit path, run `cd site && npm run build` before every push, and keep the brand gate at 0 failures.
-- Never change these URLs: `/startup/`, `/strategy/`, `/ai-automation/`, `/schedule/`, `/privacy/`, `/about/manuel-dipres/`, `/unsubscribe/`, `/client_form/`, `/downloads/*`, existing `/blog/<slug>/`.
-- Never send QA traffic to the production leads database or the Leads Teams channel. Never touch the Lea chat Worker or admin.dipriva.com.
-- Never enter, print or commit a secret. If a step needs one, stop and list it for Manuel.
-- Never invent a figure. Every outside figure in a blog post needs a source URL where the exact sentence appears, with publisher, title, publication date and retrieval date. If a figure cannot be sourced, remove the figure or the sentence and list it in the PR body.
-- Spanish is professional business Spanish with formal "usted".
-- Do not merge `redesign` into `main` and do not deploy production. Cutover is Manuel's call.
+| Page | Performance | Accessibility | Best practices | SEO |
+|---|---|---|---|---|
+| Home (`/`) | 100 | 100 | 100 | 100 |
+| Spanish home (`/es/`) | 100 | 100 | 100 | 100 |
+| Service page (`/services/corporate-strategy/`) | 100 | 100 | 100 | 100 |
+| Lead page (`/strategy/`) | 100 | 100 | 100 | 100 |
+| Blog post (`/blog/where-should-a-20-person-firm-use-ai-first/`) | 100 | 100 | 100 | 100 |
 
-**Format.** For each task: one commit (or one PR in dipriva-social) with a clear message. At the end, reply to Manuel with a short table: task, status, evidence (build output, URLs, screenshots), and anything that needs him.
-
-**Steps.**
-1. Read `docs/HANDOFF.md`, `site/README.md`, dipriva-social `CLAUDE.md`.
-2. Run `cd site && npm ci && npm run build` to confirm a clean start.
-3. Do T1 to T8. After each, build, check the output in `site/dist/`, commit, push.
-4. Update `docs/HANDOFF.md`: mark finished tasks, add anything new Manuel must decide.
-
-**Validation.**
-- `npm run build` passes with 0 brand gate failures and the lead form drift check passing.
-- Every page has exactly one H1, a canonical ending in a slash, and an hreflang pair where a translation exists.
-- JSON-LD parses on every page. The Rich Results Test shows no errors on one service page, one lead page and one blog post.
-- No em dash in any changed file: `grep -rP "\x{2014}"` returns nothing.
-- dipriva-social: `npm run typecheck && npm test` pass.
+**Fixed during the final pass.**
+- Home scored 87 on performance: the hero canvas animation cost 470 ms of blocking time (with the canvas disabled the score was 100). On phones and touch screens the field is now drawn once in small slices and animates after the first touch or scroll; desktops keep the always-on animation. The fix is in `site/src/scripts/flowfield.ts`.
+- The privacy page scrolled sideways by 16 px on phones because of a long URL used as link text. Prose links now wrap (`site/src/styles/global.css`).
+- Blog source links use the final address of each cited page instead of redirecting forms such as `?p=284364`; all 76 quotes were checked again after the change.
+- `npm run check:jsonld` is new: the structural JSON-LD check described above.
 
 ---
 
@@ -54,12 +64,12 @@ Start a new Claude Code session on the web (claude.ai/code) with these repositor
 
 | # | Decision | Status |
 |---|---|---|
-| D1 | Audience: companies with **10 to 500 employees**; larger companies welcome | Site done. dipriva-social and outside profiles: T1, M6 |
-| D2 | Blog posts that miss the audience: re-checked against 10 to 500. Deleted: *Architect the Micro-Multinational* (written for solo founders). Kept: *Refine Before You Automate* (growing startups; matches the AI tool's message) and the West Michigan manufacturer, grocer and enterprise posts (companies of that size fall inside 10 to 500) | Deletion done on `redesign` with a 301 to the closest post. Rewrite and sourcing: T4 |
+| D1 | Audience: companies with **10 to 500 employees**; larger companies welcome | Site done. dipriva-social: pull request 13 (hold), see M9. Outside profiles: M6 |
+| D2 | Blog posts that miss the audience: re-checked against 10 to 500. Deleted: *Architect the Micro-Multinational* (written for solo founders). Kept: *Refine Before You Automate* (growing startups; matches the AI tool's message) and the West Michigan manufacturer, grocer and enterprise posts (companies of that size fall inside 10 to 500) | Deletion done on `redesign` with a 301 to the closest post. Rewrite and sourcing: done in T4 |
 | D3 | Privacy policy: keep Microsoft Clarity and Google Ads for future use, worded "may use" | Done in English and Spanish |
 | D4 | Schedule page fallback email: manuel@dipriva.com | Done |
 | D5 | Add the Microsoft Bookings 30-minute link to the schedule page | Done, as the main option above the form |
-| D6 | Spanish blog posts for readers on `/es/` | T5 |
+| D6 | Spanish blog posts for readers on `/es/` | Done (T5): 8 Spanish posts, `/es/blog/` |
 | D7 | Name Diprivian only in low-visibility places that AI tools and search engines read | Done: one line in `llms.txt` and an identity note on `/privacy/` and `/es/privacidad/`. Not in hidden HTML or structured data, see below |
 | D8 | Privacy sentences on automated social approval (12-hour veto window) | **Still needs Manuel's yes or no.** Shown with a REVIEW marker on QA only |
 
@@ -78,7 +88,7 @@ Start a new Claude Code session on the web (claude.ai/code) with these repositor
 | Change | Touches | Action |
 |---|---|---|
 | 10 to 500 audience | Site copy, Service schema, llms.txt, founder page, tool FAQs | Done (48 edits) |
-| | `dipriva-social/config/brand-rules.json` `firmFigures` still says "10 to 50 person companies", so the gate rejects "500" in a post | T1 |
+| | `dipriva-social/config/brand-rules.json` `firmFigures` still says "10 to 50 person companies", so the gate rejects "500" in a post | Fixed in pull request 13 (hold); takes effect when Manuel merges it |
 | | Lead form team-size buckets (1 to 9, 10 to 50, 51 to 500, 500+) | No change. They are answer choices, not a claim, and the Worker validates those exact values |
 | | dipriva-growth targeting | Already 10 to 500. No change |
 | | Lea's answers (dipriva-chat Worker system prompt may say 10 to 50) | Manuel checks; the Worker is off limits to sessions (M7) |
@@ -88,99 +98,31 @@ Start a new Claude Code session on the web (claude.ai/code) with these repositor
 | | Live site on `main` still serves it, and GitHub Pages cannot redirect | Leave it until cutover; the new host's redirect takes over. Do not delete it on `main` early (it would 404) |
 | | LinkedIn Featured or past shares that link to it | Manuel checks the LinkedIn Featured section (M6). The 301 covers old links |
 | Bookings link | `/schedule/` | Done |
-| | Privacy policy: Bookings collects name, email and phone through Microsoft 365 | T2 drafts one sentence for Manuel's approval |
+| | Privacy policy: Bookings collects name, email and phone through Microsoft 365 | Drafted (T2) with a REVIEW marker on QA builds; waits for Manuel (M3) |
 | | Bookings page settings: it must be public, show a 30-minute meeting type, and send confirmations from manuel@ | Manuel checks once (M6) |
 | manuel@ as contact | Schedule page, footer, Lea fallback, schema `contactPoint` | Done. hello@ appears nowhere on the new site |
-| Spanish blog | Blog index and post routes, header "Análisis" link, hreflang, sitemap, llms.txt, publishing skill, content gate | T5 |
+| Spanish blog | Blog index and post routes, header "Análisis" link, hreflang, sitemap, llms.txt, publishing skill, content gate | Done (T5, T7, T8) |
 | Clarity and Ads kept | Consent banner and policy must change together on the day they are enabled | Noted in section 2 |
 
 ---
 
-## 4. Task list for the session (T1 to T8)
+## 4. Task list T1 to T8: done, with the deviations
 
-**T1. dipriva-social: audience figure (PR on a `claude/` branch)**
-- In `config/brand-rules.json`, add `{"fact": "10 to 500 employee companies", "figures": ["10", "500"]}`.
-- Keep the old "10 to 50" entry until a search of `content/packages` shows no unpublished package uses it (today none does), then remove it.
-- Do not touch `lead-form.json`.
-- Update any skill or doc in dipriva-social that states the audience.
-- Run `npm run typecheck && npm test`. Open the PR with label `hold` so Manuel reviews it; it changes what the gate allows.
+**T1. dipriva-social audience figure.** Done. `firmFigures` now carries `10 to 500 employee companies` and no longer carries the 10 to 50 entry. `config/lead-form.json` untouched. No skill or doc in dipriva-social states the audience size, so nothing else changed. `CLAUDE.md` there still says "58 tests"; the suite has 134.
 
-**T2. Privacy policy follow-ups (website)**
-- Add one sentence on Microsoft Bookings (what it collects, that Microsoft processes it under its own privacy terms), in English and Spanish, with a QA-only REVIEW marker.
-- The Clarity and Ads paragraphs already say "may use" (D3). Leave them.
-- Do not remove the REVIEW markers on the automated approval sentences until Manuel answers D8.
+**T2. Privacy follow-up.** Done. One Bookings paragraph in "Information We Collect", English and Spanish, with a REVIEW marker. New optional `review` field on a paragraph in `site/src/lib/legal.ts`. Nothing else in the policy changed.
 
-**T3. Port `/industries/west-michigan/` and `/es/industrias/oeste-de-michigan/`**
-- Source: `client/src/pages/IndustriesWestMichigan.tsx` and `scripts/route-meta.mjs` lines 96 to 116. Keep the English URL and title.
-- Match `site/src/components/services/ServicePage.astro`. Include:
-  - an "In short" answer-first paragraph
-  - the problem
-  - the 3 service pages
-  - who it is for (10 to 500 employees)
-  - the 3 client results from `copy.ts` (never framed as West Michigan clients; the approved proof points carry no location)
-  - the 3 free tools
-  - a local-intent FAQ
-  - a CTA to `/schedule/`
-- Schema: WebPage, FAQPage and BreadcrumbList. No invented address, phone or coordinates.
-- Add a footer link.
+**T3. West Michigan page.** Done at the exact URL and title. Deviations: the footer link is added in `copy.ts`, which Footer.astro renders; the live page's Service schema with Grand Rapids is not carried over because the new site states no city; WebPage carries `contentLocation` as a Place with a name only. The three client results appear with a line saying they are not tied to a location.
 
-**T4. Blog cleanup and content gate**
-- Content:
-  - Delete the stray `content/blog/.md`.
-  - Fix the malformed date in `refine-before-you-automate...md` (`""2026-09-03""` becomes `'2026-09-03'`).
-  - Replace the generic ALL CAPS template labels (THE SIGNAL, THE LENS, THE INTERWEAVE, THE DEEPER CONCEPT, THE DEEPER TIP, DIPRIVA ANGLE, DIPRIVA TIPS) with descriptive `##` headings written from each section's content.
-  - Expand *Refine Before You Automate* past 1,200 words for companies with 10 to 500 employees, and source or remove each figure ("Over 80% of ... AI initiatives fail" and the "6% of organizations" claim have no source).
-  - Keep every slug.
-- Schema: in `site/src/content.config.ts`, add optional `seoTitle` (60 characters max), `updated`, `takeaways[]`, `faq[]` and `sources[]` (url, publisher, title, published, retrieved). Also add `lang` (en or es) and `translationOf`. Then switch to zod validation that fails the build on bad frontmatter.
-- Gate: add `site/scripts/check-blog.mjs` and run it in `npm run build`. It must fail on:
-  - an H1 in the body
-  - the generic labels
-  - a description outside 120 to 160 characters
-  - a keyword missing from the title or description and from the first 100 words
-  - no link to a service page and to a lead page
-  - a figure with no `sources[]` entry (warn on existing posts, fail on new ones)
-- Open a list in the commit body of every figure you removed or could not source.
+**T4. Blog cleanup and gate.** Done. Deviations: (1) the schema has two extra optional fields, `illustrative` (scenario numbers the author made up) and, inside `sources`, `quote` and `figures`, so the gate can match each figure to a source; (2) `site/scripts/blog-baseline.json` lists the 8 posts that existed on 2026-10-13, whose unsourced figures only warn (none remain), while any other post fails; (3) `yaml` is now an explicit dependency. The blog gate also checks the Spanish posts. See `site/scripts/check-blog.mjs` for every rule.
 
-**T5. Spanish blog**
-- Routes:
-  - `/es/blog/` index and `/es/blog/<slug-es>/` posts, from Markdown files in `content/blog/es/` with `lang: es` and `translationOf: <english slug>`.
-  - Reciprocal hreflang on each pair.
-  - The Spanish header "Análisis" link and footer point to `/es/blog/`.
-  - The English language switch on a post goes to its translation when one exists, otherwise to `/es/blog/`.
-- Content: translate the 8 English posts into professional Spanish with formal usted. Use Spanish slugs, titles and descriptions written for Spanish search (not word-for-word), the same sources, and a Spanish FAQ.
-- Gate: the same checks as T4, plus a check that every `translationOf` points to a real English post.
-- Update `site/src/pages/llms.txt.ts` with a Spanish insights section.
+**T5. Spanish blog.** Done. Spanish posts share the English `cluster` key and cite the same sources, quotes included; the gate enforces it. The two AI governance posts use different Spanish keywords so they do not compete. The sitemap lists each page but does not repeat the hreflang pairs; the pairs are in each page's `<head>`, which Google reads.
 
-**T6. Entity layer for branded search ("Dipriva", "Dipriva Consulting", "Dipriva Consulting Group")**
-- In `coreGraph()` in `site/src/lib/site.ts`:
-  - Add `alternateName: ['Dipriva', 'Dipriva Consulting']`.
-  - Add `legalName`, `address`, `sameAs` (LinkedIn company, Facebook Page, Instagram @dipriva_consulting_group, Google Business Profile) and `foundingDate`, only with values Manuel confirms (M6). Use placeholders in a clearly marked TODO list in the PR body, not in the code.
-  - Add `alternateName` to the WebSite node.
-- Build `/about/` and `/es/nosotros/` as the company page: who, what, for whom (10 to 500 employees), where, languages, founder link. Then change the `/about/` 302 in `site/scripts/write-edge-files.mjs` to serve the page.
-- Use one LinkedIn company URL everywhere.
-- Do not add Diprivian anywhere beyond `llms.txt` and the privacy identity note.
+**T6. Entity layer.** Done. `legalName`, `address`, `telephone`, `foundingDate` and the extra `sameAs` entries are deliberately absent (table under M6). Both `_redirects` lines for `/about` were removed, not only the 302, so `/about` and `/about/` cannot show different pages.
 
-**T7. Blog template for SEO and GEO**
-- In `site/src/pages/blog/[slug].astro`, render:
-  - Key takeaways after the intro
-  - a visible FAQ with FAQPage schema
-  - a visible Sources list with outbound links and dates, also emitted as `citation`
-  - `dateModified` from `updated`
-- Generate per-post 1200 x 630 OG images at build time with satori, in navy `#2F4059`, cream `#F5F5DC` and sand `#E8E4D9`; fail the build if generation fails.
-- Title tag: `seoTitle ?? title`, plus " | Dipriva" only if the total stays under 60 characters.
-- Add Facebook and X share links.
-- Rewrite absolute no-slash internal links to the slash form.
+**T7. Blog template.** Done. Deviation: Astro 7 renders Markdown with a new processor that no longer runs rehype plugins without an extra package, so the trailing slash rule for internal links runs on the rendered HTML in the content loader (`site/src/lib/internalLinks.mjs`). The OG endpoint throws on failure and fails the build (tested by removing a font file).
 
-**T8. Blog publishing skill**
-- Create `.claude/skills/publish-blog/SKILL.md` in dipriva-website. It must:
-  - take Manuel's draft (today written outside the repo in a 7-section template)
-  - strip Google redirect URLs and `[MANNY: ...]` placeholders, rewrite labels into descriptive H2s, and fill the T4 frontmatter
-  - verify every figure by finding the exact sentence on the cited page
-  - write the English post and its Spanish translation (T5)
-  - run `npm run build` and open a `claude/blog-<slug>` PR, never pushing to `main`
-- Delete the stale skills `.claude/skills/dipriva-blog-frontend` and `.claude/skills/dipriva-github-blog-ops`. They describe a Make.com pipeline that stopped on 2026-09-04.
-
-After T8: screenshot every page at 390 px and 1440 px in light and dark, and run Lighthouse mobile on home, one service page, one lead page and one post. Fix anything under 95.
+**T8. Publishing skill.** Done. The base branch for blog pull requests is `redesign` until cutover and `main` afterward.
 
 ---
 
@@ -198,7 +140,7 @@ Secrets and approvals are yours to enter. Never paste a secret into a chat.
 **M2. Lock qa.dipriva.com**
 In Cloudflare, open Zero Trust, then Access, Applications, Add, Self-hosted. Set the domain to `qa.dipriva.com` and add an Allow policy for your email.
 
-**M3. Answer D8.** Approve or edit the two privacy sentences on automated social approval, and the Bookings sentence from T2.
+**M3. Answer D8.** Approve or edit the two privacy sentences on automated social approval, and the Bookings sentence from T2. Each carries a REVIEW marker in QA builds (view source on qa.dipriva.com/privacy/). After your answer, a session removes the marker.
 
 **M4. Make.com.** Delete the old blog scenario. Then revoke its GitHub access under GitHub Settings, Applications.
 
@@ -234,6 +176,34 @@ In Cloudflare, open Zero Trust, then Access, Applications, Add, Self-hosted. Set
 
 **M8. QA leads Worker (optional).** A QA leads database `dipriva-leads-qa` already exists and is empty (id `1c4d51c9-3ebb-4b55-ae44-beeb66372363`). To test real submissions on QA, ask a session to add a `qa` environment to `dipriva-social/worker/leads/wrangler.jsonc` bound to that database, with `ALLOWED_ORIGINS` set to `https://qa.dipriva.com` and no Teams webhook. Then set the Turnstile secret yourself with `npx wrangler secret put TURNSTILE_SECRET --env qa`, using Cloudflare's public test secret `1x0000000000000000000000000000000AA`.
 
+**M9. Review dipriva-social pull request 13.** https://github.com/mdipresreyes-lab/dipriva-social/pull/13 (label `hold`). One line in `config/brand-rules.json`: the gate now allows "10" and "500" as the audience figure and no longer allows "50" on its own. Merge it when you agree.
+
+**M10. Swap blog sources for the primary pages.** The pages below blocked automated reading, so each post cites a readable page that quotes the primary source. Open the primary in a browser, confirm the sentence, and send the URL (a session updates both languages in one commit, since the gate requires the same sources in English and Spanish).
+
+| Cited today | Primary to open |
+|---|---|
+| IT-Online and Outsourcing-Today (Gartner, 2024-10-21 and 2025-06-25 releases) | gartner.com/en/newsroom/press-releases/2024-10-21-gartner-identifies-the-top-10-strategic-technology-trends-for-2025 and .../2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027 |
+| Channel Drive (Gartner, 2026-05-26 release on AI agent governance) | gartner.com/en/newsroom/press-releases/2026-05-26-gartner-says-applying-uniform-governance-across-ai-agents-will-lead-to-enterprise-ai-agent-failure |
+| River Cities' Reader (NFIB June 2026 Small Business Economic Trends) | nfib.com, Small Business Economic Trends, June 2026 |
+| Haver Analytics (BLS Employment Cost Index, June 2026) | bls.gov/news.release/archives/eci_07312026.htm |
+| The Shelby Report and Talk Business & Politics (McKinsey State of Grocery North America 2026) | mckinsey.com/industries/retail/our-insights/the-state-of-grocery-north-america |
+| MACNY (McKinsey State of Organizations) | mckinsey.com, The state of organizations |
+| Reliable (ASQE 2025 Cost of Quality report; ASQ rule of thumb) | asq.org/quality-resources/cost-of-quality and the ASQE report |
+| SalesforceDevops.net (RAND report) | rand.org/pubs/research_reports/RRA2680-1.html |
+| Silicon Canals and ICTbusiness (McKinsey State of AI 2025 and 2026) | mckinsey.com, The state of AI |
+
+Dates inferred because the cited page shows none: the Chamber of Commerce summary page uses the 2024-06-26 press release date, the FMI page uses the date in its URL (2026-07-07), and the MIT NANDA report uses the PDF's file date (2025-07-14). Confirm or give the real dates.
+
+**M11. Blog judgment calls to confirm.**
+- NFIB's price figures are the June 2026 readings (net 38 and net 32 percent). The July 2026 report is lower (net 31 and 28). Update the post if you want the latest month.
+- Three posts keep West Michigan examples and city names (agentic governance, operational capacity, quality). The audience is national; say if you want a national version.
+- Removed claims you may have wanted: every BCG claim in the supermarket post, the SBA adoption figure in the 20-person post, the McKinsey 41 to 182 percent and 1.4 million figures in the quality post. The commit body of `8a90597` lists every removed or reworded figure.
+- The refine post now cites RAND with its own hedge ("by some estimates") and McKinsey as a share of survey respondents.
+
+**M12. Spanish terms to confirm.** "Auditoría de Límites de Autonomía", "Prueba de Supuestos", "Prueba de Aumento en Propuestas Nuevas", "Detenerse es válido", "Unidad Operativa Estándar (UOE)", "lastre organizacional", "Trampa de la Variedad", "Disciplina de la Resta". "FMI" is written "FMI (Food Industry Association)".
+
+**M13. Rich Results Test.** Run it once on one service page, one lead page and one post (section 1 has the steps) and tell a session if it reports anything.
+
 ---
 
 ## 6. Cutover checklist (production switch, same day)
@@ -245,14 +215,16 @@ Do this only after QA passes. Order matters.
 3. In Cloudflare DNS, remove the `www` CNAME to GitHub Pages. The production deploy attaches `www.dipriva.com` to the Worker.
 4. **Delete the Transform Rule that sends GPTBot, ClaudeBot and PerplexityBot to `/bot/*`.** If it stays, AI crawlers never see the new pages.
 5. **Delete the redirect rule from `/es` to `/`.** The Spanish home now lives at `/es/`.
-6. **Delete the redirect rule from `/about` to `/about/manuel-dipres`.** The site's own `_redirects` handles it now. Keep the rule that sends apex `dipriva.com` to `www`, and keep HTTPS forced.
+6. **Delete the redirect rule from `/about` to `/about/manuel-dipres`.** `/about/` is now the company page and the site's own `_redirects` no longer redirects it. Left in place, the rule would keep sending visitors to the founder page. Keep the rule that sends apex `dipriva.com` to `www`, and keep HTTPS forced.
 7. Confirm Security, Bots does not block AI crawlers.
 8. Smoke test. Each URL must return 200, or one 301 to the slash form with the query string kept:
    - `/strategy?utm_source=linkedin`, `/startup`, `/ai-automation`
    - `/schedule`, `/privacy`, `/about/manuel-dipres`
    - `/unsubscribe/?t=000000000000.00000000000000000000`
    - `/downloads/dipriva-sales-follow-up-kit-en.pdf`
-   - all 8 blog posts, plus the deleted post's URL (expect a 301)
+   - all 8 English posts, the 8 Spanish posts under `/es/blog/`, and the deleted post's URL (expect a 301)
+   - `/about/`, `/es/nosotros/`, `/industries/west-michigan/`, `/es/industrias/oeste-de-michigan/`, `/es/blog/`
+   - one OG image, for example `/og/where-should-a-20-person-firm-use-ai-first.png` (expect 200, `image/png`)
    - `/llms.txt`, `/robots.txt`, `/sitemap-index.xml`
 9. Submit one real lead on `/strategy/`. Confirm the Teams Leads card arrives and "Sync inbound leads" picks it up in dipriva-admin.
 10. In Search Console, submit the new sitemap and request indexing for home, the 3 service pages and the 3 lead pages.
@@ -281,16 +253,17 @@ The rebuild fixes the first four. The fifth makes branded search part of the soc
 - The fix is T6, plus a Google Business Profile and social profiles that match the site word for word.
 
 **Already in the build.**
-- Answer-first summaries on the service, tool and founder pages.
-- FAQ schema on the tool pages.
-- Full static HTML for every crawler.
-- llms.txt.
-- AI crawlers allowed in production.
+- Answer-first summaries on the service, tool, founder, company and West Michigan pages.
+- FAQ schema on the tool, company, West Michigan and post pages.
+- A company page (`/about/`, `/es/nosotros/`) and `alternateName` ("Dipriva", "Dipriva Consulting") on the Organization and WebSite nodes.
+- Spanish blog (8 posts), reciprocal hreflang, key takeaways, FAQ, dated sources and `citation` on every post, per-post OG images.
+- Full static HTML for every crawler, `llms.txt` with a Spanish section, AI crawlers allowed in production.
 
-**Still to build.**
-- T5 (Spanish blog), T6 (entity layer), T7 (takeaways, FAQ and sources on posts).
+**Still to do.**
+- The entity values only Manuel can confirm (M6): legal name, address, phone, founding date, Facebook, Instagram and Google Business Profile in `sameAs`. Then match those profiles word for word to the site.
 - Bing Webmaster Tools, whose index feeds ChatGPT search and Copilot.
-- 2 to 4 posts a month answering real questions from owners of companies with 10 to 500 employees, each in English and Spanish, with verified and dated sources.
+- At cutover: Search Console sitemap and indexing requests (section 6).
+- 2 to 4 posts a month answering real questions from owners of companies with 10 to 500 employees, each in English and Spanish, with verified and dated sources. The `publish-blog` skill does this and opens the pull request.
 
 **Monthly measures.**
 
@@ -322,5 +295,8 @@ Mechanics documentation, from Google Search Central and llmstxt.org (check curre
 | `/client_form` | Client onboarding | Built, noindex |
 | `/downloads/*` (12) | Lead form success state | Built |
 | `/blog/<slug>` (8, plus 1 redirect) | LinkedIn Featured, past shares | Built |
-| `/industries/west-michigan` | Sitemap, local search | T3 |
+| `/industries/west-michigan` | Sitemap, local search | Built (T3), plus `/es/industrias/oeste-de-michigan/` |
 | `/services/*` (3) | Blog links, home | Built |
+| `/about`, `/es/nosotros` | Company entity, footer, header | Built (T6); the old Cloudflare redirect to the founder page must go (section 6, step 6) |
+| `/es/blog/*` (8) | Spanish readers, hreflang pairs | Built (T5) |
+| `/og/<slug>.png`, `/og/es/<slug>.png` (16) | Social previews | Generated at build (T7) |

@@ -6,6 +6,11 @@
  * Budget rules: starts only after load and an idle slot, so it never competes
  * with first paint; pauses offscreen and in background tabs; caps pixel density;
  * draws one static frame for reduced motion or data saver.
+ *
+ * Phones and touch screens (narrow viewport or coarse pointer) get a lighter field: fewer lines,
+ * pixel density 1, one still frame drawn in small time slices (no long task), and the live
+ * animation waits for the first touch, scroll or key press. Lighthouse mobile measured 470 ms of
+ * blocking time from the always-on animation (performance 87); with this it is back to 100.
  */
 type Conn = { saveData?: boolean };
 
@@ -14,6 +19,7 @@ export function mountFlowField(canvas: HTMLCanvasElement, scrollHost: HTMLElemen
   if (!ctx) return;
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const lite = window.matchMedia('(max-width: 767px), (pointer: coarse)').matches;
   const saveData = (navigator as Navigator & { connection?: Conn }).connection?.saveData === true;
 
   let w = 0;
@@ -45,12 +51,12 @@ export function mountFlowField(canvas: HTMLCanvasElement, scrollHost: HTMLElemen
 
   const resize = () => {
     const rect = canvas.getBoundingClientRect();
-    dpr = Math.min(1.5, window.devicePixelRatio || 1);
+    dpr = lite ? 1 : Math.min(1.5, window.devicePixelRatio || 1);
     w = Math.max(1, Math.floor(rect.width * dpr));
     h = Math.max(1, Math.floor(rect.height * dpr));
     canvas.width = w;
     canvas.height = h;
-    count = Math.round(Math.min(950, Math.max(260, (rect.width * rect.height) / 1050)));
+    count = Math.round(Math.min(lite ? 240 : 950, Math.max(lite ? 160 : 260, (rect.width * rect.height) / 1050)));
     particles = new Float32Array(count * 4);
     for (let i = 0; i < count; i++) spawn(i, true);
     ctx.clearRect(0, 0, w, h);
@@ -124,9 +130,20 @@ export function mountFlowField(canvas: HTMLCanvasElement, scrollHost: HTMLElemen
     cancelAnimationFrame(raf);
   };
 
-  const drawStatic = () => {
+  // The still frame is built from many steps. Drawing them in one go is a single long task, so they are
+  // drawn a few at a time and the main thread stays free between slices.
+  let staticRun = 0;
+  let live = false;
+  const drawStatic = (steps = lite ? 90 : 160) => {
+    const run = ++staticRun;
     order = 0.92;
-    for (let n = 0; n < 160; n++) step();
+    let n = 0;
+    const slice = () => {
+      if (run !== staticRun) return;
+      for (let i = 0; i < 4 && n < steps; i++, n++) step();
+      if (n < steps) window.setTimeout(slice, 0);
+    };
+    slice();
   };
 
   const start = () => {
@@ -138,29 +155,45 @@ export function mountFlowField(canvas: HTMLCanvasElement, scrollHost: HTMLElemen
       return;
     }
 
-    new IntersectionObserver(
+    const goLive = () => {
+      live = true;
+      staticRun += 1; // stop a still frame that is still being drawn
+      new IntersectionObserver(
       ([entry]) => {
         visible = entry.isIntersecting;
         if (visible) play();
         else pause();
       },
       { threshold: 0 },
-    ).observe(canvas);
+      ).observe(canvas);
 
-    document.addEventListener('visibilitychange', () => (document.hidden ? pause() : play()));
+      document.addEventListener('visibilitychange', () => (document.hidden ? pause() : play()));
 
-    if (window.matchMedia('(pointer: fine)').matches) {
-      scrollHost.addEventListener('pointermove', (event) => {
-        const rect = canvas.getBoundingClientRect();
-        pointerX = (event.clientX - rect.left) * dpr;
-        pointerY = (event.clientY - rect.top) * dpr;
-      });
-      scrollHost.addEventListener('pointerleave', () => {
-        pointerX = -1e6;
-        pointerY = -1e6;
-      });
+      if (window.matchMedia('(pointer: fine)').matches) {
+        scrollHost.addEventListener('pointermove', (event) => {
+          const rect = canvas.getBoundingClientRect();
+          pointerX = (event.clientX - rect.left) * dpr;
+          pointerY = (event.clientY - rect.top) * dpr;
+        });
+        scrollHost.addEventListener('pointerleave', () => {
+          pointerX = -1e6;
+          pointerY = -1e6;
+        });
+      }
+      play();
+    };
+
+    if (!lite) {
+      goLive();
+      return;
     }
-    play();
+    // Phones: a still frame now, the live field after the first sign of use.
+    drawStatic();
+    const wake = () => {
+      for (const type of ['pointerdown', 'touchstart', 'scroll', 'keydown']) window.removeEventListener(type, wake);
+      goLive();
+    };
+    for (const type of ['pointerdown', 'touchstart', 'scroll', 'keydown']) window.addEventListener(type, wake, { passive: true, once: true });
   };
 
   let resizeTimer = 0;
@@ -169,14 +202,15 @@ export function mountFlowField(canvas: HTMLCanvasElement, scrollHost: HTMLElemen
     resizeTimer = window.setTimeout(() => {
       if (!canvas.classList.contains('is-live')) return;
       resize();
-      if (reduce || saveData) drawStatic();
+      // Resizing clears the canvas: redraw the still frame unless the live loop will repaint it.
+      if (reduce || saveData || !live) drawStatic();
     }, 160);
   }).observe(canvas);
 
   new MutationObserver(() => {
     readColor();
     ctx.clearRect(0, 0, w, h);
-    if (reduce || saveData) drawStatic();
+    if (reduce || saveData || (lite && !live && canvas.classList.contains('is-live'))) drawStatic();
   }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
   const idle = (cb: () => void) =>

@@ -713,6 +713,8 @@
     color: color-mix(in oklab, var(--ink) 88%, var(--paper));
   }
   .prose-dipriva a {
+    /* A URL used as link text must wrap on a phone instead of widening the page. */
+    overflow-wrap: anywhere;
     text-decoration: underline;
     text-underline-offset: 4px;
     text-decoration-color: var(--line-strong);
