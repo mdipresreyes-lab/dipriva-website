@@ -6,7 +6,7 @@ Updated 2026-10-13, end of the completion session (tasks T1 to T8). Branch `rede
 
 **What needs Manuel first (details in section 5).**
 1. Review dipriva-social pull request 13 (label `hold`): it changes what the content gate allows.
-2. Answer D8 and approve the Bookings privacy sentence (both carry a QA-only REVIEW marker).
+2. ~~Answer D8 and approve the Bookings privacy sentence~~ Done 2026-10-13. Markers removed.
 3. Send the company facts the schema leaves out: legal name, address, phone, founding date, Facebook, Instagram and Google Business Profile URLs, and which LinkedIn company URL is canonical (M6).
 4. Open the primary pages behind the blog sources that were blocked here and swap the links (M10).
 5. Confirm the judgment calls and the Spanish terms in the posts (M11, M12).
@@ -71,7 +71,7 @@ Updated 2026-10-13, end of the completion session (tasks T1 to T8). Branch `rede
 | D5 | Add the Microsoft Bookings 30-minute link to the schedule page | Done, as the main option above the form |
 | D6 | Spanish blog posts for readers on `/es/` | Done (T5): 8 Spanish posts, `/es/blog/` |
 | D7 | Name Diprivian only in low-visibility places that AI tools and search engines read | Done: one line in `llms.txt` and an identity note on `/privacy/` and `/es/privacidad/`. Not in hidden HTML or structured data, see below |
-| D8 | Privacy sentences on automated social approval (12-hour veto window) | **Still needs Manuel's yes or no.** Shown with a REVIEW marker on QA only |
+| D8 | Privacy sentences on automated social approval (12-hour veto window) and the Bookings sentence | **Approved by Manuel 2026-10-13.** REVIEW markers removed |
 
 **Does keeping Clarity and Google Ads in the policy hurt?** The risk is low, but it is not zero:
 - Saying you use a tracker you do not run does not harm visitors, and regulators focus on promises a company breaks. The bigger risk is the opposite case, running a tool the policy does not mention.
@@ -118,7 +118,7 @@ Updated 2026-10-13, end of the completion session (tasks T1 to T8). Branch `rede
 
 **T5. Spanish blog.** Done. Spanish posts share the English `cluster` key and cite the same sources, quotes included; the gate enforces it. The two AI governance posts use different Spanish keywords so they do not compete. The sitemap lists each page but does not repeat the hreflang pairs; the pairs are in each page's `<head>`, which Google reads.
 
-**T6. Entity layer.** Done. On 2026-10-13 Manuel confirmed the company facts and they are in `coreGraph()` and the footer: `legalName` Manuel Diprés, address 2435 Eastern Ave SE, Suite 202, Grand Rapids, MI 49507, `foundingDate` 2019, and the Google Business Profile link in `sameAs`. Still absent on purpose: `telephone` and the Facebook and Instagram `sameAs` entries. Open items: (1) the Google Business Profile link is a `share.google` redirect, so replace it with the canonical Maps URL when Manuel has it; (2) the Teams team is named "Dipriva LLC", so if the business is registered as an LLC, `legalName` should be the registered name; (3) the address and the name must match the Google Business Profile exactly. Both `_redirects` lines for `/about` were removed, not only the 302, so `/about` and `/about/` cannot show different pages.
+**T6. Entity layer.** Done. Confirmed by Manuel 2026-10-13 and live in `coreGraph()` and the footer: `legalName` Dipriva LLC (also shown in the footer and the privacy identity note), address 2435 Eastern Ave SE Suite 202, Grand Rapids, MI 49507 (exactly as on the Google Business Profile), `foundingDate` 2019 (structured data only), and `sameAs` for LinkedIn, Instagram, Facebook and the Google Business Profile Maps link. No telephone: Manuel has no public number, which is fine because `contactPoint` carries the email. Both `_redirects` lines for `/about` were removed, so `/about` and `/about/` cannot show different pages. To confirm: that Dipriva Consulting Group is registered as an assumed name of Dipriva LLC with the State of Michigan, since the site now says it is operated by Dipriva LLC.
 
 **T7. Blog template.** Done. Deviation: Astro 7 renders Markdown with a new processor that no longer runs rehype plugins without an extra package, so the trailing slash rule for internal links runs on the rendered HTML in the content loader (`site/src/lib/internalLinks.mjs`). The OG endpoint throws on failure and fails the build (tested by removing a font file).
 
@@ -140,9 +140,9 @@ Secrets and approvals are yours to enter. Never paste a secret into a chat.
 **M2. Lock qa.dipriva.com**
 In Cloudflare, open Zero Trust, then Access, Applications, Add, Self-hosted. Set the domain to `qa.dipriva.com` and add an Allow policy for your email.
 
-**M3. Answer D8.** Approve or edit the two privacy sentences on automated social approval, and the Bookings sentence from T2. Each carries a REVIEW marker in QA builds (view source on qa.dipriva.com/privacy/). After your answer, a session removes the marker.
+**M3. Answer D8.** Done 2026-10-13. Approved as written; markers removed.
 
-**M4. Make.com.** Delete the old blog scenario. Then revoke its GitHub access under GitHub Settings, Applications.
+**M4. Make.com.** Done 2026-10-13: scenarios deleted, no Make or Integromat OAuth app or installed app on GitHub, and the token "Dipriva Blog Engine - Make.com" deleted.
 
 **M5. Protect `main` (dipriva-website only, after the cutover merge).** Do this after `redesign` is merged into `main`, because the check does not exist on `main` before that. In GitHub, open dipriva-website, then Settings, Branches, Add branch ruleset (or classic rule) for `main`, tick "Require status checks to pass before merging", and select the check named `build` (workflow "Site build and brand gate"). Leave "Require branches to be up to date" off. Do not add this rule to dipriva-social: its auto-verified pull requests auto-merge, and a required review would stop them.
 
@@ -172,7 +172,7 @@ In Cloudflare, open Zero Trust, then Access, Applications, Add, Self-hosted. Set
 - Check the LinkedIn Featured section for the deleted micro-multinational post.
 - Open your Bookings page in a private window and confirm it is public, offers the 30-minute meeting type, and sends confirmations from manuel@.
 
-**M7. Lea.** In the Cloudflare dashboard, check whether the dipriva-chat Worker's instructions say "10 to 50". If they do, change them to 10 to 500 yourself; sessions are not allowed to touch that Worker.
+**M7. Lea.** Manuel looked in the Worker code and did not find "10 to 50". That is probably fine: the instructions may not state a company size, or may word it differently ("10-50", "ten to fifty", "small business"). Search the Worker code for "50", "employees", "size" and "small". Also check the Worker's Bindings tab for a KV, D1 or R2 store, because the instructions can live there instead of in the code. If nothing states a size, nothing needs changing. Sessions are not allowed to touch this Worker; reading it needs Manuel's explicit OK each time.
 
 **M8. QA leads Worker (optional).** A QA leads database `dipriva-leads-qa` already exists and is empty (id `1c4d51c9-3ebb-4b55-ae44-beeb66372363`). To test real submissions on QA, ask a session to add a `qa` environment to `dipriva-social/worker/leads/wrangler.jsonc` bound to that database, with `ALLOWED_ORIGINS` set to `https://qa.dipriva.com` and no Teams webhook. Then set the Turnstile secret yourself with `npx wrangler secret put TURNSTILE_SECRET --env qa`, using Cloudflare's public test secret `1x0000000000000000000000000000000AA`.
 
@@ -290,7 +290,7 @@ Mechanics documentation, from Google Search Central and llmstxt.org (check curre
 | `/strategy`, `/startup`, `/ai-automation` | Social footers, post-verifier, downloads | Built |
 | `/schedule` | Downloads print it, every CTA | Built, Bookings added |
 | `/about/manuel-dipres` | `proof-points.json` source URL | Built |
-| `/privacy` | LinkedIn and Meta app review | Built (D8 pending) |
+| `/privacy` | LinkedIn and Meta app review | Built (D8 approved) |
 | `/unsubscribe/?t=` | dipriva-growth emails | Built, byte copy |
 | `/client_form` | Client onboarding | Built, noindex |
 | `/downloads/*` (12) | Lead form success state | Built |

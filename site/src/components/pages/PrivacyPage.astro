@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import { type Lang } from '../../lib/copy';
 import { privacy, PRIVACY_EMAIL, type Item } from '../../lib/legal';
-import { IS_PRODUCTION, ORG_ID, WEBSITE_ID, absolute, homePath, paths } from '../../lib/site';
+import { ORG_ID, WEBSITE_ID, absolute, homePath, paths } from '../../lib/site';
 
 interface Props {
   lang: Lang;
@@ -12,7 +12,6 @@ const { lang } = Astro.props;
 const p = privacy[lang];
 const url = absolute(paths.privacy[lang]);
 
-// REVIEW markers print in QA builds only, so production HTML never carries them.
 // Plain-text email addresses in the policy become mailto links; the words stay as written.
 const withEmail = (text: string) => text.split(new RegExp(`(${PRIVACY_EMAIL.replace('.', '\\.')})`));
 const itemText = (item: Item) => (typeof item === 'string' ? item : item.text);
@@ -95,9 +94,6 @@ const schema = [
                     <ul>
                       {b.items.map((item) => (
                         <li>
-                          {!IS_PRODUCTION && typeof item !== 'string' && item.approval && (
-                            <Fragment set:html="<!-- REVIEW: automated approval sentence, confirm with Manuel -->" />
-                          )}
                           {withEmail(itemText(item)).map((part) => (part === PRIVACY_EMAIL ? <a href={`mailto:${part}`}>{part}</a> : part))}
                         </li>
                       ))}
@@ -114,12 +110,10 @@ const schema = [
                 }
                 return (
                   <p>
-                    {!IS_PRODUCTION && b.review && <Fragment set:html={`<!-- ${b.review} -->`} />}
                     {withEmail(b.text).map((part) => (part === PRIVACY_EMAIL ? <a href={`mailto:${part}`}>{part}</a> : part))}
                     {b.approval && (
                       <>
                         {' '}
-                        {!IS_PRODUCTION && <Fragment set:html="<!-- REVIEW: automated approval sentence, confirm with Manuel -->" />}
                         {b.approval}
                       </>
                     )}

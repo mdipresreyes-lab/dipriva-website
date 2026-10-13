@@ -37,16 +37,19 @@ export const absolute = (path: string) => new URL(path, SITE_URL).toString();
 
 /** Confirmed by Manuel 2026-10-13. Must match the Google Business Profile word for word. */
 export const ADDRESS = {
-  street: '2435 Eastern Ave SE, Suite 202',
+  street: '2435 Eastern Ave SE Suite 202',
   city: 'Grand Rapids',
   region: 'MI',
   postalCode: '49507',
   country: 'US',
 } as const;
 export const FOUNDING_YEAR = '2019';
-export const LEGAL_NAME = 'Manuel Diprés';
-/** Google Business Profile share link as supplied. Swap for the canonical Maps URL when Manuel has it. */
-export const GBP_URL = 'https://share.google/i6bEORLkqwsgtNIe5';
+/** Registered company that operates the Dipriva Consulting Group brand. Shown in the footer and the privacy policy. */
+export const LEGAL_NAME = 'Dipriva LLC';
+/** Google Business Profile as a Maps link (built from its CID; both forms resolve). */
+export const GBP_URL = 'https://www.google.com/maps?cid=1081221801602927364';
+export const INSTAGRAM_URL = 'https://www.instagram.com/dipriva_consulting_group/';
+export const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61595351429088';
 
 /** Names people search for. They belong in structured data, never in hidden page text. */
 export const ALTERNATE_NAMES = ['Dipriva', 'Dipriva Consulting'];
@@ -54,8 +57,7 @@ export const ALTERNATE_NAMES = ['Dipriva', 'Dipriva Consulting'];
 /**
  * The organization, website and founder entities shared by every page.
  *
- * Still left out until Manuel confirms them: telephone, and sameAs entries for the Facebook Page
- * and the Instagram profile (@dipriva_consulting_group). Do not guess them.
+ * Left out on purpose: telephone. Manuel has no public number to share (2026-10-13).
  */
 export function coreGraph() {
   return [
@@ -83,7 +85,7 @@ export function coreGraph() {
       areaServed: { '@type': 'Country', name: 'United States' },
       knowsLanguage: ['en', 'es'],
       knowsAbout: ['Corporate Strategy', 'Startup Operations', 'AI and Automation', 'Business Process Automation'],
-      sameAs: [LINKEDIN_COMPANY, GBP_URL],
+      sameAs: [LINKEDIN_COMPANY, INSTAGRAM_URL, FACEBOOK_URL, GBP_URL],
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'sales',

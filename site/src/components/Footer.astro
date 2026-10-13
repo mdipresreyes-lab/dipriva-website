@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import { copy, type Lang } from '../lib/copy';
-import { ADDRESS, CONTACT_EMAIL, LINKEDIN_COMPANY, homePath } from '../lib/site';
+import { ADDRESS, CONTACT_EMAIL, FACEBOOK_URL, INSTAGRAM_URL, LEGAL_NAME, LINKEDIN_COMPANY, homePath } from '../lib/site';
 
 interface Props {
   lang: Lang;
@@ -99,13 +99,19 @@ const year = new Date().getFullYear();
               LinkedIn
             </a>
           </li>
+          <li>
+            <a href={INSTAGRAM_URL} rel="noopener" class="text-muted hover:text-on-band">Instagram</a>
+          </li>
+          <li>
+            <a href={FACEBOOK_URL} rel="noopener" class="text-muted hover:text-on-band">Facebook</a>
+          </li>
         </ul>
       </div>
     </div>
 
     <div class="mt-16 flex flex-col gap-4 border-t border-line pt-8 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
       <p class="flex flex-wrap items-center gap-x-5 gap-y-2">
-        <span>&copy; {year} Dipriva Consulting Group</span>
+        <span>&copy; {year} {LEGAL_NAME}. {lang === 'es' ? 'Dipriva Consulting Group es una marca operada por' : 'Dipriva Consulting Group is operated by'} {LEGAL_NAME}.</span>
         <button type="button" data-consent-open class="underline underline-offset-2 hover:text-on-band">
           {lang === 'es' ? 'Preferencias de analítica' : 'Analytics preferences'}
         </button>

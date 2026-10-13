@@ -6,12 +6,10 @@
  * One change from the live text (2026-10-12): social posts are no longer
  * approved by a person before publishing. Approval is automated, with a
  * 12-hour window in which the founder can hold or veto any post. The two
- * sentences that describe it carry `approval` and render with a REVIEW marker
- * in PrivacyPage.astro until Manuel confirms the wording.
+ * sentences that describe it carry `approval`. Manuel approved the wording on 2026-10-13.
  *
- * One addition (2026-10-13): one paragraph on Microsoft Bookings, which collects
- * the name, email and phone a visitor enters. It carries `review` and renders
- * with a REVIEW marker in QA builds until Manuel confirms the wording.
+ * One addition (2026-10-13), approved the same day: one paragraph on Microsoft
+ * Bookings, which collects the name, email and phone a visitor enters.
  */
 import type { Lang } from './copy';
 
@@ -19,11 +17,8 @@ import type { Lang } from './copy';
 export type Item = string | { text: string; approval: true };
 
 export type Block =
-  /**
-   * A paragraph. `approval` is the rewritten social approval sentence that ends it.
-   * `review` marks a whole paragraph that waits on Manuel; its text is the QA-only marker note.
-   */
-  | { kind: 'p'; text: string; approval?: string; review?: string }
+  /** A paragraph. `approval` is the rewritten social approval sentence that ends it. */
+  | { kind: 'p'; text: string; approval?: string }
   | { kind: 'ul'; items: Item[] }
   /** Text, then a link, then closing text (for example a period). */
   | { kind: 'link'; text: string; href: string; label: string; after: string };
@@ -59,7 +54,7 @@ export const privacy: Record<Lang, Policy> = {
     intro:
       'Dipriva Consulting Group (“Dipriva,” “we,” “us”) respects your privacy. This policy explains what information we collect through dipriva.com and our intake forms, how we use it, where it is stored, and the choices you have.',
     identity:
-      'This policy covers Dipriva Consulting Group, also known as Dipriva or Dipriva Consulting, the independent firm that operates dipriva.com. Dipriva has no affiliation with Diprivian or any similarly named company, and information you give Dipriva is never shared with them.',
+      'This policy covers Dipriva Consulting Group, also known as Dipriva or Dipriva Consulting, the independent firm that operates dipriva.com. Dipriva Consulting Group is operated by Dipriva LLC, 2435 Eastern Ave SE Suite 202, Grand Rapids, MI 49507. Dipriva has no affiliation with Diprivian or any similarly named company, and information you give Dipriva is never shared with them.',
     onThisPage: 'On this page',
     sections: [
       {
@@ -82,7 +77,6 @@ export const privacy: Record<Lang, Policy> = {
           {
             kind: 'p',
             text: 'If you book a strategy session through Microsoft Bookings, Microsoft Bookings collects the name, email address and phone number you enter, and Microsoft processes that information under its own privacy terms.',
-            review: 'REVIEW: Microsoft Bookings sentence, confirm with Manuel',
           },
         ],
       },
@@ -315,7 +309,7 @@ export const privacy: Record<Lang, Policy> = {
     intro:
       'Dipriva Consulting Group (“Dipriva”, “nosotros”) respeta su privacidad. Esta política explica qué información recopilamos a través de dipriva.com y de nuestros formularios, cómo la usamos, dónde se almacena y qué opciones tiene usted.',
     identity:
-      'Esta política cubre a Dipriva Consulting Group, también conocida como Dipriva o Dipriva Consulting, la firma independiente que opera dipriva.com. Dipriva no tiene ninguna relación con Diprivian ni con empresas de nombre similar, y la información que usted comparte con Dipriva nunca se comparte con ellas.',
+      'Esta política cubre a Dipriva Consulting Group, también conocida como Dipriva o Dipriva Consulting, la firma independiente que opera dipriva.com. Dipriva Consulting Group es operada por Dipriva LLC, 2435 Eastern Ave SE Suite 202, Grand Rapids, MI 49507. Dipriva no tiene ninguna relación con Diprivian ni con empresas de nombre similar, y la información que usted comparte con Dipriva nunca se comparte con ellas.',
     onThisPage: 'En esta página',
     sections: [
       {
@@ -341,7 +335,6 @@ export const privacy: Record<Lang, Policy> = {
           {
             kind: 'p',
             text: 'Si usted reserva una sesión de estrategia a través de Microsoft Bookings, Microsoft Bookings recopila el nombre, el correo electrónico y el número de teléfono que usted ingresa, y Microsoft procesa esa información conforme a sus propios términos de privacidad.',
-            review: 'REVIEW: Microsoft Bookings sentence, confirm with Manuel',
           },
         ],
       },
