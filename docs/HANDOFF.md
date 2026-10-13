@@ -19,7 +19,7 @@ Start a new Claude Code session on the web (claude.ai/code) with these repositor
 - `mdipresreyes-lab/dipriva-social`: the social engine. Its `CLAUDE.md` rules apply to all three repos (no em dashes ever, banned terms in `config/brand-rules.json`, formal "usted" Spanish, approved figures only, official APIs only, stage files by explicit path, never edit an approved post package, never weaken verification).
 - `mdipresreyes-lab/dipriva-growth`: outreach engine. Read only. The site's `/unsubscribe/` page is a byte copy of `worker/optout/page/index.html`, and the Bookings link comes from `config/outreach.yaml`.
 - Read `docs/HANDOFF.md` in dipriva-website first. Sections 2 to 4 record Manuel's decisions, the ripple map and the task list. Section 7 is the SEO and GEO plan.
-- Decisions already made by Manuel (do not reopen): audience is companies with 10 to 500 employees, and larger companies are welcome; the micro-multinational post is deleted (done); the other 8 posts stay; the schedule page shows manuel@dipriva.com and the Microsoft Bookings link (done); Microsoft Clarity and Google Ads stay in the privacy policy as "may use" (done); Spanish readers on `/es/` links get Spanish blog posts; Diprivian is named only in `llms.txt` (done), never on a visible page, in hidden HTML or in structured data.
+- Decisions already made by Manuel (do not reopen): audience is companies with 10 to 500 employees, and larger companies are welcome; the micro-multinational post is deleted (done); the other 8 posts stay; the schedule page shows manuel@dipriva.com and the Microsoft Bookings link (done); Microsoft Clarity and Google Ads stay in the privacy policy as "may use" (done); Spanish readers on `/es/` links get Spanish blog posts; Diprivian is named only in `llms.txt` and in the identity note under the privacy policy intro (both done), never elsewhere, never in hidden HTML or structured data.
 
 **Task.** Complete tasks T1 to T8 in section 4 of `docs/HANDOFF.md`, in order. Commit after each task. Push to `redesign` (website) and to a `claude/` branch with a pull request (dipriva-social).
 
@@ -60,7 +60,7 @@ Start a new Claude Code session on the web (claude.ai/code) with these repositor
 | D4 | Schedule page fallback email: manuel@dipriva.com | Done |
 | D5 | Add the Microsoft Bookings 30-minute link to the schedule page | Done, as the main option above the form |
 | D6 | Spanish blog posts for readers on `/es/` | T5 |
-| D7 | Name Diprivian only where AI tools read it and visitors do not | Done: one line in `llms.txt` (not linked from any page). Not in hidden HTML or structured data, see below |
+| D7 | Name Diprivian only in low-visibility places that AI tools and search engines read | Done: one line in `llms.txt` and an identity note on `/privacy/` and `/es/privacidad/`. Not in hidden HTML or structured data, see below |
 | D8 | Privacy sentences on automated social approval (12-hour veto window) | **Still needs Manuel's yes or no.** Shown with a REVIEW marker on QA only |
 
 **Does keeping Clarity and Google Ads in the policy hurt?** The risk is low, but it is not zero:
@@ -69,7 +69,7 @@ Start a new Claude Code session on the web (claude.ai/code) with these repositor
 - Applied: both paragraphs now say "may use" (Manuel's decision).
 - When you do turn them on, three things must change together: the consent banner must name the tool (`site/src/components/Consent.astro`), the tool must load only after Accept, and Google Ads needs Consent Mode settings in GA4. Without those, the policy and the banner disagree.
 
-**Where Diprivian appears, and why only there.** One sentence in `/llms.txt`, a plain-text file written for AI tools and not linked from any page. It is deliberately not in hidden page text or in structured data: Google's spam policies treat text hidden from visitors as a violation, and its structured data rules require marked-up content to be visible on the page. Either could cost rankings or rich results. The entity layer (T6) and a matching Google Business Profile carry the rest of the disambiguation.
+**Where Diprivian appears, and why only there.** (1) One sentence in `/llms.txt`, a plain-text file for AI tools that no page links to. (2) An identity note under the privacy policy intro, in English and Spanish: it says which firm the policy covers, that Dipriva has no affiliation with Diprivian or any similarly named company, and that information shared with Dipriva is never shared with them. On a privacy page that statement has a real purpose (who handles your data), so it reads as normal policy text, and few visitors read that page. Because it is visible text, search engines and AI crawlers can use it without risk. It is deliberately not in hidden page text or structured data: Google's spam policies treat text hidden from visitors as a violation, and its structured data rules require marked-up content to be visible.
 
 ---
 
@@ -158,7 +158,7 @@ Start a new Claude Code session on the web (claude.ai/code) with these repositor
   - Add `alternateName` to the WebSite node.
 - Build `/about/` and `/es/nosotros/` as the company page: who, what, for whom (10 to 500 employees), where, languages, founder link. Then change the `/about/` 302 in `site/scripts/write-edge-files.mjs` to serve the page.
 - Use one LinkedIn company URL everywhere.
-- Do not add Diprivian anywhere except the existing line in `llms.txt`.
+- Do not add Diprivian anywhere beyond `llms.txt` and the privacy identity note.
 
 **T7. Blog template for SEO and GEO**
 - In `site/src/pages/blog/[slug].astro`, render:

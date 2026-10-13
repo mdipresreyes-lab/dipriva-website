@@ -30,6 +30,8 @@ export type Policy = {
   h1: string;
   lastUpdated: string;
   intro: string;
+  /** Who the policy covers; also disambiguates the brand for search and AI engines. */
+  identity: string;
   onThisPage: string;
   sections: LegalSection[];
 };
@@ -49,6 +51,8 @@ export const privacy: Record<Lang, Policy> = {
     lastUpdated: 'Last updated: October 2026',
     intro:
       'Dipriva Consulting Group (“Dipriva,” “we,” “us”) respects your privacy. This policy explains what information we collect through dipriva.com and our intake forms, how we use it, where it is stored, and the choices you have.',
+    identity:
+      'This policy covers Dipriva Consulting Group, also known as Dipriva or Dipriva Consulting, the independent firm that operates dipriva.com. Dipriva has no affiliation with Diprivian or any similarly named company, and information you give Dipriva is never shared with them.',
     onThisPage: 'On this page',
     sections: [
       {
@@ -298,6 +302,8 @@ export const privacy: Record<Lang, Policy> = {
     lastUpdated: 'Última actualización: octubre de 2026',
     intro:
       'Dipriva Consulting Group (“Dipriva”, “nosotros”) respeta su privacidad. Esta política explica qué información recopilamos a través de dipriva.com y de nuestros formularios, cómo la usamos, dónde se almacena y qué opciones tiene usted.',
+    identity:
+      'Esta política cubre a Dipriva Consulting Group, también conocida como Dipriva o Dipriva Consulting, la firma independiente que opera dipriva.com. Dipriva no tiene ninguna relación con Diprivian ni con empresas de nombre similar, y la información que usted comparte con Dipriva nunca se comparte con ellas.',
     onThisPage: 'En esta página',
     sections: [
       {
