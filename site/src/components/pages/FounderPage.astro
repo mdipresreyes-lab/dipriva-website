@@ -1,0 +1,209 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../Icon.astro';
+import { copy, type Lang } from '../../lib/copy';
+import { founder } from '../../lib/founder';
+import { services, servicePath } from '../../lib/services';
+import { FOUNDER_ID, LINKEDIN_FOUNDER, WEBSITE_ID, absolute, homePath, paths, schedulePath } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const f = founder[lang];
+const t = copy[lang];
+const url = absolute(paths.founder[lang]);
+// There is no standalone About page yet: the About crumb points at the homepage's About section.
+const aboutHref = `${homePath(lang)}#about`;
+const show = (fig: { to: number; prefix: string; suffix: string }) => `${fig.prefix}${fig.to.toLocaleString('en-US')}${fig.suffix}`;
+
+const schema = [
+  {
+    '@type': 'ProfilePage',
+    '@id': `${url}#webpage`,
+    url,
+    name: f.meta.title,
+    description: f.meta.description,
+    inLanguage: lang,
+    isPartOf: { '@id': WEBSITE_ID },
+    mainEntity: { '@id': FOUNDER_ID },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: f.crumbs.home, item: absolute(homePath(lang)) },
+      { '@type': 'ListItem', position: 2, name: f.crumbs.about, item: absolute(aboutHref) },
+      { '@type': 'ListItem', position: 3, name: f.crumbs.name, item: url },
+    ],
+  },
+];
+---
+
+<Base
+  lang={lang}
+  title={f.meta.title}
+  description={f.meta.description}
+  alternate={{ en: paths.founder.en, es: paths.founder.es }}
+  schema={schema}
+>
+  <section class="relative overflow-hidden border-b border-line" aria-labelledby="founder-title">
+    <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="container-x relative pt-12 pb-16 lg:pt-16 lg:pb-20">
+      <nav aria-label="Breadcrumb" class="text-sm text-muted">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href={homePath(lang)} class="hover:text-ink">{f.crumbs.home}</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href={aboutHref} class="hover:text-ink">{f.crumbs.about}</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-ink">{f.crumbs.name}</li>
+        </ol>
+      </nav>
+      <p class="eyebrow mt-8">{f.eyebrow}</p>
+      <h1 id="founder-title" class="display mt-5 text-[clamp(2.6rem,6vw,5rem)]">{f.h1}</h1>
+      <p class="mt-4 font-display text-[clamp(1.25rem,2.2vw,1.7rem)] leading-snug text-muted italic">{f.role}</p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href={schedulePath(lang)} class="btn btn-primary">
+          {f.cta.button}
+          <Icon name="arrow" size={18} class="arrow" />
+        </a>
+        <a href={LINKEDIN_FOUNDER} rel="me noopener" class="btn btn-ghost">
+          <Icon name="linkedin" size={18} />
+          {f.linkedin}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-16" aria-labelledby="founder-summary">
+    <div class="container-x">
+      <div class="card grid gap-6 p-7 sm:p-9 lg:grid-cols-[180px_1fr]">
+        <h2 id="founder-summary" class="eyebrow pt-1">{f.inShortLabel}</h2>
+        <p class="text-[1.12rem] leading-relaxed">{f.inShort}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-20 lg:pb-28" aria-labelledby="founder-background">
+    <div class="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
+      <div class="lg:col-span-7">
+        <p class="section-label reveal"><span class="num">01</span>{f.background.label}</p>
+        <h2 id="founder-background" class="h2 reveal mt-6 max-w-[22ch]">{f.background.h2}</h2>
+        <div class="mt-8 space-y-5">
+          {f.background.body.map((para) => <p class="lede reveal">{para}</p>)}
+        </div>
+      </div>
+      <div class="lg:col-span-5 lg:pt-14">
+        <div class="card reveal p-7 sm:p-8">
+          <h3 class="eyebrow">{f.background.factsLabel}</h3>
+          <dl class="mt-5 divide-y divide-line">
+            {
+              f.background.facts.map((fact) => (
+                <div class="grid gap-1 py-4 first:pt-0 last:pb-0 sm:grid-cols-[130px_1fr] sm:gap-4">
+                  <dt class="text-sm font-semibold">{fact.term}</dt>
+                  <dd class="text-sm leading-relaxed text-muted">{fact.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-surface py-20 lg:py-28" aria-labelledby="founder-approach">
+    <div class="container-x grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <p class="section-label reveal"><span class="num">02</span>{f.approach.label}</p>
+        <h2 id="founder-approach" class="h2 reveal mt-6">{t.about.h2}</h2>
+        <p class="lede reveal mt-6 max-w-[56ch]">{f.approach.body}</p>
+      </div>
+      <ul class="grid content-center gap-3 sm:grid-cols-2">
+        {
+          t.about.standards.map((line, i) => (
+            <li class="reveal flex items-start gap-3 rounded-2xl border border-line bg-paper-raised px-5 py-4 leading-snug" style={`--d: ${i * 60}ms`}>
+              <Icon name="check" size={18} class="mt-0.5 shrink-0" />
+              {line}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="py-20 lg:py-28" aria-labelledby="founder-results">
+    <div class="container-x">
+      <p class="section-label reveal"><span class="num">03</span>{f.results.label}</p>
+      <h2 id="founder-results" class="h2 reveal mt-6">{t.proof.h2}</h2>
+      <div class="mt-12 grid gap-4 lg:grid-cols-3">
+        {
+          t.proof.cards.map((card, i) => (
+            <figure class="card reveal flex flex-col p-7" style={`--d: ${i * 80}ms`}>
+              <p class="eyebrow">{card.segment}</p>
+              <div class="mt-4 flex flex-wrap items-end gap-x-6 gap-y-2">
+                {card.figures.map((fig, fi) => (
+                  <p
+                    class:list={['font-display font-semibold tracking-tight tabular-nums leading-none', fi === 0 ? 'text-5xl' : 'text-3xl text-muted']}
+                    data-countup
+                    data-to={fig.to}
+                    data-prefix={fig.prefix}
+                    data-suffix={fig.suffix}
+                  >
+                    {show(fig)}
+                  </p>
+                ))}
+              </div>
+              <blockquote class="mt-5 border-t border-line pt-4 leading-relaxed">{card.statement}</blockquote>
+            </figure>
+          ))
+        }
+      </div>
+      <p class="mt-6 text-sm text-muted">{t.proof.note}</p>
+    </div>
+  </section>
+
+  <section class="border-t border-line py-20 lg:py-24" aria-labelledby="founder-services">
+    <div class="container-x">
+      <p class="section-label reveal"><span class="num">04</span>{f.services.label}</p>
+      <h2 id="founder-services" class="h2 reveal mt-6 max-w-[22ch]">{f.services.h2}</h2>
+      <div class="mt-12 grid gap-4 md:grid-cols-3">
+        {
+          services.map((s) => (
+            <a href={servicePath(s, lang)} class="card spotlight group flex flex-col justify-between gap-6 p-7">
+              <span>
+                <span class="eyebrow block">{s[lang].name}</span>
+                <span class="mt-3 block font-display text-xl leading-snug font-semibold">{s[lang].h1}</span>
+              </span>
+              <span class="inline-flex items-center gap-2 text-sm font-semibold">
+                {f.services.explore} {s[lang].name}
+                <Icon name="arrow" size={16} class="transition-transform group-hover:translate-x-1" />
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-24 lg:pb-32" aria-labelledby="founder-cta">
+    <div class="container-x">
+      <div class="band reveal relative overflow-hidden rounded-[32px] px-6 py-16 sm:px-12 lg:px-16 lg:py-20">
+        <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+        <div class="relative max-w-3xl">
+          <h2 id="founder-cta" class="display text-[clamp(2.2rem,4.6vw,3.8rem)]">{f.cta.h2}</h2>
+          <p class="lede mt-6 max-w-[52ch]">{f.cta.body}</p>
+          <div class="mt-9 flex flex-wrap gap-3">
+            <a href={schedulePath(lang)} class="btn btn-primary">
+              {f.cta.button}
+              <Icon name="arrow" size={18} class="arrow" />
+            </a>
+            <a href={LINKEDIN_FOUNDER} rel="me noopener" class="btn btn-ghost">
+              <Icon name="linkedin" size={18} />
+              {f.linkedin}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

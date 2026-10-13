@@ -1,0 +1,133 @@
+---
+import Base from '../../layouts/Base.astro';
+import { type Lang } from '../../lib/copy';
+import { privacy, PRIVACY_EMAIL, type Item } from '../../lib/legal';
+import { IS_PRODUCTION, ORG_ID, WEBSITE_ID, absolute, homePath, paths } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const p = privacy[lang];
+const url = absolute(paths.privacy[lang]);
+
+// REVIEW markers print in QA builds only, so production HTML never carries them.
+// Plain-text email addresses in the policy become mailto links; the words stay as written.
+const withEmail = (text: string) => text.split(new RegExp(`(${PRIVACY_EMAIL.replace('.', '\\.')})`));
+const itemText = (item: Item) => (typeof item === 'string' ? item : item.text);
+
+const schema = [
+  {
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: p.meta.title,
+    description: p.meta.description,
+    inLanguage: lang,
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORG_ID },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: p.home, item: absolute(homePath(lang)) },
+      { '@type': 'ListItem', position: 2, name: p.crumb, item: url },
+    ],
+  },
+];
+---
+
+<Base
+  lang={lang}
+  title={p.meta.title}
+  description={p.meta.description}
+  alternate={{ en: paths.privacy.en, es: paths.privacy.es }}
+  schema={schema}
+>
+  <article>
+    <header class="relative overflow-hidden border-b border-line">
+      <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+      <div class="container-x relative pt-12 pb-14 lg:pt-16 lg:pb-16">
+        <nav aria-label="Breadcrumb" class="text-sm text-muted">
+          <ol class="flex flex-wrap items-center gap-2">
+            <li><a href={homePath(lang)} class="hover:text-ink">{p.home}</a></li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" class="text-ink">{p.crumb}</li>
+          </ol>
+        </nav>
+        <h1 class="display mt-8 text-[clamp(2.3rem,5vw,4.2rem)]">{p.h1}</h1>
+        <p class="mt-5 text-sm font-semibold text-muted">{p.lastUpdated}</p>
+        <p class="lede mt-6 max-w-[68ch]">{p.intro}</p>
+      </div>
+    </header>
+
+    <div class="container-x grid gap-10 py-14 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-16 lg:py-20 xl:grid-cols-[260px_minmax(0,760px)_1fr]">
+      <aside>
+        <nav class="toc card p-6 lg:sticky lg:top-28 lg:border-0 lg:bg-transparent lg:p-0" aria-label={p.onThisPage}>
+          <p class="eyebrow">{p.onThisPage}</p>
+          <ol class="mt-4 space-y-1 border-l border-line">
+            {
+              p.sections.map((s) => (
+                <li>
+                  <a
+                    href={`#${s.id}`}
+                    class="relative -ml-px block border-l border-transparent py-1.5 pl-4 text-sm leading-snug text-muted transition-colors before:absolute before:top-0 before:-left-px before:h-full before:w-px hover:text-ink"
+                  >
+                    {s.title}
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+        </nav>
+      </aside>
+
+      <div class="prose-dipriva min-w-0 [&>section:first-child>h2]:mt-0">
+        {
+          p.sections.map((s) => (
+            <section aria-labelledby={s.id}>
+              <h2 id={s.id}>{s.title}</h2>
+              {s.blocks.map((b) => {
+                if (b.kind === 'ul') {
+                  return (
+                    <ul>
+                      {b.items.map((item) => (
+                        <li>
+                          {!IS_PRODUCTION && typeof item !== 'string' && item.approval && (
+                            <Fragment set:html="<!-- REVIEW: automated approval sentence, confirm with Manuel -->" />
+                          )}
+                          {withEmail(itemText(item)).map((part) => (part === PRIVACY_EMAIL ? <a href={`mailto:${part}`}>{part}</a> : part))}
+                        </li>
+                      ))}
+                    </ul>
+                  );
+                }
+                if (b.kind === 'link') {
+                  return (
+                    <p>
+                      {b.text}{' '}
+                      <a href={b.href} {...(b.href.startsWith('http') ? { rel: 'noopener noreferrer', target: '_blank' } : {})}>{b.label}</a>{b.after}
+                    </p>
+                  );
+                }
+                return (
+                  <p>
+                    {withEmail(b.text).map((part) => (part === PRIVACY_EMAIL ? <a href={`mailto:${part}`}>{part}</a> : part))}
+                    {b.approval && (
+                      <>
+                        {' '}
+                        {!IS_PRODUCTION && <Fragment set:html="<!-- REVIEW: automated approval sentence, confirm with Manuel -->" />}
+                        {b.approval}
+                      </>
+                    )}
+                  </p>
+                );
+              })}
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </article>
+</Base>

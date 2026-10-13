@@ -1,0 +1,92 @@
+---
+import Base from '../../layouts/Base.astro';
+import { type Lang } from '../../lib/copy';
+import { paths } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+/** Microsoft Forms client intake, the same one the live /client_form page embeds. */
+const FORM_URL =
+  'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=zkMAMxEb1U6oyZeD4vLkQhBR3cb14l5DvvK1DsDmhEdUMzBXSlkxUlEwVjZVMVcwQU1XT0xSV0dYRy4u&embed=true';
+const EMAIL = 'manuel@dipriva.com';
+
+// Consent wording is exactly the live text. The policy name and the email inside
+// it become links; no words are added or changed.
+const text = {
+  en: {
+    meta: {
+      title: 'Client Intake | Dipriva Consulting Group',
+      description: 'Client intake form for Dipriva Consulting Group engagements.',
+    },
+    h1: 'Client intake',
+    sub: 'Complete the following information so we can prepare your strategy.',
+    iframeTitle: 'Dipriva client intake form',
+    consent:
+      'By submitting this form, you consent to Dipriva Consulting Group collecting and processing the business and financial information you provide for the purpose of analyzing your business and preparing your growth strategy. This information is treated as confidential and is not sold or shared for marketing purposes. To request access to or deletion of your information, contact manuel@dipriva.com. See our Privacy Policy for details.',
+    policy: 'Privacy Policy',
+  },
+  es: {
+    meta: {
+      title: 'Formulario de cliente | Dipriva Consulting Group',
+      description: 'Formulario de admisión para clientes de Dipriva Consulting Group.',
+    },
+    h1: 'Formulario de cliente',
+    sub: 'Complete la siguiente información para que podamos preparar su estrategia.',
+    iframeTitle: 'Formulario de cliente de Dipriva',
+    consent:
+      'Al enviar este formulario, usted da su consentimiento a Dipriva Consulting Group para recopilar y procesar la información empresarial y financiera que proporcione, con el fin de analizar su negocio y preparar su estrategia de crecimiento. Esta información se trata de manera confidencial y no se vende ni se comparte con fines de marketing. Para solicitar el acceso a sus datos o su eliminación, escriba a manuel@dipriva.com. Consulte nuestra Política de Privacidad para más detalles.',
+    policy: 'Política de Privacidad',
+  },
+} as const;
+
+const { lang } = Astro.props;
+const s = text[lang];
+const parts = s.consent.split(new RegExp(`(${EMAIL.replace('.', '\\.')}|${s.policy})`));
+const linkClass = 'font-semibold text-ink underline underline-offset-4';
+---
+
+<Base
+  lang={lang}
+  title={s.meta.title}
+  description={s.meta.description}
+  alternate={{ en: paths.clientForm.en, es: paths.clientForm.es }}
+  noindex
+  hideMobileCta
+>
+  <section class="relative overflow-hidden border-b border-line" aria-labelledby="intake-title">
+    <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="container-x relative max-w-[880px] pt-14 pb-12 text-center lg:pt-20 lg:pb-14">
+      <h1 id="intake-title" class="display text-[clamp(2.3rem,5vw,4rem)]">{s.h1}</h1>
+      <p class="lede mx-auto mt-5 max-w-[56ch]">{s.sub}</p>
+    </div>
+  </section>
+
+  <section class="py-12 lg:py-16" aria-label={s.iframeTitle}>
+    <div class="container-x max-w-[880px]">
+      <div class="card overflow-hidden">
+        <iframe
+          title={s.iframeTitle}
+          src={FORM_URL}
+          loading="lazy"
+          allowfullscreen
+          class="block w-full border-0"
+          style="height: 1400px; max-width: 100%;"></iframe>
+      </div>
+      <p class="mx-auto mt-6 max-w-2xl text-center text-sm leading-relaxed text-muted">
+        {
+          parts.map((part) =>
+            part === EMAIL ? (
+              <a href={`mailto:${EMAIL}`} class={linkClass}>{part}</a>
+            ) : part === s.policy ? (
+              <a href={paths.privacy[lang]} class={linkClass}>{part}</a>
+            ) : (
+              part
+            ),
+          )
+        }
+      </p>
+    </div>
+  </section>
+</Base>
