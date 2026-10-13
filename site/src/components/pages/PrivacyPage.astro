@@ -114,6 +114,7 @@ const schema = [
                 }
                 return (
                   <p>
+                    {!IS_PRODUCTION && b.review && <Fragment set:html={`<!-- ${b.review} -->`} />}
                     {withEmail(b.text).map((part) => (part === PRIVACY_EMAIL ? <a href={`mailto:${part}`}>{part}</a> : part))}
                     {b.approval && (
                       <>

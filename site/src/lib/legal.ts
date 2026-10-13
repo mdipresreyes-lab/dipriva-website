@@ -8,6 +8,10 @@
  * 12-hour window in which the founder can hold or veto any post. The two
  * sentences that describe it carry `approval` and render with a REVIEW marker
  * in PrivacyPage.astro until Manuel confirms the wording.
+ *
+ * One addition (2026-10-13): one paragraph on Microsoft Bookings, which collects
+ * the name, email and phone a visitor enters. It carries `review` and renders
+ * with a REVIEW marker in QA builds until Manuel confirms the wording.
  */
 import type { Lang } from './copy';
 
@@ -15,8 +19,11 @@ import type { Lang } from './copy';
 export type Item = string | { text: string; approval: true };
 
 export type Block =
-  /** A paragraph. `approval` is the rewritten social approval sentence that ends it. */
-  | { kind: 'p'; text: string; approval?: string }
+  /**
+   * A paragraph. `approval` is the rewritten social approval sentence that ends it.
+   * `review` marks a whole paragraph that waits on Manuel; its text is the QA-only marker note.
+   */
+  | { kind: 'p'; text: string; approval?: string; review?: string }
   | { kind: 'ul'; items: Item[] }
   /** Text, then a link, then closing text (for example a period). */
   | { kind: 'link'; text: string; href: string; label: string; after: string };
@@ -71,6 +78,11 @@ export const privacy: Record<Lang, Policy> = {
           {
             kind: 'p',
             text: 'Business and financial information (client intake form). Clients who engage us and complete our intake form provide additional business information used to prepare their strategy. This may include business profile details and financial figures such as revenue, costs, cash reserves, debt, equity, marketing spend, and customer metrics. This information is collected only from clients who choose to complete the intake form as part of an engagement.',
+          },
+          {
+            kind: 'p',
+            text: 'If you book a strategy session through Microsoft Bookings, Microsoft Bookings collects the name, email address and phone number you enter, and Microsoft processes that information under its own privacy terms.',
+            review: 'REVIEW: Microsoft Bookings sentence, confirm with Manuel',
           },
         ],
       },
@@ -325,6 +337,11 @@ export const privacy: Record<Lang, Policy> = {
           {
             kind: 'p',
             text: 'Información empresarial y financiera (formulario de cliente). Los clientes que nos contratan y completan nuestro formulario de admisión proporcionan información empresarial adicional que se utiliza para preparar su estrategia. Esto puede incluir datos del perfil del negocio y cifras financieras como ingresos, costos, reservas de efectivo, deuda, patrimonio neto, gasto en marketing y métricas de clientes. Esta información se recopila únicamente de los clientes que deciden completar el formulario como parte de un servicio contratado.',
+          },
+          {
+            kind: 'p',
+            text: 'Si usted reserva una sesión de estrategia a través de Microsoft Bookings, Microsoft Bookings recopila el nombre, el correo electrónico y el número de teléfono que usted ingresa, y Microsoft procesa esa información conforme a sus propios términos de privacidad.',
+            review: 'REVIEW: Microsoft Bookings sentence, confirm with Manuel',
           },
         ],
       },
