@@ -5,6 +5,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse as parseYaml } from 'yaml';
+import { slashInternalLinks } from './lib/internalLinks.mjs';
 
 /**
  * Blog posts are Markdown files written in Claude Code sessions and merged to main:
@@ -119,7 +120,8 @@ function diprivaBlogLoader(sub: string, lang: 'en' | 'es'): Loader {
           id: d.slug,
           data,
           body,
-          rendered: await renderMarkdown(body),
+          // Internal links without a trailing slash are rewritten to the slash form.
+          rendered: await renderMarkdown(body).then((r) => ({ ...r, html: slashInternalLinks(r.html) })),
           digest: generateDigest(raw),
         });
       }

@@ -742,7 +742,13 @@ export const blogCopy: Record<
     back: string;
     home: string;
     undated: string;
-    share: { linkedin: string; email: string; copy: string; copied: string };
+    takeaways: string;
+    faq: string;
+    sources: string;
+    publishedOn: string;
+    retrievedOn: string;
+    updated: string;
+    share: { linkedin: string; facebook: string; x: string; email: string; copy: string; copied: string };
     ctaByCluster: Record<string, BlogCta>;
   }
 > = {
@@ -761,7 +767,13 @@ export const blogCopy: Record<
     back: 'All insights',
     home: 'Home',
     undated: 'Undated',
-    share: { linkedin: 'Share on LinkedIn', email: 'Share by email', copy: 'Copy link', copied: 'Link copied' },
+    takeaways: 'Key takeaways',
+    faq: 'Frequently asked questions',
+    sources: 'Sources',
+    publishedOn: 'Published',
+    retrievedOn: 'Retrieved',
+    updated: 'Updated',
+    share: { linkedin: 'Share on LinkedIn', facebook: 'Share on Facebook', x: 'Share on X', email: 'Share by email', copy: 'Copy link', copied: 'Link copied' },
     ctaByCluster: {
       'Corporate Strategy': {
         title: 'Proposals go quiet. Follow-up wins them back.',
@@ -798,7 +810,13 @@ export const blogCopy: Record<
     back: 'Todos los análisis',
     home: 'Inicio',
     undated: 'Sin fecha',
-    share: { linkedin: 'Compartir en LinkedIn', email: 'Compartir por correo', copy: 'Copiar enlace', copied: 'Enlace copiado' },
+    takeaways: 'Puntos clave',
+    faq: 'Preguntas frecuentes',
+    sources: 'Fuentes',
+    publishedOn: 'Publicado',
+    retrievedOn: 'Consultado',
+    updated: 'Actualizado',
+    share: { linkedin: 'Compartir en LinkedIn', facebook: 'Compartir en Facebook', x: 'Compartir en X', email: 'Compartir por correo', copy: 'Copiar enlace', copied: 'Enlace copiado' },
     ctaByCluster: {
       'Corporate Strategy': {
         title: 'Las propuestas se enfrían. El seguimiento las recupera.',
