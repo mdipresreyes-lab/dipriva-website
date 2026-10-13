@@ -1,0 +1,13 @@
+{
+  "_comment": "Posts that existed on 2026-10-13, before the blog gate. The gate warns about their unsourced figures and fails on the same problem in any other post. Do not add new slugs here: a new post must carry its sources. Spanish translations of these posts are covered through translationOf.",
+  "legacySlugs": [
+    "agentic-workflow-governance-autonomous-enterprise-execution",
+    "assortment-architecture-pruning-sku-supermarket-margins",
+    "autonomous-agent-governance-verification-gates-b2b",
+    "how-to-raise-prices-without-losing-best-clients",
+    "operational-capacity-architecture-decoupling-headcount-b2b-scale",
+    "quality-architecture-eliminating-cost-poor-quality-b2b",
+    "refine-before-you-automate-why-startups-must-architect-processes-before-deploying-ai",
+    "where-should-a-20-person-firm-use-ai-first"
+  ]
+}

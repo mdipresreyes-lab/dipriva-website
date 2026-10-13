@@ -5,12 +5,13 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/check-copy.mjs --sources && node scripts/check-lead-form.mjs && astro build && node scripts/check-copy.mjs && node scripts/write-edge-files.mjs",
+    "build": "node scripts/check-copy.mjs --sources && node scripts/check-lead-form.mjs && node scripts/check-blog.mjs && astro build && node scripts/check-copy.mjs && node scripts/write-edge-files.mjs",
     "build:production": "PUBLIC_DEPLOY_ENV=production npm run build",
     "preview": "astro preview",
     "check:copy": "node scripts/check-copy.mjs",
     "check:lead-form": "node scripts/check-lead-form.mjs",
-    "deploy:qa": "npm run build && npx --yes wrangler@4 deploy"
+    "deploy:qa": "npm run build && npx --yes wrangler@4 deploy",
+    "check:blog": "node scripts/check-blog.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
@@ -18,7 +19,8 @@
     "@fontsource-variable/playfair-display": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.8",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "yaml": "^2.9.1"
   },
   "engines": {
     "node": ">=22.12.0"
