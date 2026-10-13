@@ -118,7 +118,7 @@ Updated 2026-10-13, end of the completion session (tasks T1 to T8). Branch `rede
 
 **T5. Spanish blog.** Done. Spanish posts share the English `cluster` key and cite the same sources, quotes included; the gate enforces it. The two AI governance posts use different Spanish keywords so they do not compete. The sitemap lists each page but does not repeat the hreflang pairs; the pairs are in each page's `<head>`, which Google reads.
 
-**T6. Entity layer.** Done. `legalName`, `address`, `telephone`, `foundingDate` and the extra `sameAs` entries are deliberately absent (table under M6). Both `_redirects` lines for `/about` were removed, not only the 302, so `/about` and `/about/` cannot show different pages.
+**T6. Entity layer.** Done. On 2026-10-13 Manuel confirmed the company facts and they are in `coreGraph()` and the footer: `legalName` Manuel Diprés, address 2435 Eastern Ave SE, Suite 202, Grand Rapids, MI 49507, `foundingDate` 2019, and the Google Business Profile link in `sameAs`. Still absent on purpose: `telephone` and the Facebook and Instagram `sameAs` entries. Open items: (1) the Google Business Profile link is a `share.google` redirect, so replace it with the canonical Maps URL when Manuel has it; (2) the Teams team is named "Dipriva LLC", so if the business is registered as an LLC, `legalName` should be the registered name; (3) the address and the name must match the Google Business Profile exactly. Both `_redirects` lines for `/about` were removed, not only the 302, so `/about` and `/about/` cannot show different pages.
 
 **T7. Blog template.** Done. Deviation: Astro 7 renders Markdown with a new processor that no longer runs rehype plugins without an extra package, so the trailing slash rule for internal links runs on the rendered HTML in the content loader (`site/src/lib/internalLinks.mjs`). The OG endpoint throws on failure and fails the build (tested by removing a font file).
 
@@ -153,7 +153,7 @@ In Cloudflare, open Zero Trust, then Access, Applications, Add, Self-hosted. Set
   - phone, if any
   - founding date
   - your Google Business Profile URL
-- **TODO in code, waiting on these values (T6).** `coreGraph()` in `site/src/lib/site.ts` leaves these Organization fields out on purpose. Send the values and a session adds them in one commit; nothing is guessed.
+- **T6 values.** Applied 2026-10-13 for legal name, address, founding date and the Google Business Profile link (see T6). Still waiting on a phone number (or none) and the Facebook and Instagram URLs; a session adds them in one commit and nothing is guessed.
 
   | Field | What Manuel confirms | Where it will show |
   |---|---|---|

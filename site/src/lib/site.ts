@@ -35,15 +35,27 @@ export const schedulePath = (lang: Lang = 'en') => paths.schedule[lang];
 
 export const absolute = (path: string) => new URL(path, SITE_URL).toString();
 
+/** Confirmed by Manuel 2026-10-13. Must match the Google Business Profile word for word. */
+export const ADDRESS = {
+  street: '2435 Eastern Ave SE, Suite 202',
+  city: 'Grand Rapids',
+  region: 'MI',
+  postalCode: '49507',
+  country: 'US',
+} as const;
+export const FOUNDING_YEAR = '2019';
+export const LEGAL_NAME = 'Manuel Diprés';
+/** Google Business Profile share link as supplied. Swap for the canonical Maps URL when Manuel has it. */
+export const GBP_URL = 'https://share.google/i6bEORLkqwsgtNIe5';
+
 /** Names people search for. They belong in structured data, never in hidden page text. */
 export const ALTERNATE_NAMES = ['Dipriva', 'Dipriva Consulting'];
 
 /**
  * The organization, website and founder entities shared by every page.
  *
- * Left out on purpose until Manuel confirms them (docs/HANDOFF.md, M6): legalName, address,
- * telephone, foundingDate, and sameAs entries for the Facebook Page, the Instagram profile
- * (@dipriva_consulting_group) and the Google Business Profile. Do not guess them.
+ * Still left out until Manuel confirms them: telephone, and sameAs entries for the Facebook Page
+ * and the Instagram profile (@dipriva_consulting_group). Do not guess them.
  */
 export function coreGraph() {
   return [
@@ -52,6 +64,16 @@ export function coreGraph() {
       '@id': ORG_ID,
       name: 'Dipriva Consulting Group',
       alternateName: ALTERNATE_NAMES,
+      legalName: LEGAL_NAME,
+      foundingDate: FOUNDING_YEAR,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: ADDRESS.street,
+        addressLocality: ADDRESS.city,
+        addressRegion: ADDRESS.region,
+        postalCode: ADDRESS.postalCode,
+        addressCountry: ADDRESS.country,
+      },
       url: `${SITE_URL}/`,
       logo: absolute('/apple-touch-icon.png'),
       image: absolute('/og-image.png'),
@@ -61,7 +83,7 @@ export function coreGraph() {
       areaServed: { '@type': 'Country', name: 'United States' },
       knowsLanguage: ['en', 'es'],
       knowsAbout: ['Corporate Strategy', 'Startup Operations', 'AI and Automation', 'Business Process Automation'],
-      sameAs: [LINKEDIN_COMPANY],
+      sameAs: [LINKEDIN_COMPANY, GBP_URL],
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'sales',

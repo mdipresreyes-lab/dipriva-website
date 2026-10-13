@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import { copy, type Lang } from '../lib/copy';
-import { CONTACT_EMAIL, LINKEDIN_COMPANY, homePath } from '../lib/site';
+import { ADDRESS, CONTACT_EMAIL, LINKEDIN_COMPANY, homePath } from '../lib/site';
 
 interface Props {
   lang: Lang;
@@ -82,6 +82,12 @@ const year = new Date().getFullYear();
               <Icon name="mail" size={16} />
               {CONTACT_EMAIL}
             </a>
+          </li>
+          <li class="not-italic leading-relaxed text-muted">
+            <address class="not-italic">
+              {ADDRESS.street}<br />
+              {ADDRESS.city}, {ADDRESS.region} {ADDRESS.postalCode}
+            </address>
           </li>
           <li>
             <a
