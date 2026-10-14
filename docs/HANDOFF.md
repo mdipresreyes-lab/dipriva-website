@@ -336,3 +336,26 @@ Read-only audit by Claude in Chrome. Findings and what was done:
 - **Business Profile:** still shows "Get verified". Manuel is completing it (Google asks for a live video of the building).
 - **Soft 404 and redirect groups in Search Console** (old `/es`, `/about`, `/home-716983` and so on) are legacy and should clear as Google re-crawls.
 
+### Baseline table for the 30-day and 90-day checks
+
+Launch was 2026-10-13. The launch column holds only what was observed and written down on 2026-10-13 and 2026-10-14. A blank cell means it was not recorded at launch: fill it in at the first check and treat that check as the baseline for that row. Calendar reminders: Fri 2026-10-16 (sitemap count), Wed 2026-10-28 (Validate fix decision), Thu 2026-11-12 (30 days), Mon 2027-01-11 (90 days).
+
+| Measure | Launch (2026-10-13 and 14) | 30 days (2026-11-12) | 90 days (2027-01-11) |
+|---|---|---|---|
+| Google, "dipriva consulting" | dipriva.com ranks 1 | | |
+| Google, "dipriva consulting group" | dipriva.com ranks 1 | | |
+| Bing, "dipriva consulting" and "dipriva consulting group" | dipriva.com in the top 3 | | |
+| Google and Bing, bare "dipriva" | Rewritten to "diprivan" (propofol); page 1 is all drug content. Not a target | | |
+| Google sitemap-index.xml | Submitted 2026-10-13; first "Couldn't fetch", then Success, 0 pages discovered. Old sitemap.xml: Success, 44 pages | Expect 44 | |
+| Bing sitemap-index.xml | Success, 1 URL discovered (child sitemap) | | |
+| Google index status | Home indexed. Indexing requested for the three lead pages, /about/, /about/manuel-dipres/, /es/ and the three service pages plus /services/ (except /services/ai-automation/, already indexed). Spanish service pages still to request | Indexed count: | Indexed count: |
+| Search Console Soft 404 and Page with redirect groups | Present (legacy URLs). Validate fix not clicked | Count: | Count and Validate fix result: |
+| Search Console performance (28 days) | Not recorded | Clicks, impressions, top 5 queries: | Clicks, impressions, top 10 queries: |
+| Bing AI answer (Copilot) | Repeats the wrong phone (616) 896-5888 from the chamber listing | | |
+| ChatGPT, Gemini, Perplexity answers to "What is Dipriva Consulting Group?" | Not recorded | | |
+| Chamber listing (hccwm.chambermaster.com) | 3645 Maplehurst Drive SE, Grand Rapids, MI 49512, phone (616) 896-5888. Correct address is 2435 Eastern Ave SE Suite 202, MI 49507 | Fixed? | Fixed? |
+| Google Business Profile | "Get verified". Live video of the building pending | Verified? Address matches? | |
+| Leads from search | Not recorded | | Count and source: |
+
+Success at 90 days: both brand-plus-descriptor queries rank 1 to 3 on Google and Bing, AI answers state 10 to 500 employees and the Eastern Ave address and cite dipriva.com, and no current page is in the Soft 404 group.
+
