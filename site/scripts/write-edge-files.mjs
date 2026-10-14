@@ -20,6 +20,8 @@ function pagePaths(dir = dist, base = '') {
   }
   return out;
 }
+const indexNowKey = fs.readdirSync(dist).find((f) => /^[a-f0-9]{32}\.txt$/.test(f));
+const indexNowKeyHeaders = indexNowKey ? [`/${indexNowKey}`, '  X-Robots-Tag: noindex', ''] : [];
 const slashRedirects = pagePaths()
   .filter((p) => !p.startsWith('/_astro/'))
   .sort()
@@ -37,6 +39,8 @@ const headers = [
   '/llms.txt',
   '  Content-Type: text/plain; charset=utf-8',
   '',
+  // The IndexNow key file is public on purpose; keep it out of search results.
+  ...indexNowKeyHeaders,
   '/_astro/*',
   '  Cache-Control: public, max-age=31536000, immutable',
   '',

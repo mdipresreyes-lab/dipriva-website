@@ -319,5 +319,20 @@ Manuel tested qa.dipriva.com and asked for these changes. All are done on `redes
 
 ## Post-launch check list: items to look at later
 
-- **admin.dipriva.com is answering crawlers.** Cloudflare's AI Crawl Control (2026-10-13, last 7 days) lists `admin.dipriva.com/sitemap.xml` as the most crawled path, with 60 successful requests. That means the private CRM's address returns a successful response to crawlers, so its login page or app shell may be publicly visible and could be indexed by Google. Nothing was changed: the CRM is off limits to sessions, and Manuel decides. What to look at: open the address in a private window and see what it shows; search Google for `site:admin.dipriva.com`; if anything is indexed, ask for it to be kept out of search (a `noindex` response header or Cloudflare Access in front of it). Do this after the launch, before spending effort on branded search, because it could show up for searches on "Dipriva".
+- **(Closed 2026-10-14: nothing found in Google, Bing or Search Console. See the search check section.) admin.dipriva.com is answering crawlers.** Cloudflare's AI Crawl Control (2026-10-13, last 7 days) lists `admin.dipriva.com/sitemap.xml` as the most crawled path, with 60 successful requests. That means the private CRM's address returns a successful response to crawlers, so its login page or app shell may be publicly visible and could be indexed by Google. Nothing was changed: the CRM is off limits to sessions, and Manuel decides. What to look at: open the address in a private window and see what it shows; search Google for `site:admin.dipriva.com`; if anything is indexed, ask for it to be kept out of search (a `noindex` response header or Cloudflare Access in front of it). Do this after the launch, before spending effort on branded search, because it could show up for searches on "Dipriva".
+
+## Search Console and Bing check (2026-10-14, after launch)
+
+Read-only audit by Claude in Chrome. Findings and what was done:
+
+- **The collision is with Diprivan, not "Diprivian".** Google and Bing rewrite "dipriva" and "diprivian" to "diprivan", the propofol brand, and page 1 is all drug content. Google already ranks dipriva.com first for "dipriva consulting" and "dipriva consulting group"; Bing has it in the top three. The bare word "dipriva" cannot realistically be owned, so success is measured on the two brand-plus-descriptor queries. `llms.txt` and the privacy identity note were corrected (done 2026-10-14): `llms.txt` names Diprivan; the privacy note says "any company or product of a similar name".
+- **admin.dipriva.com does not appear** in Google, Bing, Search Console pages, performance or crawl hosts. The earlier crawler finding is closed. (Keep an eye on it: it was reported by Cloudflare as answering crawlers.)
+- **Sitemaps:** Google and Bing only know the old `/sitemap.xml`. Manuel submits `sitemap-index.xml` in both (Search Console, Sitemaps; Bing, Sitemaps).
+- **Request indexing** in Search Console for the home page, the three service pages and the three lead pages.
+- **Do not click "Validate fix"** on the Soft 404 group in Search Console for about two weeks, until Google has re-read the new pages.
+- **Old pages Bing still lists:** `/approach` and `/inquire`. They return 404 on purpose (Manuel does not want them). Remove them from Bing with Block URLs; Google does not list them.
+- **IndexNow** is set up: a public key file at the site root, `site/scripts/indexnow.mjs`, and a step at the end of "Deploy production site" that sends every indexable page to Bing and the other IndexNow engines. Google does not use IndexNow.
+- **Address and phone mismatch (Manuel):** the Hispanic Chamber of West Michigan listing shows 3645 Maplehurst Drive SE, Grand Rapids, MI 49512 and the phone (616) 896-5888, and Bing's AI answer repeats that phone. The site uses 2435 Eastern Ave SE Suite 202 and shows no phone. Update the chamber listing.
+- **Business Profile:** still shows "Get verified". Manuel is completing it (Google asks for a live video of the building).
+- **Soft 404 and redirect groups in Search Console** (old `/es`, `/about`, `/home-716983` and so on) are legacy and should clear as Google re-crawls.
 
