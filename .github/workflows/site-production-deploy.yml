@@ -61,6 +61,12 @@ jobs:
           check "API token is valid" "https://api.cloudflare.com/client/v4/user/tokens/verify"
           check "Account ID matches this token and can list Workers" "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/scripts"
           check "Token can see the dipriva.com zone" "https://api.cloudflare.com/client/v4/zones?name=dipriva.com"
+          ZONE_ID=$(jq -r '.result[0].id // empty' /tmp/cf.json)
+          if [ -z "$ZONE_ID" ]; then
+            echo "Could not read the dipriva.com zone id."
+            exit 1
+          fi
+          check "Token can read Workers Routes on dipriva.com (Edit is needed to publish)" "https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/workers/routes"
           exit $ok
       - name: Deploy to www.dipriva.com
         run: npx --yes wrangler@4 deploy --env production
