@@ -50,6 +50,8 @@ const redirects = [
   // Retired posts (2026-10-13: written for solo founders, outside the 10 to 500 employee audience).
   '/blog/architect-the-micro-multinational-scaling-global-enterprise-without-headcount-drag/ /blog/operational-capacity-architecture-decoupling-headcount-b2b-scale/ 301',
   '/blog/architect-the-micro-multinational-scaling-global-enterprise-without-headcount-drag /blog/operational-capacity-architecture-decoupling-headcount-b2b-scale/ 301',
+  // The old hand-written sitemap address. Search engines may still have it on file.
+  '/sitemap.xml /sitemap-index.xml 301',
   // The old AI-crawler mirror. Remove the Cloudflare Transform Rule at cutover.
   '/bot/* /:splat 301',
   '',

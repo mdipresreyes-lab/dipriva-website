@@ -208,29 +208,33 @@ Dates inferred because the cited page shows none: the Chamber of Commerce summar
 
 ## 6. Cutover checklist (production switch, same day)
 
-Do this only after QA passes. Order matters.
+Do this only after the QA test list passes (docs/CUTOVER-TEST-CHECKLIST.md). The plan is built so nothing changes until you press one button, and undoing it takes one click.
 
-1. Freeze blog pushes to `main` for the day. If any downtime is possible, set `unsubscribe.enabled: false` in dipriva-growth first.
-2. Merge `redesign` into `main` through a PR. Replace `deploy-pages.yml` with a production deploy: `PUBLIC_DEPLOY_ENV=production npm run build`, then `wrangler deploy --env production`.
-3. In Cloudflare DNS, remove the `www` CNAME to GitHub Pages. The production deploy attaches `www.dipriva.com` to the Worker.
-4. **Delete the Transform Rule that sends GPTBot, ClaudeBot and PerplexityBot to `/bot/*`.** If it stays, AI crawlers never see the new pages.
-5. **Delete the redirect rule from `/es` to `/`.** The Spanish home now lives at `/es/`.
-6. **Delete the redirect rule from `/about` to `/about/manuel-dipres`.** `/about/` is now the company page and the site's own `_redirects` no longer redirects it. Left in place, the rule would keep sending visitors to the founder page. Keep the rule that sends apex `dipriva.com` to `www`, and keep HTTPS forced.
-7. Confirm Security, Bots does not block AI crawlers.
-8. Smoke test. Each URL must return 200, or one 301 to the slash form with the query string kept: Run `cd site && node scripts/smoke-test.mjs https://www.dipriva.com --production --redirects` and expect zero failures. The full test list is in `docs/CUTOVER-TEST-CHECKLIST.md`.
-   - `/strategy?utm_source=linkedin`, `/startup`, `/ai-automation`
-   - `/schedule`, `/privacy`, `/about/manuel-dipres`
-   - `/unsubscribe/?t=000000000000.00000000000000000000`
-   - `/downloads/dipriva-sales-follow-up-kit-en.pdf`
-   - all 8 English posts, the 8 Spanish posts under `/es/blog/`, and the deleted post's URL (expect a 301)
-   - `/about/`, `/es/nosotros/`, `/industries/west-michigan/`, `/es/industrias/oeste-de-michigan/`, `/es/blog/`
-   - one OG image, for example `/og/where-should-a-20-person-firm-use-ai-first.png` (expect 200, `image/png`)
-   - `/llms.txt`, `/robots.txt`, `/sitemap-index.xml`
-9. Submit one real lead on `/strategy/`. Confirm the Teams Leads card arrives and "Sync inbound leads" picks it up in dipriva-admin.
-10. In Search Console, submit the new sitemap and request indexing for home, the 3 service pages and the 3 lead pages.
-11. Keep GitHub Pages deployable for 7 days. To roll back, re-add the CNAME.
+How it works: the production site is a Cloudflare Worker attached to www.dipriva.com by a route. The existing DNS record to GitHub Pages stays in place, so there is no DNS change and no gap. Rollback is deleting the route.
 
----
+Before the day:
+1. In dipriva-social, review pull request 13 (audience figure, labelled `hold`). Merge it or leave it, but decide.
+2. Confirm the Cloudflare API token can edit Workers Routes on the dipriva.com zone (the QA deploy already proved it can see the zone; a route needs Workers Routes: Edit).
+3. Pick a quiet time. Avoid Friday around 18:00 UTC, when the weekly social drafter runs, and avoid any hour when an outreach email batch goes out.
+
+On the day, in this order:
+1. Freeze: no blog pushes to `main`. If any downtime is possible, set `unsubscribe.enabled: false` in dipriva-growth first.
+2. Merge `redesign` into `main` through a pull request. The merge does not publish anything: the old GitHub Pages deploy is now manual-only and the new production deploy is manual-only.
+3. In Cloudflare, delete these three rules (they would otherwise intercept the new site):
+   - the Transform Rule that rewrites GPTBot, ClaudeBot and PerplexityBot to `/bot/*`
+   - the redirect from `/es` to `/`
+   - the redirect from `/about` to `/about/manuel-dipres`
+   Keep the rule that sends apex `dipriva.com` to `www`, and keep HTTPS forced. Also confirm Security, Bots does not block AI crawlers.
+4. In GitHub, open Actions, pick "Deploy production site", click Run workflow on `main`, type `deploy`. It builds in production mode, checks the Cloudflare credentials, publishes, waits 30 seconds, and runs the smoke test against the live site. Expect zero failures.
+5. Open https://www.dipriva.com in a private window and click through home, a lead page, schedule and a blog post.
+6. Submit one real lead on `/strategy/` marked TEST. A Teams card appears in Leads and "Sync inbound leads" in dipriva-admin picks it up. Delete the test lead afterward.
+7. Open Lea on the live site and ask to speak to the team with test details. The email to manuel@ arrives and the Microsoft 365 list gets a row.
+8. Accept cookies and confirm your visit in Google Analytics Realtime. Reject and confirm it does not appear.
+9. Ask the social post verifier to check one week-43 package so it fetches the new lead pages.
+10. Set up M5 (protect `main`) with Claude, click by click.
+11. Search Console: submit `https://www.dipriva.com/sitemap-index.xml` and request indexing for home, the three service pages and the three lead pages.
+
+Rollback, any time in the first 7 days: in Cloudflare, open Workers & Pages, `dipriva-site`, Settings, Domains and Routes, and delete the route `www.dipriva.com/*`. The old site answers again within seconds. Then tell Claude what failed.
 
 ## 7. SEO and GEO plan
 

@@ -149,6 +149,7 @@ if (redirects) {
     ['/blog/architect-the-micro-multinational-scaling-global-enterprise-without-headcount-drag/', 301, '/blog/operational-capacity-architecture-decoupling-headcount-b2b-scale/'],
     ['/unsubscribe/?t=000000000000.00000000000000000000', 200, null],
     ['/es', 301, '/es/'],
+    ['/sitemap.xml', 301, '/sitemap-index.xml'],
   ];
   for (const [from, status, to] of expect) {
     const res = await get(base + from);

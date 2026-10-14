@@ -1,10 +1,18 @@
 // Static hosting for the Astro build on Cloudflare Workers (static assets).
-// Default environment = QA at qa.dipriva.com. The production environment is
-// defined for cutover only; nothing deploys it automatically.
+//
+// Default environment = QA at qa.dipriva.com (behind Cloudflare Access).
+// The "production" environment serves www.dipriva.com through a Worker ROUTE,
+// not a custom domain. That keeps the existing proxied DNS record in place, so:
+//   - deploying needs no DNS change and causes no gap,
+//   - rolling back is deleting the route (GitHub Pages answers again).
+// Neither environment is reachable on a workers.dev address, so QA cannot be
+// opened around its Access lock.
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "dipriva-site-qa",
   "compatibility_date": "2026-09-01",
+  "workers_dev": false,
+  "preview_urls": false,
   "assets": {
     "directory": "./dist",
     // /schedule serves /schedule/ with one redirect, matching trailingSlash: 'always'.
@@ -15,7 +23,14 @@
   "env": {
     "production": {
       "name": "dipriva-site",
-      "routes": [{ "pattern": "www.dipriva.com", "custom_domain": true }]
+      "workers_dev": false,
+      "preview_urls": false,
+      "assets": {
+        "directory": "./dist",
+        "html_handling": "auto-trailing-slash",
+        "not_found_handling": "404-page"
+      },
+      "routes": [{ "pattern": "www.dipriva.com/*", "zone_name": "dipriva.com" }]
     }
   }
 }
