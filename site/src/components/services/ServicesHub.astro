@@ -1,0 +1,104 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../Icon.astro';
+import ServiceVisual from './ServiceVisual.astro';
+import { copy, type Lang } from '../../lib/copy';
+import { services, serviceLabels, servicePath, servicesHubPath } from '../../lib/services';
+import { ORG_ID, WEBSITE_ID, absolute, homePath, schedulePath } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const L = serviceLabels[lang];
+const t = copy[lang];
+const url = absolute(servicesHubPath(lang));
+
+const schema = [
+  {
+    '@type': 'CollectionPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: L.hubTitle,
+    description: L.hubDescription,
+    inLanguage: lang,
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORG_ID },
+    hasPart: services.map((s) => ({ '@id': `${absolute(servicePath(s, 'en'))}#service` })),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: L.home, item: absolute(homePath(lang)) },
+      { '@type': 'ListItem', position: 2, name: L.services, item: url },
+    ],
+  },
+];
+---
+
+<Base
+  lang={lang}
+  title={L.hubTitle}
+  description={L.hubDescription}
+  alternate={{ en: servicesHubPath('en'), es: servicesHubPath('es') }}
+  schema={schema}
+>
+  <section class="relative overflow-hidden border-b border-line" aria-labelledby="hub-title">
+    <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="container-x relative pt-12 pb-16 lg:pt-16 lg:pb-20">
+      <nav aria-label="Breadcrumb" class="text-sm text-muted">
+        <ol class="flex items-center gap-2">
+          <li><a href={homePath(lang)} class="hover:text-ink">{L.home}</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-ink">{L.services}</li>
+        </ol>
+      </nav>
+      <h1 id="hub-title" class="display mt-8 max-w-[20ch] text-[clamp(2.3rem,5vw,4.2rem)]">{L.hubH1}</h1>
+      <p class="lede mt-6 max-w-[60ch]">{L.hubIntro}</p>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-24">
+    <div class="container-x space-y-4">
+      {
+        services.map((s, i) => (
+          <article class="card spotlight reveal group grid items-center gap-8 overflow-hidden p-7 sm:p-10 lg:grid-cols-[1fr_340px]" style={`--d: ${i * 80}ms`}>
+            <div>
+              <p class="eyebrow">{s[lang].name}</p>
+              <h2 class="mt-4 font-display text-[clamp(1.6rem,2.8vw,2.3rem)] leading-tight font-semibold">
+                <a href={servicePath(s, lang)} class="after:absolute after:inset-0">
+                  {s[lang].h1}
+                </a>
+              </h2>
+              <p class="mt-4 max-w-[62ch] leading-relaxed text-muted">{s[lang].summary}</p>
+              <span class="mt-6 inline-flex items-center gap-2 font-semibold">
+                {L.explore} {s[lang].name}
+                <Icon name="arrow" size={16} class="transition-transform group-hover:translate-x-1" />
+              </span>
+            </div>
+            <div class="hidden lg:block">
+              <ServiceVisual kind={s.key} labels={s[lang].visual} />
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="pb-24 lg:pb-32">
+    <div class="container-x">
+      <div class="band reveal relative overflow-hidden rounded-[32px] px-6 py-16 sm:px-12 lg:px-16">
+        <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+        <div class="relative max-w-3xl">
+          <h2 class="display text-[clamp(2.2rem,4.6vw,3.8rem)]">{t.final.h2}</h2>
+          <p class="lede mt-6 max-w-[52ch]">{t.final.body}</p>
+          <a href={schedulePath(lang)} class="btn btn-primary mt-9">
+            {L.cta}
+            <Icon name="arrow" size={18} class="arrow" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

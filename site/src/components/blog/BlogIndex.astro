@@ -1,0 +1,180 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../Icon.astro';
+import { blogCopy } from '../../lib/copy';
+import type { Lang } from '../../lib/copy';
+import { blogIndexPath, clusterLabel, getPosts, isoDay, postPath } from '../../lib/blog';
+import { FOUNDER_ID, ORG_ID, WEBSITE_ID, absolute, formatDate, homePath, readingMinutes } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const b = blogCopy[lang];
+const posts = await getPosts(lang);
+const clusters = [...new Set(posts.map((p) => p.data.cluster))];
+const [featured, ...rest] = posts;
+const indexUrl = absolute(blogIndexPath(lang));
+
+const schema = [
+  {
+    '@type': 'Blog',
+    '@id': `${indexUrl}#blog`,
+    url: indexUrl,
+    name: b.title,
+    description: b.description,
+    inLanguage: lang,
+    isPartOf: { '@id': WEBSITE_ID },
+    publisher: { '@id': ORG_ID },
+    blogPost: posts.map((p) => ({
+      '@type': 'BlogPosting',
+      headline: p.data.title,
+      url: absolute(postPath(lang, p.id)),
+      datePublished: isoDay(p.data.date),
+      author: { '@id': FOUNDER_ID },
+    })),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: b.home, item: absolute(homePath(lang)) },
+      { '@type': 'ListItem', position: 2, name: b.title, item: indexUrl },
+    ],
+  },
+];
+---
+
+<Base lang={lang} title={b.metaTitle} description={b.description} alternate={{ en: blogIndexPath('en'), es: blogIndexPath('es') }} schema={schema}>
+  <section class="relative overflow-hidden border-b border-line">
+    <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="container-x relative pt-16 pb-14 lg:pt-24 lg:pb-20">
+      <nav aria-label="Breadcrumb" class="text-sm text-muted">
+        <ol class="flex items-center gap-2">
+          <li><a href={homePath(lang)} class="hover:text-ink">{b.home}</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-ink">{b.title}</li>
+        </ol>
+      </nav>
+      <h1 class="display mt-8 max-w-[18ch] text-[clamp(2.4rem,5.4vw,4.6rem)]">{b.h1}</h1>
+      <p class="lede mt-6 max-w-[56ch]">{b.intro}</p>
+
+      <div class="blog-filters mt-10 flex flex-wrap gap-2" role="group" aria-label={lang === 'es' ? 'Filtrar por tema' : 'Filter by topic'} hidden>
+        <button type="button" class="chip" data-filter="all" aria-pressed="true">{b.all}</button>
+        {
+          clusters.map((c) => (
+            <button type="button" class="chip" data-filter={c} aria-pressed="false">
+              {clusterLabel(lang, c)}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-20">
+    <div class="container-x">
+      {
+        featured && (
+          <article class="post-card card spotlight reveal group grid overflow-hidden lg:grid-cols-2" data-cluster={featured.data.cluster}>
+            <div class="band relative min-h-56 overflow-hidden">
+              <div class="grid-paper absolute inset-0" aria-hidden="true" />
+              <p class="absolute bottom-6 left-6 font-display text-[clamp(4rem,9vw,7rem)] leading-none font-semibold text-on-band/15" aria-hidden="true">
+                {featured.data.cluster.split(' ').map((w) => w[0]).join('')}
+              </p>
+              <span class="absolute top-6 left-6 rounded-full border border-line px-3 py-1 text-xs font-semibold tracking-wide text-on-band">
+                {clusterLabel(lang, featured.data.cluster)}
+              </span>
+            </div>
+            <div class="flex flex-col p-7 sm:p-10">
+              <p class="text-sm text-muted">
+                {formatDate(featured.data.date, lang) ?? b.undated} · {readingMinutes(featured.data.words)} {b.minRead}
+              </p>
+              <h2 class="mt-4 font-display text-[clamp(1.6rem,2.6vw,2.2rem)] leading-tight font-semibold">
+                <a href={postPath(lang, featured.id)} class="after:absolute after:inset-0">
+                  {featured.data.title}
+                </a>
+              </h2>
+              <p class="mt-4 leading-relaxed text-muted">{featured.data.description}</p>
+              <span class="mt-auto inline-flex items-center gap-2 pt-8 font-semibold">
+                {b.by} {featured.data.author}
+                <Icon name="arrow" size={16} class="transition-transform group-hover:translate-x-1" />
+              </span>
+            </div>
+          </article>
+        )
+      }
+
+      <div class="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {
+          rest.map((post, i) => (
+            <article class="post-card card spotlight reveal group flex flex-col p-7" style={`--d: ${(i % 3) * 80}ms`} data-cluster={post.data.cluster}>
+              <div class="flex items-center justify-between gap-3 text-xs text-muted">
+                <span class="rounded-full border border-line px-3 py-1 font-semibold tracking-wide">{clusterLabel(lang, post.data.cluster)}</span>
+                <span>
+                  {readingMinutes(post.data.words)} {b.minRead}
+                </span>
+              </div>
+              <h2 class="mt-6 font-display text-xl leading-snug font-semibold">
+                <a href={postPath(lang, post.id)} class="after:absolute after:inset-0">
+                  {post.data.title}
+                </a>
+              </h2>
+              <p class="mt-3 line-clamp-3 text-[0.95rem] leading-relaxed text-muted">{post.data.description}</p>
+              <div class="mt-auto flex items-center justify-between pt-8 text-sm text-muted">
+                <span>{formatDate(post.data.date, lang) ?? b.undated}</span>
+                <Icon name="arrowUpRight" size={18} class="text-ink transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .post-card[hidden],
+  .blog-filters[hidden] {
+    display: none !important;
+  }
+  .chip {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--muted);
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
+  }
+  .chip:hover {
+    border-color: var(--line-strong);
+    color: var(--ink);
+  }
+  .chip[aria-pressed='true'] {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: var(--on-brand);
+  }
+</style>
+
+<script>
+  const group = document.querySelector<HTMLElement>('.blog-filters');
+  if (group) {
+    group.hidden = false;
+    const chips = group.querySelectorAll<HTMLButtonElement>('[data-filter]');
+    const cards = document.querySelectorAll<HTMLElement>('.post-card');
+    chips.forEach((chip) =>
+      chip.addEventListener('click', () => {
+        const value = chip.dataset.filter;
+        chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+        cards.forEach((card) => {
+          card.hidden = value !== 'all' && card.dataset.cluster !== value;
+        });
+      }),
+    );
+  }
+</script>

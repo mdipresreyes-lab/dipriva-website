@@ -1,0 +1,226 @@
+{
+  "_source": "Copy of dipriva-social/config/brand-rules.json (bannedTerms and warnTerms). Keep both in sync; scripts/check-copy.mjs warns on drift when the social repo sits next to this one.",
+  "bannedTerms": [
+    {
+      "label": "leverage",
+      "pattern": "leverag(e|es|ed|ing)",
+      "langs": [
+        "en",
+        "es"
+      ]
+    },
+    {
+      "label": "synergy",
+      "pattern": "synerg(y|ies)",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "sinergia",
+      "pattern": "sinergias?",
+      "langs": [
+        "es"
+      ]
+    },
+    {
+      "label": "holistic",
+      "pattern": "holistic(ally)?",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "holistico",
+      "pattern": "hol[ií]stic[oa]s?",
+      "langs": [
+        "es"
+      ]
+    },
+    {
+      "label": "empower",
+      "pattern": "empower(s|ed|ing|ment)?",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "empoderar",
+      "pattern": "empoder\\w*",
+      "langs": [
+        "es"
+      ]
+    },
+    {
+      "label": "journey",
+      "pattern": "journeys?",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "ecosystem",
+      "pattern": "ecosystems?",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "ecosistema",
+      "pattern": "ecosistemas?",
+      "langs": [
+        "es"
+      ]
+    },
+    {
+      "label": "game-changer",
+      "pattern": "game[- ]?changers?",
+      "langs": [
+        "en",
+        "es"
+      ]
+    },
+    {
+      "label": "innovative",
+      "pattern": "innovative",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "innovador",
+      "pattern": "innovador(a|es|as)?",
+      "langs": [
+        "es"
+      ]
+    },
+    {
+      "label": "cutting-edge",
+      "pattern": "cutting[- ]edge",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "de vanguardia",
+      "pattern": "de vanguardia",
+      "langs": [
+        "es"
+      ]
+    },
+    {
+      "label": "passionate",
+      "pattern": "passionate",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "apasionado",
+      "pattern": "apasionad[oa]s?",
+      "langs": [
+        "es"
+      ]
+    },
+    {
+      "label": "dynamic",
+      "pattern": "dynamic",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "dinamico",
+      "pattern": "din[aá]mic[oa]s?",
+      "langs": [
+        "es"
+      ]
+    },
+    {
+      "label": "solution provider",
+      "pattern": "solution[- ]providers?",
+      "langs": [
+        "en"
+      ]
+    }
+  ],
+  "warnTerms": [
+    {
+      "label": "hedge: might",
+      "pattern": "might",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "hedge: could potentially",
+      "pattern": "could potentially",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "hedge: seems like",
+      "pattern": "seems like",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "hedge: kind of",
+      "pattern": "kind of",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "hedge: sort of",
+      "pattern": "sort of",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "hedge: quizas",
+      "pattern": "quiz[aá]s",
+      "langs": [
+        "es"
+      ]
+    },
+    {
+      "label": "hedge: tal vez",
+      "pattern": "tal vez",
+      "langs": [
+        "es"
+      ]
+    },
+    {
+      "label": "filler: unlock",
+      "pattern": "unlock(s|ed|ing)?",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "filler: delve",
+      "pattern": "delv(e|es|ed|ing)",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "filler: dive into",
+      "pattern": "dive into",
+      "langs": [
+        "en"
+      ]
+    },
+    {
+      "label": "filler: in today's",
+      "pattern": "in today['’]s",
+      "langs": [
+        "en"
+      ]
+    }
+  ]
+}

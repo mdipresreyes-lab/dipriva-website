@@ -1,0 +1,138 @@
+---
+import { copy, type Lang } from '../../lib/copy';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang].method;
+
+// Five levers on a pentagon around the 90-day roadmap hub.
+const cx = 200;
+const cy = 200;
+const R = 148;
+const nodeR = 41;
+const hubR = 54;
+const nodes = t.levers.map((lever, i) => {
+  const angle = ((-90 + i * 72) * Math.PI) / 180;
+  const x = cx + R * Math.cos(angle);
+  const y = cy + R * Math.sin(angle);
+  const dx = (cx - x) / R;
+  const dy = (cy - y) / R;
+  const label = t.nodeLabels[i];
+  return {
+    key: lever.key,
+    x,
+    y,
+    lines: Array.isArray(label) ? label : [label],
+    from: { x: x + dx * (nodeR + 4), y: y + dy * (nodeR + 4) },
+    to: { x: cx - dx * (hubR + 12), y: cy - dy * (hubR + 12) },
+  };
+});
+const f = (n: number) => n.toFixed(1);
+---
+
+<section id="method" class="method py-24 lg:py-32" aria-labelledby="method-title">
+  <div class="container-x">
+    <div class="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+      <div>
+        <p class="section-label reveal"><span class="num">03</span>{t.label}</p>
+        <h2 id="method-title" class="h2 reveal mt-6" style="--d: 80ms">{t.h2}</h2>
+        <p class="lede reveal mt-6 max-w-[52ch]" style="--d: 140ms">{t.intro}</p>
+        <ul class="mt-10 divide-y divide-line border-y border-line">
+          {
+            t.levers.map((lever, i) => (
+              <li class="lever-item reveal grid grid-cols-[2rem_1fr] gap-4 py-4" data-lever={lever.key} style={`--d: ${i * 60}ms`}>
+                <span class="pt-0.5 text-sm font-semibold text-muted tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                <span>
+                  <span class="block font-semibold">{lever.name}</span>
+                  <span class="mt-0.5 block text-[0.95rem] text-muted">{lever.body}</span>
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="reveal relative mx-auto w-full max-w-[520px]" style="--d: 120ms">
+        <div class="grid-paper absolute inset-[6%] rounded-full opacity-80 [mask-image:radial-gradient(circle,#000_55%,transparent_72%)]" aria-hidden="true"></div>
+        <svg viewBox="0 0 400 400" class="relative w-full" role="img" aria-labelledby="lever-svg-title">
+          <title id="lever-svg-title">{t.h2}</title>
+          {
+            nodes.map((n, i) => (
+              <g>
+                <line class="lever-link" x1={f(n.from.x)} y1={f(n.from.y)} x2={f(n.to.x)} y2={f(n.to.y)} />
+                <line
+                  class="lever-pulse"
+                  x1={f(n.from.x)}
+                  y1={f(n.from.y)}
+                  x2={f(n.to.x)}
+                  y2={f(n.to.y)}
+                  pathLength="100"
+                  style={`--d: ${(i * 0.64).toFixed(2)}s`}
+                />
+              </g>
+            ))
+          }
+          <circle class="hub-ring" cx={cx} cy={cy} r={hubR + 12} />
+          <circle cx={cx} cy={cy} r={hubR} style="fill: var(--brand)" />
+          <text x={cx} y={cy - 4} text-anchor="middle" style="fill: var(--on-brand); font-family: var(--font-playfair); font-size: 15px; font-weight: 600">
+            {t.center[0]}
+          </text>
+          <text x={cx} y={cy + 15} text-anchor="middle" style="fill: var(--on-brand); font-family: var(--font-playfair); font-size: 15px; font-style: italic">
+            {t.center[1]}
+          </text>
+          {
+            nodes.map((n) => (
+              <g class="lever-node" data-k={n.key}>
+                <circle cx={f(n.x)} cy={f(n.y)} r={nodeR} />
+                {n.lines.map((line, j) => (
+                  <text x={f(n.x)} y={f(n.y + 4 + (j - (n.lines.length - 1) / 2) * 14)} text-anchor="middle">
+                    {line}
+                  </text>
+                ))}
+              </g>
+            ))
+          }
+        </svg>
+      </div>
+    </div>
+
+    <ol class="mt-20 grid gap-px overflow-hidden rounded-[22px] border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+      {
+        t.steps.map((step, i) => (
+          <li class="reveal bg-paper p-7" style={`--d: ${i * 80}ms`}>
+            <span class="font-display text-sm font-semibold text-muted italic">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="h3 mt-3">{step.title}</h3>
+            <p class="mt-2 leading-relaxed text-muted">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .lever-item {
+    transition: background-color 0.25s ease;
+  }
+  .lever-item:hover {
+    background: color-mix(in oklab, var(--surface) 60%, transparent);
+  }
+  .method:has(.lever-item[data-lever='pricing']:hover) .lever-node[data-k='pricing'] circle,
+  .method:has(.lever-item[data-lever='retention']:hover) .lever-node[data-k='retention'] circle,
+  .method:has(.lever-item[data-lever='acquisition']:hover) .lever-node[data-k='acquisition'] circle,
+  .method:has(.lever-item[data-lever='operations']:hover) .lever-node[data-k='operations'] circle,
+  .method:has(.lever-item[data-lever='leadership']:hover) .lever-node[data-k='leadership'] circle {
+    fill: var(--brand);
+    stroke: var(--brand);
+  }
+  .method:has(.lever-item[data-lever='pricing']:hover) .lever-node[data-k='pricing'] text,
+  .method:has(.lever-item[data-lever='retention']:hover) .lever-node[data-k='retention'] text,
+  .method:has(.lever-item[data-lever='acquisition']:hover) .lever-node[data-k='acquisition'] text,
+  .method:has(.lever-item[data-lever='operations']:hover) .lever-node[data-k='operations'] text,
+  .method:has(.lever-item[data-lever='leadership']:hover) .lever-node[data-k='leadership'] text {
+    fill: var(--on-brand);
+  }
+</style>

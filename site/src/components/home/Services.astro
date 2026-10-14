@@ -1,0 +1,113 @@
+---
+import Icon from '../Icon.astro';
+import { copy, type Lang } from '../../lib/copy';
+import { schedulePath } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang].services;
+const [strategy, ops, ai] = t.lines;
+const icons = { strategy: 'compass', ops: 'layers', ai: 'bolt' } as const;
+---
+
+<section id="services" class="bg-surface py-24 lg:py-32" aria-labelledby="services-title">
+  <div class="container-x">
+    <p class="section-label reveal"><span class="num">02</span>{t.label}</p>
+    <h2 id="services-title" class="h2 reveal mt-6 max-w-[22ch]" style="--d: 80ms">{t.h2}</h2>
+
+    <div class="mt-14 grid gap-4 lg:grid-cols-6">
+      {
+        [strategy, ops].map((s, i) => (
+          <article class="card spotlight reveal flex flex-col p-7 sm:p-9 lg:col-span-3" style={`--d: ${i * 90}ms`}>
+            <div class="flex items-center justify-between">
+              <span class="grid size-12 place-content-center rounded-2xl border border-line bg-paper">
+                <Icon name={icons[s.key as keyof typeof icons]} size={22} />
+              </span>
+              <span class="eyebrow">{s.name}</span>
+            </div>
+            <h3 class="h3 mt-10 max-w-[20ch] !text-[clamp(1.6rem,2.6vw,2.1rem)]">{s.headline}</h3>
+            <p class="mt-4 max-w-[48ch] leading-relaxed text-muted">{s.body}</p>
+            <div class="mt-auto pt-10">
+              <a href={s.href} class="link-arrow">
+                {s.cta}
+                <Icon name="arrow" size={16} class="arrow" />
+              </a>
+            </div>
+          </article>
+        ))
+      }
+
+      <article class="card spotlight reveal flex flex-col overflow-hidden p-7 sm:p-9 lg:col-span-4">
+        <div class="flex items-center justify-between">
+          <span class="grid size-12 place-content-center rounded-2xl border border-line bg-paper">
+            <Icon name={icons.ai} size={22} />
+          </span>
+          <span class="eyebrow">{ai.name}</span>
+        </div>
+        <h3 class="h3 mt-10 max-w-[22ch] !text-[clamp(1.6rem,2.6vw,2.1rem)]">{ai.headline}</h3>
+        <p class="mt-4 max-w-[52ch] leading-relaxed text-muted">{ai.body}</p>
+        <svg class="mt-8 w-full max-w-md text-muted" viewBox="0 0 420 40" fill="none" aria-hidden="true">
+          <line x1="12" y1="20" x2="408" y2="20" stroke="currentColor" stroke-opacity=".35" stroke-dasharray="3 5"></line>
+          {
+            [12, 111, 210, 309, 408].map((x, i) => (
+              <g>
+                <circle cx={x} cy="20" r="11" style="fill: var(--paper)" stroke="currentColor" stroke-opacity=".55" />
+                {i < 4 && <path d={`M${x - 4} 20l3 3 6-6`} stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />}
+              </g>
+            ))
+          }
+        </svg>
+        <div class="mt-auto pt-10">
+          <a href={ai.href} class="link-arrow">
+            {ai.cta}
+            <Icon name="arrow" size={16} class="arrow" />
+          </a>
+        </div>
+      </article>
+
+      <article class="band reveal flex flex-col rounded-[22px] p-7 sm:p-9 lg:col-span-2" style="--d: 90ms">
+        <div class="flex items-start justify-between">
+          <p class="font-display text-[5.5rem] leading-[0.85] font-semibold tracking-tight" aria-hidden="true">30<span class="ml-1 align-top font-sans text-base font-semibold tracking-normal text-muted">min</span></p>
+          <Icon name="clock" size={26} />
+        </div>
+        <h3 class="h3 mt-8">{t.session.title}</h3>
+        <p class="mt-3 leading-relaxed text-muted">{t.session.body}</p>
+        <div class="mt-auto pt-8">
+          <a href={schedulePath(lang)} class="btn btn-primary w-full">{t.session.cta}</a>
+        </div>
+      </article>
+
+      <article class="card spotlight reveal flex flex-col p-7 sm:p-9 lg:col-span-2">
+        <p class="font-display text-5xl font-semibold tracking-tight" aria-hidden="true">EN<span class="text-muted"> · </span>ES</p>
+        <h3 class="h3 mt-8">{t.bilingual.title}</h3>
+        <p class="mt-3 leading-relaxed text-muted">{t.bilingual.body}</p>
+      </article>
+
+      <article class="card spotlight reveal flex flex-col p-7 sm:p-9 lg:col-span-4" style="--d: 90ms">
+        <div class="flex items-center justify-between">
+          <h3 class="h3">{t.tools.title}</h3>
+          <Icon name="download" size={22} class="text-muted" />
+        </div>
+        <p class="mt-3 leading-relaxed text-muted">{t.tools.body}</p>
+        <ul class="mt-6 grid gap-3 sm:grid-cols-3">
+          {
+            t.tools.links.map((l) => (
+              <li>
+                <a
+                  href={l.href}
+                  class="group flex h-full items-start justify-between gap-3 rounded-2xl border border-line bg-paper px-4 py-4 text-sm font-semibold transition-colors hover:border-ink"
+                >
+                  {l.label}
+                  <Icon name="arrowUpRight" size={16} class="mt-0.5 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>

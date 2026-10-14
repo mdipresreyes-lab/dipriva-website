@@ -1,0 +1,185 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../Icon.astro';
+import { type Lang } from '../../lib/copy';
+import { ORG_ID, WEBSITE_ID, absolute, homePath, paths, BOOKING_URL, CONTACT_EMAIL } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+/** Microsoft Forms request form, the same one the live /schedule page embeds. */
+const FORM_URL =
+  'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=zkMAMxEb1U6oyZeD4vLkQhBR3cb14l5DvvK1DsDmhEdUNUdMRE9TNUJOT1ozOFpDVUZJUk5ORkFEUS4u&embed=true';
+const FALLBACK_EMAIL = CONTACT_EMAIL;
+
+const text = {
+  en: {
+    meta: {
+      title: 'Schedule a Strategy Session | Dipriva Consulting Group',
+      description:
+        'Request a free 30-minute strategy session with Manuel Diprés. Get a reply within 2 business days and leave the session with the first constraint to remove.',
+    },
+    home: 'Home',
+    crumb: 'Schedule',
+    h1: 'Schedule a 30-minute strategy session',
+    lede: 'A free working session with Manuel Diprés, in English or Spanish, to name the first constraint holding your company back.',
+    nextLabel: 'What happens next',
+    steps: [
+      { title: 'Pick a time or send a request.', body: 'Book a 30-minute slot now, or tell us about your company and what is slowing it down.' },
+      { title: 'Manuel confirms.', body: 'Bookings confirm at once. Requests get a reply within 2 business days.' },
+      { title: 'You meet for 30 minutes.', body: 'You leave with the first constraint to remove.' },
+    ],
+    bookLabel: 'Book a time',
+    bookTitle: 'Pick a 30-minute slot on Manuel’s calendar.',
+    bookBody: 'Microsoft Bookings shows open times in your time zone and sends the meeting invite.',
+    bookCta: 'Open the booking calendar',
+    newTab: '(opens in a new tab)',
+    formLabel: 'Or send a request',
+    iframeTitle: 'Strategy session request form',
+    fallback: "Can't load the form?",
+    fallbackLink: 'Email Manuel at',
+    consent:
+      'By submitting this form, you consent to Dipriva Consulting Group collecting and processing the information provided to contact you regarding your business needs. You may withdraw consent at any time.',
+    privacy: 'Privacy Policy',
+  },
+  es: {
+    meta: {
+      title: 'Agende una sesión estratégica | Dipriva Consulting Group',
+      description:
+        'Solicite una sesión estratégica gratuita de 30 minutos con Manuel Diprés. Reciba respuesta en 2 días hábiles y termine la sesión con la primera restricción a eliminar.',
+    },
+    home: 'Inicio',
+    crumb: 'Agendar',
+    h1: 'Agende una sesión estratégica de 30 minutos',
+    lede: 'Una sesión de trabajo gratuita con Manuel Diprés, en inglés o en español, para identificar la primera restricción que frena a su empresa.',
+    nextLabel: 'Qué sigue',
+    steps: [
+      { title: 'Elija un horario o envíe una solicitud.', body: 'Reserve ahora 30 minutos, o cuéntenos sobre su empresa y lo que la está frenando.' },
+      {
+        title: 'Manuel confirma.',
+        body: 'Las reservas se confirman al instante. Las solicitudes reciben respuesta en un plazo de 2 días hábiles.',
+      },
+      { title: 'Nos reunimos durante 30 minutos.', body: 'Usted termina la sesión con la primera restricción a eliminar.' },
+    ],
+    bookLabel: 'Reserve un horario',
+    bookTitle: 'Elija 30 minutos en el calendario de Manuel.',
+    bookBody: 'Microsoft Bookings muestra los horarios disponibles en su zona horaria y le envía la invitación.',
+    bookCta: 'Abrir el calendario de reservas',
+    newTab: '(se abre en una pestaña nueva)',
+    formLabel: 'O envíe una solicitud',
+    iframeTitle: 'Formulario de solicitud de sesión estratégica',
+    fallback: '¿No carga el formulario?',
+    fallbackLink: 'Escriba a Manuel a',
+    consent:
+      'Al enviar este formulario, usted da su consentimiento a Dipriva Consulting Group para recopilar y procesar la información proporcionada con el fin de contactarle sobre sus necesidades empresariales. Puede retirar su consentimiento en cualquier momento.',
+    privacy: 'Política de privacidad',
+  },
+} as const;
+
+const { lang } = Astro.props;
+const s = text[lang];
+const url = absolute(paths.schedule[lang]);
+
+const schema = [
+  {
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: s.meta.title,
+    description: s.meta.description,
+    inLanguage: lang,
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORG_ID },
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: s.home, item: absolute(homePath(lang)) },
+      { '@type': 'ListItem', position: 2, name: s.crumb, item: url },
+    ],
+  },
+];
+---
+
+<Base
+  lang={lang}
+  title={s.meta.title}
+  description={s.meta.description}
+  alternate={{ en: paths.schedule.en, es: paths.schedule.es }}
+  schema={schema}
+  hideMobileCta
+>
+  <section class="relative overflow-hidden border-b border-line" aria-labelledby="schedule-title">
+    <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="container-x relative pt-12 pb-14 lg:pt-16 lg:pb-16">
+      <nav aria-label="Breadcrumb" class="text-sm text-muted">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href={homePath(lang)} class="hover:text-ink">{s.home}</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-ink">{s.crumb}</li>
+        </ol>
+      </nav>
+      <h1 id="schedule-title" class="display mt-8 max-w-[18ch] text-[clamp(2.3rem,5vw,4.2rem)]">{s.h1}</h1>
+      <p class="lede mt-6 max-w-[60ch]">{s.lede}</p>
+
+      <h2 class="eyebrow mt-12">{s.nextLabel}</h2>
+      <ol class="mt-5 grid gap-4 md:grid-cols-3">
+        {
+          s.steps.map((step, i) => (
+            <li class="card flex flex-col p-6 sm:p-7">
+              <span class="font-display text-sm font-semibold text-muted italic">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="mt-3 font-display text-[1.3rem] leading-snug font-semibold">{step.title}</h3>
+              <p class="mt-2 leading-relaxed text-muted">{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="pt-14 lg:pt-20" aria-labelledby="schedule-book">
+    <div class="container-x max-w-[880px]">
+      <div class="band relative overflow-hidden rounded-[26px] p-8 sm:p-10">
+        <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+        <div class="relative">
+          <h2 id="schedule-book" class="eyebrow">{s.bookLabel}</h2>
+          <p class="mt-4 font-display text-[clamp(1.5rem,2.6vw,2rem)] leading-tight font-semibold">{s.bookTitle}</p>
+          <p class="mt-3 max-w-[52ch] leading-relaxed text-muted">{s.bookBody}</p>
+          <a href={BOOKING_URL} target="_blank" rel="noopener" class="btn btn-primary mt-7">
+            {s.bookCta}
+            <span class="sr-only">{s.newTab}</span>
+            <Icon name="arrow" size={18} class="arrow" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-20" aria-labelledby="schedule-form">
+    <div class="container-x max-w-[880px]">
+      <h2 id="schedule-form" class="eyebrow">{s.formLabel}</h2>
+      <div class="card mt-5 overflow-hidden">
+        <iframe
+          title={s.iframeTitle}
+          src={FORM_URL}
+          loading="lazy"
+          allowfullscreen
+          class="block w-full border-0"
+          style="height: 820px; max-width: 100%;"></iframe>
+      </div>
+      <p class="mt-4 text-center text-sm text-muted">
+        {s.fallback}{' '}
+        {s.fallbackLink}{' '}
+        <a href={`mailto:${FALLBACK_EMAIL}`} class="font-semibold text-ink underline underline-offset-4">{FALLBACK_EMAIL}</a>
+      </p>
+      <p class="mx-auto mt-6 max-w-2xl text-center text-sm leading-relaxed text-muted">
+        {s.consent}{' '}
+        <a href={paths.privacy[lang]} class="inline-flex items-center gap-1 font-semibold text-ink underline underline-offset-4">
+          {s.privacy}
+          <Icon name="arrow" size={13} />
+        </a>
+      </p>
+    </div>
+  </section>
+</Base>

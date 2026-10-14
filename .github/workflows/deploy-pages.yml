@@ -1,8 +1,10 @@
 name: Deploy to GitHub Pages
 
+# Paused at the Cloudflare cutover: merging to main must not redeploy the old
+# React site. It stays here as the rollback copy, so run it by hand only if the
+# route on the Worker "dipriva-site" has been deleted and the old site needs a
+# fresh build.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:

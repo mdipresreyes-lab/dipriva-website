@@ -1,0 +1,56 @@
+---
+import { copy, type Lang } from '../../lib/copy';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang].proof;
+const show = (f: { to: number; prefix: string; suffix: string }) =>
+  `${f.prefix}${f.to.toLocaleString('en-US')}${f.suffix}`;
+---
+
+<section id="results" class="border-t border-line py-24 lg:py-32" aria-labelledby="results-title">
+  <div class="container-x">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <p class="section-label reveal"><span class="num">05</span>{t.label}</p>
+        <h2 id="results-title" class="h2 reveal mt-6" style="--d: 80ms">{t.h2}</h2>
+      </div>
+    </div>
+
+    <div class="mt-14 grid gap-4 lg:grid-cols-3">
+      {
+        t.cards.map((card, i) => (
+          <figure class="card spotlight reveal flex flex-col p-7 sm:p-9" style={`--d: ${i * 90}ms`}>
+            <p class="eyebrow">{card.segment}</p>
+            <div class="mt-8 flex flex-wrap items-end gap-x-8 gap-y-4">
+              {card.figures.map((fig, fi) => (
+                <div>
+                  <p
+                    class:list={[
+                      'font-display font-semibold tracking-tight tabular-nums leading-none',
+                      fi === 0 ? 'text-[clamp(3.2rem,5.5vw,4.6rem)]' : 'text-[clamp(2.2rem,3.4vw,2.8rem)] text-muted',
+                    ]}
+                    data-countup
+                    data-to={fig.to}
+                    data-prefix={fig.prefix}
+                    data-suffix={fig.suffix}
+                  >
+                    {show(fig)}
+                  </p>
+                  <p class="mt-2 max-w-[18ch] text-sm leading-snug text-muted">{fig.label}</p>
+                </div>
+              ))}
+            </div>
+            <blockquote class="mt-auto border-t border-line pt-6">
+              <p class="leading-relaxed">{card.statement}</p>
+            </blockquote>
+          </figure>
+        ))
+      }
+    </div>
+    <p class="mt-6 text-sm text-muted">{t.note}</p>
+  </div>
+</section>

@@ -1,0 +1,66 @@
+name: Deploy QA site
+
+# Builds site/ (QA mode: noindex, review banner, no live form or chat calls)
+# and deploys it to qa.dipriva.com on Cloudflare Workers static assets.
+# Needs two repository secrets that Manuel enters himself:
+# CLOUDFLARE_API_TOKEN (Workers Scripts: Edit, Zone: Workers Routes: Edit for dipriva.com)
+# and CLOUDFLARE_ACCOUNT_ID.
+
+on:
+  push:
+    branches: [redesign]
+    paths: ['site/**', 'content/blog/**', '.github/workflows/site-qa-deploy.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-qa
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    env:
+      # Until Manuel adds the Cloudflare secrets, build only and skip the deploy.
+      HAS_CLOUDFLARE: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      # Prints only HTTP status codes and Cloudflare error codes, never a secret or an account name.
+      - name: Check Cloudflare credentials
+        if: env.HAS_CLOUDFLARE == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          ok=0
+          check() {
+            code=$(curl -s -o /tmp/cf.json -w '%{http_code}' -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$2")
+            echo "$1: HTTP $code, success=$(jq -r '.success' /tmp/cf.json 2>/dev/null)"
+            jq -r '.errors[]? | "  Cloudflare error \(.code): \(.message)"' /tmp/cf.json 2>/dev/null || true
+            [ "$code" = "200" ] || ok=1
+          }
+          check "API token is valid" "https://api.cloudflare.com/client/v4/user/tokens/verify"
+          check "Account ID matches this token and can list Workers" "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/scripts"
+          check "Token can see the dipriva.com zone" "https://api.cloudflare.com/client/v4/zones?name=dipriva.com"
+          exit $ok
+      - name: Deploy to qa.dipriva.com
+        if: env.HAS_CLOUDFLARE == 'true'
+        run: npx --yes wrangler@4 deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Deploy skipped
+        if: env.HAS_CLOUDFLARE != 'true'
+        run: echo "::notice::QA deploy skipped. Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID (docs/HANDOFF.md, step M1)."

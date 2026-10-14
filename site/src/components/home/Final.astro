@@ -1,0 +1,45 @@
+---
+import Icon from '../Icon.astro';
+import { copy, type Lang } from '../../lib/copy';
+import { schedulePath } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang].final;
+---
+
+<section class="pb-24 lg:pb-32" aria-labelledby="final-title">
+  <div class="container-x">
+    <div class="band reveal relative overflow-hidden rounded-[32px] px-6 py-16 sm:px-12 lg:px-16 lg:py-24">
+      <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+      <svg class="pointer-events-none absolute -right-10 bottom-0 w-[70%] max-w-3xl text-on-band opacity-[0.16]" viewBox="0 0 600 260" fill="none" aria-hidden="true">
+        {
+          Array.from({ length: 14 }, (_, i) => (
+            <path
+              d={`M0 ${40 + i * 15} C 150 ${10 + i * 22 + (i % 2) * 30}, 300 ${70 + i * 9}, 600 ${60 + i * 12}`}
+              stroke="currentColor"
+              stroke-width="1"
+            />
+          ))
+        }
+      </svg>
+      <div class="relative max-w-3xl">
+        <h2 id="final-title" class="display text-[clamp(2.4rem,5.2vw,4.4rem)]">{t.h2}</h2>
+        <p class="lede mt-6 max-w-[48ch]">{t.body}</p>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href={schedulePath(lang)} class="btn btn-primary">
+            {t.primary}
+            <Icon name="arrow" size={18} class="arrow" />
+          </a>
+          <a href="/startup/" class="btn btn-ghost">
+            <Icon name="download" size={18} />
+            {t.secondary}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

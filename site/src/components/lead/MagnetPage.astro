@@ -1,0 +1,411 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../Icon.astro';
+import LeadForm from './LeadForm.astro';
+import { copy, type Lang } from '../../lib/copy';
+import { getPosts, postPath } from '../../lib/blog';
+import { magnetLabels, type Magnet } from '../../lib/magnets';
+import { services, servicePath } from '../../lib/services';
+import { ORG_ID, WEBSITE_ID, absolute, formatDate, homePath, readingMinutes } from '../../lib/site';
+
+interface Props {
+  magnet: Magnet;
+  lang: Lang;
+}
+
+const { magnet, lang } = Astro.props;
+const m = magnet[lang];
+const L = magnetLabels[lang];
+const t = copy[lang];
+const url = absolute(m.path);
+const service = services.find((s) => s.key === magnet.service)!;
+const p = m.preview;
+
+const related = (await getPosts(lang)).filter((post) => post.data.cluster === magnet.cluster).slice(0, 3);
+
+const schema = [
+  {
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: m.title,
+    description: m.description,
+    inLanguage: lang,
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': `${absolute(servicePath(service, 'en'))}#service` },
+    abstract: m.summary,
+    mainEntity: { '@id': `${absolute(magnet.en.path)}#tool` },
+  },
+  {
+    '@type': 'DigitalDocument',
+    '@id': `${absolute(magnet.en.path)}#tool`,
+    name: magnet.en.name,
+    alternateName: magnet.es.name,
+    description: magnet.en.summary,
+    inLanguage: ['en', 'es'],
+    encodingFormat: magnet.files.map((f) => f.type),
+    isAccessibleForFree: true,
+    author: { '@id': ORG_ID },
+    publisher: { '@id': ORG_ID },
+    url: absolute(magnet.en.path),
+  },
+  {
+    '@type': 'FAQPage',
+    '@id': `${url}#faq`,
+    inLanguage: lang,
+    isPartOf: { '@id': `${url}#webpage` },
+    mainEntity: m.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: L.home, item: absolute(homePath(lang)) },
+      { '@type': 'ListItem', position: 2, name: m.name, item: url },
+    ],
+  },
+];
+---
+
+<Base
+  lang={lang}
+  title={m.title}
+  description={m.description}
+  alternate={{ en: magnet.en.path, es: magnet.es.path }}
+  schema={schema}
+  hideMobileCta
+>
+  <section class="relative overflow-hidden border-b border-line" aria-labelledby="tool-title">
+    <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div
+      class="container-x relative grid gap-10 pt-10 pb-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:pt-14 lg:pb-24"
+    >
+      <div class="lg:col-start-1 lg:row-start-1">
+        <nav aria-label="Breadcrumb" class="text-sm text-muted">
+          <ol class="flex flex-wrap items-center gap-2">
+            <li><a href={homePath(lang)} class="hover:text-ink">{L.home}</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-muted">{L.tools}</li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" class="text-ink">{m.name}</li>
+          </ol>
+        </nav>
+        <p class="eyebrow mt-8">{m.overline} · {L.free}</p>
+        <h1 id="tool-title" class="display mt-5 text-[clamp(2.3rem,4.6vw,3.9rem)]">{m.h1}</h1>
+        <p class="lede mt-6 max-w-[56ch]">{m.intro}</p>
+        <p class="mt-6 inline-flex flex-wrap items-center gap-2 text-sm">
+          <span class="inline-flex items-center gap-2 rounded-full border border-line bg-paper-raised px-3.5 py-1.5 font-medium">
+            <Icon name="download" size={15} />
+            {m.formats}
+          </span>
+        </p>
+      </div>
+
+      <section
+        class="card self-start p-6 shadow-[var(--shadow)] sm:p-8 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1"
+        aria-labelledby={`lead-${magnet.id}-heading`}
+        id="get"
+      >
+        <h2 id={`lead-${magnet.id}-heading`} class="h3">{m.formHeading}</h2>
+        <div class="mt-6">
+          <LeadForm magnet={magnet} lang={lang} />
+        </div>
+      </section>
+
+      <div class="space-y-8 lg:col-start-1 lg:row-start-2">
+        <div>
+          <h2 class="eyebrow">{m.insideHeading}</h2>
+          <ul class="mt-5 space-y-3.5">
+            {
+              m.inside.map((item) => (
+                <li class="flex items-start gap-3 leading-relaxed">
+                  <span class="mt-1 grid size-5 shrink-0 place-content-center rounded-full bg-brand text-on-brand" aria-hidden="true">
+                    <Icon name="check" size={12} />
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-line bg-paper-raised/70 p-6">
+          <h2 class="eyebrow">{L.inShort}</h2>
+          <p class="mt-3 leading-relaxed">{m.summary}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 lg:py-28" aria-labelledby="tool-preview">
+    <div class="container-x">
+      <p class="section-label reveal"><span class="num">01</span>{L.preview}</p>
+      <h2 id="tool-preview" class="h2 reveal mt-6 max-w-[22ch]">{m.previewHeading}</h2>
+      <p class="lede reveal mt-5 max-w-[58ch]">{m.previewIntro}</p>
+
+      <figure class="doc-preview reveal mt-12">
+        <div class="doc-sheet">
+          <p class="doc-brand" aria-hidden="true">DIPRIVA</p>
+          <p class="mt-4 font-display text-[clamp(1.4rem,2.4vw,1.9rem)] font-semibold">{m.name}</p>
+
+          {
+            p.kind === 'startup' && (
+              <div class="mt-8 space-y-6">
+                {p.phases.map((phase) => (
+                  <div>
+                    <p class="text-sm">
+                      <strong class="font-semibold">
+                        {phase.label}: {phase.title}
+                      </strong>{' '}
+                      <span class="text-muted">{phase.body}</span>
+                    </p>
+                    <div class="doc-table mt-3" role="table" aria-label={`${phase.label}: ${phase.title}`}>
+                      <div class="doc-row doc-head" role="row">
+                        {p.columns.map((c) => (
+                          <span role="columnheader">{c}</span>
+                        ))}
+                      </div>
+                      <div class="doc-row" role="row">
+                        {phase.example.map((c) => (
+                          <span role="cell">{c}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <p class="border-l-2 border-ink pl-4 font-display text-lg italic">{p.rule}</p>
+              </div>
+            )
+          }
+
+          {
+            p.kind === 'strategy' && (
+              <div class="mt-8">
+                <ol class="touches">
+                  {p.touches.map((touch) => (
+                    <li>
+                      <span class="touch-n">{touch.n}</span>
+                      <span class="touch-day">{touch.day}</span>
+                      <span class="touch-purpose">{touch.purpose}</span>
+                    </li>
+                  ))}
+                </ol>
+                <ul class="mt-8 space-y-2 text-sm text-muted">
+                  {p.notes.map((note) => (
+                    <li>{note}</li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+
+          {
+            p.kind === 'ai' && (
+              <div class="mt-8 space-y-6">
+                <div class="doc-table doc-table-5" role="table" aria-label={L.sample}>
+                  <div class="doc-row doc-head" role="row">
+                    {p.columns.map((c) => (
+                      <span role="columnheader">{c}</span>
+                    ))}
+                  </div>
+                  <div class="doc-row" role="row">
+                    {p.example.map((c, i) => (
+                      <span role="cell" class={i === p.example.length - 1 ? 'font-display text-xl font-semibold' : ''}>
+                        {c}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <p class="rounded-xl bg-surface px-5 py-4 font-display text-lg font-semibold">{p.formula}</p>
+                <ul class="space-y-2 text-sm text-muted">
+                  {p.scales.map((line) => (
+                    <li>{line}</li>
+                  ))}
+                </ul>
+                <p class="border-l-2 border-ink pl-4 font-display text-lg italic">{p.rule}</p>
+              </div>
+            )
+          }
+        </div>
+      </figure>
+
+      <a href="#get" class="btn btn-primary reveal mt-10">
+        <Icon name="download" size={18} />
+        {m.formHeading}
+      </a>
+    </div>
+  </section>
+
+  <section class="border-t border-line py-20 lg:py-28" aria-labelledby="tool-faq">
+    <div class="container-x grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <p class="section-label reveal"><span class="num">02</span>{L.faq}</p>
+        <h2 id="tool-faq" class="h2 reveal mt-6">{t.faq.h2}</h2>
+      </div>
+      <div class="faq lg:col-span-8">
+        {
+          m.faq.map((item, i) => (
+            <details class="reveal border-b border-line first:border-t" style={`--d: ${i * 60}ms`} name="tool-faq" open={i === 0}>
+              <summary class="flex items-center justify-between gap-6 py-6 text-left">
+                <h3 class="font-display text-[clamp(1.15rem,1.7vw,1.4rem)] leading-snug font-semibold">{item.q}</h3>
+                <span class="plus grid size-9 shrink-0 place-content-center rounded-full border border-line">
+                  <Icon name="plus" size={16} />
+                </span>
+              </summary>
+              <p class="max-w-[62ch] pb-7 leading-relaxed text-muted">{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-surface py-20 lg:py-24" aria-labelledby="tool-service">
+    <div class="container-x">
+      <a href={servicePath(service, lang)} class="card spotlight group flex flex-col gap-6 p-7 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+        <span>
+          <span class="eyebrow block">{L.related}</span>
+          <span id="tool-service" class="mt-3 block font-display text-[clamp(1.4rem,2.4vw,2rem)] leading-snug font-semibold">
+            {service[lang].h1}
+          </span>
+          <span class="mt-3 block max-w-[60ch] text-muted">{L.relatedBody}</span>
+        </span>
+        <span class="inline-flex shrink-0 items-center gap-2 font-semibold">
+          {L.explore}
+          <Icon name="arrow" size={18} class="transition-transform group-hover:translate-x-1" />
+        </span>
+      </a>
+
+      {
+        related.length > 0 && (
+          <div class="mt-16">
+            <h2 class="eyebrow">{L.insights}</h2>
+            <div class="mt-6 grid gap-4 md:grid-cols-3">
+              {related.map((post) => (
+                <article class="card spotlight group flex flex-col p-6">
+                  <span class="text-xs text-muted">
+                    {readingMinutes(post.data.words)} {t.insights.minRead}
+                  </span>
+                  <h3 class="mt-4 font-display text-lg leading-snug font-semibold">
+                    <a href={postPath(lang, post.id)} class="after:absolute after:inset-0">
+                      {post.data.title}
+                    </a>
+                  </h3>
+                  <p class="mt-auto pt-6 text-sm text-muted">{formatDate(post.data.date, lang)}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .doc-preview {
+    position: relative;
+    max-width: 880px;
+  }
+  .doc-preview::before {
+    content: '';
+    position: absolute;
+    inset: 14px -14px -14px 14px;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    z-index: -1;
+  }
+  .doc-sheet {
+    background: var(--paper-raised);
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    padding: clamp(24px, 4vw, 48px);
+    box-shadow: var(--shadow);
+  }
+  .doc-brand {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .doc-table {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 0.92rem;
+  }
+  .doc-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 0.8fr;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+  .doc-table-5 .doc-row {
+    grid-template-columns: 2.2fr 1fr 1fr 1fr 0.7fr;
+    align-items: center;
+  }
+  .doc-head {
+    background: var(--surface);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .doc-row + .doc-row {
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 639px) {
+    .doc-table-5 .doc-row {
+      grid-template-columns: 1fr 1fr;
+    }
+    .doc-table-5 .doc-row > :first-child {
+      grid-column: 1 / -1;
+    }
+  }
+  .touches {
+    display: grid;
+    gap: 10px;
+  }
+  .touches li {
+    display: grid;
+    grid-template-columns: 44px 90px 1fr;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--paper);
+  }
+  .touch-n {
+    display: grid;
+    place-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: var(--brand);
+    color: var(--on-brand);
+    font-weight: 700;
+  }
+  .touch-day {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .touch-purpose {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .touches li {
+      transition: transform 0.25s ease;
+    }
+    .touches li:hover {
+      transform: translateX(6px);
+    }
+  }
+</style>

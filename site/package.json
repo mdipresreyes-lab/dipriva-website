@@ -1,0 +1,33 @@
+{
+  "name": "dipriva-site",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/check-copy.mjs --sources && node scripts/check-lead-form.mjs && node scripts/check-blog.mjs && astro build && node scripts/check-copy.mjs && node scripts/write-edge-files.mjs",
+    "build:production": "PUBLIC_DEPLOY_ENV=production npm run build",
+    "preview": "astro preview",
+    "check:copy": "node scripts/check-copy.mjs",
+    "check:lead-form": "node scripts/check-lead-form.mjs",
+    "deploy:qa": "npm run build && npx --yes wrangler@4 deploy",
+    "check:blog": "node scripts/check-blog.mjs",
+    "check:jsonld": "node scripts/check-jsonld.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/playfair-display": "^5.3.0",
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/playfair-display": "^5.3.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.8",
+    "satori": "^0.56.0",
+    "tailwindcss": "^4.3.3",
+    "yaml": "^2.9.1"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

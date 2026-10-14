@@ -1,0 +1,324 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../Icon.astro';
+import ServiceVisual from './ServiceVisual.astro';
+import { copy, type Lang } from '../../lib/copy';
+import { getPosts, postPath } from '../../lib/blog';
+import { services, serviceLabels, servicePath, servicesHubPath, type Service } from '../../lib/services';
+import { ORG_ID, WEBSITE_ID, absolute, formatDate, homePath, readingMinutes, schedulePath } from '../../lib/site';
+
+interface Props {
+  service: Service;
+  lang: Lang;
+}
+
+const { service, lang } = Astro.props;
+const s = service[lang];
+const L = serviceLabels[lang];
+const t = copy[lang];
+const path = servicePath(service, lang);
+const url = absolute(path);
+const others = services.filter((x) => x.key !== service.key);
+const proof = service.proof.map((i) => t.proof.cards[i]);
+const show = (f: { to: number; prefix: string; suffix: string }) => `${f.prefix}${f.to.toLocaleString('en-US')}${f.suffix}`;
+
+const related = (await getPosts(lang)).filter((p) => p.data.cluster === service.cluster).slice(0, 3);
+
+const schema = [
+  {
+    '@type': 'Service',
+    '@id': `${absolute(servicePath(service, 'en'))}#service`,
+    name: service.en.name + ' Consulting',
+    alternateName: service.es.name,
+    serviceType: service.en.name + ' Consulting',
+    description: service.en.summary,
+    provider: { '@id': ORG_ID },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    availableLanguage: ['English', 'Spanish'],
+    audience: { '@type': 'BusinessAudience', name: 'Companies with 10 to 500 employees' },
+    url: absolute(servicePath(service, 'en')),
+  },
+  {
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: s.meta.title,
+    description: s.meta.description,
+    inLanguage: lang,
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': `${absolute(servicePath(service, 'en'))}#service` },
+    abstract: s.summary,
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: L.home, item: absolute(homePath(lang)) },
+      { '@type': 'ListItem', position: 2, name: L.services, item: absolute(servicesHubPath(lang)) },
+      { '@type': 'ListItem', position: 3, name: s.name, item: url },
+    ],
+  },
+];
+---
+
+<Base
+  lang={lang}
+  title={s.meta.title}
+  description={s.meta.description}
+  alternate={{ en: servicePath(service, 'en'), es: servicePath(service, 'es') }}
+  schema={schema}
+>
+  <section class="relative overflow-hidden border-b border-line" aria-labelledby="svc-title">
+    <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="container-x relative grid items-center gap-12 pt-12 pb-16 lg:grid-cols-[minmax(0,1fr)_420px] lg:pt-16 lg:pb-20">
+      <div>
+        <nav aria-label="Breadcrumb" class="text-sm text-muted">
+          <ol class="flex flex-wrap items-center gap-2">
+            <li><a href={homePath(lang)} class="hover:text-ink">{L.home}</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a href={servicesHubPath(lang)} class="hover:text-ink">{L.services}</a></li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" class="text-ink">{s.name}</li>
+          </ol>
+        </nav>
+        <p class="eyebrow mt-8">{s.name}</p>
+        <h1 id="svc-title" class="display mt-5 text-[clamp(2.3rem,4.6vw,4rem)]">{s.h1}</h1>
+        <p class="lede mt-6 max-w-[60ch]">{s.sub}</p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href={schedulePath(lang)} class="btn btn-primary">
+            {L.cta}
+            <Icon name="arrow" size={18} class="arrow" />
+          </a>
+          <a href={service.tool.path[lang]} class="btn btn-ghost">
+            <Icon name="download" size={18} />
+            {service.tool.label[lang]}
+          </a>
+        </div>
+      </div>
+      <ServiceVisual kind={service.key} labels={s.visual} />
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-16" aria-labelledby="svc-summary">
+    <div class="container-x">
+      <div class="card grid gap-6 p-7 sm:p-9 lg:grid-cols-[180px_1fr]">
+        <h2 id="svc-summary" class="eyebrow pt-1">{L.inShort}</h2>
+        <p class="text-[1.12rem] leading-relaxed">{s.summary}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-20 lg:pb-28" aria-labelledby="svc-problem">
+    <div class="container-x grid gap-10 lg:grid-cols-12 lg:gap-16">
+      <div class="lg:col-span-5">
+        <p class="section-label reveal"><span class="num">01</span>{L.problem}</p>
+        <h2 id="svc-problem" class="h2 reveal mt-6">{s.problem.h2}</h2>
+      </div>
+      <p class="lede reveal lg:col-span-7 lg:pt-14">{s.problem.body}</p>
+    </div>
+  </section>
+
+  <section class="bg-surface py-20 lg:py-28" aria-labelledby="svc-deliver">
+    <div class="container-x">
+      <p class="section-label reveal"><span class="num">02</span>{L.deliver}</p>
+      <h2 id="svc-deliver" class="h2 reveal mt-6 max-w-[24ch]">{s.deliver.h2}</h2>
+      <ol class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          s.deliver.items.map((item, i) => (
+            <li class="card spotlight reveal flex flex-col p-7" style={`--d: ${i * 80}ms`}>
+              <span class="font-display text-sm font-semibold text-muted italic">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="h3 mt-4">{item.title}</h3>
+              <p class="mt-3 leading-relaxed text-muted">{item.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="reveal mt-10 max-w-[60ch] border-l-2 border-ink pl-6 font-display text-[clamp(1.25rem,2vw,1.6rem)] leading-snug italic">
+        {s.deliver.note}
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20 lg:py-28" aria-labelledby="svc-method">
+    <div class="container-x">
+      <p class="section-label reveal"><span class="num">03</span>{L.method}</p>
+      <h2 id="svc-method" class="h2 reveal mt-6">{t.method.h2}</h2>
+      <ol class="mt-12 grid gap-px overflow-hidden rounded-[22px] border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+        {
+          t.method.steps.map((step, i) => (
+            <li class="reveal bg-paper p-7" style={`--d: ${i * 80}ms`}>
+              <span class="font-display text-sm font-semibold text-muted italic">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="h3 mt-3">{step.title}</h3>
+              <p class="mt-2 leading-relaxed text-muted">{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="border-t border-line py-20 lg:py-28" aria-labelledby="svc-fit">
+    <div class="container-x grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <p class="section-label reveal"><span class="num">04</span>{L.fit}</p>
+        <h2 id="svc-fit" class="h2 reveal mt-6">{s.fit.h2}</h2>
+        <ul class="mt-10 space-y-3">
+          {
+            s.fit.items.map((item, i) => (
+              <li class="reveal flex items-start gap-4 rounded-2xl border border-line bg-paper-raised px-5 py-4 leading-snug" style={`--d: ${i * 60}ms`}>
+                <Icon name="check" size={18} class="mt-0.5 shrink-0" />
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="lg:pt-24">
+        {
+          proof.length > 0 ? (
+            <div class="space-y-4">
+              <p class="eyebrow">{L.proof}</p>
+              {proof.map((card) => (
+                <figure class="card reveal p-7">
+                  <p class="eyebrow">{card.segment}</p>
+                  <div class="mt-4 flex flex-wrap items-end gap-x-6 gap-y-2">
+                    {card.figures.map((fig, fi) => (
+                      <p
+                        class:list={['font-display font-semibold tracking-tight tabular-nums leading-none', fi === 0 ? 'text-5xl' : 'text-3xl text-muted']}
+                        data-countup
+                        data-to={fig.to}
+                        data-prefix={fig.prefix}
+                        data-suffix={fig.suffix}
+                      >
+                        {show(fig)}
+                      </p>
+                    ))}
+                  </div>
+                  <blockquote class="mt-5 border-t border-line pt-4 leading-relaxed">{card.statement}</blockquote>
+                </figure>
+              ))}
+              <p class="text-sm text-muted">{t.proof.note}</p>
+            </div>
+          ) : (
+            <div class="band reveal relative overflow-hidden rounded-[22px] p-8">
+              <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true" />
+              <div class="relative">
+                <p class="eyebrow">{L.practice}</p>
+                <p class="mt-4 font-display text-2xl leading-snug">{t.system.h2}</p>
+                <p class="mt-4 leading-relaxed text-muted">{L.practiceBody}</p>
+                <a href={`${homePath(lang)}#practice`} class="link-arrow mt-6">
+                  {L.practiceLink}
+                  <Icon name="arrow" size={15} class="arrow" />
+                </a>
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-20 lg:pb-28" aria-labelledby="svc-tool">
+    <div class="container-x">
+      <div class="card spotlight reveal flex flex-col gap-6 p-8 sm:p-10 lg:flex-row lg:items-center lg:justify-between">
+        <div class="max-w-2xl">
+          <p class="eyebrow">{L.tool}</p>
+          <h2 id="svc-tool" class="h3 mt-3 !text-[clamp(1.5rem,2.4vw,2rem)]">{service.tool.label[lang]}</h2>
+          <p class="mt-3 leading-relaxed text-muted">{service.tool.body[lang]}</p>
+        </div>
+        <a href={service.tool.path[lang]} class="btn btn-primary shrink-0">
+          <Icon name="download" size={18} />
+          {L.getTool} {service.tool.label[lang]}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-line py-20 lg:py-28" aria-labelledby="svc-faq">
+    <div class="container-x grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <p class="section-label reveal"><span class="num">05</span>{L.faq}</p>
+        <h2 id="svc-faq" class="h2 reveal mt-6">{t.faq.h2}</h2>
+      </div>
+      <div class="faq lg:col-span-8">
+        {
+          s.faq.map((item, i) => (
+            <details class="reveal border-b border-line first:border-t" style={`--d: ${i * 60}ms`} name="svc-faq" open={i === 0}>
+              <summary class="flex items-center justify-between gap-6 py-6 text-left">
+                <h3 class="font-display text-[clamp(1.15rem,1.7vw,1.4rem)] leading-snug font-semibold">{item.q}</h3>
+                <span class="plus grid size-9 shrink-0 place-content-center rounded-full border border-line">
+                  <Icon name="plus" size={16} />
+                </span>
+              </summary>
+              <p class="max-w-[62ch] pb-7 leading-relaxed text-muted">{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {
+    related.length > 0 && (
+      <section class="bg-surface py-20 lg:py-24" aria-labelledby="svc-related">
+        <div class="container-x">
+          <div class="flex flex-wrap items-end justify-between gap-6">
+            <h2 id="svc-related" class="h2 !text-[clamp(1.8rem,3vw,2.6rem)]">
+              {L.related}
+            </h2>
+          </div>
+          <div class="mt-10 grid gap-4 md:grid-cols-3">
+            {related.map((post) => (
+              <article class="card spotlight group flex flex-col p-6">
+                <span class="text-xs text-muted">
+                  {readingMinutes(post.data.words)} {t.insights.minRead}
+                </span>
+                <h3 class="mt-4 font-display text-lg leading-snug font-semibold">
+                  <a href={postPath(lang, post.id)} class="after:absolute after:inset-0">
+                    {post.data.title}
+                  </a>
+                </h3>
+                <p class="mt-auto pt-6 text-sm text-muted">{formatDate(post.data.date, lang)}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="py-20 lg:py-24" aria-labelledby="svc-others">
+    <div class="container-x">
+      <h2 id="svc-others" class="eyebrow">{L.others}</h2>
+      <div class="mt-6 grid gap-4 md:grid-cols-2">
+        {
+          others.map((o) => (
+            <a href={servicePath(o, lang)} class="card spotlight group flex items-center justify-between gap-6 p-7">
+              <span>
+                <span class="eyebrow block">{o[lang].name}</span>
+                <span class="mt-2 block font-display text-xl leading-snug font-semibold">{o[lang].h1}</span>
+              </span>
+              <Icon name="arrow" size={20} class="shrink-0 transition-transform group-hover:translate-x-1" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-24 lg:pb-32" aria-labelledby="svc-cta">
+    <div class="container-x">
+      <div class="band reveal relative overflow-hidden rounded-[32px] px-6 py-16 sm:px-12 lg:px-16 lg:py-20">
+        <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+        <div class="relative max-w-3xl">
+          <h2 id="svc-cta" class="display text-[clamp(2.2rem,4.6vw,3.8rem)]">{s.cta.h2}</h2>
+          <p class="lede mt-6 max-w-[52ch]">{s.cta.body}</p>
+          <a href={schedulePath(lang)} class="btn btn-primary mt-9">
+            {L.cta}
+            <Icon name="arrow" size={18} class="arrow" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

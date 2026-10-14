@@ -1,0 +1,40 @@
+---
+import { copy, type Lang } from '../../lib/copy';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang].marquee;
+---
+
+<div class="border-y border-line bg-paper-raised">
+  <div class="container-x flex items-center gap-8 py-5">
+    <p class="eyebrow hidden shrink-0 sm:block">{t.label}</p>
+    <div class="marquee min-w-0 flex-1">
+      <div class="marquee-track">
+        <ul class="flex shrink-0 items-center gap-12" aria-label={t.label}>
+          {
+            t.items.map((item) => (
+              <li class="flex items-center gap-12 font-display text-lg italic whitespace-nowrap">
+                {item}
+                <span class="size-1.5 rotate-45 bg-current opacity-40" aria-hidden="true" />
+              </li>
+            ))
+          }
+        </ul>
+        <ul class="flex shrink-0 items-center gap-12" aria-hidden="true">
+          {
+            t.items.map((item) => (
+              <li class="flex items-center gap-12 font-display text-lg italic whitespace-nowrap">
+                {item}
+                <span class="size-1.5 rotate-45 bg-current opacity-40" />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

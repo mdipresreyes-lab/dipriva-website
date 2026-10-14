@@ -1,0 +1,246 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../Icon.astro';
+import { copy, type Lang } from '../../lib/copy';
+import { magnets, magnetLabels } from '../../lib/magnets';
+import { services, servicePath } from '../../lib/services';
+import { westMichigan, westMichiganPath } from '../../lib/westMichigan';
+import { ORG_ID, WEBSITE_ID, absolute, homePath, schedulePath } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const w = westMichigan[lang];
+const t = copy[lang];
+const url = absolute(westMichiganPath(lang));
+const show = (f: { to: number; prefix: string; suffix: string }) => `${f.prefix}${f.to.toLocaleString('en-US')}${f.suffix}`;
+
+// Same three client results as the home page and the service pages. They carry no location.
+const proof = t.proof.cards;
+
+const schema = [
+  {
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: w.meta.title,
+    description: w.meta.description,
+    inLanguage: lang,
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORG_ID },
+    abstract: w.summary,
+    contentLocation: { '@type': 'Place', name: 'West Michigan' },
+  },
+  {
+    '@type': 'FAQPage',
+    '@id': `${url}#faq`,
+    inLanguage: lang,
+    isPartOf: { '@id': `${url}#webpage` },
+    mainEntity: w.faq.items.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: w.home, item: absolute(homePath(lang)) },
+      { '@type': 'ListItem', position: 2, name: w.crumb, item: url },
+    ],
+  },
+];
+---
+
+<Base
+  lang={lang}
+  title={w.meta.title}
+  description={w.meta.description}
+  alternate={{ en: westMichiganPath('en'), es: westMichiganPath('es') }}
+  schema={schema}
+>
+  <section class="relative overflow-hidden border-b border-line" aria-labelledby="wm-title">
+    <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="container-x relative pt-12 pb-16 lg:pt-16 lg:pb-20">
+      <nav aria-label="Breadcrumb" class="text-sm text-muted">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href={homePath(lang)} class="hover:text-ink">{w.home}</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-ink">{w.crumb}</li>
+        </ol>
+      </nav>
+      <p class="eyebrow mt-8">{w.eyebrow}</p>
+      <h1 id="wm-title" class="display mt-5 max-w-[22ch] text-[clamp(2.3rem,4.6vw,4rem)]">{w.h1}</h1>
+      <p class="lede mt-6 max-w-[60ch]">{w.sub}</p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href={schedulePath(lang)} class="btn btn-primary">
+          {w.cta.button}
+          <Icon name="arrow" size={18} class="arrow" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-16" aria-labelledby="wm-summary">
+    <div class="container-x">
+      <div class="card grid gap-6 p-7 sm:p-9 lg:grid-cols-[180px_1fr]">
+        <h2 id="wm-summary" class="eyebrow pt-1">{w.inShort}</h2>
+        <p class="text-[1.12rem] leading-relaxed">{w.summary}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-20 lg:pb-28" aria-labelledby="wm-problem">
+    <div class="container-x grid gap-10 lg:grid-cols-12 lg:gap-16">
+      <div class="lg:col-span-5">
+        <p class="section-label reveal"><span class="num">01</span>{w.problem.label}</p>
+        <h2 id="wm-problem" class="h2 reveal mt-6">{w.problem.h2}</h2>
+      </div>
+      <p class="lede reveal lg:col-span-7 lg:pt-14">{w.problem.body}</p>
+    </div>
+  </section>
+
+  <section class="bg-surface py-20 lg:py-28" aria-labelledby="wm-services">
+    <div class="container-x">
+      <p class="section-label reveal"><span class="num">02</span>{w.services.label}</p>
+      <h2 id="wm-services" class="h2 reveal mt-6 max-w-[24ch]">{w.services.h2}</h2>
+      <p class="lede reveal mt-6 max-w-[62ch]">{w.services.body}</p>
+      <ul class="mt-12 grid gap-4 md:grid-cols-3">
+        {
+          services.map((s, i) => (
+            <li class="reveal" style={`--d: ${i * 80}ms`}>
+              <a href={servicePath(s, lang)} class="card spotlight group flex h-full flex-col justify-between gap-8 p-7">
+                <span>
+                  <span class="eyebrow block">{s[lang].name}</span>
+                  <span class="mt-3 block font-display text-xl leading-snug font-semibold">{s[lang].h1}</span>
+                </span>
+                <span class="inline-flex items-center gap-2 font-semibold">
+                  {w.services.explore} {s[lang].name}
+                  <Icon name="arrow" size={16} class="transition-transform group-hover:translate-x-1" />
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="py-20 lg:py-28" aria-labelledby="wm-fit">
+    <div class="container-x grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <p class="section-label reveal"><span class="num">03</span>{w.fit.label}</p>
+        <h2 id="wm-fit" class="h2 reveal mt-6">{w.fit.h2}</h2>
+        <ul class="mt-10 space-y-3">
+          {
+            w.fit.items.map((item, i) => (
+              <li class="reveal flex items-start gap-4 rounded-2xl border border-line bg-paper-raised px-5 py-4 leading-snug" style={`--d: ${i * 60}ms`}>
+                <Icon name="check" size={18} class="mt-0.5 shrink-0" />
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="lg:pt-24" aria-labelledby="wm-proof">
+        <div class="space-y-4">
+          <h2 id="wm-proof" class="eyebrow">{w.proof.label}</h2>
+          {
+            proof.map((card) => (
+              <figure class="card reveal p-7">
+                <p class="eyebrow">{card.segment}</p>
+                <div class="mt-4 flex flex-wrap items-end gap-x-6 gap-y-2">
+                  {card.figures.map((fig, fi) => (
+                    <p
+                      class:list={['font-display font-semibold tracking-tight tabular-nums leading-none', fi === 0 ? 'text-5xl' : 'text-3xl text-muted']}
+                      data-countup
+                      data-to={fig.to}
+                      data-prefix={fig.prefix}
+                      data-suffix={fig.suffix}
+                    >
+                      {show(fig)}
+                    </p>
+                  ))}
+                </div>
+                <blockquote class="mt-5 border-t border-line pt-4 leading-relaxed">{card.statement}</blockquote>
+              </figure>
+            ))
+          }
+          <p class="text-sm text-muted">{w.proof.note}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-line py-20 lg:py-28" aria-labelledby="wm-tools">
+    <div class="container-x">
+      <p class="section-label reveal"><span class="num">04</span>{w.tools.label}</p>
+      <h2 id="wm-tools" class="h2 reveal mt-6 max-w-[24ch]">{w.tools.h2}</h2>
+      <p class="lede reveal mt-6 max-w-[62ch]">{w.tools.body}</p>
+      <ul class="mt-12 grid gap-4 md:grid-cols-3">
+        {
+          magnets.map((m, i) => (
+            <li class="reveal" style={`--d: ${i * 80}ms`}>
+              <a href={m[lang].path} class="card spotlight group flex h-full flex-col justify-between gap-8 p-7">
+                <span>
+                  <span class="eyebrow block">
+                    {m[lang].overline} · {magnetLabels[lang].free}
+                  </span>
+                  <span class="mt-3 block font-display text-xl leading-snug font-semibold">{m[lang].name}</span>
+                  <span class="mt-3 block leading-relaxed text-muted">{m[lang].description}</span>
+                </span>
+                <span class="inline-flex items-center gap-2 font-semibold">
+                  <Icon name="download" size={16} />
+                  {w.tools.get}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="border-t border-line py-20 lg:py-28" aria-labelledby="wm-faq">
+    <div class="container-x grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <p class="section-label reveal"><span class="num">05</span>{w.faq.label}</p>
+        <h2 id="wm-faq" class="h2 reveal mt-6">{w.faq.h2}</h2>
+      </div>
+      <div class="faq lg:col-span-8">
+        {
+          w.faq.items.map((item, i) => (
+            <details class="reveal border-b border-line first:border-t" style={`--d: ${i * 60}ms`} name="wm-faq" open={i === 0}>
+              <summary class="flex items-center justify-between gap-6 py-6 text-left">
+                <h3 class="font-display text-[clamp(1.15rem,1.7vw,1.4rem)] leading-snug font-semibold">{item.q}</h3>
+                <span class="plus grid size-9 shrink-0 place-content-center rounded-full border border-line">
+                  <Icon name="plus" size={16} />
+                </span>
+              </summary>
+              <p class="max-w-[62ch] pb-7 leading-relaxed text-muted">{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-24 lg:pb-32" aria-labelledby="wm-cta">
+    <div class="container-x">
+      <div class="band reveal relative overflow-hidden rounded-[32px] px-6 py-16 sm:px-12 lg:px-16 lg:py-20">
+        <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+        <div class="relative max-w-3xl">
+          <h2 id="wm-cta" class="display text-[clamp(2.2rem,4.6vw,3.8rem)]">{w.cta.h2}</h2>
+          <p class="lede mt-6 max-w-[52ch]">{w.cta.body}</p>
+          <a href={schedulePath(lang)} class="btn btn-primary mt-9">
+            {w.cta.button}
+            <Icon name="arrow" size={18} class="arrow" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,13 @@
+---
+import BlogPost from '../../components/blog/BlogPost.astro';
+import { counterpartOf, getPosts } from '../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = await getPosts('en');
+  return Promise.all(posts.map(async (post) => ({ params: { slug: post.id }, props: { post, posts, counterpart: await counterpartOf(post) } })));
+}
+
+const { post, posts, counterpart } = Astro.props;
+---
+
+<BlogPost post={post} posts={posts} lang="en" counterpart={counterpart} />

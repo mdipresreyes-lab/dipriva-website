@@ -1,0 +1,59 @@
+---
+import Icon from '../Icon.astro';
+import { copy, type Lang } from '../../lib/copy';
+import { blogIndexPath, clusterLabel, postPath } from '../../lib/blog';
+import type { Post } from '../../lib/blog';
+import { formatDate, readingMinutes } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+  posts: Post[];
+}
+
+const { lang, posts } = Astro.props;
+const t = copy[lang].insights;
+---
+
+<section id="insights" class="bg-surface py-24 lg:py-32" aria-labelledby="insights-title">
+  <div class="container-x">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <p class="section-label reveal"><span class="num">08</span>{t.label}</p>
+        <h2 id="insights-title" class="h2 reveal mt-6 max-w-[20ch]" style="--d: 80ms">{t.h2}</h2>
+        <p class="lede reveal mt-4" style="--d: 120ms">
+          {t.intro}
+          {t.langNote && <span class="block text-sm">{t.langNote}</span>}
+        </p>
+      </div>
+      <a href={blogIndexPath(lang)} class="link-arrow reveal">
+        {t.all}
+        <Icon name="arrow" size={16} class="arrow" />
+      </a>
+    </div>
+
+    <div class="mt-14 grid gap-4 md:grid-cols-3">
+      {
+        posts.map((post, i) => (
+          <article class="card spotlight reveal group flex flex-col p-7" style={`--d: ${i * 90}ms`}>
+            <div class="flex items-center justify-between gap-3 text-xs text-muted">
+              <span class="rounded-full border border-line px-3 py-1 font-semibold tracking-wide">{clusterLabel(lang, post.data.cluster)}</span>
+              <span>
+                {readingMinutes(post.data.words)} {t.minRead}
+              </span>
+            </div>
+            <h3 class="mt-6 font-display text-xl leading-snug font-semibold">
+              <a href={postPath(lang, post.id)} class="after:absolute after:inset-0">
+                {post.data.title}
+              </a>
+            </h3>
+            <p class="mt-3 line-clamp-3 text-[0.95rem] leading-relaxed text-muted">{post.data.description}</p>
+            <div class="mt-auto flex items-center justify-between pt-8 text-sm">
+              <span class="text-muted">{formatDate(post.data.date, lang)}</span>
+              <Icon name="arrowUpRight" size={18} class="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

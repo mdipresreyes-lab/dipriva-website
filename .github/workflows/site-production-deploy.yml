@@ -1,0 +1,79 @@
+name: Deploy production site
+
+# Manual only. Merging to main does NOT publish anything. On cutover day, open
+# Actions, pick "Deploy production site", click Run workflow and type "deploy".
+#
+# It builds the site in production mode and publishes it to Cloudflare under the
+# route www.dipriva.com/* (site/wrangler.jsonc, env "production"). The proxied DNS
+# record stays as it is, so GitHub Pages remains the fallback.
+#
+# ROLLBACK: delete the route "www.dipriva.com/*" from the Worker "dipriva-site"
+# in the Cloudflare dashboard (Workers & Pages, dipriva-site, Settings, Domains
+# and Routes). The old site answers again within seconds.
+#
+# Needs the same two secrets as the QA deploy: CLOUDFLARE_API_TOKEN (its zone
+# permissions must include dipriva.com, with Workers Routes: Edit) and
+# CLOUDFLARE_ACCOUNT_ID.
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "deploy" to publish www.dipriva.com'
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ inputs.confirm == 'deploy' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - name: Build (production mode, with the brand and blog gates)
+        run: npm run build:production
+      - name: Check Cloudflare credentials
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          ok=0
+          check() {
+            code=$(curl -s -o /tmp/cf.json -w '%{http_code}' -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$2")
+            echo "$1: HTTP $code, success=$(jq -r '.success' /tmp/cf.json 2>/dev/null)"
+            jq -r '.errors[]? | "  Cloudflare error \(.code): \(.message)"' /tmp/cf.json 2>/dev/null || true
+            [ "$code" = "200" ] || ok=1
+          }
+          check "API token is valid" "https://api.cloudflare.com/client/v4/user/tokens/verify"
+          check "Account ID matches this token and can list Workers" "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/scripts"
+          check "Token can see the dipriva.com zone" "https://api.cloudflare.com/client/v4/zones?name=dipriva.com"
+          ZONE_ID=$(jq -r '.result[0].id // empty' /tmp/cf.json)
+          if [ -z "$ZONE_ID" ]; then
+            echo "Could not read the dipriva.com zone id."
+            exit 1
+          fi
+          check "Token can read Workers Routes on dipriva.com (Edit is needed to publish)" "https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/workers/routes"
+          exit $ok
+      - name: Deploy to www.dipriva.com
+        run: npx --yes wrangler@4 deploy --env production
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Smoke test the live site (after a short wait for the route to settle)
+        run: |
+          sleep 30
+          node scripts/smoke-test.mjs https://www.dipriva.com --production --redirects
