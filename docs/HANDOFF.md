@@ -316,3 +316,8 @@ Manuel tested qa.dipriva.com and asked for these changes. All are done on `redes
 - Blog posts: share buttons now appear under the headline as well as at the bottom, and the visible "Updated" date is gone. The `updated` field still feeds `dateModified` in the page's structured data only.
 - `/unsubscribe/` with no token shows the error message. That is correct and identical to the live page. Use `?t=000000000000.00000000000000000000` to see the button state.
 - `llms.txt` now carries an explicit `Content-Type: text/plain; charset=utf-8` rule in `_headers`. The file's Spanish text was already correct UTF-8, and Cloudflare served it as UTF-8 in a local test. If accents still look wrong, note which browser or tool shows it.
+
+## Post-launch check list: items to look at later
+
+- **admin.dipriva.com is answering crawlers.** Cloudflare's AI Crawl Control (2026-10-13, last 7 days) lists `admin.dipriva.com/sitemap.xml` as the most crawled path, with 60 successful requests. That means the private CRM's address returns a successful response to crawlers, so its login page or app shell may be publicly visible and could be indexed by Google. Nothing was changed: the CRM is off limits to sessions, and Manuel decides. What to look at: open the address in a private window and see what it shows; search Google for `site:admin.dipriva.com`; if anything is indexed, ask for it to be kept out of search (a `noindex` response header or Cloudflare Access in front of it). Do this after the launch, before spending effort on branded search, because it could show up for searches on "Dipriva".
+
