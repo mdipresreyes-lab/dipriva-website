@@ -7,6 +7,24 @@ import { fileURLToPath } from 'node:url';
 const dist = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist');
 const production = process.env.PUBLIC_DEPLOY_ENV === 'production';
 
+// Every built page, as /path/ . Cloudflare adds a missing trailing slash with a
+// temporary (307) redirect on its own. Search engines treat that as temporary,
+// so each page gets an explicit permanent (301) redirect from its slashless form.
+function pagePaths(dir = dist, base = '') {
+  const out = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const next = `${base}/${entry.name}`;
+    if (fs.existsSync(path.join(dir, entry.name, 'index.html'))) out.push(`${next}/`);
+    out.push(...pagePaths(path.join(dir, entry.name), next));
+  }
+  return out;
+}
+const slashRedirects = pagePaths()
+  .filter((p) => !p.startsWith('/_astro/'))
+  .sort()
+  .map((p) => `${p.slice(0, -1)} ${p} 301`);
+
 const headers = [
   '/*',
   '  X-Content-Type-Options: nosniff',
@@ -50,6 +68,8 @@ const redirects = [
   // Retired posts (2026-10-13: written for solo founders, outside the 10 to 500 employee audience).
   '/blog/architect-the-micro-multinational-scaling-global-enterprise-without-headcount-drag/ /blog/operational-capacity-architecture-decoupling-headcount-b2b-scale/ 301',
   '/blog/architect-the-micro-multinational-scaling-global-enterprise-without-headcount-drag /blog/operational-capacity-architecture-decoupling-headcount-b2b-scale/ 301',
+  // Permanent redirects from slashless addresses (generated from the built pages).
+  ...slashRedirects,
   // The old hand-written sitemap address. Search engines may still have it on file.
   '/sitemap.xml /sitemap-index.xml 301',
   // The old AI-crawler mirror. Remove the Cloudflare Transform Rule at cutover.
