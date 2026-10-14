@@ -300,3 +300,13 @@ Mechanics documentation, from Google Search Central and llmstxt.org (check curre
 | `/about`, `/es/nosotros` | Company entity, footer, header | Built (T6); the old Cloudflare redirect to the founder page must go (section 6, step 6) |
 | `/es/blog/*` (8) | Spanish readers, hreflang pairs | Built (T5) |
 | `/og/<slug>.png`, `/og/es/<slug>.png` (16) | Social previews | Generated at build (T7) |
+
+## QA review fixes (2026-10-14)
+
+Manuel tested qa.dipriva.com and asked for these changes. All are done on `redesign`:
+- The language switch keeps the visitor's place. On the home page it lands in the same section; on other pages it lands in the same section and the same distance into it; posts fall back to the same relative position.
+- Footer: the address shows on three lines (street, Suite 202, city), Instagram and Facebook have icons matching LinkedIn, the West Michigan line is removed, and all three social links open in a new tab.
+- Spanish lead page addresses now mirror the English endings: `/es/estrategia/`, `/es/startup/` and `/es/ia-automatizacion/` (they replace the long download-title addresses; they were never live, so no redirects are needed). If Manuel prefers a different Spanish word for "startup" (for example "emprendimiento"), it is one folder rename plus the paths in `site/src/lib/magnets.ts` and `site/src/lib/services.ts`.
+- Blog posts: share buttons now appear under the headline as well as at the bottom, and the visible "Updated" date is gone. The `updated` field still feeds `dateModified` in the page's structured data only.
+- `/unsubscribe/` with no token shows the error message. That is correct and identical to the live page. Use `?t=000000000000.00000000000000000000` to see the button state.
+- `llms.txt` now carries an explicit `Content-Type: text/plain; charset=utf-8` rule in `_headers`. The file's Spanish text was already correct UTF-8, and Cloudflare served it as UTF-8 in a local test. If accents still look wrong, note which browser or tool shows it.

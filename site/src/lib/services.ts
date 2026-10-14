@@ -52,7 +52,7 @@ export const services: Service[] = [
     cluster: 'Corporate Strategy',
     proof: [0, 1],
     tool: {
-      path: { en: '/strategy/', es: '/es/kit-de-seguimiento-de-ventas/' },
+      path: { en: '/strategy/', es: '/es/estrategia/' },
       label: { en: 'Sales Follow-Up Kit', es: 'Kit de seguimiento de ventas' },
       body: {
         en: 'Five touches after every proposal and the message for each one. Free in English and Spanish.',
@@ -180,7 +180,7 @@ export const services: Service[] = [
     cluster: 'Startup Operations',
     proof: [2],
     tool: {
-      path: { en: '/startup/', es: '/es/hoja-de-ruta-operativa/' },
+      path: { en: '/startup/', es: '/es/startup/' },
       label: { en: '90-Day Operating Roadmap', es: 'Hoja de ruta operativa de 90 días' },
       body: {
         en: 'A one-page plan that names what leaves your desk, who owns it next and the date it moves.',
@@ -302,7 +302,7 @@ export const services: Service[] = [
     cluster: 'AI and Automation',
     proof: [],
     tool: {
-      path: { en: '/ai-automation/', es: '/es/por-donde-automatizar-primero/' },
+      path: { en: '/ai-automation/', es: '/es/ia-automatizacion/' },
       label: { en: 'Where to Automate First', es: 'Por dónde automatizar primero' },
       body: {
         en: 'Score the tasks your team repeats and find the one to automate first. Free in English and Spanish.',

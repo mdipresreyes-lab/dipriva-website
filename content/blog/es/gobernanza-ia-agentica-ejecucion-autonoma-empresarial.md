@@ -94,7 +94,7 @@ Elija un flujo de trabajo de alta frecuencia que hoy esté en la lista para auto
 
 3. El mecanismo de reversión: si una transacción errónea pasa por este flujo, ¿cuántos clics o acciones del sistema se necesitan para devolver la base de datos a su estado anterior a la transacción? Si no existe una reversión automática, ese paso debe seguir verificado por una persona.
 
-Completar esta auditoría da claridad inmediata sobre dónde se puede automatizar con seguridad hoy y dónde primero se debe estandarizar el proceso. La [hoja de trabajo gratuita Por dónde automatizar primero](/es/por-donde-automatizar-primero/) califica sus tareas repetidas para que usted elija el flujo correcto para auditar.
+Completar esta auditoría da claridad inmediata sobre dónde se puede automatizar con seguridad hoy y dónde primero se debe estandarizar el proceso. La [hoja de trabajo gratuita Por dónde automatizar primero](/es/ia-automatizacion/) califica sus tareas repetidas para que usted elija el flujo correcto para auditar.
 
 ## Trate a los agentes como empleados digitales bajo política ejecutiva
 

@@ -33,7 +33,7 @@ The Make.com pipeline that used to commit posts stopped on 2026-09-04. Nothing e
 | Gate (runs in `npm run build`) | `site/scripts/check-blog.mjs` |
 | Post template (takeaways, FAQ, sources, share links, OG image) | `site/src/components/blog/BlogPost.astro` |
 | Service pages | `/services/corporate-strategy/`, `/services/startup-operations/`, `/services/ai-automation/` and `/es/servicios/estrategia-corporativa/`, `/es/servicios/operaciones-de-startups/`, `/es/servicios/ia-y-automatizacion/` |
-| Lead pages | `/strategy/` (Sales Follow-Up Kit), `/startup/` (90-Day Operating Roadmap), `/ai-automation/` (Where to Automate First) and `/es/kit-de-seguimiento-de-ventas/`, `/es/hoja-de-ruta-operativa/`, `/es/por-donde-automatizar-primero/` |
+| Lead pages | `/strategy/` (Sales Follow-Up Kit), `/startup/` (90-Day Operating Roadmap), `/ai-automation/` (Where to Automate First) and `/es/estrategia/`, `/es/startup/`, `/es/ia-automatizacion/` |
 
 ## The draft
 

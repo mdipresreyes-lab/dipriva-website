@@ -470,9 +470,9 @@ export const copy = {
         title: 'Herramientas de trabajo gratuitas',
         body: 'Tres kits de trabajo en inglés y en español. Descarga gratuita.',
         links: [
-          { label: 'Hoja de ruta operativa de 90 días', href: '/es/hoja-de-ruta-operativa/' },
-          { label: 'Kit de seguimiento de ventas', href: '/es/kit-de-seguimiento-de-ventas/' },
-          { label: 'Por dónde automatizar primero', href: '/es/por-donde-automatizar-primero/' },
+          { label: 'Hoja de ruta operativa de 90 días', href: '/es/startup/' },
+          { label: 'Kit de seguimiento de ventas', href: '/es/estrategia/' },
+          { label: 'Por dónde automatizar primero', href: '/es/ia-automatizacion/' },
         ],
       },
       session: {
@@ -541,17 +541,17 @@ export const copy = {
         ops: {
           text: 'Su primera restricción: las decisiones pasan por usted. Empiece con la hoja de ruta operativa de 90 días.',
           cta: 'Reciba la hoja de ruta',
-          href: '/es/hoja-de-ruta-operativa/',
+          href: '/es/startup/',
         },
         strategy: {
           text: 'Su primera restricción: el seguimiento depende de la memoria. Empiece con el kit de seguimiento de ventas.',
           cta: 'Reciba el kit',
-          href: '/es/kit-de-seguimiento-de-ventas/',
+          href: '/es/estrategia/',
         },
         ai: {
           text: 'Su primera restricción: el trabajo manual consume la semana. Empiece con Por dónde automatizar primero.',
           cta: 'Reciba la hoja de trabajo',
-          href: '/es/por-donde-automatizar-primero/',
+          href: '/es/ia-automatizacion/',
         },
         none: {
           text: 'Ninguna restricción domina. Ponga a prueba el plan en una sesión estratégica de 30 minutos.',
@@ -748,7 +748,7 @@ export const blogCopy: Record<
     publishedOn: string;
     retrievedOn: string;
     updated: string;
-    share: { linkedin: string; facebook: string; x: string; email: string; copy: string; copied: string };
+    share: { label: string; linkedin: string; facebook: string; x: string; email: string; copy: string; copied: string };
     ctaByCluster: Record<string, BlogCta>;
   }
 > = {
@@ -773,7 +773,7 @@ export const blogCopy: Record<
     publishedOn: 'Published',
     retrievedOn: 'Retrieved',
     updated: 'Updated',
-    share: { linkedin: 'Share on LinkedIn', facebook: 'Share on Facebook', x: 'Share on X', email: 'Share by email', copy: 'Copy link', copied: 'Link copied' },
+    share: { label: 'Share', linkedin: 'Share on LinkedIn', facebook: 'Share on Facebook', x: 'Share on X', email: 'Share by email', copy: 'Copy link', copied: 'Link copied' },
     ctaByCluster: {
       'Corporate Strategy': {
         title: 'Proposals go quiet. Follow-up wins them back.',
@@ -816,25 +816,25 @@ export const blogCopy: Record<
     publishedOn: 'Publicado',
     retrievedOn: 'Consultado',
     updated: 'Actualizado',
-    share: { linkedin: 'Compartir en LinkedIn', facebook: 'Compartir en Facebook', x: 'Compartir en X', email: 'Compartir por correo', copy: 'Copiar enlace', copied: 'Enlace copiado' },
+    share: { label: 'Compartir', linkedin: 'Compartir en LinkedIn', facebook: 'Compartir en Facebook', x: 'Compartir en X', email: 'Compartir por correo', copy: 'Copiar enlace', copied: 'Enlace copiado' },
     ctaByCluster: {
       'Corporate Strategy': {
         title: 'Las propuestas se enfrían. El seguimiento las recupera.',
         body: 'Cinco contactos después de cada propuesta y el mensaje para cada uno. Gratis en inglés y en español.',
         cta: 'Reciba el kit de seguimiento de ventas',
-        href: '/es/kit-de-seguimiento-de-ventas/',
+        href: '/es/estrategia/',
       },
       'Startup Operations': {
         title: 'Todo pasa por usted. Muévalo en 90 días.',
         body: 'Un plan de una página que nombra lo que sale de su escritorio, quién lo asume y la fecha en que cambia de manos.',
         cta: 'Reciba la hoja de ruta operativa de 90 días',
-        href: '/es/hoja-de-ruta-operativa/',
+        href: '/es/startup/',
       },
       'AI and Automation': {
         title: 'Encuentre por dónde automatizar primero.',
         body: 'Califique las tareas que su equipo repite y encuentre la primera que conviene automatizar. Gratis en inglés y en español.',
         cta: 'Reciba la hoja de trabajo',
-        href: '/es/por-donde-automatizar-primero/',
+        href: '/es/ia-automatizacion/',
       },
     },
   },

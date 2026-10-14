@@ -19,15 +19,15 @@ Use a private window, on both your laptop and your phone. Sign in through the Ac
 ## 1. First look
 
 - [ ] Home page loads in English. Hero, buttons and menu look right.
-- [ ] Switch to Spanish with the ES button. The page stays on the matching Spanish page and reads naturally.
+- [ ] Scroll partway down the home page and switch to Spanish. You land in the same section. On a service, blog or other page, you land on its Spanish twin at about the same place on the page, and the same in reverse.
 - [ ] Dark mode toggle works and the text stays readable.
-- [ ] Footer shows: address (2435 Eastern Ave SE Suite 202), manuel@dipriva.com, LinkedIn, Instagram and Facebook links, and "Dipriva LLC" in the bottom line.
-- [ ] Click each footer social link. Each opens the correct Dipriva profile.
+- [ ] Footer shows the address on three lines (2435 Eastern Ave SE / Suite 202 / Grand Rapids, MI 49507), manuel@dipriva.com, LinkedIn, Instagram and Facebook with matching icons, and "Dipriva LLC" in the bottom line. There is no "West Michigan" line under the tagline.
+- [ ] Click each footer social link. Each opens the correct Dipriva profile in a new tab, and the Dipriva site stays open.
 - [ ] The "Analytics preferences" link in the footer reopens the cookie choice.
 
 ## 2. Lead pages (must be clean)
 
-Do this for all three, in English and Spanish: /startup/, /strategy/, /ai-automation/ and their Spanish pages.
+Do this for all three, in English and Spanish: /startup/, /strategy/ and /ai-automation/, and their Spanish pages /es/startup/, /es/estrategia/ and /es/ia-automatizacion/.
 
 - [ ] The page title and the main headline match the free download it offers.
 - [ ] Step 1 of the form: click Next with nothing selected. An error asks you to pick one.
@@ -60,7 +60,7 @@ Do this for all three, in English and Spanish: /startup/, /strategy/, /ai-automa
 - [ ] /blog/ lists 8 posts. /es/blog/ lists the Spanish versions.
 - [ ] Open one English post. Check: one headline, the table of contents on the left (on a laptop), the key takeaways box, the FAQ, and a sources list with links that open.
 - [ ] Use the language switch on that post. It lands on its Spanish twin, and the Spanish post links back.
-- [ ] Share buttons (LinkedIn, Facebook, X, email, copy link) all work.
+- [ ] Share buttons (LinkedIn, Facebook, X, email, copy link) appear both under the headline and at the bottom of the post, and all work. The post shows its published date only, no "updated" date.
 - [ ] The deleted micro-multinational post is not listed anywhere. (Its old address forwards on production only.)
 - [ ] View the page source of one post and find `og:image`. It points to a file for that post.
 
@@ -83,7 +83,8 @@ Do this for all three, in English and Spanish: /startup/, /strategy/, /ai-automa
 
 ## 8. Pages other systems depend on (must be clean)
 
-- [ ] /unsubscribe/ loads. It looks the same as https://www.dipriva.com/unsubscribe/ today. Do not click the button with a real token.
+- [ ] /unsubscribe/ with no token shows the error message in English and Spanish ("That did not work. / No funcionó."). That is correct: the page only shows the real unsubscribe button when the address carries a valid token. The page is byte-for-byte the same as the live one.
+- [ ] To see the button state, open https://qa.dipriva.com/unsubscribe/?t=000000000000.00000000000000000000 (a made-up token in the right format). You see the "unsubscribe" question and a button. Do not click the button.
 - [ ] /client_form/ and /es/formulario-de-cliente/ load and show the intake form. View source: the page says `noindex`.
 - [ ] /downloads/dipriva-sales-follow-up-kit-en.pdf opens directly.
 - [ ] /llms.txt opens and reads correctly. /robots.txt on QA blocks everything.

@@ -2,6 +2,7 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Icon from '../Icon.astro';
+import ShareButtons from './ShareButtons.astro';
 import { blogCopy, copy } from '../../lib/copy';
 import type { Lang } from '../../lib/copy';
 import { blogIndexPath, clusterLabel, isoDay, postPath } from '../../lib/blog';
@@ -55,10 +56,6 @@ const related = posts
   .sort((a, z) => Number(z.data.cluster === d.cluster) - Number(a.data.cluster === d.cluster) || z.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 
-const shareLinkedIn = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
-const shareFacebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-const shareX = `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(d.title)}`;
-const shareEmail = `mailto:?subject=${encodeURIComponent(d.title)}&body=${encodeURIComponent(url)}`;
 
 const schema = [
   {
@@ -142,14 +139,10 @@ const schema = [
           <span>
             {b.publishedOn} <time datetime={published}>{formatDate(d.date, lang) ?? b.undated}</time>
           </span>
-          {
-            updated !== published && (
-              <span>
-                {b.updated} <time datetime={updated}>{formatDate(dayOf(updated), lang)}</time>
-              </span>
-            )
-          }
           <span>{readingMinutes(d.words)} {b.minRead}</span>
+        </div>
+        <div class="mt-6">
+          <ShareButtons url={url} title={d.title} labels={b.share} caption />
         </div>
       </div>
     </header>
@@ -256,23 +249,7 @@ const schema = [
               <p class="text-sm text-muted">{copy[lang].about.role}</p>
             </div>
           </div>
-          <div class="flex items-center gap-2">
-            <a href={shareLinkedIn} rel="noopener" class="grid size-10 place-content-center rounded-full border border-line hover:bg-surface" aria-label={b.share.linkedin}>
-              <Icon name="linkedin" size={18} />
-            </a>
-            <a href={shareFacebook} rel="noopener" class="grid size-10 place-content-center rounded-full border border-line hover:bg-surface" aria-label={b.share.facebook}>
-              <Icon name="facebook" size={18} />
-            </a>
-            <a href={shareX} rel="noopener" class="grid size-10 place-content-center rounded-full border border-line font-display text-[1.05rem] font-semibold hover:bg-surface" aria-label={b.share.x}>
-              <span aria-hidden="true">X</span>
-            </a>
-            <a href={shareEmail} class="grid size-10 place-content-center rounded-full border border-line hover:bg-surface" aria-label={b.share.email}>
-              <Icon name="mail" size={18} />
-            </a>
-            <button type="button" class="copy-link inline-flex h-10 items-center gap-2 rounded-full border border-line px-4 text-sm font-semibold hover:bg-surface" data-url={url} data-done={b.share.copied}>
-              {b.share.copy}
-            </button>
-          </div>
+          <ShareButtons url={url} title={d.title} labels={b.share} />
         </div>
       </div>
     </div>

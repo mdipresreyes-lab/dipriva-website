@@ -173,7 +173,7 @@ export const magnets: Magnet[] = [
       ],
     },
     es: {
-      path: '/es/hoja-de-ruta-operativa/',
+      path: '/es/startup/',
       name: 'Hoja de ruta operativa de 90 días',
       title: 'Hoja de ruta operativa de 90 días | Dipriva Consulting Group',
       description:
@@ -295,7 +295,7 @@ export const magnets: Magnet[] = [
       ],
     },
     es: {
-      path: '/es/kit-de-seguimiento-de-ventas/',
+      path: '/es/estrategia/',
       name: 'Kit de seguimiento de ventas',
       title: 'Kit de seguimiento de ventas | Dipriva Consulting Group',
       description:
@@ -402,7 +402,7 @@ export const magnets: Magnet[] = [
       ],
     },
     es: {
-      path: '/es/por-donde-automatizar-primero/',
+      path: '/es/ia-automatizacion/',
       name: 'Por dónde automatizar primero',
       title: 'Por dónde automatizar primero | Dipriva Consulting Group',
       description:

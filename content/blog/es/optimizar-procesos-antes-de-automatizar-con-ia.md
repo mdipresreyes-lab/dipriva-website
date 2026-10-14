@@ -109,7 +109,7 @@ Plantee seis preguntas a su equipo en una sola reunión. Cada respuesta debe ser
 2. **Un disparador claro.** El flujo de trabajo arranca con un evento definido, como un formulario enviado, una cotización firmada o una factura pagada.
 3. **Pasos escritos a nivel de tarea.** Cada paso indica quién hace qué, con qué información. Si dos personas describen el proceso de forma distinta, no está listo.
 4. **Una ruta de excepciones definida.** El flujo de trabajo establece qué ocurre cuando faltan datos o una regla no se ajusta, y quién recibe el caso.
-5. **Un volumen que lo justifique.** La tarea se repite con la frecuencia suficiente para que el tiempo ahorrado supere el costo de construirla y mantenerla. La hoja de trabajo [Por dónde automatizar primero](/es/por-donde-automatizar-primero/) puntúa las horas por semana, la repetibilidad y el costo de un error.
+5. **Un volumen que lo justifique.** La tarea se repite con la frecuencia suficiente para que el tiempo ahorrado supere el costo de construirla y mantenerla. La hoja de trabajo [Por dónde automatizar primero](/es/ia-automatizacion/) puntúa las horas por semana, la repetibilidad y el costo de un error.
 6. **Una métrica que seguir.** Usted conoce hoy el tiempo de ciclo y la tasa de errores, así que puede ver el cambio después.
 
 Cada respuesta negativa se convierte en la siguiente tarea. Un flujo de trabajo con menos de seis respuestas afirmativas vuelve al protocolo de depuración.
@@ -158,9 +158,9 @@ Registre ambas antes de automatizar. Sin una línea base, no puede distinguir la
 
 ## Cómo empezar con un solo flujo de trabajo
 
-Elija un solo flujo de trabajo. Descargue la hoja de trabajo [Por dónde automatizar primero](/es/por-donde-automatizar-primero/), enumere las tareas que su equipo repite, puntúe cada una y tome la de mayor puntaje. Aplique el protocolo de depuración a esa tarea y luego haga las seis preguntas de preparación.
+Elija un solo flujo de trabajo. Descargue la hoja de trabajo [Por dónde automatizar primero](/es/ia-automatizacion/), enumere las tareas que su equipo repite, puntúe cada una y tome la de mayor puntaje. Aplique el protocolo de depuración a esa tarea y luego haga las seis preguntas de preparación.
 
-Si el trabajo que mantiene en marcha a la empresa pasa por usted, empiece con la [Hoja de ruta operativa de 90 días](/es/hoja-de-ruta-operativa/). Nombra las tres cosas que salen de su escritorio, quién asume cada una después y la fecha en que cada una se traspasa. Ambas son gratuitas.
+Si el trabajo que mantiene en marcha a la empresa pasa por usted, empiece con la [Hoja de ruta operativa de 90 días](/es/startup/). Nombra las tres cosas que salen de su escritorio, quién asume cada una después y la fecha en que cada una se traspasa. Ambas son gratuitas.
 
 Cuando un flujo de trabajo supere la lista de preparación y usted quiera ayuda para diseñarlo e implementarlo, conozca el servicio de [IA y automatización](/es/servicios/ia-y-automatizacion/) de Dipriva.
 

@@ -158,8 +158,23 @@ input?.addEventListener('keydown', (event) => {
   }
 });
 
-// Analytics: the language switch event the previous site reported. gtag exists
-// only after the visitor accepts analytics on the production build.
+// Language switch keeps the visitor's place. Home sections share the same ids in
+// both languages, so the link gets the id of the section in view. Other pages
+// have the same sections in the same order in both languages, so the next page
+// scrolls to the same section and the same distance into it. Posts, whose
+// headings differ, fall back to the same relative position.
+const SCROLL_KEY = 'dipriva-lang-scroll';
+const isHome = /^\/(es\/)?$/.test(location.pathname);
+const OFFSET = 100;
+const pageSections = () => Array.from(document.querySelectorAll<HTMLElement>('main section'));
+
+function sectionInView(): string | null {
+  const current = Array.from(document.querySelectorAll<HTMLElement>('main section[id]')).filter(
+    (el) => el.getBoundingClientRect().top <= 140,
+  );
+  return window.scrollY < 200 ? null : (current.at(-1)?.id ?? null);
+}
+
 document.querySelectorAll<HTMLAnchorElement>('a[hreflang]').forEach((a) =>
   a.addEventListener('click', () => {
     const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
@@ -167,5 +182,62 @@ document.querySelectorAll<HTMLAnchorElement>('a[hreflang]').forEach((a) =>
       language: a.hreflang,
       previous_language: document.documentElement.lang,
     });
+    const url = new URL(a.href, location.href);
+    const id = isHome ? sectionInView() : null;
+    if (id) {
+      url.hash = id;
+      a.href = url.toString();
+      return;
+    }
+    if (window.scrollY < 120) return;
+    const sections = pageSections();
+    let index = -1;
+    sections.forEach((el, i) => {
+      if (el.getBoundingClientRect().top <= OFFSET) index = i;
+    });
+    const rect = index >= 0 ? sections[index].getBoundingClientRect() : null;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const saved = {
+      to: url.pathname,
+      at: Date.now(),
+      count: sections.length,
+      index,
+      frac: rect ? Math.min(1, Math.max(0, (OFFSET - rect.top) / Math.max(rect.height, 1))) : 0,
+      ratio: max > 0 ? window.scrollY / max : 0,
+    };
+    try {
+      sessionStorage.setItem(SCROLL_KEY, JSON.stringify(saved));
+    } catch {
+      /* storage blocked: the switch still works, it just starts at the top */
+    }
   }),
 );
+
+try {
+  const saved = JSON.parse(sessionStorage.getItem(SCROLL_KEY) ?? 'null') as {
+    to: string;
+    at: number;
+    count: number;
+    index: number;
+    frac: number;
+    ratio: number;
+  } | null;
+  sessionStorage.removeItem(SCROLL_KEY);
+  if (saved && saved.to === location.pathname && Date.now() - saved.at < 15000 && !location.hash) {
+    const restore = () => {
+      const sections = pageSections();
+      let top: number;
+      if (saved.index >= 0 && sections.length === saved.count && saved.count >= 3) {
+        const el = sections[saved.index];
+        top = el.getBoundingClientRect().top + window.scrollY + saved.frac * el.offsetHeight - OFFSET;
+      } else {
+        top = saved.ratio * (document.documentElement.scrollHeight - window.innerHeight);
+      }
+      window.scrollTo({ top: Math.max(0, Math.round(top)), behavior: 'instant' });
+    };
+    if (document.readyState === 'complete') restore();
+    else window.addEventListener('load', restore, { once: true });
+  }
+} catch {
+  /* nothing saved, or storage blocked */
+}

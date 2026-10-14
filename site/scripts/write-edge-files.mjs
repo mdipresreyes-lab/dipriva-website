@@ -14,6 +14,11 @@ const headers = [
   '  Permissions-Policy: camera=(), microphone=(), geolocation=()',
   ...(production ? ['  Strict-Transport-Security: max-age=31536000'] : ['  X-Robots-Tag: noindex, nofollow']),
   '',
+  // Spanish titles live in llms.txt. Say the encoding outright so no browser or
+  // crawler has to guess it.
+  '/llms.txt',
+  '  Content-Type: text/plain; charset=utf-8',
+  '',
   '/_astro/*',
   '  Cache-Control: public, max-age=31536000, immutable',
   '',

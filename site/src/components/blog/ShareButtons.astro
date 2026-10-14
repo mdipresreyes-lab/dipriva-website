@@ -1,0 +1,38 @@
+---
+/** Share row used at the top and the bottom of a post. */
+import Icon from '../Icon.astro';
+
+interface Props {
+  url: string;
+  title: string;
+  labels: { label: string; linkedin: string; facebook: string; x: string; email: string; copy: string; copied: string };
+  /** Show the small "Share" caption before the buttons. */
+  caption?: boolean;
+}
+
+const { url, title, labels, caption = false } = Astro.props;
+const linkedin = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+const facebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+const x = `https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+const email = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(url)}`;
+const btn = 'grid size-10 place-content-center rounded-full border border-line hover:bg-surface';
+---
+
+<div class="flex flex-wrap items-center gap-2">
+  {caption && <span class="mr-1 text-sm font-semibold text-muted">{labels.label}</span>}
+  <a href={linkedin} target="_blank" rel="noopener noreferrer" class={btn} aria-label={labels.linkedin}>
+    <Icon name="linkedin" size={18} />
+  </a>
+  <a href={facebook} target="_blank" rel="noopener noreferrer" class={btn} aria-label={labels.facebook}>
+    <Icon name="facebook" size={18} />
+  </a>
+  <a href={x} target="_blank" rel="noopener noreferrer" class={`${btn} font-display text-[1.05rem] font-semibold`} aria-label={labels.x}>
+    <span aria-hidden="true">X</span>
+  </a>
+  <a href={email} class={btn} aria-label={labels.email}>
+    <Icon name="mail" size={18} />
+  </a>
+  <button type="button" class="copy-link inline-flex h-10 items-center gap-2 rounded-full border border-line px-4 text-sm font-semibold hover:bg-surface" data-url={url} data-done={labels.copied}>
+    {labels.copy}
+  </button>
+</div>

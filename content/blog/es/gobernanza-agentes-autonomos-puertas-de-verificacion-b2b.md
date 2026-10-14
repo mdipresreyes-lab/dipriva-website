@@ -153,7 +153,7 @@ Si su auditoría revela algún sistema automatizado con acceso de escritura a li
 
 Ejecute de inmediato una intervención de contención estructural: reduzca los permisos del sistema a solo lectura o exija aprobación humana obligatoria para cada acción de escritura, hasta que los cortacircuitos automáticos y los interruptores de emergencia probados estén codificados de forma fija en el flujo de trabajo.
 
-La hoja de trabajo gratuita [Por dónde automatizar primero](/es/por-donde-automatizar-primero/) califica las tareas que su equipo repite, para que sepa qué automatizaciones poner primero en la pizarra.
+La hoja de trabajo gratuita [Por dónde automatizar primero](/es/ia-automatizacion/) califica las tareas que su equipo repite, para que sepa qué automatizaciones poner primero en la pizarra.
 
 ## Por qué las demostraciones de los proveedores no reemplazan la gobernanza
 

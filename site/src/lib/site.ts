@@ -37,7 +37,11 @@ export const absolute = (path: string) => new URL(path, SITE_URL).toString();
 
 /** Confirmed by Manuel 2026-10-13. Must match the Google Business Profile word for word. */
 export const ADDRESS = {
+  /** Full street line, exactly as on the Google Business Profile (structured data). */
   street: '2435 Eastern Ave SE Suite 202',
+  /** The same address split for display: building, then suite. */
+  line1: '2435 Eastern Ave SE',
+  line2: 'Suite 202',
   city: 'Grand Rapids',
   region: 'MI',
   postalCode: '49507',
