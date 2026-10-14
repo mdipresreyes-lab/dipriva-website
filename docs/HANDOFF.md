@@ -208,6 +208,8 @@ Dates inferred because the cited page shows none: the Chamber of Commerce summar
 
 ## 6. Cutover checklist (production switch, same day)
 
+The step-by-step version written for Manuel, with explanations and the protection rule, is `docs/LAUNCH-RUNBOOK.md`. Use it on the day. This section is the short form.
+
 Do this only after the QA test list passes (docs/CUTOVER-TEST-CHECKLIST.md). The plan is built so nothing changes until you press one button, and undoing it takes one click.
 
 How it works: the production site is a Cloudflare Worker attached to www.dipriva.com by a route. The existing DNS record to GitHub Pages stays in place, so there is no DNS change and no gap. Rollback is deleting the route.
