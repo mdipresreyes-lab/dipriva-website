@@ -54,7 +54,7 @@ export const privacy: Record<Lang, Policy> = {
     intro:
       'Dipriva Consulting Group (“Dipriva,” “we,” “us”) respects your privacy. This policy explains what information we collect through dipriva.com and our intake forms, how we use it, where it is stored, and the choices you have.',
     identity:
-      'This policy covers Dipriva Consulting Group, also known as Dipriva or Dipriva Consulting, the independent firm that operates dipriva.com. Dipriva Consulting Group is operated by Dipriva LLC, 2435 Eastern Ave SE Suite 202, Grand Rapids, MI 49507. Dipriva has no affiliation with Diprivian or any similarly named company, and information you give Dipriva is never shared with them.',
+      'This policy covers Dipriva Consulting Group, also known as Dipriva or Dipriva Consulting, the independent firm that operates dipriva.com. Dipriva Consulting Group is operated by Dipriva LLC, 2435 Eastern Ave SE Suite 202, Grand Rapids, MI 49507. Dipriva is not affiliated with any company or product of a similar name, and information you give Dipriva is never shared with them.',
     onThisPage: 'On this page',
     sections: [
       {
@@ -327,7 +327,7 @@ export const privacy: Record<Lang, Policy> = {
     intro:
       'Dipriva Consulting Group (“Dipriva”, “nosotros”) respeta su privacidad. Esta política explica qué información recopilamos a través de dipriva.com y de nuestros formularios, cómo la usamos, dónde se almacena y qué opciones tiene usted.',
     identity:
-      'Esta política cubre a Dipriva Consulting Group, también conocida como Dipriva o Dipriva Consulting, la firma independiente que opera dipriva.com. Dipriva Consulting Group es operada por Dipriva LLC, 2435 Eastern Ave SE Suite 202, Grand Rapids, MI 49507. Dipriva no tiene ninguna relación con Diprivian ni con empresas de nombre similar, y la información que usted comparte con Dipriva nunca se comparte con ellas.',
+      'Esta política cubre a Dipriva Consulting Group, también conocida como Dipriva o Dipriva Consulting, la firma independiente que opera dipriva.com. Dipriva Consulting Group es operada por Dipriva LLC, 2435 Eastern Ave SE Suite 202, Grand Rapids, MI 49507. Dipriva no tiene ninguna relación con empresas o productos de nombre similar, y la información que usted comparte con Dipriva nunca se comparte con ellos.',
     onThisPage: 'En esta página',
     sections: [
       {

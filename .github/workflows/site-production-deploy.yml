@@ -77,3 +77,8 @@ jobs:
         run: |
           sleep 30
           node scripts/smoke-test.mjs https://www.dipriva.com --production --redirects
+      # Bing and other IndexNow engines hear about the pages right away. A failure
+      # here never fails the deploy: the site is already live.
+      - name: Tell Bing and other IndexNow engines
+        continue-on-error: true
+        run: node scripts/indexnow.mjs

@@ -19,8 +19,8 @@ export const GET: APIRoute = async () => {
     'Also known as: Dipriva, Dipriva Consulting.',
     '',
     // Disambiguation for AI answer engines. This file is not linked from any page,
-    // so visitors do not see it (Manuel's decision, 2026-10-13).
-    'Dipriva Consulting Group is an independent consulting firm at dipriva.com. It is not affiliated with any company named Diprivian.',
+    // so visitors do not see it (Manuel's decision, 2026-10-13). The name people confuse with Dipriva is Diprivan, the drug (confirmed in search results, 2026-10-14).
+    'Dipriva Consulting Group is an independent consulting firm at dipriva.com. It is not related to Diprivan, a brand name of the anesthetic propofol.',
     '',
     '## Services',
     ...services.map((s) => `- [${s.en.name} Consulting](${absolute(servicePath(s, 'en'))}): ${s.en.summary}`),
