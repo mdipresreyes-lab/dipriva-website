@@ -1,5 +1,6 @@
 ---
 import { copy, type Lang } from '../../lib/copy';
+import ClientLogos from './ClientLogos.astro';
 
 interface Props {
   lang: Lang;
@@ -52,5 +53,6 @@ const show = (f: { to: number; prefix: string; suffix: string }) =>
       }
     </div>
     <p class="mt-6 text-sm text-muted">{t.note}</p>
+    <ClientLogos lang={lang} />
   </div>
 </section>

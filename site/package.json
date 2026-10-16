@@ -5,14 +5,15 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/check-copy.mjs --sources && node scripts/check-lead-form.mjs && node scripts/check-blog.mjs && astro build && node scripts/check-copy.mjs && node scripts/write-edge-files.mjs",
+    "build": "node scripts/check-clients.mjs && node scripts/check-copy.mjs --sources && node scripts/check-lead-form.mjs && node scripts/check-blog.mjs && astro build && node scripts/check-copy.mjs && node scripts/write-edge-files.mjs",
     "build:production": "PUBLIC_DEPLOY_ENV=production npm run build",
     "preview": "astro preview",
     "check:copy": "node scripts/check-copy.mjs",
     "check:lead-form": "node scripts/check-lead-form.mjs",
     "deploy:qa": "npm run build && npx --yes wrangler@4 deploy",
     "check:blog": "node scripts/check-blog.mjs",
-    "check:jsonld": "node scripts/check-jsonld.mjs"
+    "check:jsonld": "node scripts/check-jsonld.mjs",
+    "check:clients": "node scripts/check-clients.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

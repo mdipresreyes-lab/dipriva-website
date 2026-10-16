@@ -236,6 +236,10 @@ export const copy = {
       ],
       note: 'Results from specific client engagements. Your results depend on your starting point.',
     },
+    clients: {
+      label: 'Companies we are proud to work with',
+      newTab: 'opens in a new tab',
+    },
     system: {
       label: 'Proof of practice',
       h2: 'We run Dipriva on the systems we build.',
@@ -590,6 +594,10 @@ export const copy = {
         },
       ],
       note: 'Resultados de proyectos específicos con clientes. Sus resultados dependen de su punto de partida.',
+    },
+    clients: {
+      label: 'Empresas con las que nos enorgullece trabajar',
+      newTab: 'se abre en una pestaña nueva',
     },
     system: {
       label: 'Prueba en la práctica',
