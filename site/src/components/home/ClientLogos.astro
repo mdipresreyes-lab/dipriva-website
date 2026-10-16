@@ -18,39 +18,64 @@ const ratio = (logo: string) => {
 };
 ---
 
-<div class="mt-20 border-t border-line pt-12">
-  <h3 class="eyebrow text-center">{t.label}</h3>
-  <ul class="client-logos mt-10 grid grid-cols-2 items-center justify-items-center gap-x-8 gap-y-12 lg:grid-cols-4" data-lang={lang}>
-    {
-      activeClients.map((c) => (
-        <li class="flex w-full items-center justify-center">
-          <a href={c.url} target="_blank" rel="noopener" class="client-logo-link" data-client={c.slug}>
-            <span
-              role="img"
-              aria-hidden="true"
-              class="client-logo"
-              style={`--logo: url('${c.logo}'); --scale: ${c.sizeScale}; aspect-ratio: ${ratio(c.logo)};`}
-            />
-            <span class="sr-only">{`${c.name} (${t.newTab})`}</span>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-</div>
+<section id="clients" class="border-t border-line py-14 lg:py-16" aria-labelledby="clients-title">
+  <div class="container-x">
+    <h2 id="clients-title" class="clients-title h3">{t.label}</h2>
+    <ul class="client-logos mt-10 grid grid-cols-2 items-center justify-items-center gap-x-8 gap-y-12 lg:grid-cols-4" data-lang={lang}>
+      {
+        activeClients.map((c) => (
+          <li class="flex w-full min-w-0 items-center justify-center">
+            <a href={c.url} target="_blank" rel="noopener" class="client-logo-link" data-client={c.slug}>
+              <span
+                role="img"
+                aria-hidden="true"
+                class="client-logo"
+                style={`--logo: url('${c.logo}'); --scale: ${c.sizeScale}; aspect-ratio: ${ratio(c.logo)};`}
+              />
+              <span class="sr-only">{`${c.name} (${t.newTab})`}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
 
 <style>
+  /* Centered serif heading between two short rules, the same rule as .section-label. */
+  .clients-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    text-align: center;
+    color: var(--ink);
+  }
+  /* The rules only show from 640px up, where the heading fits on one or two lines. */
+  @media (min-width: 640px) {
+    .clients-title::before,
+    .clients-title::after {
+      content: "";
+      flex: 0 0 40px;
+      height: 2px;
+      background: currentColor;
+      opacity: 0.7;
+    }
+  }
   .client-logo-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    max-width: 100%;
     padding: 8px;
     border-radius: 6px;
   }
   .client-logo {
     display: block;
-    height: calc(36px * var(--scale));
-    max-width: calc(160px * var(--scale));
+    /* Base 41.4px tall and 184px wide at most (36px and 160px plus 15%), times sizeScale. */
+    height: calc(41.4px * var(--scale));
+    /* Never wider than its grid column (ProCommand on a 375px phone). */
+    max-width: min(calc(184px * var(--scale)), 100%);
     background-color: var(--muted);
     -webkit-mask-image: var(--logo);
     mask-image: var(--logo);
