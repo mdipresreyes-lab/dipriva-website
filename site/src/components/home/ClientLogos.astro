@@ -1,0 +1,93 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import { copy, type Lang } from '../../lib/copy';
+import { activeClients } from '../../lib/clients';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = copy[lang].clients;
+
+// Logo aspect ratio from the PNG header, so each box is sized before the mask loads.
+const ratio = (logo: string) => {
+  const head = fs.readFileSync(path.join(process.cwd(), 'public', logo.replace(/^\//, ''))).subarray(16, 24);
+  return `${head.readUInt32BE(0)} / ${head.readUInt32BE(4)}`;
+};
+---
+
+<div class="mt-20 border-t border-line pt-12">
+  <h3 class="eyebrow text-center">{t.label}</h3>
+  <ul class="client-logos mt-10 grid grid-cols-2 items-center justify-items-center gap-x-8 gap-y-12 lg:grid-cols-4" data-lang={lang}>
+    {
+      activeClients.map((c) => (
+        <li class="flex w-full items-center justify-center">
+          <a href={c.url} target="_blank" rel="noopener" class="client-logo-link" data-client={c.slug}>
+            <span
+              role="img"
+              aria-hidden="true"
+              class="client-logo"
+              style={`--logo: url('${c.logo}'); --scale: ${c.sizeScale}; aspect-ratio: ${ratio(c.logo)};`}
+            />
+            <span class="sr-only">{`${c.name} (${t.newTab})`}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .client-logo-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 6px;
+  }
+  .client-logo {
+    display: block;
+    height: calc(36px * var(--scale));
+    max-width: calc(160px * var(--scale));
+    background-color: var(--muted);
+    -webkit-mask-image: var(--logo);
+    mask-image: var(--logo);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    transition: background-color 150ms ease;
+  }
+  .client-logo-link:hover .client-logo,
+  .client-logo-link:focus-visible .client-logo {
+    background-color: var(--ink);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .client-logo {
+      transition: none;
+    }
+  }
+  @media (forced-colors: active) {
+    .client-logo,
+    .client-logo-link:hover .client-logo,
+    .client-logo-link:focus-visible .client-logo {
+      forced-color-adjust: none;
+      background-color: CanvasText;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLUListElement>('.client-logos').forEach((list) => {
+    list.querySelectorAll<HTMLAnchorElement>('a[data-client]').forEach((a) =>
+      a.addEventListener('click', () => {
+        const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
+        gtag?.('event', 'client_logo_click', { client: a.dataset.client, lang: list.dataset.lang });
+      }),
+    );
+  });
+</script>
