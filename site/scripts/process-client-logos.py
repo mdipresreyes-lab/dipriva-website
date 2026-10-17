@@ -43,6 +43,9 @@ MAX_BYTES = 40 * 1024
 #                are farther than `band` from bg (for social cards with a tagline
 #                or URL under the logo); a (left, top, right, bottom) tuple crops
 #                to that box instead.
+#   Any kind can add 'max_width': N to scale a very large source down to N px
+#   wide after trimming (logos render at most about 240px wide, so 900px covers
+#   3x screens). Never used to scale up.
 RECIPES = {
     'mercatus-media': {'kind': 'transparent'},
     'pro-roofing-siding': {'kind': 'light-bg', 'bg': (255, 255, 255), 'min': 240, 'full': 140},
@@ -50,6 +53,7 @@ RECIPES = {
     # Transparent source with solid white rays inside the emblem: cut the white
     # out; `full` is low so the light-blue rays (darkest channel 166) stay opaque.
     'ismael-abreu-farmers-insurance': {'kind': 'light-bg', 'bg': (255, 255, 255), 'min': 240, 'full': 60},
+    'quisqueya-taxes': {'kind': 'light-bg', 'bg': (255, 255, 255), 'min': 240, 'full': 140, 'max_width': 900},
     'procommand': {'kind': 'color-bg', 'bg': (11, 27, 51), 'lo': 40, 'hi': 150, 'crop': 'first-band', 'band': 60},
 }
 
@@ -229,6 +233,9 @@ def build(slugs, prev_dir):
             raise SystemExit(f'{slug}: add a recipe to RECIPES first')
         print(f'{slug}:')
         src, out, box = process(slug, RECIPES[slug])
+        cap = RECIPES[slug].get('max_width')
+        if cap and out.width > cap:
+            out = out.resize((cap, round(out.height * cap / out.width)), Image.Resampling.LANCZOS)
         data, size = encode(out)
         (CLIENTS / f'{slug}.png').write_bytes(data)
         final = Image.open(io.BytesIO(data))
