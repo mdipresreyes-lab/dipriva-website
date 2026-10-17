@@ -47,6 +47,9 @@ RECIPES = {
     'mercatus-media': {'kind': 'transparent'},
     'pro-roofing-siding': {'kind': 'light-bg', 'bg': (255, 255, 255), 'min': 240, 'full': 140},
     'tiva-properties': {'kind': 'light-bg', 'bg': (253, 254, 252), 'min': 235, 'full': 130},
+    # Transparent source with solid white rays inside the emblem: cut the white
+    # out; `full` is low so the light-blue rays (darkest channel 166) stay opaque.
+    'ismael-abreu-farmers-insurance': {'kind': 'light-bg', 'bg': (255, 255, 255), 'min': 240, 'full': 60},
     'procommand': {'kind': 'color-bg', 'bg': (11, 27, 51), 'lo': 40, 'hi': 150, 'crop': 'first-band', 'band': 60},
 }
 

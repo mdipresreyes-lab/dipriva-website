@@ -54,6 +54,14 @@ export const clients: Client[] = [
     sizeScale: 1,
     active: true,
   },
+  {
+    slug: 'ismael-abreu-farmers-insurance',
+    name: 'Ismael Abreu, Authorized Farmers Insurance Agent',
+    url: 'https://agents.farmers.com/mi/grand-rapids/ismael-abreu/',
+    logo: '/clients/ismael-abreu-farmers-insurance.png',
+    sizeScale: 1.3,
+    active: true,
+  },
 ];
 
 export const activeClients = clients.filter((c) => c.active);

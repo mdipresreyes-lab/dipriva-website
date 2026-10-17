@@ -21,10 +21,10 @@ const ratio = (logo: string) => {
 <section id="clients" class="border-t border-line py-14 lg:py-16" aria-labelledby="clients-title">
   <div class="container-x">
     <h2 id="clients-title" class="clients-title h3">{t.label}</h2>
-    <ul class="client-logos mt-10 grid grid-cols-2 items-center justify-items-center gap-x-8 gap-y-12 lg:grid-cols-4" data-lang={lang}>
+    <ul class="client-logos mt-10 flex flex-wrap justify-center gap-y-12" data-lang={lang}>
       {
         activeClients.map((c) => (
-          <li class="flex w-full min-w-0 items-center justify-center">
+          <li class="flex w-1/2 min-w-0 items-center justify-center px-4 lg:w-1/5">
             <a href={c.url} target="_blank" rel="noopener" class="client-logo-link" data-client={c.slug}>
               <span
                 role="img"
@@ -74,7 +74,7 @@ const ratio = (logo: string) => {
     display: block;
     /* Base 41.4px tall and 184px wide at most (36px and 160px plus 15%), times sizeScale. */
     height: calc(41.4px * var(--scale));
-    /* Never wider than its grid column (ProCommand on a 375px phone). */
+    /* Never wider than its column (ProCommand on a 375px phone). */
     max-width: min(calc(184px * var(--scale)), 100%);
     background-color: var(--muted);
     -webkit-mask-image: var(--logo);
