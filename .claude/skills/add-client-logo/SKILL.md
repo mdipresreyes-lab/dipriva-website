@@ -76,7 +76,7 @@ It prints the mode, alpha counts, top colors, the border color (usually the back
 | Colored or dark background | `{'kind': 'color-bg', 'bg': 'auto', 'lo': 40, 'hi': 150}`; raise `lo` above any faint background pattern |
 | Social share card with a tagline or URL under the logo | `color-bg` plus `'crop': 'first-band', 'band': 60`; it keeps only the first band of rows and prints the crop box. Use an explicit `(left, top, right, bottom)` box if the logo itself spans two bands |
 
-Never upscale a small source. The script trims to the shapes, adds 4px padding, and picks the smallest PNG under 40 KB (it only downscales if all formats are over the budget).
+Never upscale a small source. The script trims to the shapes, adds 4px padding, and picks the smallest PNG under 40 KB (it only downscales if all formats are over the budget). For a very large source (wider than about 1200px), add `'max_width': 900` to the recipe: logos render at most about 240px wide, so 900px covers 3x screens and keeps the file small (Quisqueya Taxes went from 33.5 KB to 11.2 KB). Every logo adds to the homepage load, so keep each stencil as small as it can be.
 
 ### 4. Build the stencil and look at it
 
@@ -108,7 +108,7 @@ Append an entry to `clients` in `site/src/lib/clients.ts` (array order is displa
 },
 ```
 
-Start `sizeScale` at 1. Current values for reference: Tiva Properties 1.1 (square mark), Pro Roofing & Siding 1.1, ProCommand 0.95 (very wide wordmark), Mercatus Media 1.0, Ismael Abreu (Farmers Insurance stacked lockup with small second line) 1.3. Keep the syntax plain TypeScript (no enums, no imports): the gate imports the file with Node's type stripping.
+Start `sizeScale` at 1. Current values for reference: Tiva Properties 1.1 (square mark), Pro Roofing & Siding 1.1, ProCommand 0.95 (very wide wordmark), Mercatus Media 1.0, Ismael Abreu (Farmers Insurance stacked lockup with small second line) 1.3, Quisqueya Taxes (thin serif wordmark) 1.15. Keep the syntax plain TypeScript (no enums, no imports): the gate imports the file with Node's type stripping.
 
 To **remove** a client, set `active: false` (the logo stays in the repo and can come back) or delete the entry and both files. To **replace** a logo, overwrite `<slug>-original.png` and rebuild.
 

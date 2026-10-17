@@ -62,6 +62,14 @@ export const clients: Client[] = [
     sizeScale: 1.3,
     active: true,
   },
+  {
+    slug: 'quisqueya-taxes',
+    name: 'Quisqueya Taxes',
+    url: 'https://www.quisqueyataxes.com/',
+    logo: '/clients/quisqueya-taxes.png',
+    sizeScale: 1.15,
+    active: true,
+  },
 ];
 
 export const activeClients = clients.filter((c) => c.active);
