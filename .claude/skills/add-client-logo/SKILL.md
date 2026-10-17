@@ -32,7 +32,7 @@ The homepage shows a static grid of client logos right under the hero, on `/` an
 | Screenshots and browser checks | `.claude/skills/add-client-logo/check-logos.cjs` |
 | Preview images for PRs (not deployed) | `site/docs/client-logos/` |
 
-Sizing: each logo box is 41.4px tall and at most 184px wide, both times `sizeScale`, and never wider than its grid column. The grid is 2 columns on phones and 4 from the `lg` breakpoint.
+Sizing: each logo box is 41.4px tall and at most 184px wide, both times `sizeScale`, and never wider than its column. The list is a centered, wrapping row: 2 per row on phones and 5 per row from the `lg` breakpoint (`w-1/2 lg:w-1/5` on each `li`), so a leftover logo is centered instead of left-aligned.
 
 ## What Manuel needs to give you
 
@@ -72,6 +72,7 @@ It prints the mode, alpha counts, top colors, the border color (usually the back
 | Transparent background, logo only | `{'kind': 'transparent'}` |
 | White or near-white background | `{'kind': 'light-bg', 'bg': (255, 255, 255), 'min': 240, 'full': 140}` |
 | Off-white fill inside a shape (for example a ring) that should become a hole | `light-bg` with `bg` set to that fill color and `min` just below its darkest channel (Tiva uses 235) |
+| Transparent background but solid white details inside the logo (rays, highlights) that would merge into a blob | `light-bg` on white with a low `full` so pale colors stay opaque (Farmers: `'min': 240, 'full': 60`). Build a variant that also cuts the pale color (`min` just below its darkest channel) and keep whichever reads closer to the real logo |
 | Colored or dark background | `{'kind': 'color-bg', 'bg': 'auto', 'lo': 40, 'hi': 150}`; raise `lo` above any faint background pattern |
 | Social share card with a tagline or URL under the logo | `color-bg` plus `'crop': 'first-band', 'band': 60`; it keeps only the first band of rows and prints the crop box. Use an explicit `(left, top, right, bottom)` box if the logo itself spans two bands |
 
@@ -107,13 +108,13 @@ Append an entry to `clients` in `site/src/lib/clients.ts` (array order is displa
 },
 ```
 
-Start `sizeScale` at 1. Current values for reference: Tiva Properties 1.1 (square mark), Pro Roofing & Siding 1.1, ProCommand 0.95 (very wide wordmark), Mercatus Media 1.0. Keep the syntax plain TypeScript (no enums, no imports): the gate imports the file with Node's type stripping.
+Start `sizeScale` at 1. Current values for reference: Tiva Properties 1.1 (square mark), Pro Roofing & Siding 1.1, ProCommand 0.95 (very wide wordmark), Mercatus Media 1.0, Ismael Abreu (Farmers Insurance stacked lockup with small second line) 1.3. Keep the syntax plain TypeScript (no enums, no imports): the gate imports the file with Node's type stripping.
 
 To **remove** a client, set `active: false` (the logo stays in the repo and can come back) or delete the entry and both files. To **replace** a logo, overwrite `<slug>-original.png` and rebuild.
 
-### 6. Check the grid
+### 6. Check the row
 
-Four logos fill one row at `lg`. With 5 to 7 logos the last row is partly empty; that is fine, but look at it. At 8 the grid is two full rows. If Manuel wants a single row for 5 or 6 logos, change `lg:grid-cols-4` in `ClientLogos.astro` and re-check 1280px screenshots.
+Five logos fill one row at `lg`; a sixth starts a second row, centered. On phones, an odd count leaves one logo centered on the last row. Both are fine, but look at them. With 6 logos, one row of 6 may read better: change `lg:w-1/5` to `lg:w-1/6` on the `li` in `ClientLogos.astro` and check that no logo overflows at 1024px (the widest marks shrink to their column there). Ask Manuel before changing the per-row count.
 
 ### 7. Build and gates
 
