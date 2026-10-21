@@ -356,9 +356,9 @@ function generatePrivacy() {
       <li>Access credentials issued by these platforms are kept in encrypted secret storage, are limited to authorized personnel, and are revoked when no longer needed.</li>
       <li>Content we publish may be drafted with AI-assisted tools and is reviewed by a member of our team before publication, as described in the AI and Automation section. Where a platform offers a label for AI-generated content, we apply it.</li>
     </ul>
-    <p>Each platform processes information under its own terms and privacy policy. To request deletion of any information we hold that relates to our social media accounts, contact <a href="mailto:manuel@dipriva.com">manuel@dipriva.com</a>. We process deletion requests within 30 days.</p>
+    <p>Each platform processes information under its own terms and privacy policy. To request deletion of any information we hold that relates to our social media accounts, contact <a href="mailto:support@dipriva.com">support@dipriva.com</a>. We process deletion requests within 30 days.</p>
     <h2>Contact</h2>
-    <p>For privacy questions, contact us at <a href="mailto:manuel@dipriva.com">manuel@dipriva.com</a>.</p>
+    <p>For privacy questions, contact us at <a href="mailto:support@dipriva.com">support@dipriva.com</a>.</p>
   </article>
 </main>
 <footer>

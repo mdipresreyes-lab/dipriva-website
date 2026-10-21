@@ -21,7 +21,7 @@ Use a private window, on both your laptop and your phone. Sign in through the Ac
 - [ ] Home page loads in English. Hero, buttons and menu look right.
 - [ ] Scroll partway down the home page and switch to Spanish. You land in the same section. On a service, blog or other page, you land on its Spanish twin at about the same place on the page, and the same in reverse.
 - [ ] Dark mode toggle works and the text stays readable.
-- [ ] Footer shows the address on three lines (2435 Eastern Ave SE / Suite 202 / Grand Rapids, MI 49507), manuel@dipriva.com, LinkedIn, Instagram and Facebook with matching icons, and "Dipriva LLC" in the bottom line. There is no "West Michigan" line under the tagline.
+- [ ] Footer shows the address on three lines (2435 Eastern Ave SE / Suite 202 / Grand Rapids, MI 49507), support@dipriva.com, LinkedIn, Instagram and Facebook with matching icons, and "Dipriva LLC" in the bottom line. There is no "West Michigan" line under the tagline.
 - [ ] Click each footer social link. Each opens the correct Dipriva profile in a new tab, and the Dipriva site stays open.
 - [ ] The "Analytics preferences" link in the footer reopens the cookie choice.
 
@@ -45,7 +45,7 @@ Do this for all three, in English and Spanish: /startup/, /strategy/ and /ai-aut
 - [ ] /schedule/ and /es/agendar/ both load.
 - [ ] "Open the booking calendar" opens Microsoft Bookings in a new tab. It shows the 30-minute meeting type and real open times.
 - [ ] The Microsoft Form loads below it. Submit one TEST entry, confirm it reaches you, then delete it.
-- [ ] The fallback line shows manuel@dipriva.com and the link opens your mail app.
+- [ ] The fallback line shows support@dipriva.com and the link opens your mail app.
 - [ ] The privacy link opens the privacy page.
 
 ## 4. Service pages
@@ -113,7 +113,7 @@ These need the real production setup, so they run on cutover day (see HANDOFF.md
 - [ ] Run `node scripts/smoke-test.mjs https://www.dipriva.com --production --redirects`. Zero failures.
 - [ ] Submit one real lead on /strategy/. A Teams card appears in Leads, and "Sync inbound leads" in dipriva-admin picks it up.
 - [ ] The Turnstile check appears and passes on the real site.
-- [ ] Open Lea. A real reply comes back. Ask to speak to the team and give test details: the email to manuel@ arrives and the Microsoft 365 list gets a row.
+- [ ] Open Lea. A real reply comes back. Ask to speak to the team and give test details: the email to support@ arrives and the Microsoft 365 list gets a row.
 - [ ] Accept cookies, then confirm in Google Analytics Realtime that your visit appears. Reject and confirm it does not.
 - [ ] Paste one blog post address into the LinkedIn Post Inspector and Facebook Sharing Debugger. The image and title look right.
 - [ ] Ask the post verifier to check one week-43 post package. It can fetch the lead pages.

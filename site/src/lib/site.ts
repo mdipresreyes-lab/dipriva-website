@@ -7,7 +7,7 @@ export const WEBSITE_ID = `${SITE_URL}/#website`;
 
 export const IS_PRODUCTION = import.meta.env.PUBLIC_IS_PRODUCTION === true;
 
-export const CONTACT_EMAIL = 'manuel@dipriva.com';
+export const CONTACT_EMAIL = 'support@dipriva.com';
 /** Microsoft Bookings, 30-minute strategy session. Same link dipriva-growth outreach emails use (config/outreach.yaml). */
 export const BOOKING_URL =
   'https://bookings.cloud.microsoft/bookwithme/user/df9f836ac682468ab12b1891f552c6d6@dipriva.com/meetingtype/6UWVEWsqzk-ufJSvC0xFfA2?anonymous&ismsaljsauthenabled&ep=mlink';

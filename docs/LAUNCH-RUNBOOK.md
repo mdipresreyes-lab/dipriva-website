@@ -92,7 +92,7 @@ Open a private window and go to https://www.dipriva.com. Check:
 ## Step 7. Test the things only the live site can do (20 minutes)
 
 1. Lead form. On /strategy, fill in the form with the business name "TEST" and your own email. Submit. You should see the download buttons. Within a minute, a card appears in the Teams channel "Leads". In dipriva-admin, click **Sync inbound leads** and the test lead appears. Delete the test lead from the CRM afterward.
-2. Lea. Open the chat on the live site. Ask for help and, when she asks, give test details (business "TEST"). You should get an email at manuel@ and a new row in your Microsoft 365 list. Delete the test row.
+2. Lea. Open the chat on the live site. Ask for help and, when she asks, give test details (business "TEST"). You should get an email at support@ and a new row in your Microsoft 365 list. Delete the test row.
 3. Analytics. Open the site, click **Accept** on the cookie banner, then in Google Analytics open **Reports, Realtime**. You should see yourself. Open a private window, click **Reject**, and confirm that visit does not appear.
 4. Sharing. Open https://www.linkedin.com/post-inspector/ and paste a blog post address. The title and image should look right. Do the same with https://developers.facebook.com/tools/debug/.
 5. Social check. Tell Claude. Claude asks the post verifier to check one week-43 package so you know it can read the new lead pages.

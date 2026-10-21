@@ -69,7 +69,7 @@ const privacyContent = {
           'Access credentials issued by these platforms are kept in encrypted secret storage, are limited to authorized personnel, and are revoked when no longer needed.',
           'Content we publish may be drafted with AI-assisted tools and is reviewed by a member of our team before publication, as described in the AI and Automation section. Where a platform offers a label for AI-generated content, we apply it.',
         ],
-        afterItems: 'Each platform processes information under its own terms and privacy policy. To request deletion of any information we hold that relates to our social media accounts, contact manuel@dipriva.com. We process deletion requests within 30 days.',
+        afterItems: 'Each platform processes information under its own terms and privacy policy. To request deletion of any information we hold that relates to our social media accounts, contact support@dipriva.com. We process deletion requests within 30 days.',
       },
       {
         title: 'Data Storage',
@@ -124,7 +124,7 @@ const privacyContent = {
     rights: {
       title: 'Your Rights and Choices',
       content: 'You may request access to, correction of, or deletion of your personal information at any time by contacting',
-      email: 'manuel@dipriva.com',
+      email: 'support@dipriva.com',
       afterEmail: '. We will process deletion requests within 30 days.',
     },
     changes: {
@@ -134,7 +134,7 @@ const privacyContent = {
     questions: {
       title: 'Questions',
       content: 'If you have any questions about this privacy policy or our data practices, contact us at',
-      email: 'manuel@dipriva.com',
+      email: 'support@dipriva.com',
     },
   },
   es: {
@@ -201,7 +201,7 @@ const privacyContent = {
           'Las credenciales de acceso que emiten estas plataformas se conservan en almacenamiento cifrado de secretos, se limitan al personal autorizado y se revocan cuando dejan de ser necesarias.',
           'El contenido que publicamos puede redactarse con herramientas asistidas por IA y es revisado por un miembro de nuestro equipo antes de su publicaci\u00f3n, como se describe en la secci\u00f3n de Inteligencia artificial y automatizaci\u00f3n. Cuando una plataforma ofrece una etiqueta para contenido generado por IA, la aplicamos.',
         ],
-        afterItems: 'Cada plataforma procesa la informaci\u00f3n conforme a sus propios t\u00e9rminos y pol\u00edtica de privacidad. Para solicitar la eliminaci\u00f3n de cualquier informaci\u00f3n que conservemos relacionada con nuestras cuentas de redes sociales, escriba a manuel@dipriva.com. Procesamos las solicitudes de eliminaci\u00f3n en un plazo de 30 d\u00edas.',
+        afterItems: 'Cada plataforma procesa la informaci\u00f3n conforme a sus propios t\u00e9rminos y pol\u00edtica de privacidad. Para solicitar la eliminaci\u00f3n de cualquier informaci\u00f3n que conservemos relacionada con nuestras cuentas de redes sociales, escriba a support@dipriva.com. Procesamos las solicitudes de eliminaci\u00f3n en un plazo de 30 d\u00edas.',
       },
       {
         title: 'Almacenamiento de datos',
@@ -256,7 +256,7 @@ const privacyContent = {
     rights: {
       title: 'Sus derechos y opciones',
       content: 'Usted puede solicitar el acceso, la correcci\u00f3n o la eliminaci\u00f3n de su informaci\u00f3n personal en cualquier momento escribiendo a',
-      email: 'manuel@dipriva.com',
+      email: 'support@dipriva.com',
       afterEmail: '. Procesaremos las solicitudes de eliminaci\u00f3n en un plazo de 30 d\u00edas.',
     },
     changes: {
@@ -266,7 +266,7 @@ const privacyContent = {
     questions: {
       title: 'Preguntas',
       content: 'Si tiene alguna pregunta sobre esta pol\u00edtica de privacidad o sobre nuestras pr\u00e1cticas de datos, cont\u00e1ctenos en',
-      email: 'manuel@dipriva.com',
+      email: 'support@dipriva.com',
     },
   },
 };

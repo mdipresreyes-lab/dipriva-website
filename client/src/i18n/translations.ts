@@ -95,7 +95,7 @@ export const translations = {
       placeholder: 'Type a message…',
       sendLabel: 'Send',
       thinking: 'Lea is typing…',
-      errorFallback: "I'm unable to continue this conversation right now. Please email manuel@dipriva.com directly.",
+      errorFallback: "I'm unable to continue this conversation right now. Please email support@dipriva.com directly.",
     },
   },
 
@@ -195,7 +195,7 @@ export const translations = {
       placeholder: 'Escriba un mensaje…',
       sendLabel: 'Enviar',
       thinking: 'Lea está escribiendo…',
-      errorFallback: 'No puedo continuar esta conversación en este momento. Por favor escriba directamente a manuel@dipriva.com.',
+      errorFallback: 'No puedo continuar esta conversación en este momento. Por favor escriba directamente a support@dipriva.com.',
     },
   },
 };

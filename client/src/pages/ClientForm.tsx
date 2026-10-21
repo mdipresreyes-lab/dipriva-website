@@ -4,8 +4,8 @@ import { LanguageToggle } from '@/components/LanguageToggle';
 import FooterSection from '@/components/sections/FooterSection';
 
 const consentText = {
-  en: 'By submitting this form, you consent to Dipriva Consulting Group collecting and processing the business and financial information you provide for the purpose of analyzing your business and preparing your growth strategy. This information is treated as confidential and is not sold or shared for marketing purposes. To request access to or deletion of your information, contact manuel@dipriva.com. See our Privacy Policy for details.',
-  es: 'Al enviar este formulario, usted da su consentimiento a Dipriva Consulting Group para recopilar y procesar la información empresarial y financiera que proporcione, con el fin de analizar su negocio y preparar su estrategia de crecimiento. Esta información se trata de manera confidencial y no se vende ni se comparte con fines de marketing. Para solicitar el acceso a sus datos o su eliminación, escriba a manuel@dipriva.com. Consulte nuestra Política de Privacidad para más detalles.',
+  en: 'By submitting this form, you consent to Dipriva Consulting Group collecting and processing the business and financial information you provide for the purpose of analyzing your business and preparing your growth strategy. This information is treated as confidential and is not sold or shared for marketing purposes. To request access to or deletion of your information, contact support@dipriva.com. See our Privacy Policy for details.',
+  es: 'Al enviar este formulario, usted da su consentimiento a Dipriva Consulting Group para recopilar y procesar la información empresarial y financiera que proporcione, con el fin de analizar su negocio y preparar su estrategia de crecimiento. Esta información se trata de manera confidencial y no se vende ni se comparte con fines de marketing. Para solicitar el acceso a sus datos o su eliminación, escriba a support@dipriva.com. Consulte nuestra Política de Privacidad para más detalles.',
 };
 
 const pageText = {

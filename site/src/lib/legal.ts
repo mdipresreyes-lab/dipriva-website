@@ -38,7 +38,7 @@ export type Policy = {
   sections: LegalSection[];
 };
 
-export const PRIVACY_EMAIL = 'manuel@dipriva.com';
+export const PRIVACY_EMAIL = 'support@dipriva.com';
 
 export const privacy: Record<Lang, Policy> = {
   en: {
@@ -117,7 +117,7 @@ export const privacy: Record<Lang, Policy> = {
           },
           {
             kind: 'p',
-            text: 'To limit abuse, the chat service temporarily uses your IP address to count messages for one hour. To ask for access to or deletion of what you shared, email manuel@dipriva.com.',
+            text: 'To limit abuse, the chat service temporarily uses your IP address to count messages for one hour. To ask for access to or deletion of what you shared, email support@dipriva.com.',
           },
         ],
       },
@@ -185,7 +185,7 @@ export const privacy: Record<Lang, Policy> = {
           },
           {
             kind: 'p',
-            text: 'Each platform processes information under its own terms and privacy policy. To request deletion of any information we hold that relates to our social media accounts, contact manuel@dipriva.com. We process deletion requests within 30 days.',
+            text: 'Each platform processes information under its own terms and privacy policy. To request deletion of any information we hold that relates to our social media accounts, contact support@dipriva.com. We process deletion requests within 30 days.',
           },
         ],
       },
@@ -393,7 +393,7 @@ export const privacy: Record<Lang, Policy> = {
           },
           {
             kind: 'p',
-            text: 'Para limitar el abuso, el servicio de chat utiliza temporalmente su dirección IP para contar los mensajes durante una hora. Para solicitar acceso a lo que compartió, o su eliminación, escriba a manuel@dipriva.com.',
+            text: 'Para limitar el abuso, el servicio de chat utiliza temporalmente su dirección IP para contar los mensajes durante una hora. Para solicitar acceso a lo que compartió, o su eliminación, escriba a support@dipriva.com.',
           },
         ],
       },
@@ -461,7 +461,7 @@ export const privacy: Record<Lang, Policy> = {
           },
           {
             kind: 'p',
-            text: 'Cada plataforma procesa la información conforme a sus propios términos y política de privacidad. Para solicitar la eliminación de cualquier información que conservemos relacionada con nuestras cuentas de redes sociales, escriba a manuel@dipriva.com. Procesamos las solicitudes de eliminación en un plazo de 30 días.',
+            text: 'Cada plataforma procesa la información conforme a sus propios términos y política de privacidad. Para solicitar la eliminación de cualquier información que conservemos relacionada con nuestras cuentas de redes sociales, escriba a support@dipriva.com. Procesamos las solicitudes de eliminación en un plazo de 30 días.',
           },
         ],
       },
