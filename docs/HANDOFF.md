@@ -67,7 +67,7 @@ Updated 2026-10-13, end of the completion session (tasks T1 to T8). Branch `rede
 | D1 | Audience: companies with **10 to 500 employees**; larger companies welcome | Site done. dipriva-social: pull request 13 (hold), see M9. Outside profiles: M6 |
 | D2 | Blog posts that miss the audience: re-checked against 10 to 500. Deleted: *Architect the Micro-Multinational* (written for solo founders). Kept: *Refine Before You Automate* (growing startups; matches the AI tool's message) and the West Michigan manufacturer, grocer and enterprise posts (companies of that size fall inside 10 to 500) | Deletion done on `redesign` with a 301 to the closest post. Rewrite and sourcing: done in T4 |
 | D3 | Privacy policy: keep Microsoft Clarity and Google Ads for future use, worded "may use" | Done in English and Spanish |
-| D4 | Schedule page fallback email: manuel@dipriva.com | Done |
+| D4 | Schedule page fallback email: support@dipriva.com | Done |
 | D5 | Add the Microsoft Bookings 30-minute link to the schedule page | Done, as the main option above the form |
 | D6 | Spanish blog posts for readers on `/es/` | Done (T5): 8 Spanish posts, `/es/blog/` |
 | D7 | Name Diprivian only in low-visibility places that AI tools and search engines read | Done: one line in `llms.txt` and an identity note on `/privacy/` and `/es/privacidad/`. Not in hidden HTML or structured data, see below |
@@ -99,8 +99,8 @@ Updated 2026-10-13, end of the completion session (tasks T1 to T8). Branch `rede
 | | LinkedIn Featured or past shares that link to it | Manuel checks the LinkedIn Featured section (M6). The 301 covers old links |
 | Bookings link | `/schedule/` | Done |
 | | Privacy policy: Bookings collects name, email and phone through Microsoft 365 | Drafted (T2) with a REVIEW marker on QA builds; waits for Manuel (M3) |
-| | Bookings page settings: it must be public, show a 30-minute meeting type, and send confirmations from manuel@ | Manuel checks once (M6) |
-| manuel@ as contact | Schedule page, footer, Lea fallback, schema `contactPoint` | Done. hello@ appears nowhere on the new site |
+| | Bookings page settings: it must be public, show a 30-minute meeting type, and send confirmations from support@ | Manuel checks once (M6) |
+| support@ as contact | Schedule page, footer, Lea fallback, schema `contactPoint` | Done. hello@ appears nowhere on the new site |
 | Spanish blog | Blog index and post routes, header "Análisis" link, hreflang, sitemap, llms.txt, publishing skill, content gate | Done (T5, T7, T8) |
 | Clarity and Ads kept | Consent banner and policy must change together on the day they are enabled | Noted in section 2 |
 
@@ -170,7 +170,7 @@ In Cloudflare, open Zero Trust, then Access, Applications, Add, Self-hosted. Set
   - Facebook and Instagram bios
   - your Claude skills that mention the audience
 - Check the LinkedIn Featured section for the deleted micro-multinational post.
-- Open your Bookings page in a private window and confirm it is public, offers the 30-minute meeting type, and sends confirmations from manuel@.
+- Open your Bookings page in a private window and confirm it is public, offers the 30-minute meeting type, and sends confirmations from support@.
 
 **M7. Lea.** Read 2026-10-13 with Manuel's permission (read only, nothing changed). Lea's instructions never state a company size, so the 10 to 500 change needs no edit. Three things to decide and edit yourself in the Cloudflare dashboard (Workers & Pages, dipriva-chat, the `SYSTEM_PROMPT` in `src/systemPrompt.ts`): (1) Lea promises a follow-up "within 24 business hours" while the lead form and schedule page say 2 business days. Manuel decided on 2026-10-13 to leave Lea as is. (2) Lea asks visitors for name, phone and email and calls a `submit_lead` tool. Done 2026-10-13: a "Chat Assistant (Lea)" section, approved by Manuel, is now in the privacy policy in English and Spanish (it covers the AI provider, the email through Resend, the Microsoft 365 list and the one-hour IP count). (3) Lea's address line uses a comma ("2435 Eastern Ave SE, Suite 202"); the site uses "2435 Eastern Ave SE Suite 202" exactly as on the Business Profile. Sessions still must not edit this Worker.
 
@@ -230,7 +230,7 @@ On the day, in this order:
 4. In GitHub, open Actions, pick "Deploy production site", click Run workflow on `main`, type `deploy`. It builds in production mode, checks the Cloudflare credentials, publishes, waits 30 seconds, and runs the smoke test against the live site. Expect zero failures.
 5. Open https://www.dipriva.com in a private window and click through home, a lead page, schedule and a blog post.
 6. Submit one real lead on `/strategy/` marked TEST. A Teams card appears in Leads and "Sync inbound leads" in dipriva-admin picks it up. Delete the test lead afterward.
-7. Open Lea on the live site and ask to speak to the team with test details. The email to manuel@ arrives and the Microsoft 365 list gets a row.
+7. Open Lea on the live site and ask to speak to the team with test details. The email to support@ arrives and the Microsoft 365 list gets a row.
 8. Accept cookies and confirm your visit in Google Analytics Realtime. Reject and confirm it does not appear.
 9. Ask the social post verifier to check one week-43 package so it fetches the new lead pages.
 10. Set up M5 (protect `main`) with Claude, click by click.
