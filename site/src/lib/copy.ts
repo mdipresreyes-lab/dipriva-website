@@ -249,8 +249,8 @@ export const copy = {
         { title: 'Plan', body: 'A weekly plan set by cadence rules and verified trends.' },
         { title: 'Draft', body: 'Scheduled AI agents write each post to the brand standard.' },
         { title: 'Code checks', body: 'Brand terms, platform limits and every figure against an approved source.' },
-        { title: 'Independent review', body: 'A separate AI reviewer scores each post. Every score must reach 4 or higher.' },
-        { title: 'Veto window', body: 'Approved batches wait 12 hours. The owner can hold any post.' },
+        { title: 'Staff review', body: 'Staff reviews each post before it publishes.' },
+        { title: 'Hold or veto', body: 'Staff can hold or veto any post before it publishes.' },
         { title: 'Publish', body: 'Official platform APIs only. Every result logged.' },
       ],
       facts: [
@@ -611,11 +611,8 @@ export const copy = {
           title: 'Controles de código',
           body: 'Términos de marca, límites de cada plataforma y cada cifra contra una fuente aprobada.',
         },
-        {
-          title: 'Revisión independiente',
-          body: 'Un revisor de IA independiente califica cada publicación. Cada puntuación debe ser 4 o más.',
-        },
-        { title: 'Periodo de veto', body: 'Los lotes aprobados esperan 12 horas. El dueño puede detener cualquier publicación.' },
+        { title: 'Revisión del personal', body: 'El personal revisa cada publicación antes de su difusión.' },
+        { title: 'Detener o vetar', body: 'El personal puede detener o vetar cualquier publicación antes de su difusión.' },
         { title: 'Publicación', body: 'Solo APIs oficiales de cada plataforma. Cada resultado queda registrado.' },
       ],
       facts: [

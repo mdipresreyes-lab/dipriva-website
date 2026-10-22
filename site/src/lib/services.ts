@@ -445,7 +445,7 @@ export const serviceLabels = {
     proof: 'Client results',
     practice: 'Proof of practice',
     practiceBody:
-      'Dipriva runs its own marketing on governed AI: scheduled agents draft, code checks and an independent reviewer gate every post, and the owner can hold anything for 12 hours before it publishes.',
+      'Dipriva runs its own marketing on governed AI: scheduled agents draft, automated checks gate every post, and staff reviews each one and can hold or veto it before it publishes.',
     practiceLink: 'See the full pipeline',
     tool: 'Free tool',
     getTool: 'Get the',
@@ -472,7 +472,7 @@ export const serviceLabels = {
     proof: 'Resultados con clientes',
     practice: 'Prueba en la práctica',
     practiceBody:
-      'Dipriva opera su propio marketing con IA gobernada: agentes programados redactan, controles de código y un revisor independiente aprueban cada publicación, y el dueño puede detener cualquier pieza durante 12 horas antes de publicarse.',
+      'Dipriva opera su propio marketing con IA gobernada: agentes programados redactan, controles automatizados validan cada publicación, y el personal la revisa y puede detenerla o vetarla antes de su difusión.',
     practiceLink: 'Vea el proceso completo',
     tool: 'Herramienta gratuita',
     getTool: 'Reciba:',

@@ -3,10 +3,10 @@
  * live page (client/src/pages/Privacy.tsx). LinkedIn and Meta review this text
  * for app approval: do not drop, soften or add obligations.
  *
- * One change from the live text (2026-10-12): social posts are no longer
- * approved by a person before publishing. Approval is automated, with a
- * 12-hour window in which the founder can hold or veto any post. The two
- * sentences that describe it carry `approval`. Manuel approved the wording on 2026-10-13.
+ * One change from the live text (2026-10-12), reworded 2026-10-21 with Manuel's
+ * approval: social posts may be drafted with AI, pass automated brand and
+ * compliance checks, and are reviewed by staff, who can hold or veto before
+ * publication. The one sentence that describes it carries `approval`.
  *
  * One addition (2026-10-13), approved the same day: one paragraph on Microsoft
  * Bookings, which collects the name, email and phone a visitor enters.
