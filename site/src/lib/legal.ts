@@ -140,6 +140,16 @@ export const privacy: Record<Lang, Policy> = {
         ],
       },
       {
+        id: 'business-outreach',
+        title: 'Business outreach',
+        blocks: [
+          {
+            kind: 'p',
+            text: 'We may contact business owners and executives whose contact details are published in public sources. We use only business contact details, store them in our secure business systems, and stop contacting anyone who replies UNSUBSCRIBE or asks us to stop. You can also ask us to delete your details at support@dipriva.com.',
+          },
+        ],
+      },
+      {
         id: 'ai-and-automation',
         title: 'AI and Automation',
         blocks: [
@@ -168,7 +178,7 @@ export const privacy: Record<Lang, Policy> = {
             kind: 'p',
             text: 'When an authorized Dipriva administrator connects a Dipriva account to this tool, the platform asks the administrator to approve specific permissions. We use those permissions to publish content we have prepared to Dipriva’s own pages and profiles.',
             approval:
-              'Every post must pass automated checks and an independent AI review of its exact content before it is published, and Dipriva’s founder can hold or veto any post during a 12-hour window before publication.',
+              'Social posts may be drafted with AI. Each post passes automated brand and compliance checks, and staff reviews it and can hold or veto before it is published.',
           },
           { kind: 'p', text: 'What this means for you:' },
           {
@@ -177,10 +187,7 @@ export const privacy: Record<Lang, Policy> = {
               'We do not use these integrations to collect personal information about the people who view, follow, or engage with our posts.',
               'We do not use data obtained through these platforms for advertising targeting, sales prospecting, recruiting, or building audience lists.',
               'Access credentials issued by these platforms are kept in encrypted secret storage, are limited to authorized personnel, and are revoked when no longer needed.',
-              {
-                text: 'Content we publish may be drafted with AI-assisted tools and must pass the automated checks and independent AI review described above before publication. Where a platform offers a label for AI-generated content, we apply it.',
-                approval: true,
-              },
+              'Where a platform offers a label for AI-generated content, we apply it.',
             ],
           },
           {
@@ -230,6 +237,10 @@ export const privacy: Record<Lang, Policy> = {
           {
             kind: 'p',
             text: 'We keep your information only as long as needed for the purposes described in this policy. Contact information is retained while we follow up on your inquiry and maintain our relationship. Business and financial information provided by clients is retained for the duration of the engagement and for 24 months afterward, unless a longer period is required by law, after which it is deleted.',
+          },
+          {
+            kind: 'p',
+            text: 'We keep download and newsletter information for 24 months after your last activity, chat transcripts for 12 months, and business outreach records for 12 months after our last contact. If you unsubscribe, we keep a minimal record so we do not contact you again. We delete data on request within 30 days, except records we must keep by law, such as contracts and invoices. Deleted data clears from our encrypted backups within 30 days.',
           },
         ],
       },
@@ -416,6 +427,16 @@ export const privacy: Record<Lang, Policy> = {
         ],
       },
       {
+        id: 'contacto-comercial',
+        title: 'Contacto comercial',
+        blocks: [
+          {
+            kind: 'p',
+            text: 'Podemos contactar a propietarios y ejecutivos de empresas cuyos datos de contacto estén publicados en fuentes públicas. Utilizamos únicamente datos de contacto comercial, los almacenamos en nuestros sistemas empresariales seguros y dejamos de contactar a cualquier persona que responda con la palabra UNSUBSCRIBE o nos pida que dejemos de hacerlo. Usted también puede solicitar la eliminación de sus datos escribiendo a support@dipriva.com.',
+          },
+        ],
+      },
+      {
         id: 'inteligencia-artificial-y-automatizacion',
         title: 'Inteligencia artificial y automatización',
         blocks: [
@@ -444,7 +465,7 @@ export const privacy: Record<Lang, Policy> = {
             kind: 'p',
             text: 'Cuando un administrador autorizado de Dipriva conecta una cuenta de Dipriva a esta herramienta, la plataforma solicita al administrador que apruebe permisos específicos. Utilizamos esos permisos para publicar el contenido que hemos preparado en las páginas y perfiles propios de Dipriva.',
             approval:
-              'Cada publicación debe superar controles automatizados y una revisión independiente de IA de su contenido exacto antes de difundirse, y el fundador de Dipriva puede detener o vetar cualquier publicación durante un periodo de 12 horas antes de su difusión.',
+              'Las publicaciones en redes sociales pueden redactarse con IA. Cada publicación supera controles automatizados de marca y cumplimiento, y el personal la revisa y puede detenerla o vetarla antes de su difusión.',
           },
           { kind: 'p', text: 'Lo que esto significa para usted:' },
           {
@@ -453,10 +474,7 @@ export const privacy: Record<Lang, Policy> = {
               'No utilizamos estas integraciones para recopilar información personal de las personas que ven, siguen o interactúan con nuestras publicaciones.',
               'No utilizamos los datos obtenidos a través de estas plataformas para segmentación publicitaria, prospección de ventas, reclutamiento ni para crear listas de audiencia.',
               'Las credenciales de acceso que emiten estas plataformas se conservan en almacenamiento cifrado de secretos, se limitan al personal autorizado y se revocan cuando dejan de ser necesarias.',
-              {
-                text: 'El contenido que publicamos puede redactarse con herramientas asistidas por IA y debe superar los controles automatizados y la revisión independiente de IA descritos arriba antes de su publicación. Cuando una plataforma ofrece una etiqueta para contenido generado por IA, la aplicamos.',
-                approval: true,
-              },
+              'Cuando una plataforma ofrece una etiqueta para contenido generado por IA, la aplicamos.',
             ],
           },
           {
@@ -509,6 +527,10 @@ export const privacy: Record<Lang, Policy> = {
           {
             kind: 'p',
             text: 'Conservamos su información solo durante el tiempo necesario para los fines descritos en esta política. La información de contacto se conserva mientras damos seguimiento a su consulta y mantenemos nuestra relación. La información empresarial y financiera proporcionada por los clientes se conserva durante la vigencia del servicio y por 24 meses posteriores, salvo que la ley exija un plazo mayor, tras lo cual se elimina.',
+          },
+          {
+            kind: 'p',
+            text: 'Conservamos la información de descargas y boletines durante 24 meses después de su última actividad, las transcripciones de chat durante 12 meses y los registros de contacto comercial durante 12 meses después de nuestro último contacto. Si usted se da de baja, conservamos un registro mínimo para no volver a contactarle. Eliminamos los datos a solicitud en un plazo de 30 días, salvo los registros que la ley nos obligue a conservar, como contratos y facturas. Los datos eliminados se borran de nuestras copias de seguridad cifradas en un plazo de 30 días.',
           },
         ],
       },
