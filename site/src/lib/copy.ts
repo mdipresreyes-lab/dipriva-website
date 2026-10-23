@@ -349,7 +349,7 @@ export const copy = {
       title: 'Lea',
       subtitle: 'Powered by AI · Dipriva Consulting Group',
       greeting:
-        "I am Lea, Dipriva's AI assistant. I answer questions about our services and route you to Manuel. What are you working on?",
+        'Welcome to Dipriva Consulting Group, I am Lea. We help business owners put AI and automation to work on the repetitive parts of their business, backed by strategy and operations discipline. What brings you here today?',
       placeholder: 'Type a message',
       send: 'Send',
       close: 'Close chat',
@@ -714,7 +714,7 @@ export const copy = {
       title: 'Lea',
       subtitle: 'Con tecnología de IA · Dipriva Consulting Group',
       greeting:
-        'Soy Lea, la asistente de IA de Dipriva. Respondo preguntas sobre nuestros servicios y le pongo en contacto con Manuel. ¿En qué está trabajando?',
+        'Bienvenido a Dipriva Consulting Group, soy Lea. Ayudamos a dueños de negocio a poner la inteligencia artificial y la automatización a trabajar en las tareas repetitivas de su negocio, con disciplina de estrategia y operaciones. ¿Qué lo trae hoy?',
       placeholder: 'Escriba un mensaje',
       send: 'Enviar',
       close: 'Cerrar el chat',
