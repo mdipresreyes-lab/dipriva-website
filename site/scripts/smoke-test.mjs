@@ -120,7 +120,7 @@ for (const f of files) {
   if (res.status !== 200 || type.includes('text/html')) fail(`/downloads/${f}: HTTP ${res.status}, ${type}`);
   else ok();
 }
-for (const f of ['/llms.txt', '/robots.txt', '/sitemap-index.xml']) {
+for (const f of ['/llms.txt', '/robots.txt', '/sitemap-index.xml', '/rss.xml', '/es/blog/rss.xml']) {
   const res = await get(base + f);
   if (res.status !== 200) fail(`${f}: HTTP ${res.status}`);
   else ok();
