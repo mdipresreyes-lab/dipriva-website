@@ -1,7 +1,8 @@
 name: Deploy production site
 
-# Manual only. Merging to main does NOT publish anything. On cutover day, open
-# Actions, pick "Deploy production site", click Run workflow and type "deploy".
+# Runs when a pull request that changes site/ or content/blog/ merges to main.
+# By hand: open Actions, pick "Deploy production site", click Run workflow and
+# type "deploy".
 #
 # It builds the site in production mode and publishes it to Cloudflare under the
 # route www.dipriva.com/* (site/wrangler.jsonc, env "production"). The proxied DNS
@@ -16,6 +17,12 @@ name: Deploy production site
 # CLOUDFLARE_ACCOUNT_ID.
 
 on:
+  # A merged pull request that changes the site or the blog deploys itself.
+  # Branch checks and the build's brand and blog gates stand in for the typed
+  # confirmation. The same gates run again here before anything is published.
+  push:
+    branches: [main]
+    paths: ['site/**', 'content/blog/**', '.github/workflows/site-production-deploy.yml']
   workflow_dispatch:
     inputs:
       confirm:
@@ -31,7 +38,7 @@ concurrency:
 
 jobs:
   deploy:
-    if: ${{ inputs.confirm == 'deploy' }}
+    if: ${{ github.event_name == 'push' || inputs.confirm == 'deploy' }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -82,3 +89,15 @@ jobs:
       - name: Tell Bing and other IndexNow engines
         continue-on-error: true
         run: node scripts/indexnow.mjs
+      # A failed deploy after a merge would otherwise go unnoticed. Without the
+      # secret this step only prints, so a missing webhook never hides the failure.
+      - name: Tell Teams the deploy failed
+        if: ${{ failure() }}
+        env:
+          TEAMS_SOCIAL_WEBHOOK_URL: ${{ secrets.TEAMS_SOCIAL_WEBHOOK_URL }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          COMMIT: ${{ github.sha }}
+        run: |
+          if [ -z "$TEAMS_SOCIAL_WEBHOOK_URL" ]; then echo "No TEAMS_SOCIAL_WEBHOOK_URL; card not sent."; exit 0; fi
+          jq -n --arg run "$RUN_URL" --arg sha "${COMMIT:0:7}" '{type:"message",attachments:[{contentType:"application/vnd.microsoft.card.adaptive",content:{"$schema":"http://adaptivecards.io/schemas/adaptive-card.json",type:"AdaptiveCard",version:"1.4",body:[{type:"TextBlock",text:"Website deploy failed",weight:"Bolder",size:"Medium",wrap:true},{type:"TextBlock",text:("The production deploy for commit " + $sha + " did not finish. The live site is unchanged unless the failed step was after Deploy."),wrap:true,spacing:"Small"}],actions:[{type:"Action.OpenUrl",title:"Open the run",url:$run}]}}]}' \
+            | curl -sS -o /dev/null -w 'Teams answered %{http_code}\n' -H 'Content-Type: application/json' -d @- "$TEAMS_SOCIAL_WEBHOOK_URL"
