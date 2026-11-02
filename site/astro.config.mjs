@@ -19,8 +19,8 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      // Keep noindexed pages (404, private intake forms) out of the sitemap.
-      filter: (page) => !['/404', '/client_form/', '/es/formulario-de-cliente/'].some((p) => page.includes(p)),
+      // Keep noindexed pages (404, private intake forms, social profile pages) out of the sitemap.
+      filter: (page) => !['/404', '/client_form/', '/es/formulario-de-cliente/', '/instagram/'].some((p) => page.includes(p)),
       i18n: { defaultLocale: 'en', locales: { en: 'en', es: 'es' } },
     }),
   ],
