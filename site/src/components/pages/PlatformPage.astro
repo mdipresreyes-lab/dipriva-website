@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+import type { Lang } from '../../lib/copy';
+import { platformOffers, platformPages, taggedPath, type PlatformId } from '../../lib/platformPages';
+import { ORG_ID, WEBSITE_ID, absolute, homePath } from '../../lib/site';
+
+interface Props {
+  platform: PlatformId;
+  lang: Lang;
+}
+
+const { platform, lang } = Astro.props;
+const page = platformPages[platform]!;
+const url = absolute(page.path[lang]);
+
+const schema = [
+  {
+    '@type': 'WebPage',
+    '@id': `${url}#webpage`,
+    url,
+    name: page.title[lang],
+    description: page.description[lang],
+    inLanguage: lang,
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORG_ID },
+  },
+];
+---
+
+<Base
+  lang={lang}
+  title={page.title[lang]}
+  description={page.description[lang]}
+  alternate={{ en: page.path.en, es: page.path.es }}
+  schema={schema}
+  hideMobileCta
+  noindex
+>
+  <section class="relative overflow-hidden border-b border-line" aria-labelledby="platform-title">
+    <div class="grid-paper grid-fade pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="container-x relative pt-10 pb-16 lg:pt-14 lg:pb-24">
+      <nav aria-label="Breadcrumb" class="text-sm text-muted">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href={homePath(lang)} class="hover:text-ink">{page.home[lang]}</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-ink">{page.crumb[lang]}</li>
+        </ol>
+      </nav>
+      <p class="eyebrow mt-8">{page.eyebrow[lang]}</p>
+      <h1 id="platform-title" class="display mt-5 text-[clamp(2.3rem,4.6vw,3.9rem)]">{page.h1[lang]}</h1>
+      <p class="lede mt-6 max-w-[56ch]">{page.intro[lang]}</p>
+
+      <ul class="mt-10 grid gap-5 sm:grid-cols-2">
+        {
+          platformOffers.map((offer) => (
+            <li class="card flex flex-col p-6 shadow-[var(--shadow)] sm:p-8">
+              <h2 class="h3">{offer.action[lang]}</h2>
+              <p class="mt-3 text-muted">{offer.line[lang]}</p>
+              <a href={taggedPath(offer.path[lang], platform)} class="btn btn-primary mt-6 self-start">
+                {offer.cta[lang]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>
