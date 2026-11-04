@@ -100,6 +100,26 @@ export const platformPages: Partial<Record<PlatformId, PlatformCopy>> = {
     home: { en: 'Home', es: 'Inicio' },
     crumb: { en: 'Instagram', es: 'Instagram' },
   },
+  facebook: {
+    path: { en: '/facebook/', es: '/es/facebook/' },
+    name: 'Facebook',
+    title: {
+      en: 'From Facebook: four free resources | Dipriva Consulting Group',
+      es: 'Desde Facebook: cuatro recursos gratuitos | Dipriva Consulting Group',
+    },
+    description: {
+      en: 'Everything Dipriva mentions on Facebook, in one place: a free strategy session and three free tools.',
+      es: 'Todo lo que Dipriva menciona en Facebook, en un solo lugar: una sesión estratégica gratuita y tres herramientas gratuitas.',
+    },
+    eyebrow: { en: 'Dipriva on Facebook', es: 'Dipriva en Facebook' },
+    h1: { en: 'What you saw on Facebook, in one place.', es: 'Lo que vio en Facebook, en un solo lugar.' },
+    intro: {
+      en: 'Four free resources from Dipriva Consulting Group. Pick the one that fits where your business is now.',
+      es: 'Cuatro recursos gratuitos de Dipriva Consulting Group. Elija el que corresponde al momento de su negocio.',
+    },
+    home: { en: 'Home', es: 'Inicio' },
+    crumb: { en: 'Facebook', es: 'Facebook' },
+  },
 };
 
 /** A link to an offer, tagged for Google Analytics. */
