@@ -30,7 +30,7 @@ if (!fs.existsSync(dist)) {
 }
 
 // Pages that must stay out of search even in production.
-const NOINDEX = new Set(['/client_form/', '/es/formulario-de-cliente/', '/unsubscribe/']);
+const NOINDEX = new Set(['/client_form/', '/es/formulario-de-cliente/', '/unsubscribe/', '/instagram/', '/es/instagram/']);
 
 let failures = 0;
 let checks = 0;
@@ -130,7 +130,7 @@ if (production && /Disallow:\s*\/\s*$/m.test(robotsTxt.split('User-agent: Bytesp
 else if (!production && !/Disallow:\s*\/\s*$/m.test(robotsTxt)) fail('QA robots.txt should block everything');
 else ok();
 const sitemap = await (await get(base + '/sitemap-0.xml')).text();
-for (const hidden of ['/client_form/', '/es/formulario-de-cliente/', '/unsubscribe/']) {
+for (const hidden of ['/client_form/', '/es/formulario-de-cliente/', '/unsubscribe/', '/instagram/', '/es/instagram/']) {
   if (sitemap.includes(hidden)) fail(`sitemap lists ${hidden}`);
   else ok();
 }
